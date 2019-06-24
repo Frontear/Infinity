@@ -1,0 +1,15 @@
+# Infinity [![Build Status](https://travis-ci.org/Frontear/Infinity.svg?branch=master)](https://travis-ci.org/Frontear/Infinity) [![CodeFactor](https://www.codefactor.io/repository/github/frontear/infinity/badge)](https://www.codefactor.io/repository/github/frontear/infinity)
+Infinity is a simple client designed in [Forge](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.8.9.html). It adds a variety of features into minecraft, and also comes with performance improvements and bug fixes. This is possible due to [Mixin](https://github.com/SpongePowered/Mixin).
+
+## Getting Started
+Before starting, please make sure you have a thorough understanding of mixins and java. Additionally, we recommend [IntelliJ IDEA](https://www.jetbrains.com/idea/) as your Java IDE alongside the [MinecraftDev](https://github.com/minecraft-dev/MinecraftDev) plugin.
+
+- Clone this repository via using `git clone https://github.com/Frontear/Infinity.git Infinity`
+- Run `task setupDecompWorkspace` either using `./gradlew` or through IntelliJ IDEA
+- *Recommended:* Attach `task runClient` as a run configuration instead of the configurations from `task genIntelliJRuns`
+
+## Contributions
+We are very unlikely to accept contributions, as this is more of a personal project. Feel free to submit a [pull request](https://github.com/Frontear/Infinity/pulls) with any bug fixes, but adding features will very likely be ignored. Instead, try to raise an [issue](https://github.com/Frontear/Infinity/issues) if you'd like something added.
+
+## License
+This project is licensed under the [MIT License](https://tldrlegal.com/license/mit-license) &#8212; you can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.

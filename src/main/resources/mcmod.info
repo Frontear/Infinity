@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "${modid}",
+    "name": "${name}",
+    "description": "${name} is a simple client which adds a variety of features and performance improvements.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/Frontear/Infinity",
+    "updateUrl": "",
+    "authorList": [
+      "Frontear"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

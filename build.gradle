@@ -1,0 +1,81 @@
+import groovy.json.JsonSlurper
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = 'forge'
+            url = 'https://files.minecraftforge.net/maven'
+        }
+        maven {
+            name = 'sponge'
+            url = 'https://repo.spongepowered.org/maven'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'java'
+
+sourceCompatibility = targetCompatibility = 1.8
+version = 0.1
+group = 'org.frontear'
+archivesBaseName = 'Infinity'
+def access_transformer = 'infinity_at.cfg'
+def mixin = 'mixins.infinity.json'
+sourceSets.main.ext.refMap = new JsonSlurper().parse(file('src/main/resources/' + mixin)).refmap // todo: reconsider to change in mixins json instead of taking refmap from it
+
+minecraft {
+    version = '1.8.9-11.15.1.2318-1.8.9'
+    runDir = 'run'
+    mappings = 'stable_22'
+    makeObfSourceJar = false
+
+    replaceIn 'Infinity.java'
+    replace '${modid}': archivesBaseName.toLowerCase(), '${version}': project.version
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'sponge'
+        url = 'https://repo.spongepowered.org/maven'
+    }
+}
+
+dependencies {
+    compile('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+        exclude module: '*' // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
+    }
+}
+
+processResources {
+    inputs.properties 'modid': archivesBaseName.toLowerCase(), 'name': archivesBaseName, 'version': project.version, 'mcversion': project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'modid': archivesBaseName.toLowerCase(), 'name': archivesBaseName, 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+
+    rename '(' + access_transformer + ')', 'META-INF/$1'
+}
+
+runClient {
+    args '--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker', '--mixin', mixin
+}
+
+jar {
+    manifest.attributes 'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker', 'MixinConfigs': mixin, 'FMLAT': access_transformer, 'ForceLoadAsMod': true
+    exclude 'dummyThing', 'LICENSE.txt', 'META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
+
+    from project.configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
