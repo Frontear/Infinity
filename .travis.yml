@@ -8,14 +8,21 @@ jdk: openjdk8
 notifications:
   email: false
 
+before_script:
+  - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
+
 script:
-  ./gradlew setupDecompWorkspace build
+  - ./gradlew setupDecompWorkspace build
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then fossa init && fossa analyze; fi
 
 before_cache:
-  rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-  rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+#after_success:
+#  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash cd <SOURCE_DIR> && bash fossa test; fi'
