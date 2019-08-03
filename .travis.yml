@@ -25,4 +25,4 @@ cache:
     - $HOME/.gradle/wrapper/
 
 after_success:
-  - cd <SOURCE_DIR> && fossa test
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then cd <SOURCE_DIR> && fossa test; fi
