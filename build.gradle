@@ -36,7 +36,7 @@ minecraft {
     mappings = 'stable_22'
     makeObfSourceJar = false
 
-    replaceIn 'Infinity.java'
+    replaceIn 'Mod.java'
     replace '${modid}': archivesBaseName.toLowerCase(), '${version}': project.version
 }
 
