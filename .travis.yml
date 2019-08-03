@@ -13,7 +13,7 @@ before_script:
 
 script:
   - ./gradlew setupDecompWorkspace build
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash fossa init && bash fossa analyze; fi'
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then fossa init && fossa analyze; fi
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -24,5 +24,5 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-after_success:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash cd <SOURCE_DIR> && bash fossa test; fi'
+#after_success:
+#  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash cd <SOURCE_DIR> && bash fossa test; fi'
