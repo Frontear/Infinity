@@ -9,15 +9,15 @@ notifications:
   email: false
 
 before_script:
-  "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
+  - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
 
 script:
-  ./gradlew setupDecompWorkspace build
-  fossa init && fossa analyze
+  - ./gradlew setupDecompWorkspace build
+  - fossa init && fossa analyze
 
 before_cache:
-  rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-  rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
@@ -25,4 +25,4 @@ cache:
     - $HOME/.gradle/wrapper/
 
 after_success:
-  cd <SOURCE_DIR> && fossa test
+  - cd <SOURCE_DIR> && fossa test
