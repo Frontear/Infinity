@@ -36,8 +36,8 @@ minecraft {
     mappings = 'stable_22'
     makeObfSourceJar = false
 
-    replaceIn 'Mod.java'
-    replace '${modid}': archivesBaseName.toLowerCase(), '${version}': project.version
+    replaceIn 'ForgeMod.java'
+    replace '${name}': archivesBaseName, '${modid}': archivesBaseName.toLowerCase(), '${version}': project.version
 }
 
 repositories {
