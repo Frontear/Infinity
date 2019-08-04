@@ -28,7 +28,14 @@ group = 'org.frontear'
 archivesBaseName = 'Infinity'
 def access_transformer = 'infinity_at.cfg'
 def mixin = 'mixins.infinity.json'
-sourceSets.main.ext.refMap = new JsonSlurper().parse(file('src/main/resources/' + mixin)).refmap // todo: reconsider to change in mixins json instead of taking refmap from it
+def refmap = mixin.substring(0, mixin.lastIndexOf('.')) + '.refmap.json'
+def replacements = [
+        'modid': archivesBaseName.toLowerCase(),
+        'name': archivesBaseName,
+        'version': project.version,
+        'mcversion': project.minecraft.version
+]
+sourceSets.main.ext.refMap = refmap
 
 minecraft {
     version = '1.8.9-11.15.1.2318-1.8.9'
@@ -37,7 +44,7 @@ minecraft {
     makeObfSourceJar = false
 
     replaceIn 'ForgeMod.java'
-    replace '${name}': archivesBaseName, '${modid}': archivesBaseName.toLowerCase(), '${version}': project.version
+    replace replacements
 }
 
 repositories {
@@ -55,15 +62,20 @@ dependencies {
 }
 
 processResources {
-    inputs.properties 'modid': archivesBaseName.toLowerCase(), 'name': archivesBaseName, 'version': project.version, 'mcversion': project.minecraft.version
+    def resources = [
+            'mcmod.info',
+            mixin
+    ]
+
+    inputs.properties replacements
 
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        expand 'modid': archivesBaseName.toLowerCase(), 'name': archivesBaseName, 'version': project.version, 'mcversion': project.minecraft.version
+        include resources
+        expand replacements
     }
 
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude resources
     }
 
     rename '(' + access_transformer + ')', 'META-INF/$1'
@@ -77,5 +89,5 @@ jar {
     manifest.attributes 'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker', 'MixinConfigs': mixin, 'FMLAT': access_transformer, 'ForceLoadAsMod': true
     exclude 'dummyThing', 'LICENSE.txt', 'META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
 
-    from project.configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    from project.configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } // not happy about this 'fatjar' situation
 }
