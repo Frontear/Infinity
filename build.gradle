@@ -28,7 +28,7 @@ group = 'org.frontear'
 archivesBaseName = 'Infinity'
 def access_transformer = 'infinity_at.cfg'
 def mixin = 'mixins.infinity.json'
-def refmap = mixin.substring(0, mixin.lastIndexOf('.')) + '.refmap.json'
+def refmap = new JsonSlurper().parse(file('src/main/resources/' + mixin)).refmap
 def replacements = [
         'modid': archivesBaseName.toLowerCase(),
         'name': archivesBaseName,
@@ -62,20 +62,17 @@ dependencies {
 }
 
 processResources {
-    def resources = [
-            'mcmod.info',
-            mixin
-    ]
+    def modinfo = 'mcmod.info'
 
     inputs.properties replacements
 
     from(sourceSets.main.resources.srcDirs) {
-        include resources
+        include modinfo
         expand replacements
     }
 
     from(sourceSets.main.resources.srcDirs) {
-        exclude resources
+        exclude modinfo
     }
 
     rename '(' + access_transformer + ')', 'META-INF/$1'
