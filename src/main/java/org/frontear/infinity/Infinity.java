@@ -18,11 +18,11 @@ public class Infinity extends Client {
 	}
 
 	@SubscribeEvent public void onStartup(StartupEvent event) {
-		getLogger().info("Hello ${name}!");
+		getLogger().debug("Hello ${name}!");
 		Display.setTitle("${name} ${version}");
 	}
 
 	@SubscribeEvent public void onShutdown(ShutdownEvent event) {
-		getLogger().info("Goodbye ${name}!");
+		getLogger().debug("Goodbye ${name}!");
 	}
 }

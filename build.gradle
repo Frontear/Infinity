@@ -80,7 +80,7 @@ processResources {
 }
 
 runClient {
-    jvmArgs '-Dfrontear.debug=true' // debugging flag
+    jvmArgs '-Dfrontear.debug=true' // debugging property
     args '--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker', '--mixin', mixin
 }
 

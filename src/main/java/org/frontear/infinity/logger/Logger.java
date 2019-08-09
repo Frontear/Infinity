@@ -16,7 +16,7 @@ public class Logger implements ILogger {
 	@Override public void debug(Object object, Object... args) {
 		if (Boolean.parseBoolean(System
 				.getProperty("frontear.debug", "false"))) { // either get value of frontear.debug, or return false if it doesn't exist
-			log.debug(String.format(String.valueOf(object), args));
+			info(object, args);
 		}
 	}
 
