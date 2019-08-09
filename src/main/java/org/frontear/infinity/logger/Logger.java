@@ -6,7 +6,7 @@ import org.frontear.framework.logger.ILogger;
 
 public class Logger implements ILogger {
 	private final org.apache.logging.log4j.Logger log;
-	private final char pad = '\u2014';
+	private final char pad = '—'; // \u2014
 	private final int repeat = 64;
 
 	public Logger(String name) {
@@ -21,20 +21,19 @@ public class Logger implements ILogger {
 	}
 
 	@Override public void info(Object object, Object... args) {
-		log.debug(String.format(String.valueOf(object), args));
+		log.info(String.format(String.valueOf(object), args));
 	}
 
 	@Override public void warn(Object object, Object... args) {
-		log.debug(String.format(String.valueOf(object), args));
+		log.warn(String.format(String.valueOf(object), args));
 	}
 
 	@Override public void error(Object object, Object... args) {
-		log.debug(String.format(String.valueOf(object), args));
+		log.error(String.format(String.valueOf(object), args));
 	}
 
-	@Override public void fatal(Object object, Object... args) {
-		log.debug(String.format(String.valueOf(object), args));
-		throw new RuntimeException("FATAL!");
+	@Override public void fatal(Throwable throwable, Object object, Object... args) {
+		log.fatal(String.format(String.valueOf(object), args), throwable);
 	}
 
 	@Override public void endSection() {

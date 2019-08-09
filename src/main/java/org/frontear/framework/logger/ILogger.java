@@ -9,7 +9,7 @@ public interface ILogger {
 
 	void error(Object object, Object... args);
 
-	void fatal(Object object, Object... args);
+	void fatal(Throwable throwable, Object object, Object... args);
 
 	default void endStartSection(String title) {
 		endSection();
