@@ -1,6 +1,7 @@
 package org.frontear.infinity.logger;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.frontear.framework.logger.ILogger;
 
@@ -16,24 +17,25 @@ public class Logger implements ILogger {
 	@Override public void debug(Object object, Object... args) {
 		if (Boolean.parseBoolean(System
 				.getProperty("frontear.debug", "false"))) { // either get value of frontear.debug, or return false if it doesn't exist
-			info(object, args);
+			log(Level.DEBUG, object, args);
 		}
 	}
 
 	@Override public void info(Object object, Object... args) {
-		log.info(String.format(String.valueOf(object), args));
+		log(Level.INFO, object, args);
 	}
 
 	@Override public void warn(Object object, Object... args) {
-		log.warn(String.format(String.valueOf(object), args));
+		log(Level.WARN, object, args);
 	}
 
 	@Override public void error(Object object, Object... args) {
-		log.error(String.format(String.valueOf(object), args));
+		log(Level.ERROR, object, args);
 	}
 
-	@Override public void fatal(Throwable throwable, Object object, Object... args) {
-		log.fatal(String.format(String.valueOf(object), args), throwable);
+	@Override public Throwable fatal(Throwable throwable, Object object, Object... args) throws Throwable {
+		log(Level.FATAL, object, args);
+		throw throwable;
 	}
 
 	@Override public void endSection() {
@@ -42,5 +44,24 @@ public class Logger implements ILogger {
 
 	@Override public void startSection(String title) {
 		info(StringUtils.center(String.format(" %s ", title), repeat, pad));
+	}
+
+	private void log(Level level, Object object, Object... args) {
+		final String message = String.format(String.valueOf(object), args);
+
+		switch (level) {
+			case DEBUG: // just use info stuff
+			case INFO:
+				log.info(message);
+				return;
+			case WARN:
+				log.warn(message);
+				return;
+			case ERROR:
+				log.error(message);
+				return;
+			case FATAL:
+				log.fatal(message);
+		}
 	}
 }
