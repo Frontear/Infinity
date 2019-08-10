@@ -10,16 +10,16 @@ Before starting, please make sure you have a thorough understanding of mixins an
 
 ## Todo
 - [ ] Mandatory
-    - [ ] Configuration
-    - [ ] Events (either merge with Forge, or use Forge)
-    - [ ] Metadata information
-    - [ ] Logging
+    - [x] Configuration
+    - [x] Events (either merge with Forge, or use Forge)
+    - [x] Metadata information
+    - [x] Logging
     - [ ] Wrappers (helps port code for newer versions)
     - [ ] UI (first for GL11, then we can work with newer stuff later)
 
 
 - [ ] Optional
-    - [ ] Memory Manipulation (Pointers, allocation, `sun.misc.Unsafe`)
+    - [ ] Memory Manipulation (Pointers, allocation, `sun.misc.Unsafe`, `java.lang.instrument.Instrumentation`)
     - [ ] Custom font renderer
 
 ## License
