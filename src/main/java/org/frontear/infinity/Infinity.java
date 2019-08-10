@@ -9,22 +9,20 @@ import org.lwjgl.opengl.Display;
 public class Infinity extends Client {
 	private static Infinity inst;
 
-	private Infinity(String name) {
-		super(name);
-
-		inst = this;
+	private Infinity() {
+		super();
 	}
 
 	public static Infinity inst() {
-		return inst;
+		return inst == null ? inst = new Infinity() : inst;
 	}
 
 	@SubscribeEvent public void onStartup(StartupEvent event) {
-		getLogger().debug("Hello ${name}!");
-		Display.setTitle("${name} ${version}");
+		getLogger().debug("Hello %s!", getModInfo().getName());
+		Display.setTitle(getModInfo().getFullname());
 	}
 
 	@SubscribeEvent public void onShutdown(ShutdownEvent event) {
-		getLogger().debug("Goodbye ${name}!");
+		getLogger().debug("Goodbye %s!", getModInfo().getName());
 	}
 }

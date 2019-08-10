@@ -28,7 +28,7 @@ group = 'org.frontear'
 archivesBaseName = 'Infinity'
 def access_transformer = 'infinity_at.cfg'
 def mixin = 'mixins.infinity.json'
-def refmap = new JsonSlurper().parse(file('src/main/resources/' + mixin)).refmap
+def refmap = new JsonSlurper().parse(file("src/main/resources/$mixin")).refmap
 def replacements = [
         'modid'    : archivesBaseName.toLowerCase(),
         'name'     : archivesBaseName,
@@ -44,7 +44,7 @@ minecraft {
     makeObfSourceJar = false
 
     replaceIn 'ForgeMod.java'
-    replacements.each { k, v -> replace(('${' + k + '}'): v) }
+    replacements.each { k, v -> replace(("\${$k}"): v) }
 }
 
 repositories {
@@ -76,7 +76,7 @@ processResources {
         exclude modinfo
     }
 
-    rename '(' + access_transformer + ')', 'META-INF/$1'
+    rename "($access_transformer)", 'META-INF/$1'
 }
 
 runClient {

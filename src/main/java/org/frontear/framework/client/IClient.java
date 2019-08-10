@@ -1,7 +1,10 @@
 package org.frontear.framework.client;
 
-import org.frontear.infinity.logger.Logger;
+import org.frontear.framework.info.IModInfo;
+import org.frontear.framework.logger.ILogger;
 
 public interface IClient {
-	Logger getLogger();
+	IModInfo getModInfo();
+
+	ILogger getLogger();
 }
