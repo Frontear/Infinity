@@ -9,12 +9,14 @@ import org.lwjgl.opengl.Display;
 public class Infinity extends Client {
 	private static Infinity inst;
 
-	private Infinity() {
-		super("${name}");
+	private Infinity(String name) {
+		super(name);
+
+		inst = this;
 	}
 
 	public static Infinity inst() {
-		return inst == null ? inst = new Infinity() : inst;
+		return inst;
 	}
 
 	@SubscribeEvent public void onStartup(StartupEvent event) {

@@ -44,7 +44,6 @@ minecraft {
     makeObfSourceJar = false
 
     replaceIn 'ForgeMod.java'
-    replaceIn 'Infinity.java'
     replacements.each { k, v -> replace (('${' + k + '}'): v) }
 }
 
