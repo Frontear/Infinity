@@ -9,8 +9,8 @@ public interface ILogger {
 
 	void error(Object object, Object... args);
 
-	// doesn't actually throw anything, just for hacky convenience
-	Throwable fatal(Throwable throwable, Object object, Object... args) throws Throwable;
+	// doesn't return anything, just for hacky convenience
+	<T extends Throwable> T fatal(T throwable, Object object, Object... args) throws T;
 
 	default void endStartSection(String title) {
 		endSection();

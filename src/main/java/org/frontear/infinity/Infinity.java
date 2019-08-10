@@ -20,9 +20,13 @@ public class Infinity extends Client {
 	@SubscribeEvent public void onStartup(StartupEvent event) {
 		getLogger().debug("Hello %s!", getModInfo().getName());
 		Display.setTitle(getModInfo().getFullname());
+
+		getConfig().load();
 	}
 
 	@SubscribeEvent public void onShutdown(ShutdownEvent event) {
 		getLogger().debug("Goodbye %s!", getModInfo().getName());
+
+		getConfig().save();
 	}
 }

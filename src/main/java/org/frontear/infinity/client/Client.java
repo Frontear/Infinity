@@ -2,9 +2,12 @@ package org.frontear.infinity.client;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.minecraft.client.Minecraft;
 import org.frontear.framework.client.IClient;
+import org.frontear.framework.config.IConfig;
 import org.frontear.framework.info.IModInfo;
 import org.frontear.framework.logger.ILogger;
+import org.frontear.infinity.config.Config;
 import org.frontear.infinity.info.ModInfo;
 import org.frontear.infinity.logger.Logger;
 
@@ -15,6 +18,7 @@ import java.util.Objects;
 public class Client implements IClient {
 	private final ModInfo info;
 	private final Logger logger;
+	private final Config config;
 
 	protected Client() {
 		{
@@ -27,6 +31,7 @@ public class Client implements IClient {
 			this.info = new ModInfo(object);
 		}
 		this.logger = new Logger(info.getName());
+		this.config = new Config(new File(Minecraft.getMinecraft().mcDataDir, info.getName().toLowerCase() + ".json"));
 	}
 
 	@Override public IModInfo getModInfo() {
@@ -35,5 +40,9 @@ public class Client implements IClient {
 
 	@Override public ILogger getLogger() {
 		return logger;
+	}
+
+	@Override public IConfig getConfig() {
+		return config;
 	}
 }

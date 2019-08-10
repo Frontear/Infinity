@@ -33,7 +33,7 @@ public class Logger implements ILogger {
 		log(Level.ERROR, object, args);
 	}
 
-	@Override public Throwable fatal(Throwable throwable, Object object, Object... args) throws Throwable {
+	@Override public <T extends Throwable> T fatal(T throwable, Object object, Object... args) throws T {
 		log(Level.FATAL, object, args);
 		throw throwable;
 	}
@@ -62,6 +62,8 @@ public class Logger implements ILogger {
 				return;
 			case FATAL:
 				log.fatal(message);
+			default:
+				fatal(new UnsupportedOperationException(), "Level %s is not supported", level.name());
 		}
 	}
 }
