@@ -14,7 +14,7 @@ Before starting, please make sure you have a thorough understanding of mixins an
     - [x] Events (either merge with Forge, or use Forge)
     - [x] Metadata information
     - [x] Logging
-    - [ ] Wrappers (helps port code for newer versions)
+    - [x] Wrappers (helps port code for newer versions)
     - [ ] UI (first for GL11, then we can work with newer stuff later)
 
 
