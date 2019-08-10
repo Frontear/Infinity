@@ -30,9 +30,9 @@ def access_transformer = 'infinity_at.cfg'
 def mixin = 'mixins.infinity.json'
 def refmap = new JsonSlurper().parse(file('src/main/resources/' + mixin)).refmap
 def replacements = [
-        'modid': archivesBaseName.toLowerCase(),
-        'name': archivesBaseName,
-        'version': project.version,
+        'modid'    : archivesBaseName.toLowerCase(),
+        'name'     : archivesBaseName,
+        'version'  : project.version,
         'mcversion': project.minecraft.version
 ]
 sourceSets.main.ext.refMap = refmap
@@ -44,7 +44,7 @@ minecraft {
     makeObfSourceJar = false
 
     replaceIn 'ForgeMod.java'
-    replacements.each { k, v -> replace (('${' + k + '}'): v) }
+    replacements.each { k, v -> replace(('${' + k + '}'): v) }
 }
 
 repositories {
@@ -57,7 +57,8 @@ repositories {
 
 dependencies {
     compile('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
-        exclude module: '*' // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
+        exclude module: '*'
+        // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
     }
 }
 
@@ -87,5 +88,6 @@ jar {
     manifest.attributes 'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker', 'MixinConfigs': mixin, 'FMLAT': access_transformer, 'ForceLoadAsMod': true
     exclude 'dummyThing', 'LICENSE.txt', 'META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
 
-    from project.configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } // not happy about this 'fatjar' situation
+    from project.configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    // not happy about this 'fatjar' situation
 }
