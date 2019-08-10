@@ -3,9 +3,6 @@ package org.frontear.infinity.client;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.frontear.framework.client.IClient;
-import org.frontear.framework.config.IConfig;
-import org.frontear.framework.info.IModInfo;
-import org.frontear.framework.logger.ILogger;
 import org.frontear.infinity.config.Config;
 import org.frontear.infinity.info.ModInfo;
 import org.frontear.infinity.logger.Logger;
@@ -35,15 +32,15 @@ public class Client implements IClient {
 				.toLowerCase() + ".json"));
 	}
 
-	@Override public IModInfo getModInfo() {
+	@Override public ModInfo getModInfo() {
 		return info;
 	}
 
-	@Override public ILogger getLogger() {
+	@Override public Logger getLogger() {
 		return logger;
 	}
 
-	@Override public IConfig getConfig() {
+	@Override public Config getConfig() {
 		return config;
 	}
 }
