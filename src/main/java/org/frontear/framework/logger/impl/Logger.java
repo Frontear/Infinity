@@ -1,11 +1,11 @@
-package org.frontear.infinity.logger;
+package org.frontear.framework.logger.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.frontear.framework.logger.ILogger;
 
-public class Logger implements ILogger {
+public final class Logger implements ILogger {
 	private static final boolean debug = Boolean.parseBoolean(System.getProperty("frontear.debug", "false"));
 	private static final char pad = '—'; // \u2014
 	private static final int repeat = 64;

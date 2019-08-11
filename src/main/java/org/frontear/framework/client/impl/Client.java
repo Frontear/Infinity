@@ -1,18 +1,18 @@
-package org.frontear.infinity.client;
+package org.frontear.framework.client.impl;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.frontear.framework.client.IClient;
-import org.frontear.infinity.config.Config;
-import org.frontear.infinity.info.ModInfo;
-import org.frontear.infinity.logger.Logger;
+import org.frontear.framework.config.impl.Config;
+import org.frontear.framework.info.impl.ModInfo;
+import org.frontear.framework.logger.impl.Logger;
 import org.frontear.wrapper.IMinecraftWrapper;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-public class Client implements IClient {
+public final class Client implements IClient {
 	private final ModInfo info;
 	private final Logger logger;
 	private final Config config;

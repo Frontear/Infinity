@@ -9,6 +9,7 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public abstract class AbstractDrawable {
 	private int x, y, width, height;
+	private float scale;
 	private Color color;
 
 	/**
@@ -20,11 +21,12 @@ public abstract class AbstractDrawable {
 	 * @param height The height of the object
 	 * @param color  The color of the object
 	 */
-	public AbstractDrawable(int x, int y, int width, int height, Color color) {
+	public AbstractDrawable(int x, int y, int width, int height, float scale, Color color) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.scale = scale;
 		this.color = color;
 	}
 
@@ -78,9 +80,13 @@ public abstract class AbstractDrawable {
 			glDisable(GL_TEXTURE_2D);
 			glDisable(GL_CULL_FACE);
 			//glEnable(GL_BLEND);
+
+			glScalef(scale, scale, 0);
 			{
 				render(x, y, width, height);
 			}
+			glScalef(1 / scale, 1 / scale, 0);
+
 			//glDisable(GL_BLEND);
 			glEnable(GL_CULL_FACE);
 			glEnable(GL_TEXTURE_2D);

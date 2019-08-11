@@ -1,10 +1,10 @@
-package org.frontear.infinity.info;
+package org.frontear.framework.info.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.frontear.framework.info.IModInfo;
 
-public class ModInfo implements IModInfo {
+public final class ModInfo implements IModInfo {
 	private final String name, version, fullname, authors;
 
 	public ModInfo(JsonObject mcmod) {

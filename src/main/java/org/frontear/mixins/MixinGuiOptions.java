@@ -3,7 +3,7 @@ package org.frontear.mixins;
 import net.minecraft.client.gui.GuiOptions;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.EntityRenderer;
-import org.frontear.infinity.ui.UITestScreen;
+import org.frontear.infinity.ui.test.UITestScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;

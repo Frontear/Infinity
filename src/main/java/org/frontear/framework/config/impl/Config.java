@@ -1,16 +1,16 @@
-package org.frontear.infinity.config;
+package org.frontear.framework.config.impl;
 
 import com.google.common.collect.Sets;
 import com.google.gson.*;
 import org.frontear.framework.config.IConfig;
 import org.frontear.framework.config.IConfigurable;
-import org.frontear.infinity.logger.Logger;
+import org.frontear.framework.logger.impl.Logger;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.Set;
 
-public class Config implements IConfig {
+public final class Config implements IConfig {
 	private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting()
 			.create();
 	private static final Logger logger = new Logger("Config");

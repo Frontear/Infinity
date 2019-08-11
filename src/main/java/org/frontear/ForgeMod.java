@@ -5,8 +5,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
-import org.frontear.infinity.logger.Logger;
 
 @Mod(modid = "${modid}",
 		version = "${version}") public class ForgeMod {
