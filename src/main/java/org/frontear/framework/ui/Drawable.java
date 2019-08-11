@@ -7,13 +7,13 @@ import static org.lwjgl.opengl.GL11.*;
 /**
  * Represents an object that is to be drawn to the screen via OpenGL
  */
-public abstract class AbstractDrawable {
+public abstract class Drawable {
 	private int x, y, width, height;
 	private float scale;
 	private Color color;
 
 	/**
-	 * The constructor for a {@link AbstractDrawable} object
+	 * The constructor for a {@link Drawable} object
 	 *
 	 * @param x      The x-coordinate of the object
 	 * @param y      The y-coordinate of the object
@@ -21,7 +21,7 @@ public abstract class AbstractDrawable {
 	 * @param height The height of the object
 	 * @param color  The color of the object
 	 */
-	public AbstractDrawable(int x, int y, int width, int height, float scale, Color color) {
+	public Drawable(int x, int y, int width, int height, float scale, Color color) {
 		this.x = x;
 		this.y = y;
 		this.width = width;

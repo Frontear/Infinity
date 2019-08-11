@@ -12,7 +12,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-public final class Client implements IClient {
+public abstract class Client implements IClient {
 	private final ModInfo info;
 	private final Logger logger;
 	private final Config config;

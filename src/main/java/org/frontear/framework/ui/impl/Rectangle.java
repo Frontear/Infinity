@@ -1,12 +1,12 @@
 package org.frontear.framework.ui.impl;
 
-import org.frontear.framework.ui.AbstractDrawable;
+import org.frontear.framework.ui.Drawable;
 
 import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public final class Rectangle extends AbstractDrawable {
+public final class Rectangle extends Drawable {
 	public Rectangle(int x, int y, int width, int height, float scale, Color color) {
 		super(x, y, width, height, scale, color);
 	}

@@ -1,13 +1,13 @@
 package org.frontear.framework.ui.impl;
 
-import org.frontear.framework.ui.AbstractDrawable;
+import org.frontear.framework.ui.Drawable;
 
 import java.awt.*;
 
 import static java.lang.Math.*;
 import static org.lwjgl.opengl.GL11.*;
 
-public final class Circle extends AbstractDrawable {
+public final class Circle extends Drawable {
 	private final int factor;
 	private int radius;
 

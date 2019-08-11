@@ -1,12 +1,13 @@
 package org.frontear.framework.ui.impl;
 
-import org.frontear.framework.ui.AbstractDrawable;
+import org.frontear.framework.ui.Drawable;
 
 import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public final class Triangle extends AbstractDrawable {
+// be wary that this does NOT support complex triangles like equilateral, right, or other various types
+public final class Triangle extends Drawable {
 	public Triangle(int x, int y, int width, int height, float scale, Color color) {
 		super(x, y, width, height, scale, color);
 	}
