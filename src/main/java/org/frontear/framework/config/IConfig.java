@@ -6,12 +6,14 @@ package org.frontear.framework.config;
 public interface IConfig {
 	/**
 	 * Register an object for serialization
+	 *
 	 * @param object the configurable object that will be serialized when {@link IConfig#save()} is invoked
 	 */
 	void register(final IConfigurable<?> object);
 
 	/**
 	 * Remove an object from registration
+	 *
 	 * @param object the configurable object that is to be removed
 	 */
 	void unregister(final IConfigurable<?> object);

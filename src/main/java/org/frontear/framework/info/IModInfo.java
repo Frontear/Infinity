@@ -16,6 +16,7 @@ public interface IModInfo {
 
 	/**
 	 * This is just the {@link IModInfo#getName()} + {@link IModInfo#getVersion()}
+	 *
 	 * @return The fullname of the {@link org.frontear.ForgeMod}
 	 */
 	String getFullname();
