@@ -1,22 +1,32 @@
 package org.frontear.infinity;
 
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.apache.logging.log4j.Logger;
+import org.frontear.framework.client.impl.Client;
 import org.frontear.infinity.events.ShutdownEvent;
+import org.frontear.infinity.events.StartupEvent;
+import org.lwjgl.opengl.Display;
 
-import java.io.File;
+public class Infinity extends Client {
+	private static Infinity inst;
 
-public class Infinity {
-	private final Logger log;
-	private final File config_dir;
+	private Infinity() {
+		super();
+	}
 
-	public Infinity(FMLPreInitializationEvent event) {
-		this.log = event.getModLog();
-		this.config_dir = event.getModConfigurationDirectory();
+	public static Infinity inst() {
+		return inst == null ? inst = new Infinity() : inst;
+	}
+
+	@SubscribeEvent public void onStartup(StartupEvent event) {
+		getLogger().debug("Hello %s!", getModInfo().getName());
+		Display.setTitle(getModInfo().getFullname());
+
+		getConfig().load();
 	}
 
 	@SubscribeEvent public void onShutdown(ShutdownEvent event) {
-		log.info("Shutting down!");
+		getLogger().debug("Goodbye %s!", getModInfo().getName());
+
+		getConfig().save();
 	}
 }

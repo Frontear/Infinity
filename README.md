@@ -8,8 +8,5 @@ Before starting, please make sure you have a thorough understanding of mixins an
 - Run `task setupDecompWorkspace` either using `./gradlew` or through IntelliJ IDEA
 - *Recommended:* Attach `task runClient` as a run configuration instead of the configurations from `task genIntelliJRuns`
 
-## Contributions
-We are very unlikely to accept contributions, as this is more of a personal project. Feel free to submit a [pull request](https://github.com/Frontear/Infinity/pulls) with any bug fixes, but adding features will very likely be ignored. Instead, try to raise an [issue](https://github.com/Frontear/Infinity/issues) if you'd like something added.
-
 ## License
 This project is licensed under the [MIT License](https://tldrlegal.com/license/mit-license) &#8212; you can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
