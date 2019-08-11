@@ -9,16 +9,6 @@ Before starting, please make sure you have a thorough understanding of mixins an
 - *Recommended:* Attach `task runClient` as a run configuration instead of the configurations from `task genIntelliJRuns`
 
 ## Todo
-- [ ] Mandatory
-    - [x] Configuration
-    - [x] Events (either merge with Forge, or use Forge)
-    - [x] Metadata information
-    - [x] Logging
-    - [x] Wrappers (helps port code for newer versions)
-    - [ ] UI (first for GL11, then we can work with newer stuff later)
-    - [ ] JavaDocs (for framework)
-
-
 - [ ] Optional
     - [ ] Memory Manipulation (Pointers, allocation, `sun.misc.Unsafe`, `java.lang.instrument.Instrumentation`)
     - [ ] Custom font renderer
