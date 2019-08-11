@@ -19,7 +19,7 @@ import org.frontear.infinity.logger.Logger;
 			try {
 				logger.debug("Loading ${name}");
 				final Infinity instance = Infinity.inst();
-				logger.debug("Registering ${name} to EVENT_BUS");
+				instance.getLogger().debug("Registering to EVENT_BUS");
 				MinecraftForge.EVENT_BUS.register(instance);
 			}
 			catch (Throwable e) {

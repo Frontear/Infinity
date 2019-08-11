@@ -16,6 +16,7 @@ Before starting, please make sure you have a thorough understanding of mixins an
     - [x] Logging
     - [x] Wrappers (helps port code for newer versions)
     - [ ] UI (first for GL11, then we can work with newer stuff later)
+    - [ ] JavaDocs
 
 
 - [ ] Optional

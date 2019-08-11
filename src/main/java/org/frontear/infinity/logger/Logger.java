@@ -6,9 +6,10 @@ import org.apache.logging.log4j.LogManager;
 import org.frontear.framework.logger.ILogger;
 
 public class Logger implements ILogger {
+	private static final boolean debug = Boolean.parseBoolean(System.getProperty("frontear.debug", "false"));
+	private static final char pad = '—'; // \u2014
+	private static final int repeat = 64;
 	private final org.apache.logging.log4j.Logger log;
-	private final char pad = '—'; // \u2014
-	private final int repeat = 64;
 
 	public Logger(String name) {
 		this.log = LogManager.getLogger(name);
@@ -32,8 +33,7 @@ public class Logger implements ILogger {
 	}
 
 	@Override public void debug(Object object, Object... args) {
-		if (Boolean.parseBoolean(System
-				.getProperty("frontear.debug", "false"))) { // either get value of frontear.debug, or return false if it doesn't exist
+		if (debug) { // either get value of frontear.debug, or return false if it doesn't exist
 			log(Level.OFF, object, args);
 		}
 	}

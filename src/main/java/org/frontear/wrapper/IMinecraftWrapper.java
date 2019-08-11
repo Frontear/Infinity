@@ -9,7 +9,7 @@ import java.io.File;
 
 public interface IMinecraftWrapper {
 	static IMinecraftWrapper getMinecraft() {
-		return (IMinecraftWrapper) Minecraft.getMinecraft();
+		return (IMinecraftWrapper) Minecraft.getMinecraft(); // will succeed due to mixins
 	}
 
 	Timer getTimer();
