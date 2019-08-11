@@ -19,12 +19,14 @@ public interface IConfig {
 	void unregister(final IConfigurable<?> object);
 
 	/**
-	 * Read the config file and attempt to deserialize a json property, then apply any {@link com.google.gson.annotations.Expose} fields via {@link IConfigurable#load(IConfigurable)}
+	 * Read the config file and attempt to deserialize a json property, then apply any {@link
+	 * com.google.gson.annotations.Expose} fields via {@link IConfigurable#load(IConfigurable)}
 	 */
 	void load();
 
 	/**
-	 * Serialize all registered {@link IConfigurable} into json objects via {@link com.google.gson.Gson#toJsonTree(Object)}, then save them into the config file
+	 * Serialize all registered {@link IConfigurable} into json objects via {@link com.google.gson.Gson#toJsonTree(Object)},
+	 * then save them into the config file
 	 */
 	void save();
 }

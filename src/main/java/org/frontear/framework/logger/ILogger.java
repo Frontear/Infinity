@@ -19,7 +19,8 @@ public interface ILogger {
 	<T extends Throwable> T fatal(T throwable, Object object, Object... args) throws T;
 
 	/**
-	 * An error usually represents something that causes an issue in a small part of the application, such as a method call
+	 * An error usually represents something that causes an issue in a small part of the application, such as a method
+	 * call
 	 *
 	 * @param object An object that is converted into a string
 	 * @param args   Any additional objects that are passed into a {@link String#format(String, Object...)}
@@ -35,7 +36,8 @@ public interface ILogger {
 	void warn(Object object, Object... args);
 
 	/**
-	 * An info represents a simple informative log, this can just be telling the user of small things, such as changes in the application
+	 * An info represents a simple informative log, this can just be telling the user of small things, such as changes
+	 * in the application
 	 *
 	 * @param object An object that is converted into a string
 	 * @param args   Any additional objects that are passed into a {@link String#format(String, Object...)}

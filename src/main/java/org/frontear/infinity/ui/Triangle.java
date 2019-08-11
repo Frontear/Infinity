@@ -1,4 +1,4 @@
-package org.frontear.framework.ui.objects;
+package org.frontear.infinity.ui;
 
 import org.frontear.framework.ui.AbstractDrawable;
 
@@ -11,7 +11,7 @@ public class Triangle extends AbstractDrawable {
 		super(x, y, width, height, color);
 	}
 
-	@Override protected void draw(int x, int y, int width, int height) {
+	@Override protected void render(int x, int y, int width, int height) {
 		glBegin(GL_TRIANGLES);
 		{
 			glVertex2d(x, y);

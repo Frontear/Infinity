@@ -1,11 +1,10 @@
-package org.frontear.infinity.ui;
+package org.frontear.infinity.ui.test;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import org.frontear.framework.ui.AbstractDrawable;
-import org.frontear.framework.ui.objects.Rectangle;
-import org.frontear.framework.ui.objects.Triangle;
+import org.frontear.infinity.ui.Rectangle;
 
 import java.awt.*;
 
@@ -23,9 +22,8 @@ public class UITestScreen extends GuiScreen {
 	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();
 
-		drawable.setX(mouseX);
-		drawable.setY(mouseY);
-		drawable.render();
+		drawable.setPosition(mouseX, mouseY);
+		drawable.draw();
 
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
@@ -41,6 +39,6 @@ public class UITestScreen extends GuiScreen {
 
 	@Override public void initGui() {
 		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height - 27, I18n.format("gui.done")));
-		this.drawable = new Triangle(10, 10, 100, 100, Color.WHITE);
+		this.drawable = new Rectangle(10, 10, 100, 100, Color.WHITE);
 	}
 }

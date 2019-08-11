@@ -7,7 +7,8 @@ package org.frontear.framework.config;
  */
 public interface IConfigurable<C extends IConfigurable<C>> {
 	/**
-	 * This is called when a property with the same name as {@link IConfigurable#getName()} is found from {@link IConfig#load()}
+	 * This is called when a property with the same name as {@link IConfigurable#getName()} is found from {@link
+	 * IConfig#load()}
 	 *
 	 * @param self the object that was serialized by {@link IConfig}
 	 */
