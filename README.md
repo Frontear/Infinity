@@ -8,10 +8,5 @@ Before starting, please make sure you have a thorough understanding of mixins an
 - Run `task setupDecompWorkspace` either using `./gradlew` or through IntelliJ IDEA
 - *Recommended:* Attach `task runClient` as a run configuration instead of the configurations from `task genIntelliJRuns`
 
-## Todo
-- [ ] Optional
-    - [ ] Memory Manipulation (Pointers, allocation, `sun.misc.Unsafe`, `java.lang.instrument.Instrumentation`)
-    - [ ] Custom font renderer
-
 ## License
 This project is licensed under the [MIT License](https://tldrlegal.com/license/mit-license) &#8212; you can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
