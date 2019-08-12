@@ -2,6 +2,8 @@ package org.frontear.mixins;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.Timer;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,13 +22,22 @@ import java.io.File;
 	@Shadow public EntityPlayerSP thePlayer;
 	@Shadow public WorldClient theWorld;
 	@Shadow @Final public File mcDataDir;
+	@Shadow public GuiIngame ingameGUI;
 	@Shadow private Timer timer;
 
+	/**
+	 * @reason {@link org.frontear.infinity.events.StartupEvent}
+	 * @author Frontear
+	 */
 	@Inject(method = "startGame",
 			at = @At(value = "TAIL")) private void startGame(CallbackInfo info) {
 		MinecraftForge.EVENT_BUS.post(new StartupEvent());
 	}
 
+	/**
+	 * @reason {@link org.frontear.infinity.events.ShutdownEvent}
+	 * @author Frontear
+	 */
 	@Inject(method = "shutdownMinecraftApplet",
 			at = @At(value = "HEAD")) private void shutdownMinecraftApplet(CallbackInfo info) {
 		MinecraftForge.EVENT_BUS.post(new ShutdownEvent());
@@ -46,5 +57,9 @@ import java.io.File;
 
 	@Override public File getDirectory() {
 		return mcDataDir;
+	}
+
+	@Override public GuiNewChat getChatGUI() {
+		return ingameGUI.getChatGUI();
 	}
 }

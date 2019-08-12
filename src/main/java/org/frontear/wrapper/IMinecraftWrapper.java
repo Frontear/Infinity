@@ -2,6 +2,7 @@ package org.frontear.wrapper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.Timer;
 
@@ -19,4 +20,6 @@ public interface IMinecraftWrapper {
 	WorldClient getWorld();
 
 	File getDirectory();
+
+	GuiNewChat getChatGUI();
 }
