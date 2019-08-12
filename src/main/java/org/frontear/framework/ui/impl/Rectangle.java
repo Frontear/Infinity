@@ -7,8 +7,8 @@ import java.awt.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public final class Rectangle extends Drawable {
-	public Rectangle(int x, int y, int width, int height, float scale, Color color) {
-		super(x, y, width, height, scale, color);
+	public Rectangle(int x, int y, int width, int height, Color color) {
+		super(x, y, width, height, color);
 	}
 
 	@Override protected void render(int x, int y, int width, int height) {

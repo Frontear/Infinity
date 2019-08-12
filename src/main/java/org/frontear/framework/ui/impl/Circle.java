@@ -11,8 +11,8 @@ public final class Circle extends Drawable {
 	private final int factor;
 	private int radius;
 
-	public Circle(int x, int y, int radius, int factor, float scale, Color color) {
-		super(x, y, 0, 0, scale, color);
+	public Circle(int x, int y, int radius, int factor, Color color) {
+		super(x, y, 0, 0, color);
 
 		this.radius = radius;
 		this.factor = factor;
@@ -31,7 +31,7 @@ public final class Circle extends Drawable {
 	}
 
 	// https://stackoverflow.com/a/24843626/9091276
-	@Override protected void render(int x, int y, int width, final int height) {
+	@Override protected void render(int x, int y, int width, int height) {
 		glBegin(GL_TRIANGLE_FAN);
 		{
 			glVertex2d(x, y);

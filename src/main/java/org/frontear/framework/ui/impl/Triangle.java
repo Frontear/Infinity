@@ -8,8 +8,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 // be wary that this does NOT support complex triangles like equilateral, right, or other various types
 public final class Triangle extends Drawable {
-	public Triangle(int x, int y, int width, int height, float scale, Color color) {
-		super(x, y, width, height, scale, color);
+	public Triangle(int x, int y, int width, int height, Color color) {
+		super(x, y, width, height, color);
 	}
 
 	@Override protected void render(int x, int y, int width, int height) {

@@ -9,7 +9,6 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public abstract class Drawable {
 	private int x, y, width, height;
-	private float scale;
 	private Color color;
 
 	/**
@@ -21,12 +20,11 @@ public abstract class Drawable {
 	 * @param height The height of the object
 	 * @param color  The color of the object
 	 */
-	public Drawable(int x, int y, int width, int height, float scale, Color color) {
+	public Drawable(int x, int y, int width, int height, Color color) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.scale = scale;
 		this.color = color;
 	}
 
@@ -69,10 +67,20 @@ public abstract class Drawable {
 	}
 
 	/**
-	 * Draws the object in an OpenGL context. Color is automatically applied. Additionally, {@link
+	 * Draws the object in an OpenGL context. Color and scaling are automatically applied. Additionally, {@link
 	 * org.lwjgl.opengl.GL11#GL_TEXTURE_2D) and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically disabled
 	 */
-	public void draw() {
+	public final void draw() {
+		this.draw(1f);
+	}
+
+	/**
+	 * Draws the object in an OpenGL context. Color and scaling are automatically applied. Additionally, {@link
+	 * org.lwjgl.opengl.GL11#GL_TEXTURE_2D) and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically disabled
+	 *
+	 * @param scale The scaling of the object
+	 */
+	public final void draw(float scale) {
 		glPushMatrix();
 		{
 			glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
