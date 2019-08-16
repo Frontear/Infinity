@@ -2,15 +2,22 @@ package org.frontear.framework.info.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.info.IModInfo;
 
+/**
+ * An implementation of {@link IModInfo}
+ */
 public final class ModInfo implements IModInfo {
 	private final String name, version, fullname, authors;
 
+	/**
+	 * @param mcmod {@link JsonObject} which is created when loading the mcmod,info in {@link Client} construction
+	 */
 	public ModInfo(JsonObject mcmod) {
 		this.name = mcmod.get("name").getAsString();
 		this.version = mcmod.get("version").getAsString();
-		this.fullname = String.format("%s %s", name, version);
+		this.fullname = String.format("%s v%s", name, version);
 
 		{
 			final JsonArray authorList = mcmod.get("authorList").getAsJsonArray();
@@ -20,6 +27,15 @@ public final class ModInfo implements IModInfo {
 		}
 	}
 
+	/**
+	 * Replaces the last instance of a keyword in a specified string
+	 *
+	 * @param string      The string to replace in
+	 * @param lookup      The string to find
+	 * @param replacement The replacement
+	 *
+	 * @return A replaced string
+	 */
 	private String replaceLast(String string, String lookup, String replacement) {
 		int lastIndexOf = string.lastIndexOf(lookup);
 		if (lastIndexOf > -1) { // found last instance of 'lookup'
@@ -30,18 +46,38 @@ public final class ModInfo implements IModInfo {
 		}
 	}
 
+	/**
+	 * @return The name found from the mcmod.info
+	 *
+	 * @see IModInfo#getName()
+	 */
 	@Override public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return The version found from the mcmod.info
+	 *
+	 * @see IModInfo#getVersion()
+	 */
 	@Override public String getVersion() {
 		return version;
 	}
 
+	/**
+	 * @return {@link ModInfo#getName()} + "v" + {@link ModInfo#getVersion()}
+	 *
+	 * @see IModInfo#getFullname()
+	 */
 	@Override public String getFullname() {
 		return fullname;
 	}
 
+	/**
+	 * @return The author(s) found from the mcmod.info, using the Oxford Comma
+	 *
+	 * @see IModInfo#getAuthors()
+	 */
 	@Override public String getAuthors() {
 		return authors;
 	}

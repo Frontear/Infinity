@@ -10,6 +10,9 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.Set;
 
+/**
+ * An implementation of {@link IConfig}
+ */
 public final class Config implements IConfig {
 	private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting()
 			.create();
@@ -17,18 +20,34 @@ public final class Config implements IConfig {
 	private final Set<IConfigurable<?>> configurables = Sets.newHashSet();
 	private final File config_file;
 
+	/**
+	 * @param config_file The file that will contain all {@link IConfigurable} objects
+	 */
 	public Config(File config_file) {
 		this.config_file = config_file;
 	}
 
+	/**
+	 * @see IConfig#register(IConfigurable)
+	 */
 	@Override public void register(IConfigurable<?> object) {
 		logger.debug("Registering configurable '%s', successful: %b", object.getName(), configurables.add(object));
 	}
 
+	/**
+	 * @see IConfig#unregister(IConfigurable)
+	 */
 	@Override public void unregister(IConfigurable<?> object) {
 		logger.debug("Unregistering configurable '%s', successful: %b", object.getName(), configurables.remove(object));
 	}
 
+	/**
+	 * Reads the config file, parses it into a {@link JsonObject} using {@link Gson}, and calls {@link
+	 * IConfigurable#load(IConfigurable)} for each {@link IConfigurable} it can find, by comparing {@link
+	 * IConfigurable#getName()}
+	 *
+	 * @see IConfig#load()
+	 */
 	@Override public void load() {
 		try (Reader reader = new FileReader(config_file)) {
 			logger.debug("Loading config from %s", config_file.getAbsolutePath());
@@ -58,6 +77,12 @@ public final class Config implements IConfig {
 		}
 	}
 
+	/**
+	 * Creates an empty {@link JsonObject}, adds all {@link IConfigurable} to the object by converting them via {@link
+	 * Gson#toJsonTree(Object)}, then saves it to the config file
+	 *
+	 * @see IConfig#save()
+	 */
 	@Override public void save() {
 		try (Writer writer = new PrintWriter(config_file)) {
 			final JsonObject config = new JsonObject();

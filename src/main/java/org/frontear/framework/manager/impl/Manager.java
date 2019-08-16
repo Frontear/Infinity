@@ -13,13 +13,34 @@ import java.util.Set;
 
 public abstract class Manager<T> implements IManager<T> {
 	private static final Logger logger = new Logger("Manager");
-	protected ImmutableSet<T> objects;
+	private final ImmutableSet<T> objects;
 
+	/**
+	 * @param objects The objects that will be managed
+	 */
+	public Manager(ImmutableSet<T> objects) {
+		this.objects = objects;
+	}
+
+	/**
+	 * Makes use of an {@link UnmodifiableIterator<T>}, as the objects are not meant to be modified after they are set
+	 * through either {@link Manager#reflectionSearch(String) or through manual creation
+	 *
+	 * @return {@link ImmutableSet#iterator()}
+	 */
 	@Override public UnmodifiableIterator<T> getObjects() {
 		return objects.iterator();
 	}
 
-	@SuppressWarnings("UnstableApiUsage") protected final ImmutableCollection<T> reflectionSearch(String pkg) {
+	/**
+	 * Searches for all classes that reside in a specified package, and instantiates them into a {@link Set<T>}. It
+	 * makes use of {@link ClassPath}
+	 *
+	 * @param pkg The package to search
+	 *
+	 * @return An {@link ImmutableSet} of elements which were instantiated
+	 */
+	@SuppressWarnings("UnstableApiUsage") protected final ImmutableSet<T> reflectionSearch(String pkg) {
 		logger.debug("Attempting to find parent...");
 		//noinspection unchecked
 		final Class<T> parent = (Class<T>) new TypeToken<T>(getClass()) {}.getRawType();
@@ -51,6 +72,6 @@ public abstract class Manager<T> implements IManager<T> {
 			e.printStackTrace();
 		}
 
-		return (this.objects = ImmutableSet.copyOf(objects));
+		return ImmutableSet.copyOf(objects);
 	}
 }

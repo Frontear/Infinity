@@ -12,11 +12,18 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
+/**
+ * An implementation of {@link IClient}
+ */
 public abstract class Client implements IClient {
 	private final ModInfo info;
 	private final Logger logger;
 	private final Config config;
 
+	/**
+	 * This is marked protected to prevent outside construction, and is to specify that this can only be managed through
+	 * singletons
+	 */
 	protected Client() {
 		{
 			final InputStream mcmod = Objects
@@ -32,14 +39,31 @@ public abstract class Client implements IClient {
 				.toLowerCase() + ".json"));
 	}
 
+	// todo: error handling if mcmod.info doesn't exist
+
+	/**
+	 * Information for this is received from the mcmod.info. As a result, this file MUST exist
+	 *
+	 * @see IClient#getModInfo()
+	 */
 	@Override public ModInfo getModInfo() {
 		return info;
 	}
 
+	/**
+	 * The logger is given it's name from {@link ModInfo#getName()}
+	 *
+	 * @see IClient#getLogger()
+	 */
 	@Override public Logger getLogger() {
 		return logger;
 	}
 
+	/**
+	 * The config creates a json where the filename is {@link ModInfo#getName()} + .json
+	 *
+	 * @see IClient#getConfig()
+	 */
 	@Override public Config getConfig() {
 		return config;
 	}

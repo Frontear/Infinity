@@ -6,8 +6,16 @@ import org.frontear.framework.config.IConfigurable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-// Do NOT use this class, prefer implementing IConfigurable and creating your own load method
+/**
+ * An implementation of {@link IConfigurable<C>}. Usage of this class is heavily discouraged, instead, implement {@link
+ * IConfigurable<C>} manually
+ */
 @Deprecated public final class Configurable<C extends Configurable<C>> implements IConfigurable<C> {
+	/**
+	 * Uses reflection to apply exposed fields with data collected from the serialized object
+	 *
+	 * @see IConfigurable#load(IConfigurable)
+	 */
 	@Override public void load(C self) {
 		Field[] this_exposed = Arrays.stream(this.getClass().getDeclaredFields())
 				.filter(x -> x.isAnnotationPresent(Expose.class)).toArray(Field[]::new);
