@@ -38,7 +38,8 @@ import java.io.File;
 
 	@Redirect(method = "runTick",
 			at = @At(value = "INVOKE",
-					target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireKeyInput()V")) private void fireKeyInput(FMLCommonHandler common) {
+					target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireKeyInput()V",
+					remap = false)) private void fireKeyInput(FMLCommonHandler common) {
 		MinecraftForge.EVENT_BUS
 				.post(new KeyEvent(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard
 						.getEventKey(), Keyboard.getEventKeyState()));
@@ -47,7 +48,8 @@ import java.io.File;
 
 	@Redirect(method = "runTick",
 			at = @At(value = "INVOKE",
-					target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireMouseInput()V")) private void fireMouseInput(FMLCommonHandler common) {
+					target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireMouseInput()V",
+					remap = false)) private void fireMouseInput(FMLCommonHandler common) {
 		MinecraftForge.EVENT_BUS.post(new MouseEvent(Mouse.getEventButton(), Mouse.getEventButtonState()));
 		common.fireMouseInput();
 	}

@@ -15,7 +15,7 @@ public interface IConfigurable<C extends IConfigurable<C>> {
 	void load(final C self);
 
 	/**
-	 * Represents the name that is found from the json properties
+	 * Represents the name that is found from the json properties. Default returns {@link Class#getSimpleName()}
 	 *
 	 * @return the name of the json property
 	 */

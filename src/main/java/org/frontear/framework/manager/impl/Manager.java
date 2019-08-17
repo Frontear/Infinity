@@ -23,13 +23,10 @@ public abstract class Manager<T> implements IManager<T> {
 	}
 
 	/**
-	 * Makes use of an {@link UnmodifiableIterator<T>}, as the objects are not meant to be modified after they are set
-	 * through either {@link Manager#reflectionSearch(String) or through manual creation
-	 *
-	 * @return {@link ImmutableSet#iterator()}
+	 * @param pkg The package that will be searched through via {@link Manager#reflectionSearch(String)}
 	 */
-	@Override public UnmodifiableIterator<T> getObjects() {
-		return objects.iterator();
+	public Manager(String pkg) {
+		this.objects = reflectionSearch(pkg);
 	}
 
 	/**
@@ -73,5 +70,15 @@ public abstract class Manager<T> implements IManager<T> {
 		}
 
 		return ImmutableSet.copyOf(objects);
+	}
+
+	/**
+	 * Makes use of an {@link UnmodifiableIterator<T>}, as the objects are not meant to be modified after they are set
+	 * through either {@link Manager#reflectionSearch(String) or through manual creation
+	 *
+	 * @return {@link ImmutableSet#iterator()}
+	 */
+	@Override public UnmodifiableIterator<T> getObjects() {
+		return objects.iterator();
 	}
 }

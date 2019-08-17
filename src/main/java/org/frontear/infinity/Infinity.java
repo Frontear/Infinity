@@ -1,16 +1,22 @@
 package org.frontear.infinity;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.infinity.events.execution.ShutdownEvent;
 import org.frontear.infinity.events.execution.StartupEvent;
+import org.frontear.infinity.modules.ModuleManager;
 import org.lwjgl.opengl.Display;
 
 public class Infinity extends Client {
 	private static Infinity inst;
 
+	private ModuleManager module_manager;
+
 	private Infinity() {
 		super();
+
+		MinecraftForge.EVENT_BUS.register(this.module_manager = new ModuleManager(getConfig()));
 	}
 
 	public static Infinity inst() {
@@ -28,5 +34,9 @@ public class Infinity extends Client {
 		getLogger().debug("Goodbye %s!", getModInfo().getName());
 
 		getConfig().save();
+	}
+
+	public ModuleManager getModules() {
+		return module_manager;
 	}
 }
