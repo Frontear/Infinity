@@ -4,7 +4,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 
 import java.awt.*;
 
-public class FontEvent extends Event {
+public final class FontEvent extends Event {
 	private String text;
 	private float x, y;
 	private int color;

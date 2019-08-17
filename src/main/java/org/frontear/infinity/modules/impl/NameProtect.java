@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-public class NameProtect extends Module {
+public final class NameProtect extends Module {
 	public NameProtect() {
 		super(Keyboard.KEY_N, false);
 	}

@@ -8,8 +8,8 @@ public interface IManager<T> {
 	/**
 	 * Streams {@link IManager#getObjects()} to find a specific object based on a class type
 	 *
-	 * @param target The specified object, which extends {@link T}
-	 * @param <T1>   The type of the target object which must extend {@link T}
+	 * @param target The specified object, which extends T
+	 * @param <T1>   The type of the target object which must extend T
 	 *
 	 * @return target object, or throws {@link NoSuchElementException} if object cannot be found
 	 */
@@ -22,7 +22,7 @@ public interface IManager<T> {
 	 * Provides the {@link Stream} mechanism for the objects. This is so that they can make use of the powerful
 	 * LINQ-like features of streams
 	 *
-	 * @return {@link Stream} for {@link T} objects
+	 * @return {@link Stream} for T objects
 	 */
 	Stream<T> getObjects();
 }

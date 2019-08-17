@@ -3,7 +3,7 @@ package org.frontear.infinity.events.render;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-public class BlockEvent extends Event {
+public final class BlockEvent extends Event {
 	private final Block block;
 	private boolean render, side_check;
 

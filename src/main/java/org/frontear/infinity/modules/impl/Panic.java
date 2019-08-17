@@ -4,7 +4,7 @@ import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-public class Panic extends Module {
+public final class Panic extends Module {
 	public Panic() {
 		super(Keyboard.KEY_P, true);
 	}

@@ -13,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 import java.awt.*;
 import java.util.Iterator;
 
-public class ModuleManager extends Manager<Module> {
+public final class ModuleManager extends Manager<Module> {
 	public ModuleManager(Config config) {
 		super("org.frontear.infinity.modules.impl");
 

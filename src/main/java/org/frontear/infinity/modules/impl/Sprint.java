@@ -7,7 +7,7 @@ import org.frontear.infinity.events.entity.UpdateEvent;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-public class Sprint extends Module {
+public final class Sprint extends Module {
 	public Sprint() {
 		super(Keyboard.KEY_LSHIFT, true);
 	}

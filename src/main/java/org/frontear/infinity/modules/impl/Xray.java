@@ -9,7 +9,7 @@ import org.frontear.infinity.events.render.BlockEvent;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-public class Xray extends Module {
+public final class Xray extends Module {
 	private int last_ambient;
 	private boolean last_fullbright;
 

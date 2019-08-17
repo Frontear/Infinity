@@ -10,7 +10,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AutoClicker extends Module {
+public final class AutoClicker extends Module {
 	private final Timer timer = new Timer();
 	private final int[] cps = { 11, 13 }; // autoclicker does not actually hit these speeds, since they serve more so as a range
 

@@ -1,6 +1,6 @@
 package org.frontear.framework.utils;
 
-public class Timer {
+public final class Timer {
 	private long nanoseconds;
 
 	public Timer() {

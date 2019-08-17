@@ -8,7 +8,7 @@ import org.frontear.infinity.events.execution.StartupEvent;
 import org.frontear.infinity.modules.ModuleManager;
 import org.lwjgl.opengl.Display;
 
-public class Infinity extends Client {
+public final class Infinity extends Client {
 	private static Infinity inst;
 
 	private ModuleManager module_manager;

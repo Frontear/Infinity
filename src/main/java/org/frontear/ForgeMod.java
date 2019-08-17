@@ -9,7 +9,7 @@ import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
 
 @Mod(modid = "${modid}",
-		version = "${version}") public class ForgeMod {
+		version = "${version}") public final class ForgeMod {
 	private final Logger logger = new Logger("${modid} ForgeMod");
 	private Thread concurrent;
 

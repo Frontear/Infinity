@@ -5,7 +5,7 @@ import org.frontear.infinity.events.execution.ShutdownEvent;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-public class Fullbright extends Module {
+public final class Fullbright extends Module {
 	private float last_gamma;
 
 	public Fullbright() {

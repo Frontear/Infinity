@@ -2,7 +2,7 @@ package org.frontear.infinity.events.input;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-public class MouseEvent extends Event {
+public final class MouseEvent extends Event {
 	private final int button;
 	private final boolean pressed;
 

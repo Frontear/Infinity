@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-public class NoFOV extends Module {
+public final class NoFOV extends Module {
 	public NoFOV() {
 		super(Keyboard.KEY_V, true);
 	}

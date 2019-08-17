@@ -9,7 +9,7 @@ import org.lwjgl.opengl.Display;
 
 import java.util.Set;
 
-public class Ghost extends Module {
+public final class Ghost extends Module {
 	private static Ghost self;
 	private Set<Module> unsafe = Sets.newHashSet();
 
