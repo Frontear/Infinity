@@ -11,7 +11,7 @@ import org.lwjgl.input.Keyboard;
 
 public class NoFOV extends Module {
 	public NoFOV() {
-		super(Keyboard.KEY_V);
+		super(Keyboard.KEY_V, true);
 	}
 
 	@SubscribeEvent public void onFOV(FOVUpdateEvent event) {

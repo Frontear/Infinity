@@ -15,7 +15,7 @@ public class AutoClicker extends Module {
 	private final int[] cps = { 11, 13 }; // autoclicker does not actually hit these speeds, since they serve more so as a range
 
 	public AutoClicker() {
-		super(Keyboard.KEY_C);
+		super(Keyboard.KEY_C, true);
 	}
 
 	@SubscribeEvent public void onTick(TickEvent.PlayerTickEvent event) {

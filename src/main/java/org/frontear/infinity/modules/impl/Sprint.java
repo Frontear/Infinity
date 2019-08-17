@@ -9,7 +9,7 @@ import org.lwjgl.input.Keyboard;
 
 public class Sprint extends Module {
 	public Sprint() {
-		super(Keyboard.KEY_LSHIFT);
+		super(Keyboard.KEY_LSHIFT, true);
 	}
 
 	@SubscribeEvent public void onUpdate(UpdateEvent event) {

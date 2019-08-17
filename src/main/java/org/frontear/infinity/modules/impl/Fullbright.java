@@ -9,7 +9,7 @@ public class Fullbright extends Module {
 	private float last_gamma;
 
 	public Fullbright() {
-		super(Keyboard.KEY_B);
+		super(Keyboard.KEY_B, true);
 	}
 
 	@SubscribeEvent public void onShutdown(ShutdownEvent event) {

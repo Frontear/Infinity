@@ -7,11 +7,13 @@ import org.frontear.wrapper.IMinecraftWrapper;
 
 public abstract class Module implements IConfigurable<Module> {
 	protected static final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
+	private final boolean safe; // safe to use during Ghost
 	@Expose private int bind;
 	@Expose private boolean active = false;
 
-	public Module(int bind) {
+	public Module(int bind, boolean safe) {
 		this.bind = bind;
+		this.safe = safe;
 	}
 
 	@Override public void load(Module self) {
@@ -44,5 +46,13 @@ public abstract class Module implements IConfigurable<Module> {
 		else {
 			MinecraftForge.EVENT_BUS.unregister(this);
 		}
+	}
+
+	public boolean isSafe() {
+		return safe;
+	}
+
+	public void toggle() {
+		setActive(!isActive());
 	}
 }

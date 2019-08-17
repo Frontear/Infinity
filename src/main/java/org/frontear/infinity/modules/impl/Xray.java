@@ -14,7 +14,7 @@ public class Xray extends Module {
 	private boolean last_fullbright;
 
 	public Xray() {
-		super(Keyboard.KEY_X);
+		super(Keyboard.KEY_X, false);
 	}
 
 	@SubscribeEvent public void onBlock(BlockEvent event) {

@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.manager.impl.Manager;
 import org.frontear.infinity.events.input.KeyEvent;
+import org.frontear.infinity.modules.impl.Ghost;
 import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
 
@@ -20,15 +21,16 @@ public class ModuleManager extends Manager<Module> {
 	}
 
 	@SubscribeEvent public void onKey(KeyEvent event) {
+		final boolean ghost = Ghost.active();
+
 		if (event.isPressed()) {
-			getObjects().filter(x -> x.getBind() == event.getKey()).forEach(x -> {
-				x.setActive(!x.isActive());
-			});
+			getObjects().filter(x -> x.getBind() == event.getKey()).filter(x -> !ghost || x.isSafe())
+					.forEach(Module::toggle);
 		}
 	}
 
 	@SubscribeEvent public void onRender(RenderGameOverlayEvent.Post event) {
-		if (event.type == RenderGameOverlayEvent.ElementType.TEXT) {
+		if (!Ghost.active() && event.type == RenderGameOverlayEvent.ElementType.TEXT) {
 			Iterator<Module> modules = getObjects().filter(Module::isActive).iterator();
 			int iter = 0;
 
