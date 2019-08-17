@@ -7,8 +7,8 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 /**
- * An implementation of {@link IConfigurable<C>}. Usage of this class is heavily discouraged, instead, implement {@link
- * IConfigurable<C>} manually
+ * An implementation of {@link IConfigurable}. Usage of this class is heavily discouraged, instead, implement {@link
+ * IConfigurable} manually
  */
 @Deprecated public final class Configurable<C extends Configurable<C>> implements IConfigurable<C> {
 	/**

@@ -12,7 +12,19 @@ import org.frontear.infinity.events.render.BlockEvent;
 import org.spongepowered.asm.mixin.*;
 
 @Mixin(BlockModelRenderer.class) public abstract class MixinBlockModelRenderer {
-	@SuppressWarnings("OverwriteAuthorRequired") @Overwrite public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn) {
+	/**
+	 * @param blockAccessIn   Block access class
+	 * @param modelIn         Block model
+	 * @param blockStateIn    State of the block
+	 * @param blockPosIn      Positions of the block
+	 * @param worldRendererIn The global world renderer
+	 *
+	 * @return if successful, true, else false
+	 *
+	 * @author Frontear
+	 * @see BlockEvent
+	 */
+	@Overwrite public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn) {
 		Block block = blockStateIn.getBlock();
 		block.setBlockBoundsBasedOnState(blockAccessIn, blockPosIn);
 		BlockEvent event = new BlockEvent(block, true, true);

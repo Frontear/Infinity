@@ -35,16 +35,30 @@ import java.io.File;
 	@Shadow private Timer timer;
 	@Shadow private int leftClickCounter;
 
+	/**
+	 * @author Frontear
+	 * @see StartupEvent
+	 */
 	@Inject(method = "startGame",
 			at = @At(value = "TAIL")) private void startGame(CallbackInfo info) {
 		MinecraftForge.EVENT_BUS.post(new StartupEvent());
 	}
 
+	/**
+	 * @author Frontear
+	 * @see ShutdownEvent
+	 */
 	@Inject(method = "shutdownMinecraftApplet",
 			at = @At(value = "HEAD")) private void shutdownMinecraftApplet(CallbackInfo info) {
 		MinecraftForge.EVENT_BUS.post(new ShutdownEvent());
 	}
 
+	/**
+	 * @param common The {@link FMLCommonHandler} instance
+	 *
+	 * @author Frontear
+	 * @see KeyEvent
+	 */
 	@Redirect(method = "runTick",
 			at = @At(value = "INVOKE",
 					target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireKeyInput()V",
@@ -55,6 +69,12 @@ import java.io.File;
 		common.fireKeyInput();
 	}
 
+	/**
+	 * @param common The {@link FMLCommonHandler} instance
+	 *
+	 * @author Frontear
+	 * @see MouseEvent
+	 */
 	@Redirect(method = "runTick",
 			at = @At(value = "INVOKE",
 					target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireMouseInput()V",

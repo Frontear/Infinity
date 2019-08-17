@@ -8,6 +8,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Entity.class) public abstract class MixinEntity {
+	/**
+	 * @param entity The entity that will be updated
+	 *
+	 * @author Frontear
+	 * @see UpdateEvent
+	 */
 	@Redirect(method = "onUpdate",
 			at = @At(value = "INVOKE",
 					target = "Lnet/minecraft/entity/Entity;onEntityUpdate()V")) private void onEntityUpdate(Entity entity) {

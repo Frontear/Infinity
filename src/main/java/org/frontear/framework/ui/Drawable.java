@@ -68,7 +68,7 @@ public abstract class Drawable {
 
 	/**
 	 * Draws the object in an OpenGL context. Color and scaling are automatically applied. Additionally, {@link
-	 * org.lwjgl.opengl.GL11#GL_TEXTURE_2D) and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically disabled
+	 * org.lwjgl.opengl.GL11#GL_TEXTURE_2D} and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically disabled
 	 */
 	public final void draw() {
 		this.draw(1f);
@@ -76,7 +76,7 @@ public abstract class Drawable {
 
 	/**
 	 * Draws the object in an OpenGL context. Color and scaling are automatically applied. Additionally, {@link
-	 * org.lwjgl.opengl.GL11#GL_TEXTURE_2D) and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically disabled
+	 * org.lwjgl.opengl.GL11#GL_TEXTURE_2D} and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically disabled
 	 *
 	 * @param scale The scaling of the object
 	 */

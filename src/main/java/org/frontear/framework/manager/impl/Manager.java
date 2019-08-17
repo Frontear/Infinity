@@ -31,8 +31,8 @@ public abstract class Manager<T> implements IManager<T> {
 	}
 
 	/**
-	 * Searches for all classes that reside in a specified package, and instantiates them into a {@link Set<T>}. It
-	 * makes use of {@link ClassPath}
+	 * Searches for all classes that reside in a specified package, and instantiates them into a {@link Set}. It makes
+	 * use of {@link ClassPath}
 	 *
 	 * @param pkg The package to search
 	 *
@@ -74,10 +74,10 @@ public abstract class Manager<T> implements IManager<T> {
 	}
 
 	/**
-	 * Makes use of an {@link UnmodifiableIterator<T>}, as the objects are not meant to be modified after they are set
-	 * through either {@link Manager#reflectionSearch(String) or through manual creation
+	 * Makes use of an {@link UnmodifiableIterator}, as the objects are not meant to be modified after they are set
+	 * through either {@link Manager#reflectionSearch(String)} or through manual creation
 	 *
-	 * @return {@link ImmutableSet#iterator()}
+	 * @return {@link ImmutableSet#stream()}
 	 */
 	@Override public Stream<T> getObjects() {
 		return objects.stream();
