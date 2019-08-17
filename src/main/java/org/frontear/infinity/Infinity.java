@@ -2,8 +2,8 @@ package org.frontear.infinity;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.client.impl.Client;
-import org.frontear.infinity.events.ShutdownEvent;
-import org.frontear.infinity.events.StartupEvent;
+import org.frontear.infinity.events.execution.ShutdownEvent;
+import org.frontear.infinity.events.execution.StartupEvent;
 import org.lwjgl.opengl.Display;
 
 public class Infinity extends Client {
