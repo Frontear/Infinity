@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public abstract class Manager<T> implements IManager<T> {
 	private static final Logger logger = new Logger("Manager");
@@ -78,7 +79,7 @@ public abstract class Manager<T> implements IManager<T> {
 	 *
 	 * @return {@link ImmutableSet#iterator()}
 	 */
-	@Override public UnmodifiableIterator<T> getObjects() {
-		return objects.iterator();
+	@Override public Stream<T> getObjects() {
+		return objects.stream();
 	}
 }

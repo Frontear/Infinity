@@ -3,9 +3,7 @@ package org.frontear.infinity.modules.impl;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.entity.UpdateEvent;
-import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
@@ -15,7 +13,8 @@ public class Sprint extends Module {
 	}
 
 	@SubscribeEvent public void onUpdate(UpdateEvent event) {
-		if (event.getEntity() instanceof EntityPlayerSP && event.isPost() && ((EntityPlayerSP) event.getEntity()).isPotionActive(Potion.blindness)) {
+		if (event.getEntity() instanceof EntityPlayerSP && event.isPost() && !((EntityPlayerSP) event.getEntity())
+				.isPotionActive(Potion.blindness)) {
 			event.getEntity().setSprinting(true);
 		}
 	}

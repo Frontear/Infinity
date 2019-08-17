@@ -1,34 +1,28 @@
 package org.frontear.framework.manager;
 
 import javax.annotation.Nullable;
-import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 public interface IManager<T> {
 	/**
-	 * Iterates on {@link IManager#getObjects()} to find a specified object
+	 * Streams {@link IManager#getObjects()} to find a specific object based on a class type
 	 *
-	 * @param target The class of the target object
-	 * @param <T1>   The type of the target object
+	 * @param target The specified object, which extends {@link T}
+	 * @param <T1>   The type of the target object which must extend {@link T}
 	 *
-	 * @return target object, or null if not found
+	 * @return target object, or throws {@link NoSuchElementException} if object cannot be found
 	 */
 	@Nullable default <T1 extends T> T1 get(Class<T1> target) {
-		for (Iterator<T> iter = getObjects(); iter.hasNext(); ) {
-			final T object = iter.next();
-			if (object.getClass() == target) {
-				//noinspection unchecked
-				return (T1) object;
-			}
-		}
-
-		return null;
+		//noinspection unchecked,OptionalGetWithoutIsPresent
+		return (T1) getObjects().filter(x -> x.getClass() == target).findFirst().get();
 	}
 
 	/**
-	 * Provides the {@link Iterator} mechanism for the objects. This is to prevent outside modification of the
-	 * collection
+	 * Provides the {@link Stream} mechanism for the objects. This is so that they can make use of the powerful
+	 * LINQ-like features of streams
 	 *
-	 * @return {@link Iterator} for {@link T} objects
+	 * @return {@link Stream} for {@link T} objects
 	 */
-	Iterator<T> getObjects();
+	Stream<T> getObjects();
 }

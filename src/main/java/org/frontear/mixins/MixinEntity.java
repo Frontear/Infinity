@@ -8,7 +8,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Entity.class) public abstract class MixinEntity {
-	@Redirect(method = "onUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;onEntityUpdate()V")) private void onEntityUpdate(Entity entity) {
+	@Redirect(method = "onUpdate",
+			at = @At(value = "INVOKE",
+					target = "Lnet/minecraft/entity/Entity;onEntityUpdate()V")) private void onEntityUpdate(Entity entity) {
 		MinecraftForge.EVENT_BUS.post(new UpdateEvent(entity, true));
 		entity.onEntityUpdate();
 		MinecraftForge.EVENT_BUS.post(new UpdateEvent(entity, false));

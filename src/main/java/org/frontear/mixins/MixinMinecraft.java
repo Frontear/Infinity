@@ -2,7 +2,10 @@ package org.frontear.mixins;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.Timer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -21,10 +24,14 @@ import java.io.File;
 
 @Mixin(Minecraft.class) @Interface(iface = IMinecraftWrapper.class,
 		prefix = "wrap$") public abstract class MixinMinecraft implements IMinecraftWrapper {
+	@Shadow public FontRenderer fontRendererObj;
+	@Shadow public RenderGlobal renderGlobal;
 	@Shadow public EntityPlayerSP thePlayer;
 	@Shadow public WorldClient theWorld;
 	@Shadow @Final public File mcDataDir;
+	@Shadow public GameSettings gameSettings;
 	@Shadow private Timer timer;
+	@Shadow private int leftClickCounter;
 
 	@Inject(method = "startGame",
 			at = @At(value = "TAIL")) private void startGame(CallbackInfo info) {
@@ -69,4 +76,26 @@ import java.io.File;
 	@Override public File getDirectory() {
 		return mcDataDir;
 	}
+
+	@Override public GameSettings getGameSettings() {
+		return gameSettings;
+	}
+
+	@Override public RenderGlobal getRenderGlobal() {
+		return renderGlobal;
+	}
+
+	@Override public FontRenderer getFontRenderer() {
+		return fontRendererObj;
+	}
+
+	@Override public void clickMouse(boolean reset_click_counter) {
+		if (reset_click_counter) {
+			leftClickCounter = 0;
+		}
+
+		clickMouse();
+	}
+
+	@Shadow protected abstract void clickMouse();
 }
