@@ -15,8 +15,6 @@ public class Ghost extends Module {
 
 	public Ghost() {
 		super(Keyboard.KEY_G, true);
-
-		self = this;
 	}
 
 	public static boolean active() {
@@ -25,7 +23,8 @@ public class Ghost extends Module {
 
 	// we don't want to save active state, since Ghost should not persist through instances, and should rather manually be called
 	@Override public void load(Module self) {
-		super.setBind(super.getBind());
+		super.setBind(self.getBind());
+		Ghost.self = this; // some bug with serialization. To test, move this back into constructor. Ghost.self.isActive will not be the same as this.isActive (the former won't even toggle)
 	}
 
 	@Override protected void onToggle(boolean active) {
