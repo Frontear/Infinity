@@ -6,6 +6,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.util.Session;
 import net.minecraft.util.Timer;
 
 import java.io.File;
@@ -28,6 +29,8 @@ public interface IMinecraftWrapper {
 	RenderGlobal getRenderGlobal();
 
 	FontRenderer getFontRenderer();
+
+	Session getSession();
 
 	void clickMouse(boolean reset_click_counter);
 }

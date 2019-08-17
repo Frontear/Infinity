@@ -6,6 +6,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.util.Session;
 import net.minecraft.util.Timer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -30,6 +31,7 @@ import java.io.File;
 	@Shadow public WorldClient theWorld;
 	@Shadow @Final public File mcDataDir;
 	@Shadow public GameSettings gameSettings;
+	@Shadow @Final private Session session;
 	@Shadow private Timer timer;
 	@Shadow private int leftClickCounter;
 
@@ -98,4 +100,8 @@ import java.io.File;
 	}
 
 	@Shadow protected abstract void clickMouse();
+
+	@Intrinsic public Session wrap$getSession() {
+		return session;
+	}
 }
