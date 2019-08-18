@@ -5,6 +5,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.util.Session;
@@ -36,4 +37,6 @@ public interface IMinecraftWrapper {
 	void clickMouse(boolean reset_click_counter);
 
 	Session getSession();
+
+	RenderManager getRenderManager();
 }
