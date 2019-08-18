@@ -27,9 +27,11 @@ import java.util.Deque;
 		else {
 			mc.getWorld().removeEntityFromWorld(ID);
 
-			packets.forEach(mc
-					.getNetworkManager()::sendPacket); // this causes some issues, specifically the outboundQueue
-			packets.clear();
+			while (packets.size() > 0) {
+				if (mc.getNetworkManager().isChannelOpen()) {
+					mc.getNetworkManager().sendPacket(packets.remove());
+				}
+			}
 		}
 	}
 

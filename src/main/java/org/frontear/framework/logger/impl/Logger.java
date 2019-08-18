@@ -4,13 +4,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.message.Message;
+import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.logger.ILogger;
 
 /**
  * An implementation of {@link ILogger}
  */
 public final class Logger implements ILogger {
-	private static final boolean debug = Boolean.parseBoolean(System.getProperty("frontear.debug", "false"));
 	private static final char pad = '—'; // \u2014
 	private static final int repeat = 64;
 	private final org.apache.logging.log4j.Logger log;
@@ -67,7 +67,7 @@ public final class Logger implements ILogger {
 	 * @see ILogger#debug(Object, Object...)
 	 */
 	@Override public void debug(Object object, Object... args) {
-		if (debug) { // either get value of frontear.debug, or return false if it doesn't exist
+		if (Client.DEBUG) {
 			log(Level.OFF, object, args);
 		}
 	}

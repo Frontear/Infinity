@@ -3,6 +3,7 @@ package org.frontear.framework.manager.impl;
 import com.google.common.collect.*;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.TypeToken;
+import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.manager.IManager;
 
@@ -53,7 +54,8 @@ public abstract class Manager<T> implements IManager<T> {
 				logger.debug("Found target: %s", target.getSimpleName());
 
 				try {
-					if (!target.isAnnotationPresent(Deprecated.class) && parent.isAssignableFrom(target)) {
+					if ((Client.DEBUG || !target.isAnnotationPresent(Deprecated.class)) && parent
+							.isAssignableFrom(target)) {
 						logger.debug("Target of type '%s'", parent.getSimpleName());
 						final Constructor<? extends T> constructor = target.asSubclass(parent).getDeclaredConstructor();
 						constructor.setAccessible(true);

@@ -16,6 +16,8 @@ import java.util.Objects;
  * An implementation of {@link IClient}
  */
 public abstract class Client implements IClient {
+	public static final boolean DEBUG = Boolean.parseBoolean(System
+			.getProperty("frontear.debug", "false")); // either get value of frontear.debug, or return false if it doesn't exist
 	private final ModInfo info;
 	private final Logger logger;
 	private final Config config;
