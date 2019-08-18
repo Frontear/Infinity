@@ -10,6 +10,7 @@ import org.frontear.framework.manager.IManager;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -44,7 +45,7 @@ public abstract class Manager<T> implements IManager<T> {
 		//noinspection unchecked
 		final Class<T> parent = (Class<T>) new TypeToken<T>(getClass()) {}.getRawType();
 		logger.debug("Found parent: %s", parent.getSimpleName());
-		final Set<T> objects = Sets.newHashSet();
+		final Set<T> objects = Sets.newLinkedHashSet(); // forced order of elements
 
 		try {
 			logger.debug("Searching ClassLoader for classes in '%s'", pkg);

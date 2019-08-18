@@ -17,7 +17,7 @@ public final class Config implements IConfig {
 	private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting()
 			.create();
 	private static final Logger logger = new Logger("Config");
-	private final Set<IConfigurable<?>> configurables = Sets.newHashSet();
+	private final Set<IConfigurable<?>> configurables = Sets.newLinkedHashSet();
 	private final File config_file;
 
 	/**
