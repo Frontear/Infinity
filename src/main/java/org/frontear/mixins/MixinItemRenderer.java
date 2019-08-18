@@ -20,6 +20,7 @@ import org.spongepowered.asm.mixin.*;
 	 * @param partialTicks The degree of how far you've gone into one tick (as a decimal percentage)
 	 *
 	 * @author Frontear
+	 * @reason Allow 1.7 blockhit animations back into the game
 	 */
 	@Overwrite public void renderItemInFirstPerson(float partialTicks) {
 		float f = 1.0F - (this.prevEquippedProgress + (this.equippedProgress - this.prevEquippedProgress) * partialTicks);
@@ -43,9 +44,6 @@ import org.spongepowered.asm.mixin.*;
 				final float progress = !Ghost.active() ? f1 : 0.0F;
 
 				switch (enumaction) {
-					case NONE:
-						this.transformFirstPersonItem(f, 0.0F);
-						break;
 					case EAT:
 					case DRINK:
 						this.performDrinking(abstractclientplayer, partialTicks);
@@ -58,6 +56,8 @@ import org.spongepowered.asm.mixin.*;
 					case BOW:
 						this.transformFirstPersonItem(f, progress);
 						this.doBowTransformations(partialTicks, abstractclientplayer);
+					default:
+						this.transformFirstPersonItem(f, 0.0F);
 				}
 			}
 			else {
@@ -65,6 +65,7 @@ import org.spongepowered.asm.mixin.*;
 				this.transformFirstPersonItem(f, f1);
 			}
 
+			//noinspection deprecation
 			this.renderItem(abstractclientplayer, this.itemToRender, ItemCameraTransforms.TransformType.FIRST_PERSON);
 		}
 		else if (!abstractclientplayer.isInvisible()) {
