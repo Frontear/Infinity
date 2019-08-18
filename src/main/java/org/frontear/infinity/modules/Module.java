@@ -36,15 +36,15 @@ public abstract class Module implements IConfigurable<Module> {
 	protected void onToggle(boolean active) {}
 
 	public void setActive(boolean active) {
-		if (this.active != active) {
-			onToggle(active);
-		}
-
-		if (this.active = active) {
+		if (active) {
 			MinecraftForge.EVENT_BUS.register(this);
 		}
 		else {
 			MinecraftForge.EVENT_BUS.unregister(this);
+		}
+
+		if (this.active != active) {
+			onToggle(this.active = active);
 		}
 	}
 

@@ -3,8 +3,8 @@ package org.frontear.infinity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.client.impl.Client;
-import org.frontear.infinity.events.execution.ShutdownEvent;
-import org.frontear.infinity.events.execution.StartupEvent;
+import org.frontear.infinity.events.client.ShutdownEvent;
+import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.modules.ModuleManager;
 import org.lwjgl.opengl.Display;
 

@@ -1,7 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.infinity.events.execution.ShutdownEvent;
+import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 

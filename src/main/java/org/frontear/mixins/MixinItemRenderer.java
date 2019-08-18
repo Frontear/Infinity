@@ -56,6 +56,7 @@ import org.spongepowered.asm.mixin.*;
 					case BOW:
 						this.transformFirstPersonItem(f, progress);
 						this.doBowTransformations(partialTicks, abstractclientplayer);
+						break;
 					default:
 						this.transformFirstPersonItem(f, 0.0F);
 				}
@@ -85,9 +86,9 @@ import org.spongepowered.asm.mixin.*;
 
 	@Shadow protected abstract void renderItemMap(AbstractClientPlayer clientPlayer, float pitch, float equipmentProgress, float swingProgress);
 
-	@Shadow protected abstract void transformFirstPersonItem(float equipProgress, float swingProgress);
-
 	@Shadow protected abstract void performDrinking(AbstractClientPlayer clientPlayer, float partialTicks);
+
+	@Shadow protected abstract void transformFirstPersonItem(float equipProgress, float swingProgress);
 
 	@Shadow protected abstract void doBlockTransformations();
 
