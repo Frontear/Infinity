@@ -8,7 +8,9 @@
   "mixins": [
     "MixinBlockModelRenderer",
     "MixinEntity",
+    "MixinEntityRenderer",
     "MixinFontRenderer",
+    "MixinItemRenderer",
     "MixinMinecraft"
   ]
 }
