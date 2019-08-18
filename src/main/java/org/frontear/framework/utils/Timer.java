@@ -18,4 +18,9 @@ public final class Timer {
 	public long getElapsed(TimeUnit unit) {
 		return (System.nanoTime() - nanoseconds) / unit.getDivisor();
 	}
+
+	@Override public String toString() {
+		return String
+				.format("%02d:%02d:%02d.%03d", getElapsed(TimeUnit.HOUR) % 24, getElapsed(TimeUnit.MINUTE) % 60, getElapsed(TimeUnit.SECOND) % 60, getElapsed(TimeUnit.MILLISECOND) % 1000);
+	}
 }
