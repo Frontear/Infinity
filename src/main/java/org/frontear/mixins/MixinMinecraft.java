@@ -25,8 +25,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.File;
 
-@Mixin(Minecraft.class) @Interface(iface = IMinecraftWrapper.class,
-		prefix = "wrap$") public abstract class MixinMinecraft implements IMinecraftWrapper {
+@Mixin(Minecraft.class) @Implements(@Interface(iface = IMinecraftWrapper.class,
+		prefix = "wrap$")) public abstract class MixinMinecraft implements IMinecraftWrapper {
 	@Shadow public FontRenderer fontRendererObj;
 	@Shadow public RenderGlobal renderGlobal;
 	@Shadow public EntityPlayerSP thePlayer;

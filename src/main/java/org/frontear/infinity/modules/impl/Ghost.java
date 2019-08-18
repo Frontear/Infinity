@@ -10,21 +10,23 @@ import org.lwjgl.opengl.Display;
 import java.util.Set;
 
 public final class Ghost extends Module {
-	private static Ghost self;
+	private static Ghost self = null;
 	private Set<Module> unsafe = Sets.newHashSet();
 
 	public Ghost() {
 		super(Keyboard.KEY_G, true);
+		if (self == null) {
+			self = this; // oh god gson
+		}
 	}
 
 	public static boolean active() {
 		return self.isActive();
 	}
 
-	// we don't want to save active state, since Ghost should not persist through instances, and should rather manually be called
 	@Override public void load(Module self) {
-		super.setBind(self.getBind());
-		Ghost.self = this; // some bug with serialization. To test, move this back into constructor. Ghost.self.isActive will not be the same as this.isActive (the former won't even toggle)
+		this.setBind(self.getBind());
+		this.setActive(false);
 	}
 
 	@Override protected void onToggle(boolean active) {
