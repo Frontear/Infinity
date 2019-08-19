@@ -9,7 +9,7 @@ public final class Panic extends Module {
 		super(Keyboard.KEY_P, true);
 	}
 
-	@Override public void setActive(boolean active) {
+	@Override public void toggle() {
 		Infinity.inst().getModules().getObjects().filter(Module::isActive).forEach(Module::toggle);
 
 		super.setActive(false);
