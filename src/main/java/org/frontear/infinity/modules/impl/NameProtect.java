@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.frontear.infinity.events.render.FontEvent;
+import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 public final class NameProtect extends Module {
 	public NameProtect() {
-		super(Keyboard.KEY_N, false);
+		super(Keyboard.KEY_N, false, Category.RENDER);
 	}
 
 	@SubscribeEvent public void onFont(FontEvent event) {

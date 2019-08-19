@@ -6,12 +6,13 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
 public final class NoFOV extends Module {
 	public NoFOV() {
-		super(Keyboard.KEY_V, true);
+		super(Keyboard.KEY_V, true, Category.RENDER);
 	}
 
 	@SubscribeEvent public void onFOV(FOVUpdateEvent event) {

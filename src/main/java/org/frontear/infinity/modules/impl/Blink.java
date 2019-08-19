@@ -5,6 +5,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.infinity.events.client.PacketEvent;
+import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.frontear.infinity.utils.EntityUtils;
 import org.lwjgl.input.Keyboard;
@@ -16,7 +17,7 @@ import java.util.Deque;
 	private final Deque<Packet> packets = Queues.newArrayDeque();
 
 	public Blink() {
-		super(Keyboard.KEY_Z, false);
+		super(Keyboard.KEY_Z, false, Category.RENDER);
 	}
 
 	@Override protected void onToggle(boolean active) {

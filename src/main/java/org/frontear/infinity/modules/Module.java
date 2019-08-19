@@ -8,12 +8,14 @@ import org.frontear.wrapper.IMinecraftWrapper;
 public abstract class Module implements IConfigurable<Module> {
 	protected static final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
 	private final boolean safe; // safe to use during Ghost
+	private final Category category;
 	@Expose private int bind;
 	@Expose private boolean active = false;
 
-	public Module(int bind, boolean safe) {
+	public Module(int bind, boolean safe, Category category) {
 		this.bind = bind;
 		this.safe = safe;
+		this.category = category;
 	}
 
 	@Override public void load(Module self) {
@@ -54,5 +56,9 @@ public abstract class Module implements IConfigurable<Module> {
 
 	public void toggle() {
 		setActive(!isActive());
+	}
+
+	public Category getCategory() {
+		return category;
 	}
 }

@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.render.BlockEvent;
+import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
@@ -14,7 +15,7 @@ public final class Xray extends Module {
 	private boolean last_fullbright;
 
 	public Xray() {
-		super(Keyboard.KEY_X, false);
+		super(Keyboard.KEY_X, false, Category.RENDER);
 	}
 
 	@SubscribeEvent public void onBlock(BlockEvent event) {

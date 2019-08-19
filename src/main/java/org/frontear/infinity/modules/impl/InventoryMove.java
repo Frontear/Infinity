@@ -6,6 +6,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.frontear.infinity.events.client.PacketEvent;
+import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
@@ -17,7 +18,7 @@ import java.util.Arrays;
 			.getGameSettings().keyBindSneak };
 
 	public InventoryMove() {
-		super(Keyboard.KEY_K, false);
+		super(Keyboard.KEY_K, false, Category.PLAYER);
 	}
 
 	@SubscribeEvent public void onTick(TickEvent.PlayerTickEvent event) {

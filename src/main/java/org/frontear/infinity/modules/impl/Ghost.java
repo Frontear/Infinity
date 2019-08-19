@@ -3,6 +3,7 @@ package org.frontear.infinity.modules.impl;
 import com.google.common.collect.Sets;
 import net.minecraftforge.fml.common.Loader;
 import org.frontear.infinity.Infinity;
+import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -14,7 +15,7 @@ public final class Ghost extends Module {
 	private Set<Module> unsafe = Sets.newHashSet();
 
 	public Ghost() {
-		super(Keyboard.KEY_G, true);
+		super(Keyboard.KEY_G, true, Category.NONE);
 		if (self == null) {
 			self = this; // oh god gson
 		}

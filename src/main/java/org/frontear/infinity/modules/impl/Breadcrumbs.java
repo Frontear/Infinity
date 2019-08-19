@@ -7,6 +7,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.utils.Timer;
 import org.frontear.infinity.events.entity.UpdateEvent;
+import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
@@ -19,7 +20,7 @@ public class Breadcrumbs extends Module {
 	private final Timer timer = new Timer();
 
 	public Breadcrumbs() {
-		super(Keyboard.KEY_J, false);
+		super(Keyboard.KEY_J, false, Category.RENDER);
 	}
 
 	@Override protected void onToggle(boolean active) {

@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.frontear.framework.utils.TimeUnit;
 import org.frontear.framework.utils.Timer;
+import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
@@ -15,7 +16,7 @@ public final class AutoClicker extends Module {
 	private final int[] cps = { 11, 13 }; // autoclicker does not actually hit these speeds, since they serve more so as a range
 
 	public AutoClicker() {
-		super(Keyboard.KEY_C, true);
+		super(Keyboard.KEY_C, true, Category.COMBAT);
 	}
 
 	@SubscribeEvent public void onTick(TickEvent.PlayerTickEvent event) {
