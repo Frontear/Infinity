@@ -65,6 +65,7 @@ public abstract class Drawable {
 	public void draw(float scale) {
 		scale = 1f; // todo: fix scaling
 
+		glPushAttrib(GL_CURRENT_BIT);
 		glPushMatrix();
 		{
 			glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
@@ -82,10 +83,9 @@ public abstract class Drawable {
 			//glDisable(GL_BLEND);
 			glEnable(GL_CULL_FACE);
 			glEnable(GL_TEXTURE_2D);
-
-			glColor4f(1f, 1f, 1f, 1f);
 		}
 		glPopMatrix();
+		glPopAttrib();
 	}
 
 	protected abstract void render(int x, int y, int width, int height);
