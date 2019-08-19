@@ -51,8 +51,16 @@ public class Button extends Drawable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override public int getWidth() {
+		return rectangle.getWidth();
+	}
+
 	@Override public void setWidth(int width) {
 		rectangle.setWidth(width);
+	}
+
+	@Override public int getHeight() {
+		return rectangle.getHeight();
 	}
 
 	@Override public void setHeight(int height) {

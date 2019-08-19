@@ -6,12 +6,14 @@ import org.frontear.infinity.modules.gui.ClickGuiScreen;
 import org.lwjgl.input.Keyboard;
 
 public class ClickGui extends Module {
+	private final ClickGuiScreen screen = new ClickGuiScreen();
+
 	public ClickGui() {
 		super(Keyboard.KEY_RSHIFT, false, Category.NONE);
 	}
 
 	@Override public void toggle() {
-		mc.displayGuiScreen(new ClickGuiScreen());
+		mc.displayGuiScreen(screen);
 		super.setActive(false);
 	}
 }
