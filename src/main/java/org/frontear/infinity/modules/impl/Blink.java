@@ -27,8 +27,8 @@ import java.util.Deque;
 			mc.getWorld().removeEntityFromWorld(ID);
 
 			while (packets.size() > 0) {
-				if (mc.getNetworkManager().isChannelOpen()) {
-					mc.getNetworkManager().sendPacket(packets.remove());
+				if (mc.getPlayer().sendQueue.getNetworkManager().isChannelOpen()) {
+					mc.getPlayer().sendQueue.getNetworkManager().sendPacket(packets.remove());
 				}
 			}
 		}

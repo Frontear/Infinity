@@ -8,8 +8,12 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
+import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.entity.UpdateEvent;
+import org.frontear.infinity.modules.impl.SafeWalk;
 import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
@@ -50,6 +54,7 @@ import java.util.Random;
 	@Shadow protected boolean firstUpdate;
 	@Shadow private int nextStepDistance;
 	@Shadow private int fire;
+	private SafeWalk instance;
 
 	/**
 	 * @author Frontear
@@ -176,13 +181,31 @@ import java.util.Random;
 
 	@Shadow protected abstract void setFlag(int flag, boolean set);
 
+	/**
+	 * @param entity The entity instance
+	 *
+	 * @return Whether the entity should be bound within the current block or not
+	 *
+	 * @author Frontear
+	 * @see SafeWalk
+	 */
+	@Redirect(method = "moveEntity",
+			at = @At(value = "INVOKE",
+					target = "Lnet/minecraft/entity/Entity;isSneaking()Z")) private boolean isSneaking(Entity entity) {
+		if (instance == null) {
+			instance = Infinity.inst().getModules().get(SafeWalk.class);
+		}
+
+		return instance.isActive() || isSneaking();
+	}
+
+	@Shadow public abstract boolean isSneaking();
+
 	@Shadow public abstract AxisAlignedBB getEntityBoundingBox();
 
 	@Shadow public abstract void setEntityBoundingBox(AxisAlignedBB bb);
 
 	@Shadow protected abstract void resetPositionToBB();
-
-	@Shadow public abstract boolean isSneaking();
 
 	@Shadow protected abstract void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos);
 
