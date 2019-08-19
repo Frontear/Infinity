@@ -1,6 +1,5 @@
 package org.frontear.framework.manager;
 
-import javax.annotation.Nullable;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
@@ -13,7 +12,7 @@ public interface IManager<T> {
 	 *
 	 * @return target object, or throws {@link NoSuchElementException} if object cannot be found
 	 */
-	@Nullable default <T1 extends T> T1 get(Class<T1> target) {
+	default <T1 extends T> T1 get(Class<T1> target) {
 		//noinspection unchecked,OptionalGetWithoutIsPresent
 		return (T1) getObjects().filter(x -> x.getClass() == target).findFirst().get();
 	}
