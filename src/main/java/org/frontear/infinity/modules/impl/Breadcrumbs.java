@@ -3,7 +3,7 @@ package org.frontear.infinity.modules.impl;
 import com.google.common.collect.Queues;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.Vec3;
-import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.utils.Timer;
 import org.frontear.infinity.events.entity.UpdateEvent;
@@ -38,7 +38,8 @@ public class Breadcrumbs extends Module {
 		}
 	}
 
-	@SubscribeEvent public void onRender(RenderHandEvent event) {
+	@SubscribeEvent public void onRender(RenderWorldLastEvent event) {
+		final float width = 3.5f;
 		glPushMatrix();
 		{
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -54,7 +55,7 @@ public class Breadcrumbs extends Module {
 				// GL cannot work with lambdas due to how GLContext handles capabilities on threads
 				for (Vec3 pos : positions) {
 					glVertex3d(pos.xCoord - mc
-							.getRenderManager().renderPosX, (pos.yCoord + 0.0175) - mc // raise line above the ground, so that half of it isn't inside a block
+							.getRenderManager().renderPosX, (pos.yCoord + (width / 200f)) - mc // raise line above the ground, so that half of it isn't inside a block
 							.getRenderManager().renderPosY, pos.zCoord - mc.getRenderManager().renderPosZ);
 				}
 			}
