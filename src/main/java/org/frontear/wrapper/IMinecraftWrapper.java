@@ -39,4 +39,6 @@ public interface IMinecraftWrapper {
 	Session getSession();
 
 	RenderManager getRenderManager();
+
+	void displayGuiScreen(GuiScreen screen);
 }

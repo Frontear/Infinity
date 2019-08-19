@@ -12,13 +12,20 @@ public abstract class Drawable {
 	private Color color;
 
 	/**
+	 * An empty constructor for a {@link Drawable} object
+	 */
+	public Drawable() {
+		this(0, 0, 0, 0, null);
+	}
+
+	/**
 	 * The constructor for a {@link Drawable} object
 	 *
-	 * @param x      The x-coordinate of the object
-	 * @param y      The y-coordinate of the object
-	 * @param width  The width of the object
-	 * @param height The height of the object
-	 * @param color  The color of the object
+	 * @param x      The x-coordinate of the {@link Drawable}
+	 * @param y      The y-coordinate of the {@link Drawable}
+	 * @param width  The width of the {@link Drawable}
+	 * @param height The height of the {@link Drawable}
+	 * @param color  The color of the {@link Drawable}
 	 */
 	public Drawable(int x, int y, int width, int height, Color color) {
 		this.x = x;
@@ -29,10 +36,10 @@ public abstract class Drawable {
 	}
 
 	/**
-	 * Sets the position of the object in an xy plane
+	 * Sets the position of the {@link Drawable} in an xy plane
 	 *
-	 * @param x The new x-coordinate of the object
-	 * @param y The new y-coordinate of the object
+	 * @param x The new x-coordinate of the {@link Drawable}
+	 * @param y The new y-coordinate of the {@link Drawable}
 	 */
 	public void setPosition(int x, int y) {
 		this.x = x;
@@ -40,47 +47,24 @@ public abstract class Drawable {
 	}
 
 	/**
-	 * Sets the width of the object
-	 *
-	 * @param width The new width of the object
-	 */
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	/**
-	 * Sets the height of the object
-	 *
-	 * @param height The new height of the object
-	 */
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	/**
-	 * Sets the color of the object
-	 *
-	 * @param color The new color of the object
-	 */
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
-	/**
-	 * Draws the object in an OpenGL context. Color and scaling are automatically applied. Additionally, {@link
-	 * org.lwjgl.opengl.GL11#GL_TEXTURE_2D} and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically disabled
+	 * Draws the {@link Drawable} in an OpenGL context. Color and scaling are automatically applied. Additionally,
+	 * {@link org.lwjgl.opengl.GL11#GL_TEXTURE_2D} and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically
+	 * disabled
 	 */
 	public final void draw() {
 		this.draw(1f);
 	}
 
 	/**
-	 * Draws the object in an OpenGL context. Color and scaling are automatically applied. Additionally, {@link
-	 * org.lwjgl.opengl.GL11#GL_TEXTURE_2D} and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically disabled
+	 * Draws the {@link Drawable} in an OpenGL context. Color and scaling are automatically applied. Additionally,
+	 * {@link org.lwjgl.opengl.GL11#GL_TEXTURE_2D} and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically
+	 * disabled
 	 *
-	 * @param scale The scaling of the object
+	 * @param scale The scaling of the {@link Drawable}
 	 */
-	public final void draw(float scale) {
+	public void draw(float scale) {
+		scale = 1f; // todo: fix scaling
+
 		glPushMatrix();
 		{
 			glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
@@ -98,9 +82,70 @@ public abstract class Drawable {
 			//glDisable(GL_BLEND);
 			glEnable(GL_CULL_FACE);
 			glEnable(GL_TEXTURE_2D);
+
+			glColor4f(1f, 1f, 1f, 1f);
 		}
 		glPopMatrix();
 	}
 
 	protected abstract void render(int x, int y, int width, int height);
+
+	/**
+	 * @return The x-coordinate of this {@link Drawable}
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
+	 * @return The y-coordinate of this {@link Drawable}
+	 */
+	public int getY() {
+		return y;
+	}
+
+	/**
+	 * @return The width of this {@link Drawable}
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * Sets the width of the {@link Drawable}
+	 *
+	 * @param width The new width of the {@link Drawable}
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	/**
+	 * @return The height of this {@link Drawable}
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * Sets the height of the {@link Drawable}
+	 *
+	 * @param height The new height of the {@link Drawable}
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	/**
+	 * Sets the color of the {@link Drawable}
+	 *
+	 * @param color The new color of the {@link Drawable}
+	 */
+	public void setColor(Color color) {
+		this.color = color;
+	}
 }

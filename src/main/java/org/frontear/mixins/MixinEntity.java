@@ -159,7 +159,9 @@ import java.util.Random;
 		this.worldObj.theProfiler.endSection();
 	}
 
-	private Entity self() { return (Entity) (Object) this; }
+	private Entity self() {
+		return (Entity) (Object) this;
+	}
 
 	@Shadow public abstract int getMaxInPortalTime();
 

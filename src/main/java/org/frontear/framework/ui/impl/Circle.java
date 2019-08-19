@@ -18,18 +18,6 @@ public final class Circle extends Drawable {
 		this.factor = factor;
 	}
 
-	@Deprecated @Override public void setWidth(int width) {
-		this.setRadius(width);
-	}
-
-	public void setRadius(int radius) {
-		this.radius = radius;
-	}
-
-	@Deprecated @Override public void setHeight(int height) {
-		this.setRadius(height);
-	}
-
 	// https://stackoverflow.com/a/24843626/9091276
 	@Override protected void render(int x, int y, int width, int height) {
 		glBegin(GL_TRIANGLE_FAN);
@@ -40,5 +28,17 @@ public final class Circle extends Drawable {
 			}
 		}
 		glEnd();
+	}
+
+	@Deprecated @Override public void setWidth(int width) {
+		this.setRadius(width);
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+
+	@Deprecated @Override public void setHeight(int height) {
+		this.setRadius(height);
 	}
 }

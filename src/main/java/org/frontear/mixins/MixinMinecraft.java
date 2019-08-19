@@ -136,4 +136,10 @@ import java.io.File;
 	@Intrinsic public RenderManager wrap$getRenderManager() {
 		return renderManager;
 	}
+
+	@Intrinsic public void wrap$displayGuiScreen(GuiScreen screen) {
+		shadow$displayGuiScreen(screen);
+	}
+
+	@Shadow public abstract void shadow$displayGuiScreen(GuiScreen guiScreenIn);
 }
