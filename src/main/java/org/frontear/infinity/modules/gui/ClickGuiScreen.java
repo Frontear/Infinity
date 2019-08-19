@@ -9,6 +9,7 @@ import org.frontear.infinity.ui.Button;
 import org.frontear.infinity.ui.Panel;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Deque;
 
@@ -19,6 +20,10 @@ public class ClickGuiScreen extends GuiScreen {
 	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		//this.drawDefaultBackground();
 		categoryPanels.forEach(Panel::draw);
+	}
+
+	@Override protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		categoryPanels.forEach(x -> x.mouse(mouseX, mouseY, mouseButton));
 	}
 
 	@Override public void initGui() {
@@ -34,7 +39,19 @@ public class ClickGuiScreen extends GuiScreen {
 				Module[] categoryModules = Infinity.inst().getModules().getObjects()
 						.filter(z -> z.getCategory() == category).toArray(Module[]::new);
 				for (Module module : categoryModules) {
-					panel.add(new Button(module.getName(), 0, 0, 0, 0, null)); // values set internally
+					panel.add(new Button(module.getName(), 0, 0, 0, 0, null, z -> {
+						module.toggle();
+					}) {
+						@Override public void draw(float scale) {
+							if (module.isActive()) {
+								setColor(new Color(255, 170, 0).darker().darker());
+							}
+							else {
+								setColor(new Color(255, 170, 0).darker());
+							}
+							super.draw(scale);
+						}
+					});
 				}
 
 				x += width + 5 + 2;
@@ -46,21 +63,3 @@ public class ClickGuiScreen extends GuiScreen {
 		}
 	}
 }
-/*
-	private Panel panel;
-	private Panel panel2;
-
-	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		panel.draw();
-		panel2.draw();
-	}
-
-	@Override public void initGui() {
-		this.panel = new Panel(5, 5, 100, 40, new Color(255, 170, 0).darker().darker()); // dark-gold color
-		this.panel2 = new Panel(5 + 100 + 10, 5, 100, 40, Color.LIGHT_GRAY);
-		for (int i = 0; i < 4; i++) {
-			panel.add(new Button("Test " + i, 0, 0, 0, 0, null));
-			panel2.add(new Button("Test2 " + i, 0, 0, 0, 0, null));
-		}
-	}
-*/

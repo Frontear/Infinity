@@ -30,6 +30,10 @@ public final class Circle extends Drawable {
 		glEnd();
 	}
 
+	@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {
+		throw new UnsupportedOperationException();
+	}
+
 	@Deprecated @Override public void setWidth(int width) {
 		this.setRadius(width);
 	}

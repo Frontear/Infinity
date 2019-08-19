@@ -21,4 +21,8 @@ public final class Rectangle extends Drawable {
 		}
 		glEnd();
 	}
+
+	@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {
+		throw new UnsupportedOperationException();
+	}
 }

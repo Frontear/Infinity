@@ -90,6 +90,12 @@ public abstract class Drawable {
 
 	protected abstract void render(int x, int y, int width, int height);
 
+	public void mouse(int mouseX, int mouseY, int button) {
+		click(mouseX, mouseY, mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth() && mouseY < getY() + getHeight(), button);
+	}
+
+	protected abstract void click(int mouseX, int mouseY, boolean hover, int button);
+
 	/**
 	 * @return The x-coordinate of this {@link Drawable}
 	 */
