@@ -1,5 +1,6 @@
 package org.frontear.infinity.modules.impl;
 
+import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.*;
@@ -14,6 +15,7 @@ import org.lwjgl.input.Keyboard;
 public class Freecam extends Module {
 	private static final byte ID = -2;
 	private C03PacketPlayer packet;
+	private EntityOtherPlayerMP clone;
 
 	public Freecam() {
 		super(Keyboard.KEY_I, false, Category.RENDER);
@@ -27,9 +29,6 @@ public class Freecam extends Module {
 				.getPacket() instanceof C07PacketPlayerDigging || event
 				.getPacket() instanceof C08PacketPlayerBlockPlacement*/) {
 			event.setPacket(null);
-		}
-		else if (event.getPacket().getClass().getSimpleName().startsWith("C")) {
-			System.out.println(event.getPacket().getClass());
 		}
 	}
 
@@ -56,30 +55,32 @@ public class Freecam extends Module {
 
 	@Override protected void onToggle(boolean active) {
 		if (active) {
-			this.packet = new PacketPlayer(mc.getPlayer());
-			mc.getWorld().addEntityToWorld(ID, EntityUtils.clone(mc.getPlayer()));
+			this.packet = make(mc.getPlayer());
+			this.clone = EntityUtils.clone(mc.getPlayer());
+
+			mc.getWorld().addEntityToWorld(ID, clone);
 		}
 		else {
 			mc.getWorld().removeEntityFromWorld(ID);
 
 			mc.getPlayer()
-					.setPositionAndRotation(packet.getPositionX(), packet.getPositionY(), packet.getPositionZ(), packet
-							.getYaw(), packet.getPitch());
+					.setPositionAndRotation(clone.posX, clone.posY, clone.posZ, clone.rotationYaw, clone.rotationPitch);
 			mc.getPlayer().setVelocity(0, 0, 0);
 			mc.getPlayer().noClip = false;
 		}
 	}
 
-	private static class PacketPlayer extends C03PacketPlayer {
-		PacketPlayer(EntityPlayer player) {
-			this.x = player.posX;
-			this.y = player.posY;
-			this.z = player.posZ;
-			this.yaw = player.rotationYaw;
-			this.pitch = player.rotationPitch;
-			this.onGround = player.onGround;
-			this.moving = false;
-			this.rotating = false;
-		}
+	private C03PacketPlayer make(EntityPlayer player) {
+		final C03PacketPlayer packet = new C03PacketPlayer();
+		packet.x = player.posX;
+		packet.y = player.posY;
+		packet.z = player.posZ;
+		packet.yaw = player.rotationYaw;
+		packet.pitch = player.rotationPitch;
+		packet.onGround = player.onGround;
+		packet.moving = false; //player.motionX != 0 || player.motionY != 0 || player.motionZ != 0;
+		packet.rotating = false; //player.rotationYaw != player.prevRotationYaw || player.rotationPitch != player.prevRotationPitch;
+
+		return packet;
 	}
 }
