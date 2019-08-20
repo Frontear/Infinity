@@ -1,6 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +23,8 @@ public class ESP extends Module {
 
 	@SubscribeEvent public void onRender(RenderWorldLastEvent event) {
 		mc.getWorld().getLoadedEntityList().stream().filter(x -> !x.equals(mc.getPlayer())).forEach(x -> {
-			final Color color = x instanceof EntityPlayer ? Color.WHITE : x instanceof EntityAnimal ? Color.YELLOW : x instanceof EntityMob ? Color.RED : null;
+			final Color color = x instanceof EntityPlayer ? Color.WHITE : x instanceof EntityLivingBase && x
+					.isInvisible() ? Color.PINK : x instanceof EntityAnimal ? Color.YELLOW : x instanceof EntityMob ? Color.RED : null;
 			if (color != null) {
 				this.renderESP(x, color, event.partialTicks);
 			}

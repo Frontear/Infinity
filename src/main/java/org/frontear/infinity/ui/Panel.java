@@ -40,12 +40,12 @@ public class Panel extends Drawable {
 		buttons.forEach(x -> x.draw(scale));
 	}
 
-	@Override public void mouse(int mouseX, int mouseY, int button) {
-		buttons.forEach(x -> x.mouse(mouseX, mouseY, button));
-	}
-
 	@Override protected void render(int x, int y, int width, int height) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override public void mouse(int mouseX, int mouseY, int button) {
+		buttons.forEach(x -> x.mouse(mouseX, mouseY, button));
 	}
 
 	@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {
