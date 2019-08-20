@@ -16,16 +16,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	 * @author Frontear
 	 * @see UpdateEvent
 	 */
-	@Inject(method = "onEntityUpdate",
+	@Inject(method = "onEntityUpdate", id = "updateEvent",
 			at = { @At(value = "HEAD",
 					id = "pre"), @At(value = "TAIL",
 					id = "post") }) private void onEntityUpdate(CallbackInfo info) {
 		final Entity self = (Entity) (Object) this;
 
-		if (info.getId().equals("onEntityUpdate:pre")) {
+		if (info.getId().equals("updateEvent:pre")) {
 			MinecraftForge.EVENT_BUS.post(new UpdateEvent(self, true));
 		}
-		else if (info.getId().equals("onEntityUpdate:post")) {
+		else if (info.getId().equals("updateEvent:post")) {
 			MinecraftForge.EVENT_BUS.post(new UpdateEvent(self, false));
 		}
 	}
