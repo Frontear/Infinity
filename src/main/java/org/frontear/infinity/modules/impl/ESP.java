@@ -1,7 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
@@ -12,7 +12,6 @@ import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
-import java.util.stream.IntStream;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -22,15 +21,16 @@ public class ESP extends Module {
 	}
 
 	@SubscribeEvent public void onRender(RenderWorldLastEvent event) {
-		for (Entity entity : mc.getWorld().getLoadedEntityList()) {
-			final Color color = entity instanceof EntityPlayer ? Color.WHITE : entity instanceof EntityAnimal ? Color.YELLOW : null;
+		mc.getWorld().getLoadedEntityList().stream().filter(x -> !x.equals(mc.getPlayer())).forEach(x -> {
+			final Color color = x instanceof EntityPlayer ? Color.WHITE : x instanceof EntityAnimal ? Color.YELLOW : x instanceof EntityMob ? Color.RED : null;
 			if (color != null) {
-				this.renderESP(entity, color, event.partialTicks);
+				this.renderESP(x, color, event.partialTicks);
 			}
-		}
+		});
 	}
 
 	private void renderESP(Entity entity, Color color, float partialTicks) {
+		glPushAttrib(GL_CURRENT_BIT);
 		glPushMatrix();
 		{
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -52,7 +52,8 @@ public class ESP extends Module {
 				double z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - mc
 						.getRenderManager().renderPosZ;
 
-				drawBox(AxisAlignedBB.fromBounds(x - entity.width / 2, y, z - entity.width / 2, x + entity.width / 2, y + entity.height, z + entity.width / 2)); // this sanitizes the bounds
+				drawBox(AxisAlignedBB
+						.fromBounds(x - entity.width / 2, y, z - entity.width / 2, x + entity.width / 2, y + entity.height, z + entity.width / 2)); // this sanitizes the bounds
 			}
 			glEnd();
 
@@ -62,6 +63,7 @@ public class ESP extends Module {
 			glDisable(GL_BLEND);
 		}
 		glPopMatrix();
+		glPopAttrib();
 	}
 
 	private void drawBox(AxisAlignedBB bound) {
