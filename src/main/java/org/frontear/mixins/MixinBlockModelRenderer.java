@@ -16,10 +16,10 @@ import org.spongepowered.asm.mixin.*;
 	 * @param blockAccessIn   Block access class
 	 * @param modelIn         Block model
 	 * @param blockStateIn    State of the block
-	 * @param blockPosIn      Positions of the block
+	 * @param blockPosIn      Position of the block
 	 * @param worldRendererIn The global world renderer
 	 *
-	 * @return if successful, true, else false
+	 * @return true if rendered successfully, else false
 	 *
 	 * @author Frontear
 	 * @see BlockEvent
@@ -30,8 +30,8 @@ import org.spongepowered.asm.mixin.*;
 		BlockEvent event = new BlockEvent(block, true, true);
 		MinecraftForge.EVENT_BUS.post(event);
 		if (event.shouldRender()) {
-			return this
-					.renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, worldRendererIn, event.checkSide());
+			return this.renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, worldRendererIn, event
+					.checkSide()); // todo: fire event from deeper into the BlockModelRenderer, as the other methods are public, meaning rendering could be happening at a deeper level without us realizing
 		}
 
 		return false;

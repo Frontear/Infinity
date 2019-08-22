@@ -11,7 +11,6 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.Session;
 import net.minecraft.util.Timer;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.events.input.KeyEvent;
@@ -20,7 +19,8 @@ import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.File;
@@ -58,33 +58,27 @@ import java.io.File;
 	}
 
 	/**
-	 * @param common The {@link FMLCommonHandler} instance
-	 *
 	 * @author Frontear
 	 * @see KeyEvent
-	 */
-	@Redirect(method = "runTick",
-			at = @At(value = "INVOKE",
-					target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireKeyInput()V",
-					remap = false)) private void fireKeyInput(FMLCommonHandler common) {
-		MinecraftForge.EVENT_BUS
-				.post(new KeyEvent(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard
-						.getEventKey(), Keyboard.getEventKeyState()));
-		common.fireKeyInput();
-	}
-
-	/**
-	 * @param common The {@link FMLCommonHandler} instance
-	 *
-	 * @author Frontear
 	 * @see MouseEvent
 	 */
-	@Redirect(method = "runTick",
-			at = @At(value = "INVOKE",
+	@Inject(method = "runTick",
+			id = "inputEvent",
+			at = { @At(value = "INVOKE",
+					id = "key",
+					target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireKeyInput()V",
+					remap = false), @At(value = "INVOKE",
+					id = "mouse",
 					target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireMouseInput()V",
-					remap = false)) private void fireMouseInput(FMLCommonHandler common) {
-		MinecraftForge.EVENT_BUS.post(new MouseEvent(Mouse.getEventButton(), Mouse.getEventButtonState()));
-		common.fireMouseInput();
+					remap = false) }) private void runTick(CallbackInfo info) {
+		if (info.getId().equals("inputEvent:key")) {
+			MinecraftForge.EVENT_BUS
+					.post(new KeyEvent(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard
+							.getEventKey(), Keyboard.getEventKeyState()));
+		}
+		else if (info.getId().equals("inputEvent:mouse")) {
+			MinecraftForge.EVENT_BUS.post(new MouseEvent(Mouse.getEventButton(), Mouse.getEventButtonState()));
+		}
 	}
 
 	@Override public Timer getTimer() {

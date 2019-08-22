@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(EntityRenderer.class) public class MixinEntityRenderer {
+@Mixin(EntityRenderer.class) public abstract class MixinEntityRenderer {
 	/**
 	 * @param angle The angle to turn the screen
 	 * @param x     The x-coordinate to rotate from
@@ -38,6 +38,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 			at = @At(value = "INVOKE",
 					target = "Lnet/minecraft/entity/EntityLivingBase;isPotionActive(Lnet/minecraft/potion/Potion;)Z",
 					ordinal = 0)) private boolean isPotionActive(EntityLivingBase entity, Potion potion) {
-		return Ghost.active() && entity.isPotionActive(potion);
+		return Ghost.active() && entity.isPotionActive(potion); // todo: remove sky blacking
 	}
 }

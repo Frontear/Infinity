@@ -33,9 +33,9 @@ import org.spongepowered.asm.mixin.*;
 		}
 
 		final EnumConnectionState enumconnectionstate = EnumConnectionState.getFromPacket(inPacket);
-		final EnumConnectionState enumconnectionstate1 = this.channel.attr(attrKeyConnectionState).get();
 
-		final boolean condition = enumconnectionstate != enumconnectionstate1 && !(inPacket instanceof FMLProxyPacket);
+		final boolean condition = enumconnectionstate != this.channel.attr(attrKeyConnectionState)
+				.get() && !(inPacket instanceof FMLProxyPacket);
 
 		if (condition) {
 			logger.debug("Disabled auto read");

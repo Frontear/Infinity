@@ -16,7 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	 * @author Frontear
 	 * @see UpdateEvent
 	 */
-	@Inject(method = "onEntityUpdate", id = "updateEvent",
+	@Inject(method = "onEntityUpdate",
+			id = "updateEvent",
 			at = { @At(value = "HEAD",
 					id = "pre"), @At(value = "TAIL",
 					id = "post") }) private void onEntityUpdate(CallbackInfo info) {
