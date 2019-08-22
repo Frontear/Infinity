@@ -26,7 +26,8 @@ public final class Logger implements ILogger {
 	 * Creates a logger instance, and will automatically find the Class name
 	 */
 	public Logger() {
-		this.log = LogManager.getLogger(Thread.currentThread().getStackTrace()[2].getClassName());
+		final String[] split = Thread.currentThread().getStackTrace()[2].getClassName().split("\\.");
+		this.log = LogManager.getLogger(split[split.length - 1]);
 	}
 
 	/**
