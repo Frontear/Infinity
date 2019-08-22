@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Deque;
 
-public class ClickGuiScreen extends GuiScreen {
+public final class ClickGuiScreen extends GuiScreen {
 	private Deque<Panel> categoryPanels = Queues.newArrayDeque();
 	private boolean init = false; // prevents initGui from being called more than once
 

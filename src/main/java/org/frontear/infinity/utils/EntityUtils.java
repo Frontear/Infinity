@@ -3,7 +3,7 @@ package org.frontear.infinity.utils;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class EntityUtils {
+public final class EntityUtils {
 	public static EntityOtherPlayerMP clone(EntityPlayer player) {
 		final EntityOtherPlayerMP clone = new EntityOtherPlayerMP(player.worldObj, player.getGameProfile());
 

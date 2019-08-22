@@ -5,7 +5,7 @@ import org.frontear.infinity.modules.Module;
 import org.frontear.infinity.modules.gui.ClickGuiScreen;
 import org.lwjgl.input.Keyboard;
 
-public class ClickGui extends Module {
+public final class ClickGui extends Module {
 	private final ClickGuiScreen screen = new ClickGuiScreen();
 
 	public ClickGui() {

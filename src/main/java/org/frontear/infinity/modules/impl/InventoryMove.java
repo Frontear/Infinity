@@ -12,7 +12,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 
-@Deprecated public class InventoryMove extends Module {
+@Deprecated public final class InventoryMove extends Module {
 	private final KeyBinding[] keys = { mc.getGameSettings().keyBindForward, mc.getGameSettings().keyBindLeft, mc
 			.getGameSettings().keyBindBack, mc.getGameSettings().keyBindRight, mc.getGameSettings().keyBindJump, mc
 			.getGameSettings().keyBindSneak };

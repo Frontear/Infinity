@@ -15,7 +15,7 @@ import java.util.Deque;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Breadcrumbs extends Module {
+public final class Breadcrumbs extends Module {
 	private final Deque<Vec3> positions = Queues.newArrayDeque();
 	private final Timer timer = new Timer();
 

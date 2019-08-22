@@ -6,6 +6,7 @@ import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.logger.impl.Logger;
+import org.frontear.framework.utils.Timer;
 import org.frontear.wrapper.IMinecraftWrapper;
 
 import java.io.*;
@@ -18,6 +19,7 @@ import java.util.Objects;
 public abstract class Client implements IClient {
 	public static final boolean DEBUG = Boolean.parseBoolean(System
 			.getProperty("frontear.debug", "false")); // either get value of frontear.debug, or return false if it doesn't exist
+	public static final Timer UPTIME = new Timer();
 	private final ModInfo info;
 	private final Logger logger;
 	private final Config config;
@@ -27,6 +29,7 @@ public abstract class Client implements IClient {
 	 * singletons
 	 */
 	protected Client() {
+		UPTIME.reset(); // intentional, as we want to only know exactly how long it has been since client started to load
 		{
 			final InputStream mcmod = Objects
 					.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("mcmod.info"));

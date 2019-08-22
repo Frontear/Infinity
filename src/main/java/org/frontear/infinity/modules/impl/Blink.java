@@ -12,7 +12,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Deque;
 
-@Deprecated public class Blink extends Module {
+@Deprecated public final class Blink extends Module {
 	private static final byte ID = -1;
 	private final Deque<Packet> packets = Queues.newArrayDeque();
 

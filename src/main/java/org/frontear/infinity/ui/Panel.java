@@ -7,7 +7,7 @@ import org.frontear.framework.ui.impl.Rectangle;
 import java.awt.*;
 import java.util.Set;
 
-public class Panel extends Drawable {
+public final class Panel extends Drawable {
 	private static final int offset = 2;
 	private final Set<Button> buttons = Sets.newLinkedHashSet();
 	private final Rectangle background;

@@ -36,7 +36,7 @@ public final class ModInfo implements IModInfo {
 	 *
 	 * @return A replaced string
 	 */
-	private String replaceLast(String string, String lookup, String replacement) {
+	@SuppressWarnings("SameParameterValue") private String replaceLast(String string, String lookup, String replacement) {
 		int lastIndexOf = string.lastIndexOf(lookup);
 		if (lastIndexOf > -1) { // found last instance of 'lookup'
 			return string.substring(0, lastIndexOf) + replacement + string.substring(lastIndexOf + lookup.length());

@@ -3,7 +3,7 @@ package org.frontear.infinity.events.client;
 import net.minecraft.network.Packet;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-public class PacketEvent extends Event {
+public final class PacketEvent extends Event {
 	private Packet packet;
 
 	public PacketEvent(Packet packet) {

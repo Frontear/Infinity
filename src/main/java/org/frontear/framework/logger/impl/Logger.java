@@ -23,6 +23,13 @@ public final class Logger implements ILogger {
 	}
 
 	/**
+	 * Creates a logger instance, and will automatically find the Class name
+	 */
+	public Logger() {
+		this.log = LogManager.getLogger(Thread.currentThread().getStackTrace()[2].getClassName());
+	}
+
+	/**
 	 * A fatal error should be seldom used, but it can indicate extremely bad problems
 	 *
 	 * @see ILogger#fatal(Throwable, Object, Object...)

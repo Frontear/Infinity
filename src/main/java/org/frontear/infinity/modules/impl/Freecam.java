@@ -12,7 +12,7 @@ import org.frontear.infinity.modules.Module;
 import org.frontear.infinity.utils.EntityUtils;
 import org.lwjgl.input.Keyboard;
 
-public class Freecam extends Module {
+public final class Freecam extends Module {
 	private static final byte ID = -2;
 	private C03PacketPlayer packet;
 	private EntityOtherPlayerMP clone;

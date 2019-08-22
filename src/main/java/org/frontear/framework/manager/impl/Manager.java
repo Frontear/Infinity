@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public abstract class Manager<T> implements IManager<T> {
-	private static final Logger logger = new Logger("Manager");
+	private static final Logger logger = new Logger();
 	private final ImmutableSet<T> objects;
 
 	/**

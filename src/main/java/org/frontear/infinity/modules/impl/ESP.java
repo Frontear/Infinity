@@ -16,7 +16,7 @@ import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class ESP extends Module {
+public final class ESP extends Module {
 	public ESP() {
 		super(Keyboard.KEY_H, false, Category.RENDER);
 	}
