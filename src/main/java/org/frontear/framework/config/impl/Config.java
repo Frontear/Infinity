@@ -14,13 +14,15 @@ import java.util.Set;
  * An implementation of {@link IConfig}
  */
 public final class Config implements IConfig {
-	private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting()
-			.create();
-	private static final Logger logger = new Logger("Config");
-	private final Set<IConfigurable<?>> configurables = Sets.newHashSet();
+	private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls()
+			.enableComplexMapKeySerialization().setPrettyPrinting().create();
+	private static final Logger logger = new Logger();
+	private final Set<IConfigurable<?>> configurables = Sets.newLinkedHashSet();
 	private final File config_file;
 
 	/**
+	 * Sets the file that will be written to via {@link Gson}
+	 *
 	 * @param config_file The file that will contain all {@link IConfigurable} objects
 	 */
 	public Config(File config_file) {

@@ -12,6 +12,8 @@ public final class ModInfo implements IModInfo {
 	private final String name, version, fullname, authors;
 
 	/**
+	 * Loads the mcmod.info which should be parsed as an {@link JsonObject}
+	 *
 	 * @param mcmod {@link JsonObject} which is created when loading the mcmod,info in {@link Client} construction
 	 */
 	public ModInfo(JsonObject mcmod) {
@@ -27,16 +29,7 @@ public final class ModInfo implements IModInfo {
 		}
 	}
 
-	/**
-	 * Replaces the last instance of a keyword in a specified string
-	 *
-	 * @param string      The string to replace in
-	 * @param lookup      The string to find
-	 * @param replacement The replacement
-	 *
-	 * @return A replaced string
-	 */
-	private String replaceLast(String string, String lookup, String replacement) {
+	@SuppressWarnings("SameParameterValue") private String replaceLast(String string, String lookup, String replacement) {
 		int lastIndexOf = string.lastIndexOf(lookup);
 		if (lastIndexOf > -1) { // found last instance of 'lookup'
 			return string.substring(0, lastIndexOf) + replacement + string.substring(lastIndexOf + lookup.length());

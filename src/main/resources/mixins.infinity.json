@@ -6,6 +6,13 @@
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinMinecraft"
+    "MixinBlockModelRenderer",
+    "MixinEntity",
+    "MixinEntityRenderer",
+    "MixinFontRenderer",
+    "MixinGameSettings",
+    "MixinItemRenderer",
+    "MixinMinecraft",
+    "MixinNetworkManager"
   ]
 }
