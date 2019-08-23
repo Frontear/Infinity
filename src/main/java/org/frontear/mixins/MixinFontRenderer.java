@@ -45,7 +45,7 @@ import org.spongepowered.asm.mixin.*;
 		return i;
 	}
 
-	@Shadow protected abstract void enableAlpha();
+	@Shadow(remap = false) protected abstract void enableAlpha();
 
 	@Shadow protected abstract void resetStyles();
 
