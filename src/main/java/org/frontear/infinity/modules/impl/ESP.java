@@ -1,5 +1,6 @@
 package org.frontear.infinity.modules.impl;
 
+import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
@@ -36,15 +37,12 @@ public final class ESP extends Module {
 		glPushMatrix();
 		{
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
 			glLineWidth(2f);
 
 			glEnable(GL_BLEND);
 			glEnable(GL_LINE_SMOOTH);
 			glDisable(GL_TEXTURE_2D);
 			glDisable(GL_DEPTH_TEST);
-
-			glBegin(GL_LINES);
 			{
 				// normalize using partial ticks
 				double x = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks) - mc
@@ -54,11 +52,10 @@ public final class ESP extends Module {
 				double z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - mc
 						.getRenderManager().renderPosZ;
 
-				drawBox(AxisAlignedBB
-						.fromBounds(x - entity.width / 2, y, z - entity.width / 2, x + entity.width / 2, y + entity.height, z + entity.width / 2)); // this sanitizes the bounds
+				RenderGlobal.drawOutlinedBoundingBox(AxisAlignedBB
+						.fromBounds(x - entity.width / 2, y, z - entity.width / 2, x + entity.width / 2, y + entity.height, z + entity.width / 2), color
+						.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 			}
-			glEnd();
-
 			glEnable(GL_DEPTH_TEST);
 			glEnable(GL_TEXTURE_2D);
 			glDisable(GL_LINE_SMOOTH);
@@ -66,43 +63,5 @@ public final class ESP extends Module {
 		}
 		glPopMatrix();
 		glPopAttrib();
-	}
-
-	private void drawBox(AxisAlignedBB bound) {
-		glVertex3d(bound.minX, bound.minY, bound.minZ);
-		glVertex3d(bound.maxX, bound.minY, bound.minZ);
-
-		glVertex3d(bound.maxX, bound.minY, bound.minZ);
-		glVertex3d(bound.maxX, bound.minY, bound.maxZ);
-
-		glVertex3d(bound.maxX, bound.minY, bound.maxZ);
-		glVertex3d(bound.minX, bound.minY, bound.maxZ);
-
-		glVertex3d(bound.minX, bound.minY, bound.maxZ);
-		glVertex3d(bound.minX, bound.minY, bound.minZ);
-
-		glVertex3d(bound.minX, bound.minY, bound.minZ);
-		glVertex3d(bound.minX, bound.maxY, bound.minZ);
-
-		glVertex3d(bound.maxX, bound.minY, bound.minZ);
-		glVertex3d(bound.maxX, bound.maxY, bound.minZ);
-
-		glVertex3d(bound.maxX, bound.minY, bound.maxZ);
-		glVertex3d(bound.maxX, bound.maxY, bound.maxZ);
-
-		glVertex3d(bound.minX, bound.minY, bound.maxZ);
-		glVertex3d(bound.minX, bound.maxY, bound.maxZ);
-
-		glVertex3d(bound.minX, bound.maxY, bound.minZ);
-		glVertex3d(bound.maxX, bound.maxY, bound.minZ);
-
-		glVertex3d(bound.maxX, bound.maxY, bound.minZ);
-		glVertex3d(bound.maxX, bound.maxY, bound.maxZ);
-
-		glVertex3d(bound.maxX, bound.maxY, bound.maxZ);
-		glVertex3d(bound.minX, bound.maxY, bound.maxZ);
-
-		glVertex3d(bound.minX, bound.maxY, bound.maxZ);
-		glVertex3d(bound.minX, bound.maxY, bound.minZ);
 	}
 }

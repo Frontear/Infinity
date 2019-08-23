@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
-public class KeyBindScreen extends GuiScreen {
+public final class KeyBindScreen extends GuiScreen {
 	private final Module module;
 	private final GuiScreen parent;
 
