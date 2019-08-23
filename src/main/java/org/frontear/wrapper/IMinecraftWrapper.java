@@ -2,8 +2,7 @@ package org.frontear.wrapper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -39,6 +38,8 @@ public interface IMinecraftWrapper {
 	Session getSession();
 
 	RenderManager getRenderManager();
+
+	GuiNewChat getChat();
 
 	void displayGuiScreen(GuiScreen screen);
 }

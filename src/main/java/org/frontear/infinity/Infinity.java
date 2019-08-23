@@ -3,6 +3,7 @@ package org.frontear.infinity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.client.impl.Client;
+import org.frontear.infinity.commands.CommandManager;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.modules.ModuleManager;
@@ -12,11 +13,13 @@ public final class Infinity extends Client {
 	private static Infinity inst;
 
 	private ModuleManager module_manager;
+	private CommandManager command_manager;
 
 	private Infinity() {
 		super();
 
 		MinecraftForge.EVENT_BUS.register(this.module_manager = new ModuleManager(getConfig()));
+		MinecraftForge.EVENT_BUS.register(this.command_manager = new CommandManager(getModInfo()));
 	}
 
 	public static Infinity inst() {
@@ -38,5 +41,9 @@ public final class Infinity extends Client {
 
 	public ModuleManager getModules() {
 		return module_manager;
+	}
+
+	public CommandManager getCommands() {
+		return command_manager;
 	}
 }
