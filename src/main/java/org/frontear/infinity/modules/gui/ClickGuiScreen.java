@@ -62,4 +62,8 @@ public final class ClickGuiScreen extends GuiScreen {
 			init = true;
 		}
 	}
+
+	@Override public boolean doesGuiPauseGame() {
+		return false;
+	}
 }

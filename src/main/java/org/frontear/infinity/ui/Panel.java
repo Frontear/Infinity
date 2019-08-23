@@ -31,7 +31,7 @@ public final class Panel extends Drawable {
 		background.setPosition(x - offset, y - offset);
 		for (Button button : buttons) {
 			button.setPosition(x, y);
-			y += button.getHeight() + offset;
+			y += button.getHeight();
 		}
 	}
 
@@ -59,7 +59,7 @@ public final class Panel extends Drawable {
 
 	@Override public void setHeight(int height) {
 		buttons.forEach(x -> x.setHeight(height));
-		background.setHeight(((height + offset) * buttons.size()) + offset);
+		background.setHeight(((height) * buttons.size()) + offset * 2);
 	}
 
 	@Override public void setColor(Color color) {
