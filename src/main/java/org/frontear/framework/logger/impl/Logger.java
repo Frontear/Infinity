@@ -16,6 +16,8 @@ public final class Logger implements ILogger {
 	private final org.apache.logging.log4j.Logger log;
 
 	/**
+	 * Creates a logger instance with prefix beginning with your specified name
+	 *
 	 * @param name Will prefix all log stream outputs
 	 */
 	public Logger(String name) {
@@ -23,7 +25,7 @@ public final class Logger implements ILogger {
 	}
 
 	/**
-	 * Creates a logger instance, and will automatically find the Class name
+	 * Creates a logger instance, and will automatically find the class name
 	 */
 	public Logger() {
 		final String[] split = Thread.currentThread().getStackTrace()[2].getClassName().split("\\.");

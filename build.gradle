@@ -23,7 +23,7 @@ apply plugin: "org.spongepowered.mixin"
 apply plugin: "java"
 
 sourceCompatibility = targetCompatibility = 1.8
-version = "1.3-alpha"
+version = "1.5-alpha"
 group = "org.frontear"
 archivesBaseName = "Infinity"
 def access_transformer = "infinity_at.cfg"
@@ -82,6 +82,12 @@ processResources {
 runClient {
     jvmArgs "-Dmixin.hotSwap=true", "-Dfrontear.debug=true" // debugging property
     args "--tweakClass", "org.spongepowered.asm.launch.MixinTweaker", "--mixin", mixin
+}
+
+javadoc {
+    options.tags = [
+            "reason"
+    ]
 }
 
 jar {

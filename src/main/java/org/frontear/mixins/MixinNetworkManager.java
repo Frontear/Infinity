@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.*;
 	 * @param futureListeners Listens to the result of the channel, {@link ChannelFutureListener}
 	 *
 	 * @author Frontear
-	 * @see org.frontear.infinity.events.client.PacketEvent
+	 * @reason {@link org.frontear.infinity.events.client.PacketEvent}
 	 */
 	@Overwrite private void dispatchPacket(Packet inPacket, GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
 		PacketEvent event = new PacketEvent(inPacket);

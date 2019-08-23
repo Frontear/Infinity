@@ -1,5 +1,7 @@
 package org.frontear.framework.ui;
 
+import org.lwjgl.input.Mouse;
+
 import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -88,12 +90,37 @@ public abstract class Drawable {
 		glPopAttrib();
 	}
 
+	/**
+	 * This is called after a GLContext has been created via {@link Drawable#draw(float)}
+	 *
+	 * @param x      The x-coordinate of the {@link Drawable}
+	 * @param y      The y-coordinate of the {@link Drawable}
+	 * @param width  The width of the {@link Drawable}
+	 * @param height The height of the {@link Drawable}
+	 */
 	protected abstract void render(int x, int y, int width, int height);
 
+	/**
+	 * This should be called when {@link Mouse#next()} is available, in order to allow the {@link Drawable} to handle
+	 * mouse input, such as clicking or hovering
+	 *
+	 * @param mouseX The x-coordinate of the {@link Mouse}
+	 * @param mouseY The y-coordinate of the {@link Mouse}
+	 * @param button The button being pressed by the {@link Mouse}, 0 == LEFT, 1 == RIGHT, else == NONE
+	 */
 	public void mouse(int mouseX, int mouseY, int button) {
 		click(mouseX, mouseY, mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth() && mouseY < getY() + getHeight(), button);
 	}
 
+	/**
+	 * This is called after {@link Drawable#mouse(int, int, int)} has calculated whether this object is being hovered or
+	 * not
+	 *
+	 * @param mouseX The x-coordinate of the {@link Mouse}
+	 * @param mouseY The y-coordinate of the {@link Mouse}
+	 * @param hover  If the x and y coordinates are within this {@link Drawable} bounds
+	 * @param button The button being pressed by the {@link Mouse}, 0 == LEFT, 1 == RIGHT, else == NONE
+	 */
 	protected abstract void click(int mouseX, int mouseY, boolean hover, int button);
 
 	/**

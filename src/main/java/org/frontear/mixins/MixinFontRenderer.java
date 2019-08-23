@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.*;
 	 * @return The x-coordinate of the drawn text
 	 *
 	 * @author Frontear
-	 * @see FontEvent
+	 * @reason {@link FontEvent}
 	 */
 	@Overwrite public int drawString(String text, float x, float y, int color, boolean dropShadow) {
 		enableAlpha();

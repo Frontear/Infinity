@@ -17,8 +17,14 @@ import java.util.Objects;
  * An implementation of {@link IClient}
  */
 public abstract class Client implements IClient {
+	/**
+	 * Represents whether <i>-Dfrontear.debug=true</i> is passed as a JVM arg
+	 */
 	public static final boolean DEBUG = Boolean.parseBoolean(System
 			.getProperty("frontear.debug", "false")); // either get value of frontear.debug, or return false if it doesn't exist
+	/**
+	 * Represents the time since the {@link Client} first loaded (immediate call to the constructor)
+	 */
 	public static final Timer UPTIME = new Timer();
 	private final ModInfo info;
 	private final Logger logger;

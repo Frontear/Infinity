@@ -11,6 +11,15 @@ public final class Circle extends Drawable {
 	private final int factor;
 	private int radius;
 
+	/**
+	 * Creates a circle {@link Drawable} object, which is rendered via {@link org.lwjgl.opengl.GL11#GL_TRIANGLE_FAN}
+	 *
+	 * @param x      The x-coordinate of the {@link Drawable}
+	 * @param y      The y-coordinate of the {@link Drawable}
+	 * @param radius The radius of the {@link Drawable}
+	 * @param factor Defines how smooth the edges will be, higher values are smoother
+	 * @param color  The color of the {@link Drawable}
+	 */
 	public Circle(int x, int y, int radius, int factor, Color color) {
 		super(x, y, 0, 0, color);
 

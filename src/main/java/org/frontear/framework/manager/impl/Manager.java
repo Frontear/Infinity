@@ -18,6 +18,8 @@ public abstract class Manager<T> implements IManager<T> {
 	private final ImmutableSet<T> objects;
 
 	/**
+	 * Creates the manager with an ImmutableSet of objects
+	 *
 	 * @param objects The objects that will be managed
 	 */
 	public Manager(ImmutableSet<T> objects) {
@@ -25,6 +27,8 @@ public abstract class Manager<T> implements IManager<T> {
 	}
 
 	/**
+	 * Creates the manager, and requests to search the ClassPath for classes that are of the type being managed
+	 *
 	 * @param pkg The package that will be searched through via {@link Manager#reflectionSearch(String)}
 	 */
 	public Manager(String pkg) {
@@ -42,7 +46,8 @@ public abstract class Manager<T> implements IManager<T> {
 	@SuppressWarnings("UnstableApiUsage") protected final ImmutableSet<T> reflectionSearch(String pkg) {
 		logger.debug("Attempting to find parent...");
 		//noinspection unchecked
-		final Class<T> parent = (Class<T>) new TypeToken<T>(getClass()) {}.getRawType();
+		final Class<T> parent = (Class<T>) new TypeToken<T>(getClass()) {}
+				.getRawType(); // won't work if manager is abstracted to another generic implementation
 		logger.debug("Found parent: %s", parent.getSimpleName());
 		final Set<T> objects = Sets.newLinkedHashSet(); // forced order of elements
 

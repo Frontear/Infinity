@@ -41,7 +41,7 @@ import java.io.File;
 
 	/**
 	 * @author Frontear
-	 * @see StartupEvent
+	 * @reason {@link StartupEvent}
 	 */
 	@Inject(method = "startGame",
 			at = @At(value = "TAIL")) private void startGame(CallbackInfo info) {
@@ -50,7 +50,7 @@ import java.io.File;
 
 	/**
 	 * @author Frontear
-	 * @see ShutdownEvent
+	 * @reason {@link ShutdownEvent}
 	 */
 	@Inject(method = "shutdownMinecraftApplet",
 			at = @At(value = "HEAD")) private void shutdownMinecraftApplet(CallbackInfo info) {
@@ -59,8 +59,7 @@ import java.io.File;
 
 	/**
 	 * @author Frontear
-	 * @see KeyEvent
-	 * @see MouseEvent
+	 * @reason {@link KeyEvent} and {@link MouseEvent}
 	 */
 	@Inject(method = "runTick",
 			id = "inputEvent",

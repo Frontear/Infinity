@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.*;
 	 * @return true if rendered successfully, else false
 	 *
 	 * @author Frontear
-	 * @see BlockEvent
+	 * @reason {@link BlockEvent}
 	 */
 	@Overwrite public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn) {
 		Block block = blockStateIn.getBlock();

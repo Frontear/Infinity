@@ -21,6 +21,8 @@ public final class Config implements IConfig {
 	private final File config_file;
 
 	/**
+	 * Sets the file that will be written to via {@link Gson}
+	 *
 	 * @param config_file The file that will contain all {@link IConfigurable} objects
 	 */
 	public Config(File config_file) {

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 	/**
 	 * @author Frontear
-	 * @see UpdateEvent
+	 * @reason {@link UpdateEvent}
 	 */
 	@Inject(method = "onEntityUpdate",
 			id = "updateEvent",
@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	 * @return Whether the entity should be bound within the current block or not
 	 *
 	 * @author Frontear
-	 * @see SafeWalk
+	 * @reason {@link SafeWalk}
 	 */
 	@Redirect(method = "moveEntity",
 			at = @At(value = "INVOKE",

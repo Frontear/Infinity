@@ -7,7 +7,7 @@ import org.frontear.infinity.Infinity;
 
 import java.awt.*;
 
-public class InfinityScreen extends GuiScreen {
+public final class InfinityScreen extends GuiScreen {
 	private final GuiScreen parent;
 
 	public InfinityScreen(GuiScreen parent) {
