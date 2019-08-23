@@ -116,7 +116,7 @@ import java.util.Set;
 				case 1:
 					printwriter.println("renderClouds:fast");
 					break;
-				case 2:
+				default:
 					printwriter.println("renderClouds:true");
 			}
 

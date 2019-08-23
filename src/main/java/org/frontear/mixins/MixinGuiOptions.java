@@ -1,6 +1,7 @@
 package org.frontear.mixins;
 
 import net.minecraft.client.gui.*;
+import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.impl.Ghost;
 import org.frontear.infinity.ui.screen.InfinityScreen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	@Inject(method = "initGui",
 			at = @At("TAIL")) private void initGui(CallbackInfo info) {
 		if (!Ghost.active()) {
-			this.buttonList.add(new GuiButton(-1, this.width / 2 + 5, this.height / 6 + 24 - 6, 150, 20, "Test"));
+			this.buttonList.add(new GuiButton(-1, this.width / 2 + 5, this.height / 6 + 24 - 6, 150, 20, Infinity.inst().getModInfo().getName() + " settings..."));
 		}
 	}
 
