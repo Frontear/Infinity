@@ -40,14 +40,15 @@ public final class ClickGuiScreen extends GuiScreen {
 						.filter(z -> z.getCategory() == category).toArray(Module[]::new);
 				for (Module module : categoryModules) {
 					panel.add(new Button(module.getName(), 0, 0, 0, 0, null) {
-						@Override public void draw(float scale) {
+						@Override public void draw() {
 							if (module.isActive()) {
 								setColor(new Color(255, 170, 0).darker().darker());
 							}
 							else {
 								setColor(new Color(255, 170, 0).darker());
 							}
-							super.draw(scale);
+
+							super.draw();
 						}
 
 						@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {

@@ -49,49 +49,32 @@ public abstract class Drawable {
 	}
 
 	/**
-	 * Draws the {@link Drawable} in an OpenGL context. Color and scaling are automatically applied. Additionally,
-	 * {@link org.lwjgl.opengl.GL11#GL_TEXTURE_2D} and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically
-	 * disabled
+	 * Draws the {@link Drawable} in an OpenGL context. Color is automatically applied. {@link
+	 * org.lwjgl.opengl.GL11#GL_BLEND} is enabled, and {@link org.lwjgl.opengl.GL11#GL_TEXTURE_2D} is disabled
 	 */
-	public final void draw() {
-		this.draw(1f);
-	}
-
-	/**
-	 * Draws the {@link Drawable} in an OpenGL context. Color and scaling are automatically applied. Additionally,
-	 * {@link org.lwjgl.opengl.GL11#GL_TEXTURE_2D} and {@link org.lwjgl.opengl.GL11#GL_CULL_FACE} are automatically
-	 * disabled
-	 *
-	 * @param scale The scaling of the {@link Drawable}
-	 */
-	public void draw(float scale) {
-		scale = 1f; // todo: fix scaling
-
+	public void draw() {
 		glPushAttrib(GL_CURRENT_BIT);
 		glPushMatrix();
 		{
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
 
-			glDisable(GL_TEXTURE_2D);
+			glEnable(GL_BLEND);
 			glDisable(GL_CULL_FACE);
-			//glEnable(GL_BLEND);
-
-			glScalef(scale, scale, 0);
+			glDisable(GL_TEXTURE_2D);
 			{
 				render(x, y, width, height);
 			}
-			glScalef(1 / scale, 1 / scale, 0);
-
-			//glDisable(GL_BLEND);
-			glEnable(GL_CULL_FACE);
 			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_CULL_FACE);
+			glDisable(GL_BLEND);
 		}
 		glPopMatrix();
 		glPopAttrib();
 	}
 
 	/**
-	 * This is called after a GLContext has been created via {@link Drawable#draw(float)}
+	 * This is called after a GLContext has been created via {@link Drawable#draw()}
 	 *
 	 * @param x      The x-coordinate of the {@link Drawable}
 	 * @param y      The y-coordinate of the {@link Drawable}

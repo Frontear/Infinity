@@ -35,9 +35,9 @@ public final class Panel extends Drawable {
 		}
 	}
 
-	@Override public void draw(float scale) {
-		background.draw(scale);
-		buttons.forEach(x -> x.draw(scale));
+	@Override public void draw() {
+		background.draw();
+		buttons.forEach(Button::draw);
 	}
 
 	@Override protected void render(int x, int y, int width, int height) {

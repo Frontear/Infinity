@@ -6,8 +6,6 @@ import org.frontear.wrapper.IMinecraftWrapper;
 
 import java.awt.*;
 
-import static org.lwjgl.opengl.GL11.glScalef;
-
 public abstract class Button extends Drawable {
 	protected static final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
 	private final Rectangle rectangle;
@@ -30,15 +28,12 @@ public abstract class Button extends Drawable {
 		rectangle.setPosition(x, y);
 	}
 
-	@Override public void draw(float scale) {
-		rectangle.draw(scale);
-		glScalef(scale, scale, 0);
-		{
-			mc.getFontRenderer().drawString(text, ((rectangle.getX() + (rectangle.getX() + rectangle.getWidth())) - mc
-					.getFontRenderer().getStringWidth(text)) / 2, (((rectangle.getY() + (rectangle.getY() + rectangle
-					.getHeight())) - (mc.getFontRenderer().FONT_HEIGHT + 1)) / 2), contrast(rectangle.getColor()));
-		}
-		glScalef(1 / scale, 1 / scale, 0);
+	@Override public void draw() {
+		rectangle.draw();
+		mc.getFontRenderer()
+				.drawString(text, ((rectangle.getX() + (rectangle.getX() + rectangle.getWidth())) - mc.getFontRenderer()
+						.getStringWidth(text)) / 2, (((rectangle.getY() + (rectangle.getY() + rectangle
+						.getHeight())) - (mc.getFontRenderer().FONT_HEIGHT + 1)) / 2), contrast(rectangle.getColor()));
 	}
 
 	// https://stackoverflow.com/a/13030061/9091276
