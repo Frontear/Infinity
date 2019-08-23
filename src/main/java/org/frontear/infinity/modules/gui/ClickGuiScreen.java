@@ -39,9 +39,7 @@ public final class ClickGuiScreen extends GuiScreen {
 				Module[] categoryModules = Infinity.inst().getModules().getObjects()
 						.filter(z -> z.getCategory() == category).toArray(Module[]::new);
 				for (Module module : categoryModules) {
-					panel.add(new Button(module.getName(), 0, 0, 0, 0, null, z -> {
-						module.toggle();
-					}) {
+					panel.add(new Button(module.getName(), 0, 0, 0, 0, null) {
 						@Override public void draw(float scale) {
 							if (module.isActive()) {
 								setColor(new Color(255, 170, 0).darker().darker());
@@ -50,6 +48,17 @@ public final class ClickGuiScreen extends GuiScreen {
 								setColor(new Color(255, 170, 0).darker());
 							}
 							super.draw(scale);
+						}
+
+						@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {
+							if (hover) {
+								if (button == 0) {
+									module.toggle();
+								}
+								else if (button == 1) {
+									mc.displayGuiScreen(new KeyBindScreen(module, ClickGuiScreen.this));
+								}
+							}
 						}
 					});
 				}

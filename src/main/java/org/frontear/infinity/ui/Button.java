@@ -5,19 +5,16 @@ import org.frontear.framework.ui.impl.Rectangle;
 import org.frontear.wrapper.IMinecraftWrapper;
 
 import java.awt.*;
-import java.util.function.Consumer;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
-public class Button extends Drawable {
+public abstract class Button extends Drawable {
 	protected static final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
 	private final Rectangle rectangle;
-	private final Consumer<Button> task;
 	private String text;
 
-	public Button(String text, int x, int y, int width, int height, Color color, Consumer<Button> task) {
+	public Button(String text, int x, int y, int width, int height, Color color) {
 		this.rectangle = new Rectangle(x, y, width, height, color);
-		this.task = task;
 		this.text = text;
 	}
 
@@ -52,12 +49,6 @@ public class Button extends Drawable {
 
 	@Override protected void render(int x, int y, int width, int height) {
 		throw new UnsupportedOperationException();
-	}
-
-	@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {
-		if (hover && button == 0) {
-			task.accept(this);
-		}
 	}
 
 	@Override public int getX() {
