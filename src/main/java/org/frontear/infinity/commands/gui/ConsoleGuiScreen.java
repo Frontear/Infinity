@@ -3,6 +3,7 @@ package org.frontear.infinity.commands.gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ChatComponentText;
+import org.frontear.infinity.utils.ChatUtils;
 import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
 
@@ -42,6 +43,6 @@ public class ConsoleGuiScreen extends GuiScreen {
 
 	void process(String text) {
 		IMinecraftWrapper.getMinecraft().getChat()
-				.printChatMessage(new ChatComponentText("").appendSibling(prefix).appendText(text));
+				.printChatMessage(ChatUtils.append(prefix, new ChatComponentText(text)));
 	}
 }

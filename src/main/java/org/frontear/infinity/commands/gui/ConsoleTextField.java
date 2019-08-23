@@ -15,7 +15,7 @@ public class ConsoleTextField extends GuiTextField {
 		super(-1, fontrendererObj, x + 4 / 2, y + (par6Height - 8) / 2, par5Width, par6Height); // see GuiTextField#drawTextBox
 
 		this.setCanLoseFocus(false);
-		this.setMaxStringLength(par5Width / 6); // majority of the character width are 6
+		this.setMaxStringLength(par5Width / 6); // majority of the character widths are 6
 		this.setEnableBackgroundDrawing(false);
 
 		this.backing = new Rectangle(x, y, par5Width, par6Height, new Color(0, 0, 0, 127));
@@ -26,7 +26,7 @@ public class ConsoleTextField extends GuiTextField {
 		if (p_146201_2_ == Keyboard.KEY_RETURN) {
 			screen.process(this.getText());
 			this.setText("");
-			return true;
+			return this.getText().isEmpty();
 		}
 
 		return super.textboxKeyTyped(p_146201_1_, p_146201_2_);
