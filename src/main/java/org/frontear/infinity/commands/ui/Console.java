@@ -13,6 +13,7 @@ import java.util.Deque;
 import static org.lwjgl.opengl.GL11.glScalef;
 
 public class Console extends Drawable {
+	private static final float scale = 0.5f;
 	private final FontRenderer renderer;
 	private final Rectangle backing;
 	private final ConsoleTextField field;
@@ -24,7 +25,7 @@ public class Console extends Drawable {
 
 		this.renderer = renderer;
 		this.backing = new Rectangle(x, y, width, height, background);
-		this.field = new ConsoleTextField(renderer, x, y + height + 1, width, 12, background); // +1 temporary, only to distinguish between the two
+		this.field = new ConsoleTextField(renderer, x, y + height + 1, width, 12, background);
 	}
 
 	public void updateCursorCounter() {
@@ -43,7 +44,6 @@ public class Console extends Drawable {
 	@Override public void draw() {
 		backing.draw();
 
-		final float scale = 0.5f;
 		int scrollPos = scrollFactor;
 		glScalef(scale, scale, 1f);
 		{
