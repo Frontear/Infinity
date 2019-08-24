@@ -26,7 +26,7 @@ public class ConsoleTextField extends GuiTextField {
 				.trim(); // removes all empty spaces from ends and beginnings, they are unnecessary and can cause problems
 		if (p_146201_2_ == Keyboard.KEY_RETURN && !text.isEmpty()) {
 			Infinity.inst().getCommands().processMessage(text);
-			setText("");
+			this.setText("");
 
 			return true;
 		}

@@ -130,10 +130,6 @@ import java.io.File;
 		return renderManager;
 	}
 
-	@Override public GuiNewChat getChatGUI() {
-		return ingameGUI.getChatGUI();
-	}
-
 	@Intrinsic public void wrap$displayGuiScreen(GuiScreen screen) {
 		shadow$displayGuiScreen(screen);
 	}

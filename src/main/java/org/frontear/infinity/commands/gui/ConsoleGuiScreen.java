@@ -1,6 +1,7 @@
 package org.frontear.infinity.commands.gui;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.ChatComponentText;
 import org.frontear.infinity.commands.ui.Console;
 import org.lwjgl.input.Keyboard;
 
@@ -23,7 +24,12 @@ public class ConsoleGuiScreen extends GuiScreen {
 		final int width = 320, height = 180;
 
 		Keyboard.enableRepeatEvents(true);
-		this.console = new Console(fontRendererObj, this.width - width - 2, 2, width, height);
+		if (console == null) {
+			this.console = new Console(fontRendererObj, this.width - width - 2, 2, width, height);
+		}
+		else {
+			console.setPosition(this.width - width - 2, 2);
+		}
 	}
 
 	@Override public void updateScreen() {
@@ -32,5 +38,9 @@ public class ConsoleGuiScreen extends GuiScreen {
 
 	@Override public void onGuiClosed() {
 		Keyboard.enableRepeatEvents(false);
+	}
+
+	public void print(ChatComponentText text) {
+		console.print(text);
 	}
 }

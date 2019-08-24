@@ -1,6 +1,5 @@
 package org.frontear.infinity.commands;
 
-import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -20,6 +19,7 @@ import java.util.Optional;
 public final class CommandManager extends Manager<Command> {
 	private final KeyBinding bind;
 	private final ChatComponentText prefix;
+	private final ConsoleGuiScreen console = new ConsoleGuiScreen();
 
 	public CommandManager(ModInfo info) {
 		super("org.frontear.infinity.commands.impl");
@@ -32,7 +32,7 @@ public final class CommandManager extends Manager<Command> {
 
 	@SubscribeEvent public void onKey(KeyEvent event) {
 		if (event.isPressed() && event.getKey() == bind.getKeyCode()) {
-			IMinecraftWrapper.getMinecraft().displayGuiScreen(new ConsoleGuiScreen());
+			IMinecraftWrapper.getMinecraft().displayGuiScreen(console);
 		}
 	}
 
@@ -65,9 +65,8 @@ public final class CommandManager extends Manager<Command> {
 	}
 
 	void sendMessage(String message, EnumChatFormatting... format) {
-		final GuiNewChat chat = IMinecraftWrapper.getMinecraft().getChatGUI();
 		final ChatComponentText text = ChatUtils.makeText(message, format);
 
-		chat.printChatMessage(ChatUtils.append(prefix, text));
+		console.print(ChatUtils.append(prefix, text));
 	}
 }
