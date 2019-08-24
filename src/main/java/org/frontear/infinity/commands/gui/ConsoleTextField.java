@@ -39,4 +39,10 @@ public class ConsoleTextField extends GuiTextField {
 
 		super.drawTextBox();
 	}
+
+	public void setPosition(int x, int y) {
+		backing.setPosition(x, y);
+		this.xPosition = x + 4 / 2;
+		this.yPosition = y + (backing.getHeight() - 8) / 2;
+	}
 }

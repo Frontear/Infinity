@@ -16,11 +16,12 @@ public class History extends Command {
 
 	@Override protected void process(String[] args) throws Exception {
 		final AtomicReference<Exception> carrier = new AtomicReference<>(null);
-		final Mojang mojang = new Mojang().connect();
+		final Mojang mojang = new Mojang();
 		final String username = args[0];
 
-		if (mojang.getStatus(Mojang.ServiceType.API_MOJANG_COM) == Mojang.ServiceStatus.GREEN) {
-			new Thread(() -> {
+		new Thread(() -> {
+			mojang.connect();
+			if (mojang.getStatus(Mojang.ServiceType.API_MOJANG_COM) == Mojang.ServiceStatus.GREEN) {
 				try {
 					final Map<String, Long> history = mojang.getNameHistoryOfPlayer(mojang.getUUIDOfUsername(username));
 					if (history.size() > 1) {
@@ -36,11 +37,11 @@ public class History extends Command {
 							.getSimpleName()), EnumChatFormatting.RED);
 					e.printStackTrace();
 				}
-			}).start(); // this can take some time, as it's contacting an API
-		}
-		else {
-			sendMessage("The mojang api service is currently unavailable", EnumChatFormatting.RED);
-		}
+			}
+			else {
+				sendMessage("The mojang api service is currently unavailable", EnumChatFormatting.RED);
+			}
+		}).start(); // this can take some time, as it's contacting an API
 	}
 
 	private String normalizeDate(long time) {
