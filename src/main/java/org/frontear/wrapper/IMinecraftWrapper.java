@@ -39,7 +39,7 @@ public interface IMinecraftWrapper {
 
 	RenderManager getRenderManager();
 
-	GuiNewChat getChat();
+	GuiNewChat getChatGUI();
 
 	void displayGuiScreen(GuiScreen screen);
 }

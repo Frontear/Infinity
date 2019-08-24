@@ -130,7 +130,7 @@ import java.io.File;
 		return renderManager;
 	}
 
-	@Override public GuiNewChat getChat() {
+	@Override public GuiNewChat getChatGUI() {
 		return ingameGUI.getChatGUI();
 	}
 

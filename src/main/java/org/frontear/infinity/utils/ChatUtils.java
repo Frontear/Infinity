@@ -3,6 +3,7 @@ package org.frontear.infinity.utils;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.util.*;
+import org.frontear.framework.logger.impl.Logger;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 public final class ChatUtils {
 	private static final String FORMAT_SYMBOL = String.valueOf('§');
 	private static final Map<Character, EnumChatFormatting> formats;
+	private static final Logger logger = new Logger();
 
 	static {
 		final Map<Character, EnumChatFormatting> temp = Maps.newHashMap();
@@ -70,6 +72,10 @@ public final class ChatUtils {
 						return;
 					case ITALIC:
 						style.setItalic(true);
+						return;
+					default:
+						logger.fatal(new UnsupportedOperationException(), "Invalid option for ChatUtils#setStyle(ChatStyle, EnumChatFormatting) format %s", format
+								.name());
 				}
 			}
 		}
@@ -90,5 +96,14 @@ public final class ChatUtils {
 		Arrays.stream(siblings).forEach(parent::appendSibling);
 
 		return parent;
+	}
+
+	public static ChatComponentText makeText(String message, EnumChatFormatting... format) {
+		final ChatComponentText text = new ChatComponentText(message);
+		if (format != null) {
+			Arrays.stream(format).forEach(x -> setStyle(text.getChatStyle(), x));
+		}
+
+		return text;
 	}
 }
