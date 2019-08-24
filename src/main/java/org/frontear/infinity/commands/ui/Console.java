@@ -16,8 +16,8 @@ public class Console extends Drawable {
 	private final FontRenderer renderer;
 	private final Rectangle backing;
 	private final ConsoleTextField field;
-
 	private final Deque<String> lines = Queues.newArrayDeque();
+	private int scrollFactor = 0;
 
 	public Console(FontRenderer renderer, int x, int y, int width, int height) {
 		final Color background = new Color(0, 0, 0, 127);
@@ -44,10 +44,15 @@ public class Console extends Drawable {
 		backing.draw();
 
 		final float scale = 0.5f;
+		int scrollPos = scrollFactor;
 		glScalef(scale, scale, 1f);
 		{
 			int y = backing.getY() + backing.getHeight(); // text starts from the bottom to the top
 			for (String line : lines) {
+				if (scrollPos-- > 0) {
+					continue;
+				}
+
 				y -= renderer.FONT_HEIGHT;
 				renderer.drawString(line, (backing.getX() + 2) / scale, y / scale, Color.WHITE.getRGB(), false);
 			}
@@ -64,6 +69,10 @@ public class Console extends Drawable {
 
 	@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {
 		throw new UnsupportedOperationException();
+	}
+
+	public void scroll(int factor) {
+		this.scrollFactor = Math.min(lines.size(), Math.max(0, scrollFactor + factor)); // between 0 and lines.size
 	}
 
 	public void print(ChatComponentText text) {

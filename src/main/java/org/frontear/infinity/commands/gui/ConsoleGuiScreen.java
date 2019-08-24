@@ -4,6 +4,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatComponentText;
 import org.frontear.infinity.commands.ui.Console;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 
@@ -29,6 +30,15 @@ public class ConsoleGuiScreen extends GuiScreen {
 		}
 		else {
 			console.setPosition(this.width - width - 2, 2);
+		}
+	}
+
+	@Override public void handleMouseInput() throws IOException {
+		super.handleMouseInput();
+
+		final int i = Mouse.getEventDWheel();
+		if (i != 0) {
+			console.scroll(Math.max(-1, Math.min(1, i))); // between -1 and 1
 		}
 	}
 
