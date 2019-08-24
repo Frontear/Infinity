@@ -5,8 +5,8 @@ import net.minecraft.client.gui.GuiScreen;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
-import org.frontear.infinity.ui.Button;
-import org.frontear.infinity.ui.Panel;
+import org.frontear.infinity.modules.ui.Button;
+import org.frontear.infinity.modules.ui.Panel;
 
 import java.awt.*;
 import java.io.IOException;

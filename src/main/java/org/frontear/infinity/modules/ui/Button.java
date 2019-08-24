@@ -1,4 +1,4 @@
-package org.frontear.infinity.ui;
+package org.frontear.infinity.modules.ui;
 
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;

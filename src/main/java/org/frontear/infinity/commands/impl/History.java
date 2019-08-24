@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class History extends Command {
 	public History() {
-		super("Look up the username history of a player. Name is case-sensitive");
+		super("Look up the username history of a player. Name is case-sensitive", 1);
 	}
 
 	@Override protected void process(String[] args) throws Exception {

@@ -1,4 +1,4 @@
-package org.frontear.infinity.ui.screen;
+package org.frontear.infinity.modules.ui.screen;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

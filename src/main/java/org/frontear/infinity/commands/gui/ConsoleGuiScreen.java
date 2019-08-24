@@ -1,32 +1,33 @@
 package org.frontear.infinity.commands.gui;
 
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
+import org.frontear.infinity.commands.ui.Console;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
 
 public class ConsoleGuiScreen extends GuiScreen {
-	private GuiTextField field;
+	private Console console;
 
 	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		field.drawTextBox();
-		field.setFocused(true);
+		console.draw();
 	}
 
 	@Override protected void keyTyped(char typedChar, int keyCode) throws IOException {
-		field.textboxKeyTyped(typedChar, keyCode);
+		console.textboxKeyTyped(typedChar, keyCode);
 
 		super.keyTyped(typedChar, keyCode);
 	}
 
 	@Override public void initGui() {
+		final int width = 320, height = 180;
+
 		Keyboard.enableRepeatEvents(true);
-		this.field = new ConsoleTextField(fontRendererObj, this.width / 2 - 110, 2, 220, 12);
+		this.console = new Console(fontRendererObj, this.width - width - 2, 2, width, height);
 	}
 
 	@Override public void updateScreen() {
-		field.updateCursorCounter();
+		console.updateCursorCounter();
 	}
 
 	@Override public void onGuiClosed() {
