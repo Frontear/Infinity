@@ -1,4 +1,4 @@
-package org.frontear.infinity.ui;
+package org.frontear.infinity.modules.ui;
 
 import com.google.common.collect.Sets;
 import org.frontear.framework.ui.Drawable;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 public final class Panel extends Drawable {
 	private static final int offset = 2;
-	private final Set<Button> buttons = Sets.newLinkedHashSet();
+	private final Set<org.frontear.infinity.modules.ui.Button> buttons = Sets.newLinkedHashSet();
 	private final Rectangle background;
 
 	public Panel(int x, int y, int width, int height, Color color) {
@@ -18,7 +18,7 @@ public final class Panel extends Drawable {
 		this.background = new Rectangle(x, y, width, height, new Color(0, 0, 0, 127));
 	}
 
-	public void add(Button button) {
+	public void add(org.frontear.infinity.modules.ui.Button button) {
 		buttons.add(button);
 
 		this.setColor(this.getColor());
@@ -29,7 +29,7 @@ public final class Panel extends Drawable {
 
 	@Override public void setPosition(int x, int y) {
 		background.setPosition(x - offset, y - offset);
-		for (Button button : buttons) {
+		for (org.frontear.infinity.modules.ui.Button button : buttons) {
 			button.setPosition(x, y);
 			y += button.getHeight();
 		}

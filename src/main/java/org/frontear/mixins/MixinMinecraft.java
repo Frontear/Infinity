@@ -2,8 +2,7 @@ package org.frontear.mixins;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -27,6 +26,7 @@ import java.io.File;
 
 @Mixin(Minecraft.class) @Implements(@Interface(iface = IMinecraftWrapper.class,
 		prefix = "wrap$")) public abstract class MixinMinecraft implements IMinecraftWrapper {
+	@Shadow public GuiIngame ingameGUI;
 	@Shadow public FontRenderer fontRendererObj;
 	@Shadow public RenderGlobal renderGlobal;
 	@Shadow public EntityPlayerSP thePlayer;

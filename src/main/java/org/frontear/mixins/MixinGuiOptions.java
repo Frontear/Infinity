@@ -3,7 +3,7 @@ package org.frontear.mixins;
 import net.minecraft.client.gui.*;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.impl.Ghost;
-import org.frontear.infinity.ui.screen.InfinityScreen;
+import org.frontear.infinity.modules.ui.screen.InfinityScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
