@@ -1,6 +1,7 @@
 package org.frontear.infinity.commands.ui;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Queues;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ChatComponentText;
@@ -9,6 +10,7 @@ import org.frontear.framework.ui.impl.Rectangle;
 import org.frontear.infinity.commands.gui.ConsoleTextField;
 
 import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL11.glScalef;
@@ -18,7 +20,7 @@ public class Console extends Drawable {
 	private final Rectangle backing;
 	private final GuiTextField field;
 
-	private final List<String> lines = Lists.newArrayList();
+	private final Deque<String> lines = Queues.newArrayDeque();
 
 	public Console(FontRenderer renderer, int x, int y, int width, int height) {
 		final Color background = new Color(0, 0, 0, 127);
@@ -47,7 +49,7 @@ public class Console extends Drawable {
 		glScalef(scale, scale, 1f);
 		{
 			int y = backing.getY() + backing.getHeight(); // text starts from the bottom to the top
-			for (String line : Lists.reverse(lines)) {
+			for (String line : lines) {
 				y -= renderer.FONT_HEIGHT;
 				renderer.drawString(line, (backing.getX() + 2) / scale, y / scale, Color.WHITE.getRGB(), false);
 			}
@@ -67,6 +69,6 @@ public class Console extends Drawable {
 	}
 
 	public void print(ChatComponentText text) {
-		lines.add(text.getFormattedText());
+		lines.addFirst(text.getFormattedText());
 	}
 }

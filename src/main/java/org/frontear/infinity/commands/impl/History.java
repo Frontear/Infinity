@@ -25,7 +25,7 @@ public class History extends Command {
 					final Map<String, Long> history = mojang.getNameHistoryOfPlayer(mojang.getUUIDOfUsername(username));
 					if (history.size() > 1) {
 						sendMessage(String.format("History for %s:", username));
-						history.forEach((k, v) -> sendMessage(String.format("	- %s: %s", k, normalizeDate(v))));
+						history.forEach((k, v) -> sendMessage(String.format("    - \"%s\": %s", k, normalizeDate(v))));
 					}
 					else {
 						sendMessage(String.format("%s has never changed their username", username));
