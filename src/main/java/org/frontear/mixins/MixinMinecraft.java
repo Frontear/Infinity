@@ -2,13 +2,13 @@ package org.frontear.mixins;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.Session;
-import net.minecraft.util.Timer;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
@@ -21,20 +21,15 @@ import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.File;
-
 @Mixin(Minecraft.class) @Implements(@Interface(iface = IMinecraftWrapper.class,
 		prefix = "wrap$")) public abstract class MixinMinecraft implements IMinecraftWrapper {
-	@Shadow public GuiIngame ingameGUI;
 	@Shadow public FontRenderer fontRendererObj;
 	@Shadow public RenderGlobal renderGlobal;
 	@Shadow public EntityPlayerSP thePlayer;
 	@Shadow public WorldClient theWorld;
-	@Shadow @Final public File mcDataDir;
 	@Shadow public GameSettings gameSettings;
 	@Shadow public GuiScreen currentScreen;
 	@Shadow @Final private Session session;
-	@Shadow private Timer timer;
 	@Shadow private int leftClickCounter;
 	@Shadow private RenderManager renderManager;
 
@@ -86,20 +81,12 @@ import java.io.File;
 			at = @At(value = "INVOKE",
 					target = "Ljava/lang/System;gc()V")) private void gc() {}
 
-	@Override public Timer getTimer() {
-		return timer;
-	}
-
 	@Override public EntityPlayerSP getPlayer() {
 		return thePlayer;
 	}
 
 	@Override public WorldClient getWorld() {
 		return theWorld;
-	}
-
-	@Override public File getDirectory() {
-		return mcDataDir;
 	}
 
 	@Override public GameSettings getGameSettings() {

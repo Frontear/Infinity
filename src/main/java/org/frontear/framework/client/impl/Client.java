@@ -8,9 +8,7 @@ import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.utils.Timer;
-import org.frontear.wrapper.IMinecraftWrapper;
 
-import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -42,8 +40,7 @@ public abstract class Client implements IClient {
 
 		this.info = Objects.requireNonNull(construct());
 		this.logger = new Logger(info.getName());
-		this.config = new Config(new File(IMinecraftWrapper.getMinecraft().getDirectory(), info.getName()
-				.toLowerCase() + ".json"));
+		this.config = new Config(new File(".", info.getName().toLowerCase() + ".json"));
 	}
 
 	/*
@@ -52,11 +49,13 @@ public abstract class Client implements IClient {
 	private ModInfo construct() {
 		try {
 			final String path = StringUtils
-					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "file:", "!"); // Gets the JAR file path
+					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
+							.getPath(), "file:", "!"); // Gets the JAR file path
 			final ZipFile jar = new ZipFile(new File(path));
 			final InputStream stream = jar.getInputStream(jar.getEntry("mcmod.info"));
 			final Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-			final JsonObject object = new JsonParser().parse(reader).getAsJsonArray().get(0).getAsJsonObject(); // mcmod.info is wrapped in a list
+			final JsonObject object = new JsonParser().parse(reader).getAsJsonArray().get(0)
+					.getAsJsonObject(); // mcmod.info is wrapped in a list
 
 			return new ModInfo(object, ModInfo.FORGE);
 		}
