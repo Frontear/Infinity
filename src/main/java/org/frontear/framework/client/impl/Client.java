@@ -2,6 +2,7 @@ package org.frontear.framework.client.impl;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.commons.lang3.StringUtils;
 import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.info.impl.ModInfo;
@@ -9,9 +10,11 @@ import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.utils.Timer;
 import org.frontear.wrapper.IMinecraftWrapper;
 
+import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.zip.ZipFile;
 
 /**
  * An implementation of {@link IClient}
@@ -36,18 +39,30 @@ public abstract class Client implements IClient {
 	 */
 	protected Client() {
 		UPTIME.reset(); // intentional, as we want to only know exactly how long it has been since client started to load
-		{
-			final InputStream mcmod = Objects
-					.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("mcmod.info"));
-			final Reader reader = new BufferedReader(new InputStreamReader(mcmod, StandardCharsets.UTF_8));
-			final JsonObject object = new JsonParser().parse(reader).getAsJsonArray().get(0)
-					.getAsJsonObject(); // mcmod.info files are wrapped in a list
 
-			this.info = new ModInfo(object);
-		}
+		this.info = Objects.requireNonNull(construct());
 		this.logger = new Logger(info.getName());
 		this.config = new Config(new File(IMinecraftWrapper.getMinecraft().getDirectory(), info.getName()
 				.toLowerCase() + ".json"));
+	}
+
+	/*
+	This mainly exists due to the Fabric API loading classes but not resources until later, causing discrepancies with resources attempting to be loaded
+	 */
+	private ModInfo construct() {
+		try {
+			final String path = StringUtils
+					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "file:", "!"); // Gets the JAR file path
+			final ZipFile jar = new ZipFile(new File(path));
+			final InputStream stream = jar.getInputStream(jar.getEntry("mcmod.info"));
+			final Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+			final JsonObject object = new JsonParser().parse(reader).getAsJsonArray().get(0).getAsJsonObject(); // mcmod.info is wrapped in a list
+
+			return new ModInfo(object);
+		}
+		catch (IOException e) {
+			return null;
+		}
 	}
 
 	// todo: error handling if mcmod.info doesn't exist
