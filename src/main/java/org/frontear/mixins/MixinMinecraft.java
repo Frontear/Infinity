@@ -18,8 +18,7 @@ import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.File;
@@ -79,6 +78,13 @@ import java.io.File;
 			MinecraftForge.EVENT_BUS.post(new MouseEvent(Mouse.getEventButton(), Mouse.getEventButtonState()));
 		}
 	}
+
+	/**
+	 * @author prplz Please see https://prplz.io/memoryfix/ for more information
+	 */
+	@SuppressWarnings("UnresolvedMixinReference") @Redirect(method = "*",
+			at = @At(value = "INVOKE",
+					target = "Ljava/lang/System;gc()V")) private void gc() {}
 
 	@Override public Timer getTimer() {
 		return timer;
