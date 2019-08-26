@@ -53,7 +53,7 @@ public final class Config implements IConfig {
 	@Override public void load() {
 		try (Reader reader = new FileReader(config_file)) {
 			logger.debug("Loading config from %s", config_file.getAbsolutePath());
-			final JsonObject config = gson.fromJson(reader, JsonObject.class);
+			final JsonObject config = new JsonParser().parse(reader).getAsJsonObject();
 
 			configurables.forEach(x -> {
 				logger.debug("Lookup for '%s' in config", x.getName());
