@@ -11,8 +11,11 @@ import org.frontear.framework.info.IModInfo;
 public final class ModInfo implements IModInfo {
 	private final String name, version, fullname, authors;
 
+	// todo: allow custom property definitions (allow user to specify which property contains which information)
+
 	/**
-	 * Loads the mcmod.info which should be parsed as an {@link JsonObject}
+	 * Loads a json file which should be parsed as an {@link JsonObject} It assumes that certain properties exist (name,
+	 * version, authorList) If these properties do not exist, this will error
 	 *
 	 * @param mcmod {@link JsonObject} which is created when loading the mcmod,info in {@link Client} construction
 	 */
@@ -20,7 +23,6 @@ public final class ModInfo implements IModInfo {
 		this.name = mcmod.get("name").getAsString();
 		this.version = mcmod.get("version").getAsString();
 		this.fullname = String.format("%s v%s", name, version);
-
 		{
 			final JsonArray authorList = mcmod.get("authorList").getAsJsonArray();
 			final StringBuilder str = new StringBuilder();
