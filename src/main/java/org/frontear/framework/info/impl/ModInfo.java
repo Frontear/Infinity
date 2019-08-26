@@ -9,6 +9,8 @@ import org.frontear.framework.info.IModInfo;
  * An implementation of {@link IModInfo}
  */
 public final class ModInfo implements IModInfo {
+	public static final byte FORGE = 0x0, FABRIC = 0x1;
+
 	private final String name, version, fullname, authors;
 
 	// todo: allow custom property definitions (allow user to specify which property contains which information)
@@ -17,14 +19,15 @@ public final class ModInfo implements IModInfo {
 	 * Loads a json file which should be parsed as an {@link JsonObject} It assumes that certain properties exist (name,
 	 * version, authorList) If these properties do not exist, this will error
 	 *
-	 * @param mcmod {@link JsonObject} which is created when loading the mcmod,info in {@link Client} construction
+	 * @param json {@link JsonObject} which is created when loading the mcmod,info in {@link Client} construction
 	 */
-	public ModInfo(JsonObject mcmod) {
-		this.name = mcmod.get("name").getAsString();
-		this.version = mcmod.get("version").getAsString();
+	public ModInfo(JsonObject json, byte type) {
+		this.name = json.get("name").getAsString();
+		this.version = json.get("version").getAsString();
 		this.fullname = String.format("%s v%s", name, version);
 		{
-			final JsonArray authorList = mcmod.get("authorList").getAsJsonArray();
+			final JsonArray authorList = json.get(type == FORGE ? "authorList" : type == FABRIC ? "authors" : null)
+					.getAsJsonArray();
 			final StringBuilder str = new StringBuilder();
 			authorList.forEach(str::append);
 			this.authors = replaceLast(String.join(", ", str.toString()), ", ", ", and ");

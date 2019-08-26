@@ -58,7 +58,7 @@ public abstract class Client implements IClient {
 			final Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
 			final JsonObject object = new JsonParser().parse(reader).getAsJsonArray().get(0).getAsJsonObject(); // mcmod.info is wrapped in a list
 
-			return new ModInfo(object);
+			return new ModInfo(object, ModInfo.FORGE);
 		}
 		catch (IOException e) {
 			return null;
