@@ -9,7 +9,7 @@ import org.frontear.infinity.modules.Module;
 import org.frontear.infinity.utils.ChatUtils;
 import org.lwjgl.input.Keyboard;
 
-public final class NameProtect extends Module {
+@Deprecated public final class NameProtect extends Module {
 	public NameProtect() {
 		super(Keyboard.KEY_N, false, Category.RENDER);
 	}
