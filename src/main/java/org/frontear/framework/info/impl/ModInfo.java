@@ -1,5 +1,6 @@
 package org.frontear.framework.info.impl;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.frontear.framework.client.impl.Client;
@@ -22,11 +23,13 @@ public final class ModInfo implements IModInfo {
 	 * @param json {@link JsonObject} which is created when loading the mcmod,info in {@link Client} construction
 	 */
 	public ModInfo(JsonObject json, byte type) {
+		Preconditions.checkArgument(type == ModInfo.FORGE || type == ModInfo.FABRIC);
+
 		this.name = json.get("name").getAsString();
 		this.version = json.get("version").getAsString();
 		this.fullname = String.format("%s v%s", name, version);
 		{
-			final JsonArray authorList = json.get(type == FORGE ? "authorList" : type == FABRIC ? "authors" : null)
+			final JsonArray authorList = json.get(type == FORGE ? "authorList" : "authors")
 					.getAsJsonArray();
 			final StringBuilder str = new StringBuilder();
 			authorList.forEach(str::append);
