@@ -3,7 +3,7 @@ package org.frontear.infinity.commands.impl;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.commands.Command;
 
-public class Help extends Command {
+public final class Help extends Command {
 	public Help() {
 		super("Displays useful information about the commands.");
 	}

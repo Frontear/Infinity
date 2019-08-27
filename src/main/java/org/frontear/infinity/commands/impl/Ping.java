@@ -3,7 +3,7 @@ package org.frontear.infinity.commands.impl;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import org.frontear.infinity.commands.Command;
 
-public class Ping extends Command {
+public final class Ping extends Command {
 	public Ping() {
 		super("Retrieves the latency value of a player. Name is case-sensitive", 1);
 	}

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class History extends Command {
+public final class History extends Command {
 	public History() {
 		super("Look up the username history of a player. Name is case-sensitive", 1);
 	}

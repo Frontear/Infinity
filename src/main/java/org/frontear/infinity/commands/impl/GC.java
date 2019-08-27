@@ -5,7 +5,7 @@ import org.frontear.infinity.commands.Command;
 
 import java.lang.management.ManagementFactory;
 
-public class GC extends Command {
+public final class GC extends Command {
 	private final boolean allowed = !ManagementFactory.getRuntimeMXBean().getInputArguments()
 			.contains("-XX:+DisableExplicitGC");
 
