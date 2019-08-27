@@ -74,7 +74,7 @@ public final class ChatUtils {
 	}
 
 	private static void defaultStyle(final ChatStyle style) {
-		style.setColor(EnumChatFormatting.WHITE); // technically the default (when rendering text, it's white)
+		style.setColor(null);
 		style.setObfuscated(false);
 		style.setBold(false);
 		style.setStrikethrough(false);
@@ -83,10 +83,10 @@ public final class ChatUtils {
 	}
 
 	public static ChatStyle styleFrom(String formatted) {
-		Preconditions.checkArgument(formatted != null && !formatted.isEmpty());
+		Preconditions.checkArgument(formatted != null);
 
 		final ChatStyle style = defaultStyle();
-		if (formatted.contains(FORMAT_SYMBOL)) {
+		if (!formatted.isEmpty() && formatted.contains(FORMAT_SYMBOL)) {
 			final Matcher matcher = Pattern.compile(FORMAT_SYMBOL + ".").matcher(formatted);
 			while (matcher.find()) {
 				final String found = matcher.group();
