@@ -1,7 +1,6 @@
 package org.frontear.infinity.modules.impl;
 
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.frontear.infinity.events.render.FontEvent;
@@ -26,9 +25,11 @@ public final class NameProtect extends Module {
 
 	private String protect(String username, String text) {
 		final String before = StringUtils.substringBefore(text, username); // all the text before our username
+		System.out.println(before);
 		final ChatStyle style = ChatUtils.styleFrom(before); // sets the style from that past text
-		return ChatUtils.makeText(username, EnumChatFormatting.OBFUSCATED)
-				.appendSibling(ChatUtils.makeText("").setChatStyle(style))
+		return ChatUtils
+				.append(ChatUtils.makeText(username, EnumChatFormatting.OBFUSCATED), (ChatComponentText) ChatUtils
+						.makeText("").setChatStyle(style))
 				.getFormattedText(); // obfuscate the username, and reset the formatting back to the original in order to prevent format leaking from username
 	}
 }

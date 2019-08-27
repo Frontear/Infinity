@@ -3,6 +3,7 @@ package org.frontear.infinity.utils;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.util.*;
+import org.apache.commons.lang3.StringUtils;
 import org.frontear.framework.logger.impl.Logger;
 
 import java.util.Arrays;
@@ -83,7 +84,8 @@ public final class ChatUtils {
 
 	public static ChatStyle styleFrom(String formatted) {
 		final ChatStyle style = new ChatStyle();
-		final Matcher matcher = Pattern.compile(String.format("%s.", Pattern.quote(FORMAT_SYMBOL))).matcher(formatted);
+		final Matcher matcher = Pattern.compile(String.format("%s.", Pattern.quote(FORMAT_SYMBOL))).matcher(StringUtils.substringBefore(formatted, String
+				.valueOf(EnumChatFormatting.RESET))); // removes the final reset code that exists from most ChatComponentText styles
 		while (matcher.find()) {
 			setStyle(style, formats.get(matcher.group().charAt(1)));
 		}
