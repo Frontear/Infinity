@@ -25,11 +25,14 @@ import org.lwjgl.input.Keyboard;
 
 	private String protect(String username, String text) {
 		final String before = StringUtils.substringBefore(text, username); // all the text before our username
-		System.out.println(before);
 		final ChatStyle style = ChatUtils.styleFrom(before); // sets the style from that past text
-		return ChatUtils
-				.append(ChatUtils.makeText(username, EnumChatFormatting.OBFUSCATED), (ChatComponentText) ChatUtils
-						.makeText("").setChatStyle(style))
-				.getFormattedText(); // obfuscate the username, and reset the formatting back to the original in order to prevent format leaking from username
+		final ChatComponentText obfuscated = (ChatComponentText) new ChatComponentText(username)
+				.setChatStyle(style.createDeepCopy().setObfuscated(true));
+		final String protect = ChatUtils
+				.append(obfuscated, (ChatComponentText) new ChatComponentText("").setChatStyle(style.createDeepCopy()))
+				.getFormattedText();
+
+		return protect.substring(0, protect
+				.lastIndexOf(String.valueOf(EnumChatFormatting.RESET))); // removes the trailing reset code
 	}
 }

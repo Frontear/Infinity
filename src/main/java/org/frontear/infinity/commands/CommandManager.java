@@ -28,7 +28,10 @@ public final class CommandManager extends Manager<Command> {
 		this.bind = new KeyBinding("Console", Keyboard.KEY_GRAVE, info.getName());
 		ClientRegistry.registerKeyBinding(bind);
 
-		this.prefix = ChatUtils.textFrom(String.format("§7[§6%s§7] ", info.getName()));
+		final EnumChatFormatting gray = EnumChatFormatting.GRAY;
+		this.prefix = ChatUtils
+				.append(ChatUtils.make("[", gray), ChatUtils.make(info.getName(), EnumChatFormatting.GOLD), ChatUtils
+						.make("] ", gray));
 	}
 
 	@SubscribeEvent public void onKey(KeyEvent event) {
@@ -66,7 +69,7 @@ public final class CommandManager extends Manager<Command> {
 	}
 
 	void sendMessage(String message, EnumChatFormatting... format) {
-		final ChatComponentText text = ChatUtils.makeText(message, format);
+		final ChatComponentText text = ChatUtils.make(message, format);
 
 		console.print(ChatUtils.append(prefix, text));
 	}
