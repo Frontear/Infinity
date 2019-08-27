@@ -14,6 +14,7 @@ public final class ClickGui extends Module {
 
 	@Override public void toggle() {
 		mc.displayGuiScreen(screen);
+
 		super.setActive(false);
 	}
 }
