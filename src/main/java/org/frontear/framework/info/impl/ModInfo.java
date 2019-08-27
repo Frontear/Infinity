@@ -29,8 +29,7 @@ public final class ModInfo implements IModInfo {
 		this.version = json.get("version").getAsString();
 		this.fullname = String.format("%s v%s", name, version);
 		{
-			final JsonArray authorList = json.get(type == FORGE ? "authorList" : "authors")
-					.getAsJsonArray();
+			final JsonArray authorList = json.get(type == FORGE ? "authorList" : "authors").getAsJsonArray();
 			final StringBuilder str = new StringBuilder();
 			authorList.forEach(str::append);
 			this.authors = replaceLast(String.join(", ", str.toString()), ", ", ", and ");

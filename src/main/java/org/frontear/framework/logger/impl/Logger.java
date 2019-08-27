@@ -37,8 +37,8 @@ public final class Logger implements ILogger {
 	 * Creates a logger instance with prefix beginning with your specified name
 	 *
 	 * @param name  Will prefix all log stream outputs
-	 * @param trace Attempts to find class and method name where Logger is invoked, and will prefix the entry with that
-	 *              information
+	 * @param trace Attempts to find class and method name where {@link Logger#debug(Object, Object...)} is invoked, and
+	 *              will prefix the entry with that information
 	 */
 	public Logger(String name, boolean trace) {
 		this.log = LogManager.getLogger(name);
@@ -129,18 +129,18 @@ public final class Logger implements ILogger {
 	private void log(Level level, Object object, Object... args) {
 		final StackTraceElement element = Thread.currentThread().getStackTrace()[3];
 		final StringBuilder message = new StringBuilder();
-		if (trace) {
-			message.append(String.format("[%s#%s]: ", sanitize(element.getClassName()), element.getMethodName()));
-		}
-
-		message.append(String.format(String.valueOf(object), args));
 
 		switch (level) {
 			case OFF:
+				if (trace) {
+					message.append(String
+							.format("[%s#%s]: ", sanitize(element.getClassName()), element.getMethodName()));
+				}
 			case FATAL:
 			case ERROR:
 			case WARN:
 			case INFO:
+				message.append(String.format(String.valueOf(object), args));
 				log.log(level, message.toString());
 				return;
 			default:

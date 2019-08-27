@@ -1,8 +1,7 @@
 package org.frontear.framework.client.impl;
 
 import com.google.common.base.Preconditions;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import org.apache.commons.lang3.StringUtils;
 import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
@@ -54,10 +53,12 @@ public abstract class Client implements IClient {
 					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
 							.getPath(), "file:", "!"); // Gets the JAR file path
 			final ZipFile jar = new ZipFile(new File(path));
-			final InputStream stream = jar.getInputStream(jar.getEntry(type == ModInfo.FORGE ? "mcmod.info" : "fabric.mod.json"));
+			final InputStream stream = jar
+					.getInputStream(jar.getEntry(type == ModInfo.FORGE ? "mcmod.info" : "fabric.mod.json"));
 			final Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-			final JsonObject object = new JsonParser().parse(reader).getAsJsonArray().get(0)
-					.getAsJsonObject(); // mcmod.info is wrapped in a list
+			final JsonElement element = new JsonParser().parse(reader);
+			final JsonObject object = type == ModInfo.FORGE ? element.getAsJsonArray().get(0)
+					.getAsJsonObject() : element.getAsJsonObject();
 
 			return new ModInfo(object, type);
 		}
