@@ -1,7 +1,7 @@
 package org.frontear.framework.info;
 
 /**
- * Contains all the important information found from the mcmod.info
+ * Contains all the important information found from the specified json file
  */
 public interface IModInfo {
 	/**

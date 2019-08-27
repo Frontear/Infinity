@@ -12,7 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 	}
 
 	/**
-	 * @author prplz Please see https://prplz.io/mousedelayfix/ for more information
+	 * @author prplz
+	 * @reason Please see https://prplz.io/mousedelayfix/ for more information
 	 */
 	@Override public Vec3 getLook(float partialTicks) {
 		return this.getVectorForRotation(this.rotationPitch, this.rotationYaw);

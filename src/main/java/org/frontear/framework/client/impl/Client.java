@@ -19,7 +19,7 @@ import java.util.zip.ZipFile;
  */
 public abstract class Client implements IClient {
 	/**
-	 * Represents whether <i>-Dfrontear.debug=true</i> is passed as a JVM arg
+	 * Represents whether <i>-Dfrontear.debug=true</i> is passed as a JVM argument
 	 */
 	public static final boolean DEBUG = Boolean.parseBoolean(System
 			.getProperty("frontear.debug", "false")); // either get value of frontear.debug, or return false if it doesn't exist
@@ -67,10 +67,10 @@ public abstract class Client implements IClient {
 		}
 	}
 
-	// todo: error handling if mcmod.info doesn't exist
+	// todo: error handling if the specified json file doesn't exist
 
 	/**
-	 * Information for this is received from the mcmod.info. As a result, this file MUST exist
+	 * Information for this is received from the specified json file. As a result, this file MUST exist
 	 *
 	 * @see IClient#getModInfo()
 	 */

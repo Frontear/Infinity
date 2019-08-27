@@ -14,50 +14,27 @@ public final class Logger implements ILogger {
 	private static final char pad = '—';
 	private static final int repeat = 64;
 	private final org.apache.logging.log4j.Logger log;
-	private final boolean trace;
 
 	/**
-	 * Creates a logger instance, will automatically find the class name. and will enable tracing
+	 * Creates a logger instance, and will automatically find the prefix name based on the calling class
 	 */
 	public Logger() {
-		this(true);
-	}
-
-	/**
-	 * Creates a logger instance, and will automatically find the class name
-	 *
-	 * @param trace Attempts to find class and method name where Logger is invoked, and will prefix the entry with that
-	 *              information
-	 */
-	public Logger(boolean trace) {
-		this(sanitize(Thread.currentThread().getStackTrace()[2].getClassName()), trace);
+		this(sanitize(Thread.currentThread().getStackTrace()[2].getClassName()));
 	}
 
 	/**
 	 * Creates a logger instance with prefix beginning with your specified name
 	 *
-	 * @param name  Will prefix all log stream outputs
-	 * @param trace Attempts to find class and method name where {@link Logger#debug(Object, Object...)} is invoked, and
-	 *              will prefix the entry with that information
+	 * @param name Will prefix all log stream outputs
 	 */
-	public Logger(String name, boolean trace) {
+	public Logger(String name) {
 		this.log = LogManager.getLogger(name);
-		this.trace = trace;
 	}
 
 	// removes package prefix
 	private static String sanitize(String className) {
 		final String[] split = className.split("\\.");
 		return split[split.length - 1];
-	}
-
-	/**
-	 * Creates a logger instance with prefix beginning with your specified name, and will enable tracing
-	 *
-	 * @param name Will prefix all log stream outputs
-	 */
-	public Logger(String name) {
-		this(name, true);
 	}
 
 	/**
@@ -120,7 +97,8 @@ public final class Logger implements ILogger {
 
 	/**
 	 * Internally handles all logging calls given to {@link ILogger}, will throw a {@link UnsupportedOperationException}
-	 * if a specified level isn't internally supported
+	 * if a specified level isn't internally supported. All logger calls which prefix with a Class#Method format if
+	 * {@link Client#DEBUG}
 	 *
 	 * @param level  The level specified by the logging call
 	 * @param object Will be converted into a string via {@link String#valueOf(Object)}
@@ -129,18 +107,17 @@ public final class Logger implements ILogger {
 	private void log(Level level, Object object, Object... args) {
 		final StackTraceElement element = Thread.currentThread().getStackTrace()[3];
 		final StringBuilder message = new StringBuilder();
+		if (Client.DEBUG) {
+			message.append(String.format("[%s#%s]: ", sanitize(element.getClassName()), element.getMethodName()));
+		}
+		message.append(String.format(String.valueOf(object), args));
 
 		switch (level) {
 			case OFF:
-				if (trace) {
-					message.append(String
-							.format("[%s#%s]: ", sanitize(element.getClassName()), element.getMethodName()));
-				}
 			case FATAL:
 			case ERROR:
 			case WARN:
 			case INFO:
-				message.append(String.format(String.valueOf(object), args));
 				log.log(level, message.toString());
 				return;
 			default:

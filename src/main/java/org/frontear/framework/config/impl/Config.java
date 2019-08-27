@@ -44,8 +44,8 @@ public final class Config implements IConfig {
 	}
 
 	/**
-	 * Reads the config file, parses it into a {@link JsonObject} using {@link Gson}, and calls {@link
-	 * IConfigurable#load(IConfigurable)} for each {@link IConfigurable} it can find, by comparing {@link
+	 * Reads the config file, parses it into a {@link JsonObject} using {@link JsonParser#parse(Reader)}, and calls
+	 * {@link IConfigurable#load(IConfigurable)} for each {@link IConfigurable} it can find, by comparing {@link
 	 * IConfigurable#getName()}
 	 *
 	 * @see IConfig#load()

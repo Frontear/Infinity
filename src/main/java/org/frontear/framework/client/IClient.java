@@ -9,7 +9,7 @@ import org.frontear.framework.logger.ILogger;
  */
 public interface IClient {
 	/**
-	 * Contains all the important information loaded from the mcmod.info file
+	 * Contains all the important information loaded from the specified json file
 	 *
 	 * @return {@link IModInfo}
 	 */

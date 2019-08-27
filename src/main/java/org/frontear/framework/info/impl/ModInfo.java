@@ -17,10 +17,12 @@ public final class ModInfo implements IModInfo {
 	// todo: allow custom property definitions (allow user to specify which property contains which information)
 
 	/**
-	 * Loads a json file which should be parsed as an {@link JsonObject} It assumes that certain properties exist (name,
-	 * version, authorList) If these properties do not exist, this will error
+	 * Loads a json file as a {@link JsonObject} to parse for {@link ModInfo} properties. It assumes that certain
+	 * properties exist (name, version, authorList/authors) If these properties do not exist, this will error
 	 *
-	 * @param json {@link JsonObject} which is created when loading the mcmod,info in {@link Client} construction
+	 * @param json {@link JsonObject} which is created when loading the specified json file in {@link Client}
+	 *             construction
+	 * @param type The modding environment type, either {@link ModInfo#FORGE} or {@link ModInfo#FABRIC}
 	 */
 	public ModInfo(JsonObject json, byte type) {
 		Preconditions.checkArgument(type == ModInfo.FORGE || type == ModInfo.FABRIC);
@@ -47,7 +49,7 @@ public final class ModInfo implements IModInfo {
 	}
 
 	/**
-	 * @return The name found from the mcmod.info
+	 * @return The name found from the specified json file
 	 *
 	 * @see IModInfo#getName()
 	 */
@@ -56,7 +58,7 @@ public final class ModInfo implements IModInfo {
 	}
 
 	/**
-	 * @return The version found from the mcmod.info
+	 * @return The version found from the specified json file
 	 *
 	 * @see IModInfo#getVersion()
 	 */
@@ -74,7 +76,7 @@ public final class ModInfo implements IModInfo {
 	}
 
 	/**
-	 * @return The author(s) found from the mcmod.info, using the Oxford Comma
+	 * @return The author(s) found from the specified json file, using the Oxford Comma
 	 *
 	 * @see IModInfo#getAuthors()
 	 */

@@ -13,7 +13,8 @@ import java.io.InputStream;
 	private static final int SIZE = 64; // the scaled resolution size
 
 	/**
-	 * @author prplz Please see https://prplz.io/memoryfix/ for more information
+	 * @author prplz
+	 * @reason Please see https://prplz.io/memoryfix/ for more information
 	 */
 	@Overwrite public BufferedImage getPackImage() throws IOException {
 		final BufferedImage image = TextureUtil.readBufferedImage(this.getInputStreamByName("pack.png"));
