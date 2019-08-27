@@ -11,9 +11,16 @@ import org.frontear.framework.logger.ILogger;
  * An implementation of {@link ILogger}
  */
 public final class Logger implements ILogger {
-	private static final char pad = '—'; // \u2014
+	private static final char pad = '—';
 	private static final int repeat = 64;
 	private final org.apache.logging.log4j.Logger log;
+
+	/**
+	 * Creates a logger instance, and will automatically find the prefix name based on the calling class
+	 */
+	public Logger() {
+		this(sanitize(Thread.currentThread().getStackTrace()[2].getClassName()));
+	}
 
 	/**
 	 * Creates a logger instance with prefix beginning with your specified name
@@ -24,12 +31,10 @@ public final class Logger implements ILogger {
 		this.log = LogManager.getLogger(name);
 	}
 
-	/**
-	 * Creates a logger instance, and will automatically find the class name
-	 */
-	public Logger() {
-		final String[] split = Thread.currentThread().getStackTrace()[2].getClassName().split("\\.");
-		this.log = LogManager.getLogger(split[split.length - 1]);
+	// removes package prefix
+	private static String sanitize(String className) {
+		final String[] split = className.split("\\.");
+		return split[split.length - 1];
 	}
 
 	/**
@@ -92,14 +97,20 @@ public final class Logger implements ILogger {
 
 	/**
 	 * Internally handles all logging calls given to {@link ILogger}, will throw a {@link UnsupportedOperationException}
-	 * if a specified level isn't internally supported
+	 * if a specified level isn't internally supported. All logger calls which prefix with a Class#Method format if
+	 * {@link Client#DEBUG}
 	 *
 	 * @param level  The level specified by the logging call
 	 * @param object Will be converted into a string via {@link String#valueOf(Object)}
 	 * @param args   Extra arguments for {@link String#format(String, Object...)}
 	 */
 	private void log(Level level, Object object, Object... args) {
-		final String message = String.format(String.valueOf(object), args);
+		final StackTraceElement element = Thread.currentThread().getStackTrace()[3];
+		final StringBuilder message = new StringBuilder();
+		if (Client.DEBUG) {
+			message.append(String.format("[%s#%s]: ", sanitize(element.getClassName()), element.getMethodName()));
+		}
+		message.append(String.format(String.valueOf(object), args));
 
 		switch (level) {
 			case OFF:
@@ -107,7 +118,7 @@ public final class Logger implements ILogger {
 			case ERROR:
 			case WARN:
 			case INFO:
-				log.log(level, message);
+				log.log(level, message.toString());
 				return;
 			default:
 				fatal(new UnsupportedOperationException(), "Level %s is not supported", level.name());

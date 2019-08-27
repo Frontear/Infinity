@@ -12,7 +12,7 @@ import java.util.Deque;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
-public class Console extends Drawable {
+public final class Console extends Drawable {
 	private static final float scale = 0.5f;
 	private final FontRenderer renderer;
 	private final Rectangle backing;

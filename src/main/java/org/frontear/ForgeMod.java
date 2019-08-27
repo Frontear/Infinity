@@ -10,7 +10,7 @@ import org.frontear.infinity.Infinity;
 
 @Mod(modid = "${modid}",
 		version = "${version}") public final class ForgeMod {
-	private final Logger logger = new Logger("${modid} ForgeMod");
+	private final Logger logger = new Logger("${name} ForgeMod");
 	private Thread concurrent;
 
 	@Mod.EventHandler private void onFMLPreInitialization(FMLPreInitializationEvent event) {

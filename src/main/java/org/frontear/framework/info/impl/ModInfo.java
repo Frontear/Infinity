@@ -1,5 +1,6 @@
 package org.frontear.framework.info.impl;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.frontear.framework.client.impl.Client;
@@ -9,20 +10,28 @@ import org.frontear.framework.info.IModInfo;
  * An implementation of {@link IModInfo}
  */
 public final class ModInfo implements IModInfo {
+	public static final byte FORGE = 0x0, FABRIC = 0x1;
+
 	private final String name, version, fullname, authors;
 
-	/**
-	 * Loads the mcmod.info which should be parsed as an {@link JsonObject}
-	 *
-	 * @param mcmod {@link JsonObject} which is created when loading the mcmod,info in {@link Client} construction
-	 */
-	public ModInfo(JsonObject mcmod) {
-		this.name = mcmod.get("name").getAsString();
-		this.version = mcmod.get("version").getAsString();
-		this.fullname = String.format("%s v%s", name, version);
+	// todo: allow custom property definitions (allow user to specify which property contains which information)
 
+	/**
+	 * Loads a json file as a {@link JsonObject} to parse for {@link ModInfo} properties. It assumes that certain
+	 * properties exist (name, version, authorList/authors) If these properties do not exist, this will error
+	 *
+	 * @param json {@link JsonObject} which is created when loading the specified json file in {@link Client}
+	 *             construction
+	 * @param type The modding environment type, either {@link ModInfo#FORGE} or {@link ModInfo#FABRIC}
+	 */
+	public ModInfo(JsonObject json, byte type) {
+		Preconditions.checkArgument(type == ModInfo.FORGE || type == ModInfo.FABRIC);
+
+		this.name = json.get("name").getAsString();
+		this.version = json.get("version").getAsString();
+		this.fullname = String.format("%s v%s", name, version);
 		{
-			final JsonArray authorList = mcmod.get("authorList").getAsJsonArray();
+			final JsonArray authorList = json.get(type == FORGE ? "authorList" : "authors").getAsJsonArray();
 			final StringBuilder str = new StringBuilder();
 			authorList.forEach(str::append);
 			this.authors = replaceLast(String.join(", ", str.toString()), ", ", ", and ");
@@ -40,7 +49,7 @@ public final class ModInfo implements IModInfo {
 	}
 
 	/**
-	 * @return The name found from the mcmod.info
+	 * @return The name found from the specified json file
 	 *
 	 * @see IModInfo#getName()
 	 */
@@ -49,7 +58,7 @@ public final class ModInfo implements IModInfo {
 	}
 
 	/**
-	 * @return The version found from the mcmod.info
+	 * @return The version found from the specified json file
 	 *
 	 * @see IModInfo#getVersion()
 	 */
@@ -67,7 +76,7 @@ public final class ModInfo implements IModInfo {
 	}
 
 	/**
-	 * @return The author(s) found from the mcmod.info, using the Oxford Comma
+	 * @return The author(s) found from the specified json file, using the Oxford Comma
 	 *
 	 * @see IModInfo#getAuthors()
 	 */

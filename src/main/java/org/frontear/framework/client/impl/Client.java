@@ -1,24 +1,25 @@
 package org.frontear.framework.client.impl;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.common.base.Preconditions;
+import com.google.gson.*;
+import org.apache.commons.lang3.StringUtils;
 import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.utils.Timer;
-import org.frontear.wrapper.IMinecraftWrapper;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.zip.ZipFile;
 
 /**
  * An implementation of {@link IClient}
  */
 public abstract class Client implements IClient {
 	/**
-	 * Represents whether <i>-Dfrontear.debug=true</i> is passed as a JVM arg
+	 * Represents whether <i>-Dfrontear.debug=true</i> is passed as a JVM argument
 	 */
 	public static final boolean DEBUG = Boolean.parseBoolean(System
 			.getProperty("frontear.debug", "false")); // either get value of frontear.debug, or return false if it doesn't exist
@@ -36,24 +37,40 @@ public abstract class Client implements IClient {
 	 */
 	protected Client() {
 		UPTIME.reset(); // intentional, as we want to only know exactly how long it has been since client started to load
-		{
-			final InputStream mcmod = Objects
-					.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("mcmod.info"));
-			final Reader reader = new BufferedReader(new InputStreamReader(mcmod, StandardCharsets.UTF_8));
-			final JsonObject object = new JsonParser().parse(reader).getAsJsonArray().get(0)
-					.getAsJsonObject(); // mcmod.info files are wrapped in a list
 
-			this.info = new ModInfo(object);
-		}
+		this.info = Objects.requireNonNull(construct(ModInfo.FORGE));
 		this.logger = new Logger(info.getName());
-		this.config = new Config(new File(IMinecraftWrapper.getMinecraft().getDirectory(), info.getName()
-				.toLowerCase() + ".json"));
+		this.config = new Config(new File(".", info.getName().toLowerCase() + ".json"));
 	}
 
-	// todo: error handling if mcmod.info doesn't exist
+	/*
+	This mainly exists due to the Fabric API loading classes but not resources until later, causing discrepancies with resources attempting to be loaded
+	 */
+	@SuppressWarnings("SameParameterValue") private ModInfo construct(final byte type) {
+		Preconditions.checkArgument(type == ModInfo.FORGE || type == ModInfo.FABRIC);
+		try {
+			final String path = StringUtils
+					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
+							.getPath(), "file:", "!"); // Gets the JAR file path
+			final ZipFile jar = new ZipFile(new File(path));
+			final InputStream stream = jar
+					.getInputStream(jar.getEntry(type == ModInfo.FORGE ? "mcmod.info" : "fabric.mod.json"));
+			final Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+			final JsonElement element = new JsonParser().parse(reader);
+			final JsonObject object = type == ModInfo.FORGE ? element.getAsJsonArray().get(0)
+					.getAsJsonObject() : element.getAsJsonObject();
+
+			return new ModInfo(object, type);
+		}
+		catch (IOException e) {
+			return null;
+		}
+	}
+
+	// todo: error handling if the specified json file doesn't exist
 
 	/**
-	 * Information for this is received from the mcmod.info. As a result, this file MUST exist
+	 * Information for this is received from the specified json file. As a result, this file MUST exist
 	 *
 	 * @see IClient#getModInfo()
 	 */

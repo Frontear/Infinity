@@ -8,7 +8,7 @@ import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 
-public class ConsoleGuiScreen extends GuiScreen {
+public final class ConsoleGuiScreen extends GuiScreen {
 	private Console console;
 
 	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {

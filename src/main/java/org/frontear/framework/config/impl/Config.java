@@ -44,8 +44,8 @@ public final class Config implements IConfig {
 	}
 
 	/**
-	 * Reads the config file, parses it into a {@link JsonObject} using {@link Gson}, and calls {@link
-	 * IConfigurable#load(IConfigurable)} for each {@link IConfigurable} it can find, by comparing {@link
+	 * Reads the config file, parses it into a {@link JsonObject} using {@link JsonParser#parse(Reader)}, and calls
+	 * {@link IConfigurable#load(IConfigurable)} for each {@link IConfigurable} it can find, by comparing {@link
 	 * IConfigurable#getName()}
 	 *
 	 * @see IConfig#load()
@@ -53,7 +53,7 @@ public final class Config implements IConfig {
 	@Override public void load() {
 		try (Reader reader = new FileReader(config_file)) {
 			logger.debug("Loading config from %s", config_file.getAbsolutePath());
-			final JsonObject config = gson.fromJson(reader, JsonObject.class);
+			final JsonObject config = new JsonParser().parse(reader).getAsJsonObject();
 
 			configurables.forEach(x -> {
 				logger.debug("Lookup for '%s' in config", x.getName());

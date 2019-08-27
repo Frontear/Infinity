@@ -8,7 +8,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 
-public class ConsoleTextField extends GuiTextField {
+public final class ConsoleTextField extends GuiTextField {
 	private final Rectangle backing;
 
 	public ConsoleTextField(FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height, Color color) {

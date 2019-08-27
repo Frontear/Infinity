@@ -43,7 +43,7 @@ public abstract class Manager<T> implements IManager<T> {
 	 *
 	 * @return An {@link ImmutableSet} of elements which were instantiated
 	 */
-	@SuppressWarnings("UnstableApiUsage") protected final ImmutableSet<T> reflectionSearch(String pkg) {
+	@SuppressWarnings("UnstableApiUsage") private ImmutableSet<T> reflectionSearch(String pkg) {
 		logger.debug("Attempting to find parent...");
 		//noinspection unchecked
 		final Class<T> parent = (Class<T>) new TypeToken<T>(getClass()) {}

@@ -10,6 +10,7 @@ import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.manager.impl.Manager;
 import org.frontear.infinity.commands.gui.ConsoleGuiScreen;
 import org.frontear.infinity.events.input.KeyEvent;
+import org.frontear.infinity.modules.impl.Ghost;
 import org.frontear.infinity.utils.ChatUtils;
 import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
@@ -27,11 +28,14 @@ public final class CommandManager extends Manager<Command> {
 		this.bind = new KeyBinding("Console", Keyboard.KEY_GRAVE, info.getName());
 		ClientRegistry.registerKeyBinding(bind);
 
-		this.prefix = ChatUtils.textFrom(String.format("§7[§6%s§7] ", info.getName()));
+		final EnumChatFormatting gray = EnumChatFormatting.GRAY;
+		this.prefix = ChatUtils
+				.append(ChatUtils.make("[", gray), ChatUtils.make(info.getName(), EnumChatFormatting.GOLD), ChatUtils
+						.make("] ", gray));
 	}
 
 	@SubscribeEvent public void onKey(KeyEvent event) {
-		if (event.isPressed() && event.getKey() == bind.getKeyCode()) {
+		if (!Ghost.active() && event.isPressed() && event.getKey() == bind.getKeyCode()) {
 			IMinecraftWrapper.getMinecraft().displayGuiScreen(console);
 		}
 	}
@@ -65,7 +69,7 @@ public final class CommandManager extends Manager<Command> {
 	}
 
 	void sendMessage(String message, EnumChatFormatting... format) {
-		final ChatComponentText text = ChatUtils.makeText(message, format);
+		final ChatComponentText text = ChatUtils.make(message, format);
 
 		console.print(ChatUtils.append(prefix, text));
 	}
