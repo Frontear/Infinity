@@ -84,8 +84,9 @@ public final class ChatUtils {
 
 	public static ChatStyle styleFrom(String formatted) {
 		final ChatStyle style = new ChatStyle();
-		final Matcher matcher = Pattern.compile(String.format("%s.", Pattern.quote(FORMAT_SYMBOL))).matcher(StringUtils.substringBefore(formatted, String
-				.valueOf(EnumChatFormatting.RESET))); // removes the final reset code that exists from most ChatComponentText styles
+		final Matcher matcher = Pattern.compile(String.format("%s.", Pattern.quote(FORMAT_SYMBOL))).matcher(StringUtils
+				.substringBefore(formatted, String
+						.valueOf(EnumChatFormatting.RESET))); // removes the final reset code that exists from most ChatComponentText styles
 		while (matcher.find()) {
 			setStyle(style, formats.get(matcher.group().charAt(1)));
 		}
