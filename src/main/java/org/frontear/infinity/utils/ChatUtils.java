@@ -26,17 +26,9 @@ public final class ChatUtils {
 
 	public static ChatComponentText make(String text, EnumChatFormatting... formats) {
 		final ChatComponentText component = new ChatComponentText(text);
-		final ChatStyle style = setStyle(formats);
-		component.setChatStyle(style);
+		setStyle(component.getChatStyle(), formats);
 
 		return component;
-	}
-
-	private static ChatStyle setStyle(EnumChatFormatting... formats) {
-		final ChatStyle style = new ChatStyle();
-		setStyle(style, formats);
-
-		return style;
 	}
 
 	private static void setStyle(ChatStyle style, EnumChatFormatting... formats) {
@@ -61,6 +53,8 @@ public final class ChatUtils {
 							return;
 						case ITALIC:
 							style.setItalic(true);
+						default:
+							logger.fatal(new UnsupportedOperationException(), "Invalid format %s", x.name());
 					}
 				}
 				else if (x.isColor()) {
@@ -85,7 +79,9 @@ public final class ChatUtils {
 	public static ChatStyle styleFrom(String formatted) {
 		Preconditions.checkArgument(formatted != null);
 
-		final ChatStyle style = defaultStyle();
+		final ChatStyle style = new ChatStyle();
+		defaultStyle(style);
+
 		if (!formatted.isEmpty() && formatted.contains(FORMAT_SYMBOL)) {
 			final Matcher matcher = Pattern.compile(FORMAT_SYMBOL + ".").matcher(formatted);
 			while (matcher.find()) {
@@ -93,13 +89,6 @@ public final class ChatUtils {
 				setStyle(style, formats.get(found.charAt(1)));
 			}
 		}
-
-		return style;
-	}
-
-	private static ChatStyle defaultStyle() {
-		final ChatStyle style = new ChatStyle();
-		defaultStyle(style);
 
 		return style;
 	}
