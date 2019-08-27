@@ -5,6 +5,7 @@ import org.frontear.framework.config.IConfigurable;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * An implementation of {@link IConfigurable}. Usage of this class is heavily discouraged, instead, implement {@link
@@ -17,20 +18,31 @@ import java.util.Arrays;
 	 * @see IConfigurable#load(IConfigurable)
 	 */
 	@Override public void load(C self) {
-		Field[] this_exposed = Arrays.stream(this.getClass().getDeclaredFields())
-				.filter(x -> x.isAnnotationPresent(Expose.class)).toArray(Field[]::new);
-
-		for (Field exposed_field : this_exposed) {
-			final String name = exposed_field.getName();
-			exposed_field.setAccessible(true);
+		final Field[] exposed = Arrays.stream(this.getClass().getDeclaredFields())
+				.filter(x -> x.isAnnotationPresent(Expose.class)).peek(this::sanitize).toArray(Field[]::new);
+		for (Field field : exposed) {
+			final Field equivalent = Objects.requireNonNull(get(self.getClass(), field.getName()));
 			try {
-				Field target = self.getClass().getDeclaredField(name);
-				target.setAccessible(true);
-				exposed_field.set(this, target.get(self));
+				field.set(this, equivalent.get(self));
 			}
-			catch (NoSuchFieldException | IllegalAccessException e) {
+			catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	private Field sanitize(Field field) {
+		field.setAccessible(true);
+		return field;
+	}
+
+	private Field get(Class<?> clazz, String name) {
+		try {
+			final Field field = clazz.getDeclaredField(name);
+			return sanitize(field);
+		}
+		catch (NoSuchFieldException e) {
+			return null;
 		}
 	}
 }
