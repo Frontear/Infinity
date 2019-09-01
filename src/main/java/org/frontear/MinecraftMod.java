@@ -11,9 +11,12 @@ import org.frontear.infinity.Infinity;
 
 @Mod(modid = "${modid}",
 		version = "${version}") public final class MinecraftMod {
-	public static final byte ENVIRONMENT = ModdingEnvironment.FORGE;
 	private final Logger logger = new Logger("${name} MinecraftMod");
 	private Thread concurrent;
+
+	public static byte getEnvironment() {
+		return ModdingEnvironment.FORGE;
+	}
 
 	@Mod.EventHandler private void onFMLPreInitialization(FMLPreInitializationEvent event) {
 		logger.debug("Creating concurrent client thread");

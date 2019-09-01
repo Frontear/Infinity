@@ -2,6 +2,7 @@ package org.frontear.framework.info.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.frontear.MinecraftMod;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.environment.ModdingEnvironment;
 import org.frontear.framework.info.IModInfo;
@@ -20,15 +21,14 @@ public final class ModInfo implements IModInfo {
 	 *
 	 * @param json {@link JsonObject} which is created when loading the specified json file in {@link Client}
 	 *             construction
-	 * @param type The modding environment type, either {@link ModdingEnvironment#FORGE} or {@link
-	 *             ModdingEnvironment#FABRIC}
 	 */
-	public ModInfo(JsonObject json, byte type) {
+	public ModInfo(JsonObject json) {
 		this.name = json.get("name").getAsString();
 		this.version = json.get("version").getAsString();
 		this.fullname = String.format("%s v%s", name, version);
 		{
-			final JsonArray authorList = json.get(type == ModdingEnvironment.FORGE ? "authorList" : "authors")
+			final JsonArray authorList = json
+					.get(MinecraftMod.getEnvironment() == ModdingEnvironment.FORGE ? "authorList" : "authors")
 					.getAsJsonArray();
 			final StringBuilder str = new StringBuilder();
 			authorList.forEach(str::append);

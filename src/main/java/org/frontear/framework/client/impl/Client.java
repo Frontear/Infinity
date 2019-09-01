@@ -39,7 +39,7 @@ public abstract class Client implements IClient {
 	protected Client() {
 		UPTIME.reset(); // intentional, as we want to only know exactly how long it has been since client started to load
 
-		this.info = Objects.requireNonNull(construct(MinecraftMod.ENVIRONMENT));
+		this.info = Objects.requireNonNull(construct());
 		this.logger = new Logger(info.getName());
 		this.config = new Config(new File(".", info.getName().toLowerCase() + ".json"));
 	}
@@ -47,27 +47,30 @@ public abstract class Client implements IClient {
 	/*
 	This mainly exists due to the Fabric API loading classes but not resources until later, causing discrepancies with resources attempting to be loaded
 	 */
-	@SuppressWarnings("SameParameterValue") private ModInfo construct(final byte type) {
+	private ModInfo construct() {
+		JsonObject info;
 		try {
-			final String path = StringUtils
+			final ZipFile jar = new ZipFile(new File(StringUtils
 					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
-							.getPath(), "file:", "!"); // Gets the JAR file path
-			final ZipFile jar = new ZipFile(new File(path));
-			final InputStream stream = jar
-					.getInputStream(jar.getEntry(type == ModdingEnvironment.FORGE ? "mcmod.info" : "fabric.mod.json"));
-			final Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-			final JsonElement element = new JsonParser().parse(reader);
-			final JsonObject object = type == ModdingEnvironment.FORGE ? element.getAsJsonArray().get(0)
-					.getAsJsonObject() : element.getAsJsonObject();
-
-			return new ModInfo(object, type);
+							.getPath(), "file:", "!")));
+			final InputStream stream = jar.getInputStream(jar.getEntry(MinecraftMod
+					.getEnvironment() == ModdingEnvironment.FORGE ? "mcmod.info" : "fabric.mod.json"));
+			final JsonElement element = new JsonParser()
+					.parse(new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)));
+			info = (MinecraftMod.getEnvironment() == ModdingEnvironment.FORGE ? element.getAsJsonArray()
+					.get(0) : element).getAsJsonObject();
 		}
-		catch (IOException e) {
-			return null;
+		catch (NullPointerException | IOException e) {
+			e.printStackTrace();
+			{
+				info = new JsonObject();
+				info.addProperty("name", "null");
+				info.addProperty("version", "null");
+				info.add(MinecraftMod.getEnvironment() == ModdingEnvironment.FORGE ? "authorList" : "authors", new JsonArray());
+			}
 		}
+		return new ModInfo(info);
 	}
-
-	// todo: error handling if the specified json file doesn't exist
 
 	/**
 	 * Information for this is received from the specified json file. As a result, this file MUST exist
