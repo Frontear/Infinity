@@ -16,8 +16,8 @@ import java.util.Set;
 
 public final class Ghost extends Module {
 	private static Ghost self = null;
-	private Set<Module> unsafe = Sets.newHashSet();
 	private final LocalMachine machine = new LocalMachine();
+	private Set<Module> unsafe = Sets.newHashSet();
 	private boolean obs = false;
 
 	public Ghost() {
@@ -51,16 +51,17 @@ public final class Ghost extends Module {
 		}
 	}
 
+	@Override public void setActive(boolean active) {
+		super.setActive(obs || active);
+		MinecraftForge.EVENT_BUS.register(this); // todo: prevent nonsense like this
+	}
+
 	@SubscribeEvent public void onTick(TickEvent.ClientTickEvent event) {
 		this.obs = machine.getProcesses().containsValue("obs");
 		if (!isActive() && obs) {
 			this.setActive(true);
-			Infinity.inst().getLogger().warn("OBS Studio was detected. For your protection, Ghost will not disable until it is closed");
+			Infinity.inst().getLogger()
+					.warn("OBS Studio was detected. For your protection, Ghost will not disable until it is closed");
 		}
-	}
-
-	@Override public void setActive(boolean active) {
-		super.setActive(obs || active);
-		MinecraftForge.EVENT_BUS.register(this); // todo: prevent nonsense like this
 	}
 }

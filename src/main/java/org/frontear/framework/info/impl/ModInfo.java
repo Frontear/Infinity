@@ -1,17 +1,15 @@
 package org.frontear.framework.info.impl;
 
-import com.google.common.base.Preconditions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.frontear.framework.client.impl.Client;
+import org.frontear.framework.environment.ModdingEnvironment;
 import org.frontear.framework.info.IModInfo;
 
 /**
  * An implementation of {@link IModInfo}
  */
 public final class ModInfo implements IModInfo {
-	public static final byte FORGE = 0x0, FABRIC = 0x1;
-
 	private final String name, version, fullname, authors;
 
 	// todo: allow custom property definitions (allow user to specify which property contains which information)
@@ -22,16 +20,16 @@ public final class ModInfo implements IModInfo {
 	 *
 	 * @param json {@link JsonObject} which is created when loading the specified json file in {@link Client}
 	 *             construction
-	 * @param type The modding environment type, either {@link ModInfo#FORGE} or {@link ModInfo#FABRIC}
+	 * @param type The modding environment type, either {@link ModdingEnvironment#FORGE} or {@link
+	 *             ModdingEnvironment#FABRIC}
 	 */
 	public ModInfo(JsonObject json, byte type) {
-		Preconditions.checkArgument(type == ModInfo.FORGE || type == ModInfo.FABRIC);
-
 		this.name = json.get("name").getAsString();
 		this.version = json.get("version").getAsString();
 		this.fullname = String.format("%s v%s", name, version);
 		{
-			final JsonArray authorList = json.get(type == FORGE ? "authorList" : "authors").getAsJsonArray();
+			final JsonArray authorList = json.get(type == ModdingEnvironment.FORGE ? "authorList" : "authors")
+					.getAsJsonArray();
 			final StringBuilder str = new StringBuilder();
 			authorList.forEach(str::append);
 			this.authors = replaceLast(String.join(", ", str.toString()), ", ", ", and ");
