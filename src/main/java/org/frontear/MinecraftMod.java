@@ -14,7 +14,7 @@ import org.frontear.infinity.Infinity;
 	private final Logger logger = new Logger("${name} MinecraftMod");
 	private Thread concurrent;
 
-	public static byte getEnvironment() {
+	public static ModdingEnvironment getEnvironment() {
 		return ModdingEnvironment.FORGE;
 	}
 

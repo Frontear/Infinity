@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.frontear.MinecraftMod;
 import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
-import org.frontear.framework.environment.ModdingEnvironment;
 import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.utils.time.Timer;
@@ -53,12 +52,11 @@ public abstract class Client implements IClient {
 			final ZipFile jar = new ZipFile(new File(StringUtils
 					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
 							.getPath(), "file:", "!")));
-			final InputStream stream = jar.getInputStream(jar.getEntry(MinecraftMod
-					.getEnvironment() == ModdingEnvironment.FORGE ? "mcmod.info" : "fabric.mod.json"));
+			final InputStream stream = jar
+					.getInputStream(jar.getEntry(MinecraftMod.getEnvironment().getInfoJsonFile()));
 			final JsonElement element = new JsonParser()
 					.parse(new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)));
-			info = (MinecraftMod.getEnvironment() == ModdingEnvironment.FORGE ? element.getAsJsonArray()
-					.get(0) : element).getAsJsonObject();
+			info = MinecraftMod.getEnvironment().getInfoJsonObject(element);
 		}
 		catch (NullPointerException | IOException e) {
 			e.printStackTrace();
@@ -66,7 +64,7 @@ public abstract class Client implements IClient {
 				info = new JsonObject();
 				info.addProperty("name", "null");
 				info.addProperty("version", "null");
-				info.add(MinecraftMod.getEnvironment() == ModdingEnvironment.FORGE ? "authorList" : "authors", new JsonArray());
+				info.add(MinecraftMod.getEnvironment().getAuthorProperty(), new JsonArray());
 			}
 		}
 		return new ModInfo(info);

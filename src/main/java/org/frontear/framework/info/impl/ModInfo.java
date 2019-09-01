@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.frontear.MinecraftMod;
 import org.frontear.framework.client.impl.Client;
-import org.frontear.framework.environment.ModdingEnvironment;
 import org.frontear.framework.info.IModInfo;
 
 /**
@@ -27,9 +26,7 @@ public final class ModInfo implements IModInfo {
 		this.version = json.get("version").getAsString();
 		this.fullname = String.format("%s v%s", name, version);
 		{
-			final JsonArray authorList = json
-					.get(MinecraftMod.getEnvironment() == ModdingEnvironment.FORGE ? "authorList" : "authors")
-					.getAsJsonArray();
+			final JsonArray authorList = json.get(MinecraftMod.getEnvironment().getAuthorProperty()).getAsJsonArray();
 			final StringBuilder str = new StringBuilder();
 			authorList.forEach(str::append);
 			this.authors = replaceLast(String.join(", ", str.toString()), ", ", ", and ");
