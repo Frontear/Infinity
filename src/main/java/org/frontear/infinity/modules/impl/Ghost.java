@@ -1,7 +1,11 @@
 package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Sets;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.frontear.framework.utils.system.LocalMachine;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
@@ -13,6 +17,8 @@ import java.util.Set;
 public final class Ghost extends Module {
 	private static Ghost self = null;
 	private Set<Module> unsafe = Sets.newHashSet();
+	private final LocalMachine machine = new LocalMachine();
+	private boolean obs = false;
 
 	public Ghost() {
 		super(Keyboard.KEY_G, true, Category.NONE);
@@ -43,5 +49,18 @@ public final class Ghost extends Module {
 			unsafe.forEach(Module::toggle);
 			unsafe.clear();
 		}
+	}
+
+	@SubscribeEvent public void onTick(TickEvent.ClientTickEvent event) {
+		this.obs = machine.getProcesses().containsValue("obs");
+		if (!isActive() && obs) {
+			this.setActive(true);
+			Infinity.inst().getLogger().warn("OBS Studio was detected. For your protection, Ghost will not disable until it is closed");
+		}
+	}
+
+	@Override public void setActive(boolean active) {
+		super.setActive(obs || active);
+		MinecraftForge.EVENT_BUS.register(this); // todo: prevent nonsense like this
 	}
 }
