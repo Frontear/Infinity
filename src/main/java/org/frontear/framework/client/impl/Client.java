@@ -7,7 +7,7 @@ import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.logger.impl.Logger;
-import org.frontear.framework.utils.Timer;
+import org.frontear.framework.utils.time.Timer;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

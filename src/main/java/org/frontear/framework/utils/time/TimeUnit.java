@@ -1,4 +1,4 @@
-package org.frontear.framework.utils;
+package org.frontear.framework.utils.time;
 
 /**
  * Represents possible conversions from nanoseconds to multiple units of time
