@@ -20,7 +20,7 @@ import java.io.InputStream;
 		final BufferedImage image = TextureUtil.readBufferedImage(this.getInputStreamByName("pack.png"));
 		if (image != null) {
 			final BufferedImage scaled = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
-			final Graphics2D graphics = image.createGraphics();
+			final Graphics2D graphics = scaled.createGraphics();
 			graphics.drawImage(image, 0, 0, SIZE, SIZE, null);
 			graphics.dispose();
 
