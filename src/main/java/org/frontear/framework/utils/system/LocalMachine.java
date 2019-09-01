@@ -3,38 +3,44 @@ package org.frontear.framework.utils.system;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 
-import javax.management.OperationsException;
+import java.awt.*;
+import java.awt.datatransfer.*;
 import java.io.*;
 import java.lang.management.ManagementFactory;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.Map;
 
 public class LocalMachine {
-	public boolean compareOS(byte os) {
-		Preconditions
-				.checkArgument(os == OperatingSystem.WINDOWS || os == OperatingSystem.LINUX || os == OperatingSystem.MACOSX || os == OperatingSystem.SOLARIS);
+	private static final byte OS;
 
+	static {
 		if (ManagementFactory.getRuntimeMXBean().getInputArguments().stream()
 				.noneMatch(x -> x.startsWith("-Dos.name="))) {
 			final String name = System.getProperty("os.name");
-			switch (os) {
-				case OperatingSystem.WINDOWS:
-					return name.contains("Windows");
-				case OperatingSystem.LINUX:
-					return name.contains("Linux");
-				case OperatingSystem.MACOSX:
-					return name.contains("OS X");
-				case OperatingSystem.SOLARIS:
-					return name.contains("Solaris") || name.contains("SunOS");
+			if (name.contains("Windows")) {
+				OS = OperatingSystem.WINDOWS;
+			}
+			else if (name.contains("Linux")) {
+				OS = OperatingSystem.LINUX;
+			}
+			else if (name.contains("OS X")) {
+				OS = OperatingSystem.MACOSX;
+			}
+			else if (name.contains("Solaris") || name.contains("SunOS")) {
+				OS = OperatingSystem.SOLARIS;
+			}
+			else {
+				OS = OperatingSystem.UNSUPPORTED;
 			}
 		}
-
-		throw new UnsupportedOperationException("Property \"os.name\" was overwritten in the JVM args"); // if os.name has been specified in the JVM args, we cannot guarantee the right result
+		else {
+			throw new UnsupportedOperationException("Property \"os.name\" was overwritten in the JVM args"); // if os.name has been specified manually in the JVM args, we cannot guarantee the right result
+		}
 	}
 
 	public Map<Integer, String> getProcesses() {
 		final Map<Integer, String> processes = Maps.newHashMap();
-		final boolean windows = this.compareOS(OperatingSystem.WINDOWS);
+		final boolean windows = OS == OperatingSystem.WINDOWS;
 		try {
 			final Process process = Runtime.getRuntime().exec(windows ? "tasklist /fo csv /nh" : "ps -e");
 			try (final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
@@ -46,7 +52,8 @@ public class LocalMachine {
 					}
 					else {
 						// id tty time command
-						final String[] split = Arrays.stream(x.trim().split(" ")).map(String::trim).filter(s -> !s.isEmpty()).toArray(String[]::new); // yikes
+						final String[] split = Arrays.stream(x.trim().split(" ")).map(String::trim)
+								.filter(s -> !s.isEmpty()).toArray(String[]::new); // yikes
 						processes.put(Integer.valueOf(split[0]), split[split.length - 1]);
 					}
 				});
@@ -57,5 +64,42 @@ public class LocalMachine {
 		}
 
 		return processes;
+	}
+
+	public boolean compareOS(byte os) {
+		Preconditions
+				.checkArgument(os == OperatingSystem.WINDOWS || os == OperatingSystem.LINUX || os == OperatingSystem.MACOSX || os == OperatingSystem.SOLARIS || os == OperatingSystem.UNSUPPORTED);
+
+		return os == OS;
+	}
+
+	public void kill(int id) {
+		try {
+			final Process process = Runtime.getRuntime()
+					.exec((OS == OperatingSystem.WINDOWS ? "taskkill /F /PID " : "kill -9 ") + id);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getClipboardContent() {
+		final Toolkit toolkit = Toolkit.getDefaultToolkit();
+		try {
+			return (String) toolkit.getSystemClipboard().getData(DataFlavor.stringFlavor);
+		}
+		catch (UnsupportedFlavorException | IOException e) {
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+
+	public void setClipboardContent(String content) {
+		final Toolkit toolkit = Toolkit.getDefaultToolkit();
+		if (content != null && !content.isEmpty()) {
+			final StringSelection string = new StringSelection(content);
+			toolkit.getSystemClipboard().setContents(string, string);
+		}
 	}
 }
