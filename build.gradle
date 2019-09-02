@@ -43,7 +43,7 @@ minecraft {
     mappings = "stable_22"
     makeObfSourceJar = false
 
-    replaceIn "ForgeMod.java"
+    replaceIn "MinecraftMod.java"
     replacements.each { k, v -> replace "\${$k}": v }
 }
 
