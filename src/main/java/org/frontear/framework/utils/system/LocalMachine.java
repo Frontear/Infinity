@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.*;
 import java.lang.management.ManagementFactory;
+import java.net.*;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -75,8 +76,7 @@ public class LocalMachine {
 
 	public void kill(int id) {
 		try {
-			final Process process = Runtime.getRuntime()
-					.exec((OS == OperatingSystem.WINDOWS ? "taskkill /F /PID " : "kill -9 ") + id);
+			Runtime.getRuntime().exec((OS == OperatingSystem.WINDOWS ? "taskkill /F /PID " : "kill -9 ") + id);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -100,6 +100,36 @@ public class LocalMachine {
 		if (content != null && !content.isEmpty()) {
 			final StringSelection string = new StringSelection(content);
 			toolkit.getSystemClipboard().setContents(string, string);
+		}
+	}
+
+	public void openUrl(String url) {
+		try {
+			final URI uri = new URI(url); // intentional, this will catch errors with the URL, even if Desktop isn't supported, it still plays a role
+			if (Desktop.isDesktopSupported()) {
+				Desktop.getDesktop().browse(uri); // this can lag a bit
+			}
+			else {
+				final Runtime runtime = Runtime.getRuntime();
+				if (compareOS(OperatingSystem.WINDOWS)) {
+					runtime.exec("cmd /k start " + url);
+				}
+				else if (compareOS(OperatingSystem.LINUX)) {
+					runtime.exec("xdg-open " + url);
+				}
+				else if (compareOS(OperatingSystem.MACOSX)) {
+					runtime.exec("open " + url);
+				}
+				else if (compareOS(OperatingSystem.SOLARIS)) {
+					runtime.exec("/usr/dt/bin/sdtwebclient -b " + url); // https://trac.sagemath.org/ticket/4979
+				}
+				else {
+					new UnsupportedOperationException("Couldn't open url " + url).printStackTrace();
+				}
+			}
+		}
+		catch (URISyntaxException | IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
