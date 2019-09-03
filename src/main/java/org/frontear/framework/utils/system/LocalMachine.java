@@ -11,7 +11,7 @@ import java.net.*;
 import java.util.Arrays;
 import java.util.Map;
 
-public class LocalMachine {
+public final class LocalMachine {
 	private static final byte OS;
 
 	static {

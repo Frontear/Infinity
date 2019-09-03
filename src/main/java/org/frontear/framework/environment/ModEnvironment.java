@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.frontear.MinecraftMod;
 
-public class ModEnvironment {
+public final class ModEnvironment {
 	public static final byte FORGE = 0x0, FABRIC = 0x1;
 	private static final byte ENVIRONMENT = MinecraftMod.getEnvironment();
 	private static final UnsupportedOperationException unsupported = new UnsupportedOperationException(String
