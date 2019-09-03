@@ -16,15 +16,33 @@ import java.util.Set;
 
 public final class Ghost extends Module {
 	private static Ghost self = null;
+	private final Thread obsChecker;
 	private final LocalMachine machine = new LocalMachine();
 	private Set<Module> unsafe = Sets.newHashSet();
-	private boolean obs = false;
 
 	public Ghost() {
 		super(Keyboard.KEY_G, true, Category.NONE);
 		if (self == null) {
 			self = this; // oh god gson
 		}
+
+		this.obsChecker = new Thread(() -> {
+			try {
+				while (true) {
+					Thread.sleep(1); // prevent cpu burnout
+					{
+						final boolean obs = machine.getProcesses().containsValue("obs");
+						if (!isActive() && obs) {
+							this.setActive(true);
+							Infinity.inst().getLogger().warn("OBS Studio was detected, Ghost will automatically enabled.");
+						}
+					}
+				}
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public static boolean active() {
@@ -34,6 +52,8 @@ public final class Ghost extends Module {
 	@Override public void load(Module self) {
 		this.setBind(self.getBind());
 		this.setActive(false);
+
+		this.obsChecker.start();
 	}
 
 	@Override protected void onToggle(boolean active) {
@@ -48,20 +68,6 @@ public final class Ghost extends Module {
 		else {
 			unsafe.forEach(Module::toggle);
 			unsafe.clear();
-		}
-	}
-
-	@Override public void setActive(boolean active) {
-		super.setActive(obs || active);
-		MinecraftForge.EVENT_BUS.register(this); // todo: prevent nonsense like this
-	}
-
-	@SubscribeEvent public void onTick(TickEvent.ClientTickEvent event) {
-		this.obs = machine.getProcesses().containsValue("obs");
-		if (!isActive() && obs) {
-			this.setActive(true);
-			Infinity.inst().getLogger()
-					.warn("OBS Studio was detected. For your protection, Ghost will not disable until it is closed");
 		}
 	}
 }
