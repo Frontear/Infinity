@@ -8,12 +8,14 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Session;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.events.input.MouseEvent;
+import org.frontear.infinity.modules.impl.AutoTool;
 import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -29,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	@Shadow public WorldClient theWorld;
 	@Shadow public GameSettings gameSettings;
 	@Shadow public GuiScreen currentScreen;
+	@Shadow public MovingObjectPosition objectMouseOver;
 	@Shadow @Final private Session session;
 	@Shadow private int leftClickCounter;
 	@Shadow private RenderManager renderManager;
@@ -71,6 +74,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 		}
 		else if (info.getId().equals("inputEvent:mouse")) {
 			MinecraftForge.EVENT_BUS.post(new MouseEvent(Mouse.getEventButton(), Mouse.getEventButtonState()));
+		}
+	}
+
+	@Inject(method = "clickMouse",
+			at = @At("HEAD")) private void clickMouse(CallbackInfo info) {
+		if (AutoTool.active()) {
+			AutoTool.selectOptimizedItem(thePlayer.inventory);
 		}
 	}
 
@@ -128,4 +138,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	}
 
 	@Shadow public abstract void shadow$displayGuiScreen(GuiScreen guiScreenIn);
+
+	@Override public MovingObjectPosition getMouseOver() {
+		return objectMouseOver;
+	}
 }

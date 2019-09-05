@@ -8,6 +8,7 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Session;
 
 public interface IMinecraftWrapper {
@@ -34,4 +35,6 @@ public interface IMinecraftWrapper {
 	RenderManager getRenderManager();
 
 	void displayGuiScreen(GuiScreen screen);
+
+	MovingObjectPosition getMouseOver();
 }

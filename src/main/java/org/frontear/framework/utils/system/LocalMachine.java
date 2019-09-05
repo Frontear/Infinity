@@ -7,7 +7,8 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.*;
 import java.lang.management.ManagementFactory;
-import java.net.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -67,13 +68,6 @@ public final class LocalMachine {
 		return processes;
 	}
 
-	public boolean compareOS(byte os) {
-		Preconditions
-				.checkArgument(os == OperatingSystem.WINDOWS || os == OperatingSystem.LINUX || os == OperatingSystem.MACOSX || os == OperatingSystem.SOLARIS || os == OperatingSystem.UNSUPPORTED);
-
-		return os == OS;
-	}
-
 	public void kill(int id) {
 		try {
 			Runtime.getRuntime().exec((OS == OperatingSystem.WINDOWS ? "taskkill /F /PID " : "kill -9 ") + id);
@@ -131,5 +125,12 @@ public final class LocalMachine {
 		catch (URISyntaxException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean compareOS(byte os) {
+		Preconditions
+				.checkArgument(os == OperatingSystem.WINDOWS || os == OperatingSystem.LINUX || os == OperatingSystem.MACOSX || os == OperatingSystem.SOLARIS || os == OperatingSystem.UNSUPPORTED);
+
+		return os == OS;
 	}
 }

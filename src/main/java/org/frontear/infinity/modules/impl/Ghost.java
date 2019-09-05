@@ -1,10 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Sets;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.frontear.framework.utils.system.LocalMachine;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
@@ -34,7 +31,8 @@ public final class Ghost extends Module {
 						final boolean obs = machine.getProcesses().containsValue("obs");
 						if (!isActive() && obs) {
 							this.setActive(true);
-							Infinity.inst().getLogger().warn("OBS Studio was detected, Ghost will automatically enabled.");
+							Infinity.inst().getLogger()
+									.warn("OBS Studio was detected, Ghost will automatically enabled.");
 						}
 					}
 				}
