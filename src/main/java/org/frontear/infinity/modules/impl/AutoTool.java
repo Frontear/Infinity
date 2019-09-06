@@ -20,8 +20,7 @@ public class AutoTool extends Module {
 		}
 	}
 
-	public static void selectOptimizedItem(final InventoryPlayer player) {
-		final MovingObjectPosition object = mc.getMouseOver();
+	public static void selectOptimizedItem(final InventoryPlayer player, final MovingObjectPosition object) {
 		int slot = -1;
 		switch (object.typeOfHit) {
 			case ENTITY:

@@ -80,7 +80,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	@Inject(method = "clickMouse",
 			at = @At("HEAD")) private void clickMouse(CallbackInfo info) {
 		if (AutoTool.active()) {
-			AutoTool.selectOptimizedItem(thePlayer.inventory);
+			AutoTool.selectOptimizedItem(thePlayer.inventory, objectMouseOver);
 		}
 	}
 
@@ -138,8 +138,4 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	}
 
 	@Shadow public abstract void shadow$displayGuiScreen(GuiScreen guiScreenIn);
-
-	@Override public MovingObjectPosition getMouseOver() {
-		return objectMouseOver;
-	}
 }
