@@ -64,6 +64,8 @@ dependencies {
         exclude module: "*"
         // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
     }
+
+    implementation("org.projectlombok:lombok:1.18.4")
 }
 
 processResources {

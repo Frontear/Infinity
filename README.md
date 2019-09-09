@@ -3,6 +3,7 @@ Infinity is a simple client designed in [Forge](https://files.minecraftforge.net
 
 ## Getting Started
 Before starting, please make sure you have a thorough understanding of mixins and java. Additionally, we recommend [IntelliJ IDEA](https://www.jetbrains.com/idea/) as your Java IDE alongside the [MinecraftDev](https://github.com/minecraft-dev/MinecraftDev) plugin.
+For lombok setup, please see [Baeldung](https://www.baeldung.com/lombok-ide) for a simple tutorial 
 
 - Clone this repository via using `git clone https://github.com/Frontear/Infinity.git Infinity`
 - Run `task setupDecompWorkspace` either using `./gradlew` or through IntelliJ IDEA
@@ -10,3 +11,8 @@ Before starting, please make sure you have a thorough understanding of mixins an
 
 ## License
 This project is licensed under the [MIT License](https://tldrlegal.com/license/mit-license) &#8212; you can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
+
+## Libraries
+This project makes use of the following libraries, each of which can have their licenses viewed:
+- [SpongePowered/Mixin](https://github.com/SpongePowered/Mixin), license [MIT](https://github.com/SpongePowered/Mixin/blob/master/LICENSE.txt)
+- [rzwitserloot/lombok](https://github.com/rzwitserloot/lombok), license [MIT](https://github.com/rzwitserloot/lombok/blob/master/LICENSE)
