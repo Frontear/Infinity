@@ -23,7 +23,7 @@ apply plugin: "org.spongepowered.mixin"
 apply plugin: "java"
 
 sourceCompatibility = targetCompatibility = 1.8
-version = "2.1-alpha"
+version = "2.2-alpha"
 group = "org.frontear"
 archivesBaseName = "Infinity"
 def access_transformer = "infinity_at.cfg"
@@ -43,7 +43,7 @@ minecraft {
     mappings = "stable_22"
     makeObfSourceJar = false
 
-    replaceIn "ForgeMod.java"
+    replaceIn "MinecraftMod.java"
     replacements.each { k, v -> replace "\${$k}": v }
 }
 
@@ -63,11 +63,6 @@ dependencies {
     compile("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
         exclude module: "*"
         // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
-    }
-
-    compile("com.github.SparklingComet:java-mojang-api:-SNAPSHOT") {
-        exclude module: "junit"
-        // from unirest, interestingly enough
     }
 }
 

@@ -1,13 +1,13 @@
 package org.frontear.framework.client.impl;
 
-import com.google.common.base.Preconditions;
 import com.google.gson.*;
 import org.apache.commons.lang3.StringUtils;
 import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
+import org.frontear.framework.environment.ModEnvironment;
 import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.logger.impl.Logger;
-import org.frontear.framework.utils.Timer;
+import org.frontear.framework.utils.time.Timer;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -38,7 +38,7 @@ public abstract class Client implements IClient {
 	protected Client() {
 		UPTIME.reset(); // intentional, as we want to only know exactly how long it has been since client started to load
 
-		this.info = Objects.requireNonNull(construct(ModInfo.FORGE));
+		this.info = Objects.requireNonNull(construct());
 		this.logger = new Logger(info.getName());
 		this.config = new Config(new File(".", info.getName().toLowerCase() + ".json"));
 	}
@@ -46,28 +46,28 @@ public abstract class Client implements IClient {
 	/*
 	This mainly exists due to the Fabric API loading classes but not resources until later, causing discrepancies with resources attempting to be loaded
 	 */
-	@SuppressWarnings("SameParameterValue") private ModInfo construct(final byte type) {
-		Preconditions.checkArgument(type == ModInfo.FORGE || type == ModInfo.FABRIC);
+	private ModInfo construct() {
+		JsonObject info;
 		try {
-			final String path = StringUtils
+			final ZipFile jar = new ZipFile(new File(StringUtils
 					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
-							.getPath(), "file:", "!"); // Gets the JAR file path
-			final ZipFile jar = new ZipFile(new File(path));
-			final InputStream stream = jar
-					.getInputStream(jar.getEntry(type == ModInfo.FORGE ? "mcmod.info" : "fabric.mod.json"));
-			final Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-			final JsonElement element = new JsonParser().parse(reader);
-			final JsonObject object = type == ModInfo.FORGE ? element.getAsJsonArray().get(0)
-					.getAsJsonObject() : element.getAsJsonObject();
-
-			return new ModInfo(object, type);
+							.getPath(), "file:", "!")));
+			final InputStream stream = jar.getInputStream(jar.getEntry(ModEnvironment.getInfoJsonFilename()));
+			final JsonElement element = new JsonParser()
+					.parse(new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)));
+			info = ModEnvironment.getInfoJsonObject(element);
 		}
-		catch (IOException e) {
-			return null;
+		catch (NullPointerException | IOException e) {
+			e.printStackTrace();
+			{
+				info = new JsonObject();
+				info.addProperty("name", "null");
+				info.addProperty("version", "null");
+				info.add(ModEnvironment.getAuthorProperty(), new JsonArray());
+			}
 		}
+		return new ModInfo(info);
 	}
-
-	// todo: error handling if the specified json file doesn't exist
 
 	/**
 	 * Information for this is received from the specified json file. As a result, this file MUST exist

@@ -13,7 +13,7 @@ public final class GC extends Command {
 		super("Invokes the garbage collector. This can potentially resolve memory issues");
 	}
 
-	@Override protected void process(String[] args) throws Exception {
+	@Override public void process(String[] args) throws Exception {
 		if (allowed) {
 			final long last = getMemory();
 			System.gc();

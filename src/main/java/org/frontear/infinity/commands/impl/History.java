@@ -1,51 +1,72 @@
 package org.frontear.infinity.commands.impl;
 
+import com.google.common.collect.Lists;
+import com.google.gson.*;
 import net.minecraft.util.EnumChatFormatting;
+import org.apache.commons.io.IOUtils;
 import org.frontear.infinity.commands.Command;
-import org.shanerx.mojang.Mojang;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.List;
 
 public final class History extends Command {
 	public History() {
 		super("Look up the username history of a player. Name is case-sensitive", 1);
 	}
 
-	@Override protected void process(String[] args) throws Exception {
-		final AtomicReference<Exception> carrier = new AtomicReference<>(null);
-		final Mojang mojang = new Mojang();
+	@Override public void process(String[] args) throws Exception {
 		final String username = args[0];
 
 		new Thread(() -> {
-			mojang.connect();
-			if (mojang.getStatus(Mojang.ServiceType.API_MOJANG_COM) == Mojang.ServiceStatus.GREEN) {
-				try {
-					final Map<String, Long> history = mojang.getNameHistoryOfPlayer(mojang.getUUIDOfUsername(username));
-					if (history.size() > 1) {
-						sendMessage(String.format("History for %s:", username));
-						history.forEach((k, v) -> sendMessage(String.format("    - \"%s\": %s", k, normalizeDate(v))));
-					}
-					else {
-						sendMessage(String.format("%s has never changed their username", username));
-					}
-				}
-				catch (Exception e) {
-					sendMessage(String.format("Failed to get username history [%s]", e.getClass()
-							.getSimpleName()), EnumChatFormatting.RED);
-					e.printStackTrace();
+			final JsonParser parser = new JsonParser();
+			final String uuid = parser.parse(get("https://api.mojang.com/users/profiles/minecraft/" + username))
+					.getAsJsonObject().get("id").getAsString();
+			final JsonArray names = parser.parse(get("https://api.mojang.com/user/profiles/" + uuid + "/names"))
+					.getAsJsonArray();
+			final List<Object[]> history = Lists.newArrayList(); // ugh
+
+			names.forEach(x -> {
+				final JsonObject object = x.getAsJsonObject();
+				history.add(new Object[] { object.get("name").getAsString(), object.has("changedToAt") ? object
+						.get("changedToAt").getAsLong() : 0 });
+			});
+
+			if (history.size() > 1) {
+				sendMessage(String.format("Name history for %s:", username));
+				for (int i = 0; i < history.size(); i++) {
+					final Object[] data = history.get(i);
+					sendMessage(String.format("    %d. %s: %s", i + 1, data[0], normalizeDate((Long) data[1])));
 				}
 			}
 			else {
-				sendMessage("The mojang api service is currently unavailable", EnumChatFormatting.RED);
+				sendMessage("This player has never changed their name", EnumChatFormatting.RED);
 			}
 		}).start(); // this can take some time, as it's contacting an API
 	}
 
+	private String get(String url) {
+		try {
+			final HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+			connection.setRequestMethod("GET");
+
+			final StringBuilder string = new StringBuilder();
+			IOUtils.readLines(connection.getInputStream()).forEach(string::append);
+
+			return string.toString();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+
 	private String normalizeDate(long time) {
-		return ZonedDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault())
+		return time == 0 ? "unknown" : ZonedDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault())
 				.format(DateTimeFormatter.ofPattern("E, MMM d, Y, hh:mm:ss a"));
 	}
 }

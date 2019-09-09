@@ -8,7 +8,7 @@ public final class Ping extends Command {
 		super("Retrieves the latency value of a player. Name is case-sensitive", 1);
 	}
 
-	@Override protected void process(String[] args) throws Exception {
+	@Override public void process(String[] args) throws Exception {
 		NetworkPlayerInfo info = mc.getPlayer().sendQueue.getPlayerInfo(args[0]);
 		if (info != null) {
 			sendMessage(String.format("%s: %dms", info.getGameProfile().getName(), info.getResponseTime()));

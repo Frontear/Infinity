@@ -14,7 +14,6 @@ import org.lwjgl.input.Keyboard;
 
 public final class Freecam extends Module {
 	private static final byte ID = -2;
-	private C03PacketPlayer packet;
 	private EntityOtherPlayerMP clone;
 
 	public Freecam() {
@@ -23,13 +22,26 @@ public final class Freecam extends Module {
 
 	@SubscribeEvent public void onPacket(PacketEvent event) {
 		if (event.getPacket() instanceof C03PacketPlayer) {
-			event.setPacket(packet);
+			event.setPacket(normalize(clone, (C03PacketPlayer) event.getPacket()));
 		}
 		else if (event.getPacket() instanceof C0BPacketEntityAction || event.getPacket() instanceof C0APacketAnimation /*|| event
 				.getPacket() instanceof C07PacketPlayerDigging || event
 				.getPacket() instanceof C08PacketPlayerBlockPlacement*/) {
 			event.setPacket(null);
 		}
+	}
+
+	private C03PacketPlayer normalize(EntityPlayer player, C03PacketPlayer packet) {
+		packet.x = player.posX;
+		packet.y = player.posY;
+		packet.z = player.posZ;
+		packet.yaw = player.rotationYaw;
+		packet.pitch = player.rotationPitch;
+		packet.onGround = player.onGround;
+		packet.moving = false; //player.motionX != 0 || player.motionY != 0 || player.motionZ != 0;
+		packet.rotating = false; //player.rotationYaw != player.prevRotationYaw || player.rotationPitch != player.prevRotationPitch;
+
+		return packet;
 	}
 
 	@SubscribeEvent public void onUpdate(UpdateEvent event) {
@@ -55,7 +67,6 @@ public final class Freecam extends Module {
 
 	@Override protected void onToggle(boolean active) {
 		if (active) {
-			this.packet = make(mc.getPlayer());
 			this.clone = EntityUtils.clone(mc.getPlayer());
 
 			mc.getWorld().addEntityToWorld(ID, clone);
@@ -68,19 +79,5 @@ public final class Freecam extends Module {
 			mc.getPlayer().setVelocity(0, 0, 0);
 			mc.getPlayer().noClip = false;
 		}
-	}
-
-	private C03PacketPlayer make(EntityPlayer player) {
-		final C03PacketPlayer packet = new C03PacketPlayer();
-		packet.x = player.posX;
-		packet.y = player.posY;
-		packet.z = player.posZ;
-		packet.yaw = player.rotationYaw;
-		packet.pitch = player.rotationPitch;
-		packet.onGround = player.onGround;
-		packet.moving = false; //player.motionX != 0 || player.motionY != 0 || player.motionZ != 0;
-		packet.rotating = false; //player.rotationYaw != player.prevRotationYaw || player.rotationPitch != player.prevRotationPitch;
-
-		return packet;
 	}
 }

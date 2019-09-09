@@ -5,7 +5,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.framework.utils.Timer;
+import org.frontear.framework.utils.time.Timer;
 import org.frontear.infinity.events.entity.UpdateEvent;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
@@ -45,7 +45,7 @@ public final class Breadcrumbs extends Module {
 		{
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			glColor4f(0.25f, 1f, 1f, 1f); // light blue
-			glLineWidth(3.5f); // makes it easier to spot
+			glLineWidth(width); // makes it easier to spot
 
 			glEnable(GL_BLEND);
 			glEnable(GL_LINE_SMOOTH);

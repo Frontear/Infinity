@@ -1,4 +1,4 @@
-package org.frontear.framework.utils;
+package org.frontear.framework.utils.time;
 
 public final class Timer {
 	private long nanoseconds;

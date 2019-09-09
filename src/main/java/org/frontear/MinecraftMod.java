@@ -5,13 +5,18 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.frontear.framework.environment.ModEnvironment;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
 
 @Mod(modid = "${modid}",
-		version = "${version}") public final class ForgeMod {
-	private final Logger logger = new Logger("${name} ForgeMod");
+		version = "${version}") public final class MinecraftMod {
+	private final Logger logger = new Logger("${name} MinecraftMod");
 	private Thread concurrent;
+
+	public static byte getEnvironment() {
+		return ModEnvironment.FORGE;
+	}
 
 	@Mod.EventHandler private void onFMLPreInitialization(FMLPreInitializationEvent event) {
 		logger.debug("Creating concurrent client thread");
