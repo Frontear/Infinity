@@ -8,7 +8,7 @@ public final class Uptime extends Command {
 		super("Informs you of how long the client has been running");
 	}
 
-	@Override protected void process(String[] args) throws Exception {
+	@Override public void process(String[] args) throws Exception {
 		sendMessage(String.format("Running for: %s", Client.UPTIME));
 	}
 }

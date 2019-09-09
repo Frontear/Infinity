@@ -31,6 +31,19 @@ public final class Freecam extends Module {
 		}
 	}
 
+	private C03PacketPlayer normalize(EntityPlayer player, C03PacketPlayer packet) {
+		packet.x = player.posX;
+		packet.y = player.posY;
+		packet.z = player.posZ;
+		packet.yaw = player.rotationYaw;
+		packet.pitch = player.rotationPitch;
+		packet.onGround = player.onGround;
+		packet.moving = false; //player.motionX != 0 || player.motionY != 0 || player.motionZ != 0;
+		packet.rotating = false; //player.rotationYaw != player.prevRotationYaw || player.rotationPitch != player.prevRotationPitch;
+
+		return packet;
+	}
+
 	@SubscribeEvent public void onUpdate(UpdateEvent event) {
 		if (event.getEntity() instanceof EntityPlayerSP) {
 			event.getEntity().noClip = true;
@@ -66,18 +79,5 @@ public final class Freecam extends Module {
 			mc.getPlayer().setVelocity(0, 0, 0);
 			mc.getPlayer().noClip = false;
 		}
-	}
-
-	private C03PacketPlayer normalize(EntityPlayer player, C03PacketPlayer packet) {
-		packet.x = player.posX;
-		packet.y = player.posY;
-		packet.z = player.posZ;
-		packet.yaw = player.rotationYaw;
-		packet.pitch = player.rotationPitch;
-		packet.onGround = player.onGround;
-		packet.moving = false; //player.motionX != 0 || player.motionY != 0 || player.motionZ != 0;
-		packet.rotating = false; //player.rotationYaw != player.prevRotationYaw || player.rotationPitch != player.prevRotationPitch;
-
-		return packet;
 	}
 }

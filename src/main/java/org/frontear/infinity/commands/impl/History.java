@@ -18,7 +18,7 @@ public final class History extends Command {
 		super("Look up the username history of a player. Name is case-sensitive", 1);
 	}
 
-	@Override protected void process(String[] args) throws Exception {
+	@Override public void process(String[] args) throws Exception {
 		final String username = args[0];
 
 		new Thread(() -> {

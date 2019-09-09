@@ -18,7 +18,7 @@ public abstract class Command {
 		this.arguments = arguments;
 	}
 
-	protected abstract void process(String[] args) throws Exception; // catch all
+	public abstract void process(String[] args) throws Exception; // catch all
 
 	protected final void sendMessage(String message, EnumChatFormatting... format) {
 		Infinity.inst().getCommands().sendMessage(message, format);

@@ -1,6 +1,10 @@
 package org.frontear.framework.async;
 
 public class InfiniteThread extends Thread {
+	public InfiniteThread(Runnable runnable) {
+		this(runnable, false);
+	}
+
 	public InfiniteThread(Runnable runnable, boolean trace) {
 		super(() -> {
 			try {
@@ -15,10 +19,6 @@ public class InfiniteThread extends Thread {
 				}
 			}
 		});
-	}
-
-	public InfiniteThread(Runnable runnable) {
-		this(runnable, false);
 	}
 
 	@Override public synchronized void start() {

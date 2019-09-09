@@ -1,6 +1,7 @@
 package org.frontear.mixins;
 
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.GuiMultiplayer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.network.OldServerPinger;
 import org.frontear.framework.async.InfiniteThread;
