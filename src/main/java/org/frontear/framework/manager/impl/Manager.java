@@ -3,10 +3,12 @@ package org.frontear.framework.manager.impl;
 import com.google.common.collect.*;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.TypeToken;
+import lombok.NonNull;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.manager.IManager;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -22,7 +24,7 @@ public abstract class Manager<T> implements IManager<T> {
 	 *
 	 * @param objects The objects that will be managed
 	 */
-	public Manager(ImmutableSet<T> objects) {
+	public Manager(@NonNull ImmutableSet<T> objects) {
 		this.objects = objects;
 	}
 
@@ -31,7 +33,7 @@ public abstract class Manager<T> implements IManager<T> {
 	 *
 	 * @param pkg The package that will be searched through via {@link Manager#reflectionSearch(String)}
 	 */
-	public Manager(String pkg) {
+	public Manager(@NonNull String pkg) {
 		this.objects = reflectionSearch(pkg);
 	}
 
@@ -86,7 +88,7 @@ public abstract class Manager<T> implements IManager<T> {
 	 *
 	 * @return {@link ImmutableSet#stream()}
 	 */
-	@Override public Stream<T> getObjects() {
+	@Nonnull @Override public Stream<T> getObjects() {
 		return objects.stream();
 	}
 }

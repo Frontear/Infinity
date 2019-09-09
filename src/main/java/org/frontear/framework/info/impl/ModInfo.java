@@ -2,6 +2,8 @@ package org.frontear.framework.info.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import lombok.Getter;
+import lombok.NonNull;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.environment.ModEnvironment;
 import org.frontear.framework.info.IModInfo;
@@ -10,7 +12,7 @@ import org.frontear.framework.info.IModInfo;
  * An implementation of {@link IModInfo}
  */
 public final class ModInfo implements IModInfo {
-	private final String name, version, fullname, authors;
+	@Getter private final String name, version, fullname, authors;
 
 	// todo: allow custom property definitions (allow user to specify which property contains which information)
 
@@ -21,7 +23,7 @@ public final class ModInfo implements IModInfo {
 	 * @param json {@link JsonObject} which is created when loading the specified json file in {@link Client}
 	 *             construction
 	 */
-	public ModInfo(JsonObject json) {
+	public ModInfo(@NonNull JsonObject json) {
 		this.name = json.get("name").getAsString();
 		this.version = json.get("version").getAsString();
 		this.fullname = String.format("%s v%s", name, version);
@@ -41,41 +43,5 @@ public final class ModInfo implements IModInfo {
 		else {
 			return string;
 		}
-	}
-
-	/**
-	 * @return The name found from the specified json file
-	 *
-	 * @see IModInfo#getName()
-	 */
-	@Override public String getName() {
-		return name;
-	}
-
-	/**
-	 * @return The version found from the specified json file
-	 *
-	 * @see IModInfo#getVersion()
-	 */
-	@Override public String getVersion() {
-		return version;
-	}
-
-	/**
-	 * @return {@link ModInfo#getName()} + "v" + {@link ModInfo#getVersion()}
-	 *
-	 * @see IModInfo#getFullname()
-	 */
-	@Override public String getFullname() {
-		return fullname;
-	}
-
-	/**
-	 * @return The author(s) found from the specified json file, using the Oxford Comma
-	 *
-	 * @see IModInfo#getAuthors()
-	 */
-	@Override public String getAuthors() {
-		return authors;
 	}
 }

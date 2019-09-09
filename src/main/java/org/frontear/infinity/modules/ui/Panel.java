@@ -1,6 +1,7 @@
 package org.frontear.infinity.modules.ui;
 
 import com.google.common.collect.Sets;
+import lombok.NonNull;
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;
 
@@ -12,7 +13,7 @@ public final class Panel extends Drawable {
 	private final Set<org.frontear.infinity.modules.ui.Button> buttons = Sets.newLinkedHashSet();
 	private final Rectangle background;
 
-	public Panel(int x, int y, int width, int height, Color color) {
+	public Panel(int x, int y, int width, int height, @NonNull Color color) {
 		super(x, y, width, height, color);
 
 		this.background = new Rectangle(x, y, width, height, new Color(0, 0, 0, 127));
@@ -27,12 +28,18 @@ public final class Panel extends Drawable {
 		this.setPosition(this.getX(), this.getY());
 	}
 
-	@Override public void setPosition(int x, int y) {
-		background.setPosition(x - offset, y - offset);
-		for (org.frontear.infinity.modules.ui.Button button : buttons) {
-			button.setPosition(x, y);
-			y += button.getHeight();
-		}
+	@Override public void setWidth(int width) {
+		buttons.forEach(x -> x.setWidth(width));
+		background.setWidth(width + offset * 2);
+	}
+
+	@Override public void setHeight(int height) {
+		buttons.forEach(x -> x.setHeight(height));
+		background.setHeight(((height) * buttons.size()) + offset * 2);
+	}
+
+	@Override public void setColor(@NonNull Color color) {
+		buttons.forEach(x -> x.setColor(color));
 	}
 
 	@Override public void draw() {
@@ -52,17 +59,11 @@ public final class Panel extends Drawable {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override public void setWidth(int width) {
-		buttons.forEach(x -> x.setWidth(width));
-		background.setWidth(width + offset * 2);
-	}
-
-	@Override public void setHeight(int height) {
-		buttons.forEach(x -> x.setHeight(height));
-		background.setHeight(((height) * buttons.size()) + offset * 2);
-	}
-
-	@Override public void setColor(Color color) {
-		buttons.forEach(x -> x.setColor(color));
+	@Override public void setPosition(int x, int y) {
+		background.setPosition(x - offset, y - offset);
+		for (org.frontear.infinity.modules.ui.Button button : buttons) {
+			button.setPosition(x, y);
+			y += button.getHeight();
+		}
 	}
 }

@@ -2,6 +2,8 @@ package org.frontear.framework.config.impl;
 
 import com.google.common.collect.Sets;
 import com.google.gson.*;
+import lombok.NonNull;
+import lombok.SneakyThrows;
 import org.frontear.framework.config.IConfig;
 import org.frontear.framework.config.IConfigurable;
 import org.frontear.framework.logger.impl.Logger;
@@ -25,21 +27,21 @@ public final class Config implements IConfig {
 	 *
 	 * @param config_file The file that will contain all {@link IConfigurable} objects
 	 */
-	public Config(File config_file) {
+	public Config(@NonNull File config_file) {
 		this.config_file = config_file;
 	}
 
 	/**
 	 * @see IConfig#register(IConfigurable)
 	 */
-	@Override public void register(IConfigurable<?> object) {
+	@Override public void register(@NonNull IConfigurable<?> object) {
 		logger.debug("Registering configurable '%s', successful: %b", object.getName(), configurables.add(object));
 	}
 
 	/**
 	 * @see IConfig#unregister(IConfigurable)
 	 */
-	@Override public void unregister(IConfigurable<?> object) {
+	@Override public void unregister(@NonNull IConfigurable<?> object) {
 		logger.debug("Unregistering configurable '%s', successful: %b", object.getName(), configurables.remove(object));
 	}
 
@@ -50,7 +52,7 @@ public final class Config implements IConfig {
 	 *
 	 * @see IConfig#load()
 	 */
-	@Override public void load() {
+	@SneakyThrows(IOException.class) @Override public void load() {
 		try (Reader reader = new FileReader(config_file)) {
 			logger.debug("Loading config from %s", config_file.getAbsolutePath());
 			final JsonObject config = new JsonParser().parse(reader).getAsJsonObject();
@@ -68,14 +70,9 @@ public final class Config implements IConfig {
 
 			logger.info("Loaded successfully!");
 		}
-		catch (IOException e) {
-			if (e instanceof FileNotFoundException) {
-				logger.debug("%s does not exist (will create)", config_file.getAbsolutePath());
-				save();
-			}
-			else {
-				e.printStackTrace();
-			}
+		catch (FileNotFoundException e) {
+			logger.debug("%s does not exist (will create)", config_file.getAbsolutePath());
+			this.save();
 		}
 	}
 
@@ -85,7 +82,7 @@ public final class Config implements IConfig {
 	 *
 	 * @see IConfig#save()
 	 */
-	@Override public void save() {
+	@SneakyThrows(IOException.class) @Override public void save() {
 		try (Writer writer = new PrintWriter(config_file)) {
 			final JsonObject config = new JsonObject();
 			configurables.forEach(x -> {
@@ -96,9 +93,6 @@ public final class Config implements IConfig {
 			logger.debug("Writing config to %s", config_file.getAbsolutePath());
 			gson.toJson(config, writer);
 			logger.info("Saved successfully!");
-		}
-		catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 }

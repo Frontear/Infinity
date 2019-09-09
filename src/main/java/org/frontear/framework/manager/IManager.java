@@ -1,5 +1,8 @@
 package org.frontear.framework.manager;
 
+import lombok.NonNull;
+
+import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
@@ -12,7 +15,7 @@ public interface IManager<T> {
 	 *
 	 * @return target object, or throws {@link NoSuchElementException} if object cannot be found
 	 */
-	default <T1 extends T> T1 get(Class<T1> target) {
+	default <T1 extends T> T1 get(@NonNull Class<T1> target) {
 		//noinspection unchecked,OptionalGetWithoutIsPresent
 		return (T1) getObjects().filter(x -> x.getClass() == target).findFirst().get();
 	}
@@ -23,5 +26,5 @@ public interface IManager<T> {
 	 *
 	 * @return {@link Stream} for T objects
 	 */
-	Stream<T> getObjects();
+	@Nonnull Stream<T> getObjects();
 }

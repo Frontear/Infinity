@@ -1,5 +1,6 @@
 package org.frontear.infinity.commands.gui;
 
+import lombok.NonNull;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiTextField;
 import org.frontear.framework.ui.impl.Rectangle;
@@ -11,7 +12,7 @@ import java.awt.*;
 public final class ConsoleTextField extends GuiTextField {
 	private final Rectangle backing;
 
-	public ConsoleTextField(FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height, Color color) {
+	public ConsoleTextField(@NonNull FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height, @NonNull Color color) {
 		super(-1, fontrendererObj, x + 4 / 2, y + (par6Height - 8) / 2, par5Width, par6Height); // see GuiTextField#drawTextBox
 
 		this.setCanLoseFocus(false);

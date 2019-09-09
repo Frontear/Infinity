@@ -1,5 +1,6 @@
 package org.frontear.framework.ui;
 
+import lombok.*;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
@@ -10,8 +11,9 @@ import static org.lwjgl.opengl.GL11.*;
  * Represents an object that is to be drawn to the screen via OpenGL
  */
 public abstract class Drawable {
-	private int x, y, width, height;
-	private Color color;
+	@Getter private int x, y;
+	@Getter @Setter private int width, height;
+	@Getter @Setter(onParam_ = @NonNull) private Color color;
 
 	/**
 	 * An empty constructor for a {@link Drawable} object
@@ -29,23 +31,12 @@ public abstract class Drawable {
 	 * @param height The height of the {@link Drawable}
 	 * @param color  The color of the {@link Drawable}
 	 */
-	public Drawable(int x, int y, int width, int height, Color color) {
+	public Drawable(int x, int y, int width, int height, @NonNull Color color) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.color = color;
-	}
-
-	/**
-	 * Sets the position of the {@link Drawable} in an xy plane
-	 *
-	 * @param x The new x-coordinate of the {@link Drawable}
-	 * @param y The new y-coordinate of the {@link Drawable}
-	 */
-	public void setPosition(int x, int y) {
-		this.x = x;
-		this.y = y;
 	}
 
 	/**
@@ -107,61 +98,13 @@ public abstract class Drawable {
 	protected abstract void click(int mouseX, int mouseY, boolean hover, int button);
 
 	/**
-	 * @return The x-coordinate of this {@link Drawable}
-	 */
-	public int getX() {
-		return x;
-	}
-
-	/**
-	 * @return The y-coordinate of this {@link Drawable}
-	 */
-	public int getY() {
-		return y;
-	}
-
-	/**
-	 * @return The width of this {@link Drawable}
-	 */
-	public int getWidth() {
-		return width;
-	}
-
-	/**
-	 * Sets the width of the {@link Drawable}
+	 * Sets the position of the {@link Drawable} in an x-y plane
 	 *
-	 * @param width The new width of the {@link Drawable}
+	 * @param x The new x-coordinate of the {@link Drawable}
+	 * @param y The new y-coordinate of the {@link Drawable}
 	 */
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return The height of this {@link Drawable}
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-	/**
-	 * Sets the height of the {@link Drawable}
-	 *
-	 * @param height The new height of the {@link Drawable}
-	 */
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	/**
-	 * Sets the color of the {@link Drawable}
-	 *
-	 * @param color The new color of the {@link Drawable}
-	 */
-	public void setColor(Color color) {
-		this.color = color;
+	public void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }

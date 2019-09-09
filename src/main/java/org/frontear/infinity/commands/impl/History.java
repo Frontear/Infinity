@@ -2,6 +2,7 @@ package org.frontear.infinity.commands.impl;
 
 import com.google.common.collect.Lists;
 import com.google.gson.*;
+import lombok.NonNull;
 import net.minecraft.util.EnumChatFormatting;
 import org.apache.commons.io.IOUtils;
 import org.frontear.infinity.commands.Command;
@@ -18,7 +19,7 @@ public final class History extends Command {
 		super("Look up the username history of a player. Name is case-sensitive", 1);
 	}
 
-	@Override public void process(String[] args) throws Exception {
+	@Override public void process(@NonNull String[] args) throws Exception {
 		final String username = args[0];
 
 		new Thread(() -> {

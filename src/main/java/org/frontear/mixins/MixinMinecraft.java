@@ -117,13 +117,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	}
 
 	@Shadow protected abstract void clickMouse();
-	
-	@Inject(method = "clickMouse",
-			at = @At("HEAD")) private void clickMouse(CallbackInfo info) {
-		if (AutoTool.active()) {
-			AutoTool.selectOptimizedItem(thePlayer.inventory, objectMouseOver);
-		}
-	}
 
 	@Intrinsic public Session wrap$getSession() {
 		return session;
@@ -138,4 +131,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	}
 
 	@Shadow public abstract void shadow$displayGuiScreen(GuiScreen guiScreenIn);
+
+	@Inject(method = "clickMouse",
+			at = @At("HEAD")) private void clickMouse(CallbackInfo info) {
+		if (AutoTool.active()) {
+			AutoTool.selectOptimizedItem(thePlayer.inventory, objectMouseOver);
+		}
+	}
 }

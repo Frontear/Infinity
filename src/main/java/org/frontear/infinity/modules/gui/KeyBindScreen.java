@@ -1,5 +1,6 @@
 package org.frontear.infinity.modules.gui;
 
+import lombok.NonNull;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import org.frontear.infinity.modules.Module;
@@ -14,7 +15,7 @@ public final class KeyBindScreen extends GuiScreen {
 	private final Module module;
 	private final GuiScreen parent;
 
-	KeyBindScreen(Module module, GuiScreen parent) {
+	KeyBindScreen(@NonNull Module module, @NonNull GuiScreen parent) {
 		this.module = module;
 		this.parent = parent;
 	}
@@ -41,7 +42,7 @@ public final class KeyBindScreen extends GuiScreen {
 		mc.displayGuiScreen(parent);
 	}
 
-	@Override protected void actionPerformed(GuiButton button) throws IOException {
+	@Override protected void actionPerformed(@NonNull GuiButton button) throws IOException {
 		if (button.enabled) {
 			if (button.id == -1) {
 				this.keyTyped('\0', Keyboard.KEY_NONE);

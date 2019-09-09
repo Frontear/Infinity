@@ -1,6 +1,8 @@
 package org.frontear.framework.config.impl;
 
 import com.google.gson.annotations.Expose;
+import lombok.NonNull;
+import lombok.SneakyThrows;
 import org.frontear.framework.config.IConfigurable;
 
 import java.lang.reflect.Field;
@@ -17,19 +19,16 @@ public final class Configurable<C extends Configurable<C>> implements IConfigura
 	 *
 	 * @see IConfigurable#load(IConfigurable)
 	 */
-	@Override public void load(C self) {
+	public void load(@NonNull C self) {
 		final Stream<Field> exposed = Arrays.stream(this.getClass().getDeclaredFields())
 				.filter(x -> x.isAnnotationPresent(Expose.class)).peek(x -> x.setAccessible(true));
-		exposed.forEach(x -> {
-			try {
-				final Field equivalent = self.getClass().getDeclaredField(x.getName());
-				equivalent.setAccessible(true);
+		exposed.forEach(x -> this.apply(self, x));
+	}
 
-				x.set(this, equivalent.get(self));
-			}
-			catch (NoSuchFieldException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		});
+	@SneakyThrows({ NoSuchFieldException.class, IllegalAccessException.class }) private void apply(@NonNull C self, @NonNull final Field field) {
+		final Field equivalent = self.getClass().getDeclaredField(field.getName());
+		equivalent.setAccessible(true);
+
+		field.set(this, equivalent.get(self));
 	}
 }

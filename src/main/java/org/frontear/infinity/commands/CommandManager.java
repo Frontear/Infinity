@@ -1,5 +1,6 @@
 package org.frontear.infinity.commands;
 
+import lombok.NonNull;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -22,7 +23,7 @@ public final class CommandManager extends Manager<Command> {
 	private final ChatComponentText prefix;
 	private final ConsoleGuiScreen console = new ConsoleGuiScreen();
 
-	public CommandManager(ModInfo info) {
+	public CommandManager(@NonNull ModInfo info) {
 		super("org.frontear.infinity.commands.impl");
 
 		this.bind = new KeyBinding("Console", Keyboard.KEY_GRAVE, info.getName());

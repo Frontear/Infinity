@@ -1,5 +1,6 @@
 package org.frontear.infinity.commands.impl;
 
+import lombok.NonNull;
 import org.apache.commons.lang3.ArrayUtils;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.commands.Command;
@@ -14,7 +15,7 @@ public final class Execute extends Command {
 		super("Executes a command after a specified amount of milliseconds", 2);
 	}
 
-	@Override public void process(String[] args) throws Exception {
+	@Override public void process(@NonNull String[] args) throws Exception {
 		async.execute(() -> {
 			try {
 				Thread.sleep(Long.parseLong(args[0]));

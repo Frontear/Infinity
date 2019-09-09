@@ -1,5 +1,6 @@
 package org.frontear.infinity.modules;
 
+import lombok.NonNull;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -14,7 +15,7 @@ import java.awt.*;
 import java.util.Iterator;
 
 public final class ModuleManager extends Manager<Module> {
-	public ModuleManager(Config config) {
+	public ModuleManager(@NonNull Config config) {
 		super("org.frontear.infinity.modules.impl");
 
 		getObjects().forEach(config::register);

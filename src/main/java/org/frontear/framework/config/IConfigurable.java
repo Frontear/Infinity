@@ -1,5 +1,7 @@
 package org.frontear.framework.config;
 
+import lombok.NonNull;
+
 /**
  * The interface for all configurable objects which are managed via the {@link IConfig}
  *
@@ -12,7 +14,7 @@ public interface IConfigurable<C extends IConfigurable<C>> {
 	 *
 	 * @param self the object that was serialized by {@link IConfig}
 	 */
-	void load(final C self);
+	void load(final @NonNull C self);
 
 	/**
 	 * Represents the name that is found from the json properties. Default returns {@link Class#getSimpleName()}

@@ -1,5 +1,6 @@
 package org.frontear.framework.ui.impl;
 
+import lombok.NonNull;
 import org.frontear.framework.ui.Drawable;
 
 import java.awt.*;
@@ -20,11 +21,23 @@ public final class Circle extends Drawable {
 	 * @param factor Defines how smooth the edges will be, higher values are smoother
 	 * @param color  The color of the {@link Drawable}
 	 */
-	public Circle(int x, int y, int radius, int factor, Color color) {
+	public Circle(int x, int y, int radius, int factor, @NonNull Color color) {
 		super(x, y, 0, 0, color);
 
 		this.radius = radius;
 		this.factor = factor;
+	}
+
+	@Deprecated @Override public void setWidth(int width) {
+		this.setRadius(width);
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+
+	@Deprecated @Override public void setHeight(int height) {
+		this.setRadius(height);
 	}
 
 	// https://stackoverflow.com/a/24843626/9091276
@@ -41,17 +54,5 @@ public final class Circle extends Drawable {
 
 	@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {
 		throw new UnsupportedOperationException();
-	}
-
-	@Deprecated @Override public void setWidth(int width) {
-		this.setRadius(width);
-	}
-
-	public void setRadius(int radius) {
-		this.radius = radius;
-	}
-
-	@Deprecated @Override public void setHeight(int height) {
-		this.setRadius(height);
 	}
 }

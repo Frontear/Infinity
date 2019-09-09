@@ -1,20 +1,17 @@
 package org.frontear.framework.async;
 
-public class InfiniteThread extends Thread {
-	public InfiniteThread(Runnable runnable) {
-		this(runnable, false);
-	}
+import lombok.NonNull;
 
-	public InfiniteThread(Runnable runnable, boolean trace) {
+public class InfiniteThread extends Thread {
+	public InfiniteThread(@NonNull Runnable runnable) {
 		super(() -> {
-			try {
-				while (true) {
+			//noinspection InfiniteLoopStatement
+			while (true) {
+				try {
 					Thread.sleep(1); // prevents cpu-cycle burnout
 					runnable.run();
 				}
-			}
-			catch (InterruptedException e) {
-				if (trace) {
+				catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}

@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.*;
 			x = event.getX();
 			y = event.getY();
 			color = event.getColor();
-			dropShadow = event.dropShadow();
+			dropShadow = event.isDropShadow();
 		}
 
 		if (dropShadow) {

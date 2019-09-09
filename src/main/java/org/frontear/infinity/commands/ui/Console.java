@@ -1,6 +1,7 @@
 package org.frontear.infinity.commands.ui;
 
 import com.google.common.collect.Queues;
+import lombok.NonNull;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ChatComponentText;
 import org.frontear.framework.ui.Drawable;
@@ -20,7 +21,7 @@ public final class Console extends Drawable {
 	private final Deque<String> lines = Queues.newArrayDeque();
 	private int scrollFactor = 0;
 
-	public Console(FontRenderer renderer, int x, int y, int width, int height) {
+	public Console(@NonNull FontRenderer renderer, int x, int y, int width, int height) {
 		final Color background = new Color(0, 0, 0, 127);
 
 		this.renderer = renderer;
@@ -34,11 +35,6 @@ public final class Console extends Drawable {
 
 	public void textboxKeyTyped(char p_146201_1_, int p_146201_2_) {
 		field.textboxKeyTyped(p_146201_1_, p_146201_2_);
-	}
-
-	@Override public void setPosition(int x, int y) {
-		backing.setPosition(x, y);
-		field.setPosition(x, y + backing.getHeight() + 1);
 	}
 
 	@Override public void draw() {
@@ -71,11 +67,16 @@ public final class Console extends Drawable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override public void setPosition(int x, int y) {
+		backing.setPosition(x, y);
+		field.setPosition(x, y + backing.getHeight() + 1);
+	}
+
 	public void scroll(int factor) {
 		this.scrollFactor = Math.min(lines.size(), Math.max(0, scrollFactor + factor)); // between 0 and lines.size
 	}
 
-	public void print(ChatComponentText text) {
+	public void print(@NonNull ChatComponentText text) {
 		lines.addFirst(text.getFormattedText());
 	}
 }

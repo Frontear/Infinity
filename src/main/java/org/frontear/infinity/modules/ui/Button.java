@@ -1,5 +1,6 @@
 package org.frontear.infinity.modules.ui;
 
+import lombok.NonNull;
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;
 import org.frontear.wrapper.IMinecraftWrapper;
@@ -11,7 +12,7 @@ public abstract class Button extends Drawable {
 	private final Rectangle rectangle;
 	private String text;
 
-	public Button(String text, int x, int y, int width, int height, Color color) {
+	protected Button(@NonNull String text, int x, int y, int width, int height, @NonNull Color color) {
 		this.rectangle = new Rectangle(x, y, width, height, color);
 		this.text = text;
 	}
@@ -22,28 +23,6 @@ public abstract class Button extends Drawable {
 
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	@Override public void setPosition(int x, int y) {
-		rectangle.setPosition(x, y);
-	}
-
-	@Override public void draw() {
-		rectangle.draw();
-		mc.getFontRenderer()
-				.drawString(text, ((rectangle.getX() + (rectangle.getX() + rectangle.getWidth())) - mc.getFontRenderer()
-						.getStringWidth(text)) / 2, (((rectangle.getY() + (rectangle.getY() + rectangle
-						.getHeight())) - (mc.getFontRenderer().FONT_HEIGHT + 1)) / 2), contrast(rectangle.getColor()));
-	}
-
-	// https://stackoverflow.com/a/13030061/9091276
-	private int contrast(Color color) {
-		double y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000;
-		return (y >= 128 ? Color.BLACK : Color.WHITE).getRGB();
-	}
-
-	@Override protected void render(int x, int y, int width, int height) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override public int getX() {
@@ -72,5 +51,27 @@ public abstract class Button extends Drawable {
 
 	@Override public void setColor(Color color) {
 		rectangle.setColor(color);
+	}
+
+	@Override public void draw() {
+		rectangle.draw();
+		mc.getFontRenderer()
+				.drawString(text, ((rectangle.getX() + (rectangle.getX() + rectangle.getWidth())) - mc.getFontRenderer()
+						.getStringWidth(text)) / 2, (((rectangle.getY() + (rectangle.getY() + rectangle
+						.getHeight())) - (mc.getFontRenderer().FONT_HEIGHT + 1)) / 2), contrast(rectangle.getColor()));
+	}
+
+	// https://stackoverflow.com/a/13030061/9091276
+	private int contrast(Color color) {
+		double y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000f;
+		return (y >= 128 ? Color.BLACK : Color.WHITE).getRGB();
+	}
+
+	@Override protected void render(int x, int y, int width, int height) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override public void setPosition(int x, int y) {
+		rectangle.setPosition(x, y);
 	}
 }

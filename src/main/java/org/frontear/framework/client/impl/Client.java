@@ -1,6 +1,7 @@
 package org.frontear.framework.client.impl;
 
 import com.google.gson.*;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
@@ -11,7 +12,6 @@ import org.frontear.framework.utils.time.Timer;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.zip.ZipFile;
 
 /**
@@ -27,9 +27,9 @@ public abstract class Client implements IClient {
 	 * Represents the time since the {@link Client} first loaded (immediate call to the constructor)
 	 */
 	public static final Timer UPTIME = new Timer();
-	private final ModInfo info;
-	private final Logger logger;
-	private final Config config;
+	@Getter private final ModInfo info;
+	@Getter private final Logger logger;
+	@Getter private final Config config;
 
 	/**
 	 * This is marked protected to prevent outside construction, and is to specify that this can only be managed through
@@ -38,7 +38,7 @@ public abstract class Client implements IClient {
 	protected Client() {
 		UPTIME.reset(); // intentional, as we want to only know exactly how long it has been since client started to load
 
-		this.info = Objects.requireNonNull(construct());
+		this.info = this.construct();
 		this.logger = new Logger(info.getName());
 		this.config = new Config(new File(".", info.getName().toLowerCase() + ".json"));
 	}
@@ -67,32 +67,5 @@ public abstract class Client implements IClient {
 			}
 		}
 		return new ModInfo(info);
-	}
-
-	/**
-	 * Information for this is received from the specified json file. As a result, this file MUST exist
-	 *
-	 * @see IClient#getModInfo()
-	 */
-	@Override public ModInfo getModInfo() {
-		return info;
-	}
-
-	/**
-	 * The logger is given it's name from {@link ModInfo#getName()}
-	 *
-	 * @see IClient#getLogger()
-	 */
-	@Override public Logger getLogger() {
-		return logger;
-	}
-
-	/**
-	 * The config creates a json where the filename is {@link ModInfo#getName()} + .json
-	 *
-	 * @see IClient#getConfig()
-	 */
-	@Override public Config getConfig() {
-		return config;
 	}
 }

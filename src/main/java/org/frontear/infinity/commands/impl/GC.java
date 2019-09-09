@@ -1,5 +1,6 @@
 package org.frontear.infinity.commands.impl;
 
+import lombok.NonNull;
 import net.minecraft.util.EnumChatFormatting;
 import org.frontear.infinity.commands.Command;
 
@@ -13,7 +14,7 @@ public final class GC extends Command {
 		super("Invokes the garbage collector. This can potentially resolve memory issues");
 	}
 
-	@Override public void process(String[] args) throws Exception {
+	@Override public void process(@NonNull String[] args) throws Exception {
 		if (allowed) {
 			final long last = getMemory();
 			System.gc();

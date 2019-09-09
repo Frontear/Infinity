@@ -1,20 +1,17 @@
 package org.frontear.infinity.events.render;
 
+import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 public final class BlockEvent extends Event {
-	private final Block block;
+	@Getter private final Block block;
 	private boolean render, side_check;
 
 	public BlockEvent(Block block, boolean render, boolean side_check) {
 		this.block = block;
 		this.render = render;
 		this.side_check = side_check;
-	}
-
-	public Block getBlock() {
-		return block;
 	}
 
 	public boolean shouldRender() {

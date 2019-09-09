@@ -1,5 +1,6 @@
 package org.frontear.framework.logger.impl;
 
+import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -27,12 +28,12 @@ public final class Logger implements ILogger {
 	 *
 	 * @param name Will prefix all log stream outputs
 	 */
-	public Logger(String name) {
+	public Logger(@NonNull String name) {
 		this.log = LogManager.getLogger(name);
 	}
 
 	// removes package prefix
-	private static String sanitize(String className) {
+	private static String sanitize(@NonNull String className) {
 		final String[] split = className.split("\\.");
 		return split[split.length - 1];
 	}
@@ -42,7 +43,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#fatal(Throwable, Object, Object...)
 	 */
-	@Override public <T extends Throwable> T fatal(T throwable, Object object, Object... args) throws T {
+	@Override public <T extends Throwable> T fatal(@NonNull T throwable, @NonNull Object object, Object... args) throws T {
 		log(Level.FATAL, object, args);
 		throw throwable;
 	}
@@ -53,7 +54,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#error(Object, Object...)
 	 */
-	@Override public void error(Object object, Object... args) {
+	@Override public void error(@NonNull Object object, Object... args) {
 		log(Level.ERROR, object, args);
 	}
 
@@ -62,7 +63,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#warn(Object, Object...)
 	 */
-	@Override public void warn(Object object, Object... args) {
+	@Override public void warn(@NonNull Object object, Object... args) {
 		log(Level.WARN, object, args);
 	}
 
@@ -71,7 +72,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#info(Object, Object...)
 	 */
-	@Override public void info(Object object, Object... args) {
+	@Override public void info(@NonNull Object object, Object... args) {
 		log(Level.INFO, object, args);
 	}
 
@@ -81,7 +82,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#debug(Object, Object...)
 	 */
-	@Override public void debug(Object object, Object... args) {
+	@Override public void debug(@NonNull Object object, Object... args) {
 		if (Client.DEBUG) {
 			log(Level.OFF, object, args);
 		}
@@ -91,7 +92,7 @@ public final class Logger implements ILogger {
 		info(StringUtils.repeat(pad, repeat));
 	}
 
-	@Override public void startSection(String title) {
+	@Override public void startSection(@NonNull String title) {
 		info(StringUtils.center(String.format(" %s ", title), repeat, pad));
 	}
 

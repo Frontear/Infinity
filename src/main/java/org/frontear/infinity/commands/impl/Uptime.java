@@ -1,5 +1,6 @@
 package org.frontear.infinity.commands.impl;
 
+import lombok.NonNull;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.infinity.commands.Command;
 
@@ -8,7 +9,7 @@ public final class Uptime extends Command {
 		super("Informs you of how long the client has been running");
 	}
 
-	@Override public void process(String[] args) throws Exception {
+	@Override public void process(@NonNull String[] args) throws Exception {
 		sendMessage(String.format("Running for: %s", Client.UPTIME));
 	}
 }
