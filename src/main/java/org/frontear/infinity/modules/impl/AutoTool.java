@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.MovingObjectPosition;
+import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
@@ -31,6 +32,8 @@ public class AutoTool extends Module {
 				slot = searchHotbar(player, x -> x instanceof ItemTool && ((ItemTool) x).effectiveBlocks
 						.contains(block));
 				break;
+			default:
+				Infinity.inst().getLogger().debug("%s not supported", object.typeOfHit.name());
 		}
 
 		if (slot != -1) {

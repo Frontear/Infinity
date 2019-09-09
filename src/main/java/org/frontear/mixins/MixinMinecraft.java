@@ -77,13 +77,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 		}
 	}
 
-	@Inject(method = "clickMouse",
-			at = @At("HEAD")) private void clickMouse(CallbackInfo info) {
-		if (AutoTool.active()) {
-			AutoTool.selectOptimizedItem(thePlayer.inventory, objectMouseOver);
-		}
-	}
-
 	/**
 	 * @author prplz Please see https://prplz.io/memoryfix/ for more information
 	 */
@@ -124,6 +117,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	}
 
 	@Shadow protected abstract void clickMouse();
+	
+	@Inject(method = "clickMouse",
+			at = @At("HEAD")) private void clickMouse(CallbackInfo info) {
+		if (AutoTool.active()) {
+			AutoTool.selectOptimizedItem(thePlayer.inventory, objectMouseOver);
+		}
+	}
 
 	@Intrinsic public Session wrap$getSession() {
 		return session;
