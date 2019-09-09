@@ -1,26 +1,10 @@
 import groovy.json.JsonSlurper
 
-buildscript {
-    repositories {
-        jcenter()
-        maven {
-            name = "forge"
-            url = "https://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sponge"
-            url = "https://repo.spongepowered.org/maven"
-        }
-    }
-    dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT"
-        classpath "org.spongepowered:mixingradle:0.6-SNAPSHOT"
-    }
+plugins {
+    id "net.minecraftforge.gradle.forge" version "2.1-SNAPSHOT"
+    id "org.spongepowered.mixin" version "0.6-SNAPSHOT"
+    id "java"
 }
-
-apply plugin: "net.minecraftforge.gradle.forge"
-apply plugin: "org.spongepowered.mixin"
-apply plugin: "java"
 
 sourceCompatibility = targetCompatibility = 1.8
 version = "2.2-alpha"
@@ -53,10 +37,6 @@ repositories {
         name = "sponge"
         url = "https://repo.spongepowered.org/maven"
     }
-    maven {
-        name = "jitpack"
-        url = "https://jitpack.io"
-    }
 }
 
 dependencies {
@@ -65,7 +45,7 @@ dependencies {
         // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
     }
 
-    implementation("org.projectlombok:lombok:1.18.4")
+    implementation("org.projectlombok:lombok:1.18.8")
 }
 
 processResources {
