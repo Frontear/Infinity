@@ -2,6 +2,7 @@ package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Sets;
 import net.minecraftforge.fml.common.Loader;
+import org.frontear.framework.async.InfiniteThread;
 import org.frontear.framework.utils.system.LocalMachine;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
@@ -13,7 +14,7 @@ import java.util.Set;
 
 public final class Ghost extends Module {
 	private static Ghost self = null;
-	private final Thread obsChecker;
+	private static Thread obsChecker = null;
 	private final LocalMachine machine = new LocalMachine();
 	private Set<Module> unsafe = Sets.newHashSet();
 
@@ -23,24 +24,16 @@ public final class Ghost extends Module {
 			self = this; // oh god gson
 		}
 
-		this.obsChecker = new Thread(() -> {
-			try {
-				while (true) {
-					Thread.sleep(1); // prevent cpu burnout
-					{
-						final boolean obs = machine.getProcesses().containsValue("obs");
-						if (!isActive() && obs) {
-							this.setActive(true);
-							Infinity.inst().getLogger()
-									.warn("OBS Studio was detected, Ghost will automatically enabled.");
-						}
-					}
+		if (obsChecker == null) {
+			obsChecker = new InfiniteThread(() -> {
+				final boolean obs = machine.getProcesses().containsValue("obs");
+				if (!isActive() && obs) {
+					this.setActive(true);
+					Infinity.inst().getLogger().warn("OBS Studio was detected, Ghost will automatically enabled.");
 				}
-			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		});
+			});
+			obsChecker.start();
+		}
 	}
 
 	public static boolean active() {
@@ -50,8 +43,6 @@ public final class Ghost extends Module {
 	@Override public void load(Module self) {
 		this.setBind(self.getBind());
 		this.setActive(false);
-
-		this.obsChecker.start();
 	}
 
 	@Override protected void onToggle(boolean active) {

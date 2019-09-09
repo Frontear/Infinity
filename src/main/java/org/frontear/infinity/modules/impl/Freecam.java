@@ -14,7 +14,6 @@ import org.lwjgl.input.Keyboard;
 
 public final class Freecam extends Module {
 	private static final byte ID = -2;
-	private C03PacketPlayer packet;
 	private EntityOtherPlayerMP clone;
 
 	public Freecam() {
@@ -23,7 +22,7 @@ public final class Freecam extends Module {
 
 	@SubscribeEvent public void onPacket(PacketEvent event) {
 		if (event.getPacket() instanceof C03PacketPlayer) {
-			event.setPacket(packet);
+			event.setPacket(normalize(clone, (C03PacketPlayer) event.getPacket()));
 		}
 		else if (event.getPacket() instanceof C0BPacketEntityAction || event.getPacket() instanceof C0APacketAnimation /*|| event
 				.getPacket() instanceof C07PacketPlayerDigging || event
@@ -55,7 +54,6 @@ public final class Freecam extends Module {
 
 	@Override protected void onToggle(boolean active) {
 		if (active) {
-			this.packet = make(mc.getPlayer());
 			this.clone = EntityUtils.clone(mc.getPlayer());
 
 			mc.getWorld().addEntityToWorld(ID, clone);
@@ -70,8 +68,7 @@ public final class Freecam extends Module {
 		}
 	}
 
-	private C03PacketPlayer make(EntityPlayer player) {
-		final C03PacketPlayer packet = new C03PacketPlayer();
+	private C03PacketPlayer normalize(EntityPlayer player, C03PacketPlayer packet) {
 		packet.x = player.posX;
 		packet.y = player.posY;
 		packet.z = player.posZ;

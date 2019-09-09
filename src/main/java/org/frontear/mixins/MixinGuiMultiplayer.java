@@ -3,6 +3,7 @@ package org.frontear.mixins;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.network.OldServerPinger;
+import org.frontear.framework.async.InfiniteThread;
 import org.frontear.framework.utils.time.TimeUnit;
 import org.frontear.framework.utils.time.Timer;
 import org.spongepowered.asm.mixin.*;
@@ -20,19 +21,10 @@ import java.net.UnknownHostException;
 
 	@Inject(method = "<init>",
 			at = @At("RETURN")) private void init(GuiScreen parentScreen, CallbackInfo info) {
-		this.refresh = new Thread(() -> {
-			try {
-				while (true) {
-					Thread.sleep(1);
-					if (timer.hasElapsed(TimeUnit.SECOND, 5)) {
-						timer.reset();
-
-						refreshServerList();
-					}
-				}
-			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
+		this.refresh = new InfiniteThread(() -> {
+			if (timer.hasElapsed(TimeUnit.SECOND, 5)) {
+				timer.reset();
+				refreshServerList();
 			}
 		});
 
