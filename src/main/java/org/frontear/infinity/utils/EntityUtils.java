@@ -4,7 +4,7 @@ import lombok.experimental.UtilityClass;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 
-@UtilityClass public final class EntityUtils {
+@UtilityClass public class EntityUtils {
 	public EntityOtherPlayerMP clone(EntityPlayer player) {
 		final EntityOtherPlayerMP clone = new EntityOtherPlayerMP(player.worldObj, player.getGameProfile());
 

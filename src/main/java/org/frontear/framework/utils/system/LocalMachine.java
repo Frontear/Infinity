@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Map;
 
-@UtilityClass public final class LocalMachine {
+@UtilityClass public class LocalMachine {
 	private static final byte OS;
 
 	static {

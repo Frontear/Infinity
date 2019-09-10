@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@UtilityClass public final class ChatUtils {
+@UtilityClass public class ChatUtils {
 	private final String FORMAT_SYMBOL = "§";
 	private final Map<Character, EnumChatFormatting> formats;
 	private final Logger logger = new Logger();
