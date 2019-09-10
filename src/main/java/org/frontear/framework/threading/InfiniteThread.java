@@ -1,21 +1,20 @@
 package org.frontear.framework.threading;
 
 import lombok.NonNull;
-import lombok.SneakyThrows;
 
-public class InfiniteThread extends Thread {
+public final class InfiniteThread extends Thread {
 	public InfiniteThread(@NonNull Runnable runnable) {
 		super(() -> {
-			//noinspection InfiniteLoopStatement
-			while (true) {
-				delay();
-				runnable.run();
+			try {
+				//noinspection InfiniteLoopStatement
+				while (true) {
+					Thread.sleep(1); // prevents cpu-cycle burnout
+					runnable.run();
+				}
+			}
+			catch (InterruptedException ignored) {
 			}
 		});
-	}
-
-	@SneakyThrows private static void delay() {
-		Thread.sleep(1); // prevents cpu-cycle burnout
 	}
 
 	@Override public synchronized void start() {

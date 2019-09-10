@@ -1,5 +1,6 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.val;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -50,7 +51,7 @@ public final class Freecam extends Module {
 			event.getEntity().onGround = false;
 			event.getEntity().motionY = 0; // prevents rapid falling of gravity
 
-			final float speed = 0.4f;
+			val speed = 0.4f;
 			((EntityPlayerSP) event.getEntity()).jumpMovementFactor = speed / 2;
 			if (mc.getGameSettings().keyBindJump.isKeyDown()) {
 				event.getEntity().motionY += speed;

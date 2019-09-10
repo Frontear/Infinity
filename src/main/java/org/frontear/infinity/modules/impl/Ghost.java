@@ -1,6 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Sets;
+import lombok.val;
 import net.minecraftforge.fml.common.Loader;
 import org.frontear.framework.threading.InfiniteThread;
 import org.frontear.framework.utils.system.LocalMachine;
@@ -20,7 +21,7 @@ public final class Ghost extends Module {
 		super(Keyboard.KEY_G, true, Category.NONE);
 		if (obsChecker == null) {
 			obsChecker = new InfiniteThread(() -> {
-				final boolean obs = LocalMachine.getProcesses().containsValue("obs");
+				val obs = LocalMachine.getProcesses().containsValue("obs");
 				if (!isActive() && obs) {
 					this.setActive(true);
 					Infinity.inst().getLogger().warn("OBS Studio was detected, Ghost will automatically enabled.");

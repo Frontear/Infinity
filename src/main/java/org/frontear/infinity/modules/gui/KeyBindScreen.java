@@ -1,6 +1,7 @@
 package org.frontear.infinity.modules.gui;
 
 import lombok.NonNull;
+import lombok.val;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import org.frontear.infinity.modules.Module;
@@ -23,7 +24,7 @@ public final class KeyBindScreen extends GuiScreen {
 	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();
 
-		final int scale = 2;
+		val scale = 2;
 		glScalef(scale, scale, 1f);
 		{
 			this.drawCenteredString(fontRendererObj, "Press any key to bind", (width / 2) / scale, 15 / scale, Color.WHITE

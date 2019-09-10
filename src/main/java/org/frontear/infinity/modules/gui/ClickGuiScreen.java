@@ -1,6 +1,8 @@
 package org.frontear.infinity.modules.gui;
 
 import com.google.common.collect.Queues;
+import lombok.val;
+import lombok.var;
 import net.minecraft.client.gui.GuiScreen;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
@@ -28,8 +30,10 @@ public final class ClickGuiScreen extends GuiScreen {
 
 	@Override public void initGui() {
 		if (!init) {
-			final int width = 100, height = 30;
-			int x = 5, y = 5;
+			val width = 100;
+			val height = 30;
+			var x = 5;
+			var y = 5;
 
 			Category[] categories = Arrays.stream(Category.values()).filter(z -> z != Category.NONE)
 					.toArray(Category[]::new);

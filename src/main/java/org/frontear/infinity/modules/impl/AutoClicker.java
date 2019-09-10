@@ -1,5 +1,6 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.val;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -22,9 +23,9 @@ public final class AutoClicker extends Module {
 	@SubscribeEvent public void onTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase == TickEvent.Phase.START && event.player instanceof EntityPlayerSP && !event.player
 				.isUsingItem()) {
-			final boolean elapsed = timer
+			val elapsed = timer
 					.hasElapsed(TimeUnit.MILLISECOND, 1000 / ThreadLocalRandom.current().nextInt(cps[0], cps[1] + 1));
-			final boolean attacking = mc.getGameSettings().keyBindAttack.isKeyDown();
+			val attacking = mc.getGameSettings().keyBindAttack.isKeyDown();
 
 			if (!attacking || elapsed) {
 				timer.reset();

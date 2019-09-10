@@ -1,5 +1,6 @@
 package org.frontear;
 
+import lombok.val;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +24,7 @@ import org.frontear.infinity.Infinity;
 		this.concurrent = new Thread(() -> {
 			try {
 				logger.debug("Loading ${name}");
-				final Infinity instance = Infinity.inst();
+				val instance = Infinity.inst();
 				instance.getLogger().debug("Registering to EVENT_BUS");
 				MinecraftForge.EVENT_BUS.register(instance);
 			}

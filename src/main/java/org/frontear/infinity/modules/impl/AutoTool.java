@@ -1,6 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
-import net.minecraft.block.Block;
+import lombok.val;
+import lombok.var;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.MovingObjectPosition;
@@ -17,13 +18,13 @@ public class AutoTool extends Module {
 	}
 
 	public void selectOptimizedItem(final InventoryPlayer player, final MovingObjectPosition object) {
-		int slot = -1;
+		var slot = -1;
 		switch (object.typeOfHit) {
 			case ENTITY:
 				slot = searchHotbar(player, ItemSword.class::isInstance);
 				break;
 			case BLOCK:
-				final Block block = mc.getWorld().getBlockState(object.getBlockPos()).getBlock();
+				val block = mc.getWorld().getBlockState(object.getBlockPos()).getBlock();
 				slot = searchHotbar(player, x -> x instanceof ItemTool && ((ItemTool) x).effectiveBlocks
 						.contains(block));
 				break;
@@ -37,8 +38,8 @@ public class AutoTool extends Module {
 	}
 
 	private int searchHotbar(InventoryPlayer inventory, Predicate<? super Item> filter) {
-		for (int i = 0; i < 9; i++) {
-			final ItemStack stack = inventory.mainInventory[i];
+		for (var i = 0; i < 9; i++) {
+			val stack = inventory.mainInventory[i];
 			if (stack != null && filter.test(stack.getItem())) {
 				return i;
 			}

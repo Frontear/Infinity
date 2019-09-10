@@ -1,5 +1,6 @@
 package org.frontear.framework.ui.impl;
 
+import lombok.var;
 import org.frontear.framework.ui.Drawable;
 
 import java.awt.*;
@@ -44,7 +45,7 @@ public final class Circle extends Drawable {
 		glBegin(GL_TRIANGLE_FAN);
 		{
 			glVertex2d(x, y);
-			for (int i = 0; i <= factor; i++) {
+			for (var i = 0; i <= factor; i++) {
 				glVertex2d((x + (radius * cos(i * (PI * 2f) / factor))), (y + (radius * sin(i * (PI * 2f) / factor))));
 			}
 		}

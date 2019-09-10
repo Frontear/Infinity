@@ -1,7 +1,7 @@
 package org.frontear.infinity.commands.impl;
 
 import lombok.NonNull;
-import net.minecraft.client.network.NetworkPlayerInfo;
+import lombok.val;
 import org.frontear.infinity.commands.Command;
 
 public final class Ping extends Command {
@@ -10,7 +10,7 @@ public final class Ping extends Command {
 	}
 
 	@Override public void process(@NonNull String[] args) throws Exception {
-		NetworkPlayerInfo info = mc.getPlayer().sendQueue.getPlayerInfo(args[0]);
+		val info = mc.getPlayer().sendQueue.getPlayerInfo(args[0]);
 		if (info != null) {
 			sendMessage(String.format("%s: %dms", info.getGameProfile().getName(), info.getResponseTime()));
 		}

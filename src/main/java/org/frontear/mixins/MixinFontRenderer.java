@@ -1,5 +1,6 @@
 package org.frontear.mixins;
 
+import lombok.val;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.events.render.FontEvent;
@@ -24,7 +25,7 @@ import org.spongepowered.asm.mixin.*;
 		this.resetStyles();
 		int i;
 
-		final FontEvent event = new FontEvent(text, x, y, color, dropShadow);
+		val event = new FontEvent(text, x, y, color, dropShadow);
 		MinecraftForge.EVENT_BUS.post(event);
 		{
 			text = event.getText();

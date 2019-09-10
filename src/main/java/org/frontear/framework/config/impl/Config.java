@@ -2,8 +2,7 @@ package org.frontear.framework.config.impl;
 
 import com.google.common.collect.Sets;
 import com.google.gson.*;
-import lombok.NonNull;
-import lombok.SneakyThrows;
+import lombok.*;
 import org.frontear.framework.config.IConfig;
 import org.frontear.framework.config.IConfigurable;
 import org.frontear.framework.logger.impl.Logger;
@@ -53,9 +52,9 @@ public final class Config implements IConfig {
 	 * @see IConfig#load()
 	 */
 	@SneakyThrows(IOException.class) @Override public void load() {
-		try (Reader reader = new FileReader(config_file)) {
+		try (val reader = new FileReader(config_file)) {
 			logger.debug("Loading config from %s", config_file.getAbsolutePath());
-			final JsonObject config = new JsonParser().parse(reader).getAsJsonObject();
+			val config = new JsonParser().parse(reader).getAsJsonObject();
 
 			configurables.forEach(x -> {
 				logger.debug("Lookup for '%s' in config", x.getName());
@@ -83,8 +82,8 @@ public final class Config implements IConfig {
 	 * @see IConfig#save()
 	 */
 	@SneakyThrows(IOException.class) @Override public void save() {
-		try (Writer writer = new PrintWriter(config_file)) {
-			final JsonObject config = new JsonObject();
+		try (val writer = new PrintWriter(config_file)) {
+			val config = new JsonObject();
 			configurables.forEach(x -> {
 				logger.debug("Saving '%s' to config", x.getName());
 				config.add(x.getName(), gson.toJsonTree(x));

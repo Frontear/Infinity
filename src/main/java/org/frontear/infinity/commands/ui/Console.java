@@ -1,7 +1,7 @@
 package org.frontear.infinity.commands.ui;
 
 import com.google.common.collect.Queues;
-import lombok.NonNull;
+import lombok.*;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ChatComponentText;
 import org.frontear.framework.ui.Drawable;
@@ -22,7 +22,7 @@ public final class Console extends Drawable {
 	private int scrollFactor = 0;
 
 	public Console(@NonNull FontRenderer renderer, int x, int y, int width, int height) {
-		final Color background = new Color(0, 0, 0, 127);
+		val background = new Color(0, 0, 0, 127);
 
 		this.renderer = renderer;
 		this.backing = new Rectangle(x, y, width, height, background);
@@ -40,7 +40,7 @@ public final class Console extends Drawable {
 	@Override public void draw() {
 		backing.draw();
 
-		int scrollPos = scrollFactor;
+		var scrollPos = scrollFactor;
 		glScalef(scale, scale, 1f);
 		{
 			int y = backing.getY() + backing.getHeight(); // text starts from the bottom to the top

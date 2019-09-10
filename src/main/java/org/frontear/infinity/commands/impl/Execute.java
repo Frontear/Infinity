@@ -1,6 +1,7 @@
 package org.frontear.infinity.commands.impl;
 
 import lombok.NonNull;
+import lombok.val;
 import org.apache.commons.lang3.ArrayUtils;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.commands.Command;
@@ -21,7 +22,7 @@ public final class Execute extends Command {
 				Thread.sleep(Long.parseLong(args[0]));
 				Infinity.inst().getCommands().getObjects().filter(x -> x.getName().equalsIgnoreCase(args[1]))
 						.findFirst().ifPresent(x -> {
-					final String[] arguments = ArrayUtils.removeAll(args, 0, 1);
+					val arguments = ArrayUtils.removeAll(args, 0, 1);
 					try {
 						x.process(arguments);
 					}

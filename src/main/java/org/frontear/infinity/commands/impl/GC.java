@@ -1,6 +1,7 @@
 package org.frontear.infinity.commands.impl;
 
 import lombok.NonNull;
+import lombok.val;
 import net.minecraft.util.EnumChatFormatting;
 import org.frontear.infinity.commands.Command;
 
@@ -16,9 +17,9 @@ public final class GC extends Command {
 
 	@Override public void process(@NonNull String[] args) throws Exception {
 		if (allowed) {
-			final long last = getMemory();
+			val last = getMemory();
 			System.gc();
-			final long current = getMemory();
+			val current = getMemory();
 			sendMessage(String.format("Freed %dMB", Math.abs(current - last)));
 		}
 		else {
@@ -27,7 +28,7 @@ public final class GC extends Command {
 	}
 
 	private long getMemory() {
-		final Runtime runtime = Runtime.getRuntime();
+		val runtime = Runtime.getRuntime();
 		return (runtime.totalMemory() - runtime.freeMemory()) / (1024L * 1024L);
 	}
 }

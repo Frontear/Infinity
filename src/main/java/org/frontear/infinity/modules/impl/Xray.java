@@ -1,5 +1,6 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.val;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockRedstoneOre;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -32,7 +33,7 @@ public final class Xray extends Module {
 
 
 	@Override protected void onToggle(boolean active) {
-		Fullbright instance = Infinity.inst().getModules().get(Fullbright.class);
+		val instance = Infinity.inst().getModules().get(Fullbright.class);
 		if (active) {
 			last_ambient = mc.getGameSettings().ambientOcclusion;
 			last_fullbright = instance.isActive();

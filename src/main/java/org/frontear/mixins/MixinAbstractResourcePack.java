@@ -1,10 +1,10 @@
 package org.frontear.mixins;
 
+import lombok.val;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.AbstractResourcePack;
 import org.spongepowered.asm.mixin.*;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,10 +17,10 @@ import java.io.InputStream;
 	 * @reason Please see https://prplz.io/memoryfix/ for more information
 	 */
 	@Overwrite public BufferedImage getPackImage() throws IOException {
-		final BufferedImage image = TextureUtil.readBufferedImage(this.getInputStreamByName("pack.png"));
+		val image = TextureUtil.readBufferedImage(this.getInputStreamByName("pack.png"));
 		if (image != null) {
-			final BufferedImage scaled = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
-			final Graphics2D graphics = scaled.createGraphics();
+			val scaled = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
+			val graphics = scaled.createGraphics();
 			graphics.drawImage(image, 0, 0, SIZE, SIZE, null);
 			graphics.dispose();
 

@@ -1,6 +1,7 @@
 package org.frontear.infinity.commands;
 
 import lombok.NonNull;
+import lombok.val;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -17,8 +18,6 @@ import org.frontear.infinity.utils.ChatUtils;
 import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
 
-import java.util.Optional;
-
 public final class CommandManager extends Manager<Command> {
 	private final KeyBinding bind;
 	private final ChatComponentText prefix;
@@ -30,7 +29,7 @@ public final class CommandManager extends Manager<Command> {
 		this.bind = new KeyBinding("Console", Keyboard.KEY_GRAVE, info.getName());
 		ClientRegistry.registerKeyBinding(bind);
 
-		final EnumChatFormatting gray = EnumChatFormatting.GRAY;
+		val gray = EnumChatFormatting.GRAY;
 		this.prefix = ChatUtils
 				.append(ChatUtils.make("[", gray), ChatUtils.make(info.getName(), EnumChatFormatting.GOLD), ChatUtils
 						.make("] ", gray));
@@ -44,13 +43,12 @@ public final class CommandManager extends Manager<Command> {
 	}
 
 	public void processMessage(String text) {
-		final String[] split = text.split(" ");
-		final Optional<Command> potential = getObjects().filter(x -> x.getName().equalsIgnoreCase(split[0]))
-				.findFirst();
+		val split = text.split(" ");
+		val potential = getObjects().filter(x -> x.getName().equalsIgnoreCase(split[0])).findFirst();
 
 		if (potential.isPresent()) {
-			final Command command = potential.get();
-			final String[] args = ArrayUtils.remove(split, 0); // 0th index is just the command name
+			val command = potential.get();
+			val args = ArrayUtils.remove(split, 0); // 0th index is just the command name
 			if (args.length < command.getArguments()) {
 				sendMessage(String
 						.format("Too few arguments (min %d)", command.getArguments()), EnumChatFormatting.RED);
@@ -72,7 +70,7 @@ public final class CommandManager extends Manager<Command> {
 	}
 
 	void sendMessage(String message, EnumChatFormatting... format) {
-		final ChatComponentText text = ChatUtils.make(message, format);
+		val text = ChatUtils.make(message, format);
 
 		console.print(ChatUtils.append(prefix, text));
 	}

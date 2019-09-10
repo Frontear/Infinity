@@ -1,7 +1,6 @@
 package org.frontear.framework.logger.impl;
 
-import lombok.NonNull;
-import lombok.SneakyThrows;
+import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +34,7 @@ public final class Logger implements ILogger {
 
 	// removes package prefix
 	private static String sanitize(@NonNull String className) {
-		final String[] split = className.split("\\.");
+		val split = className.split("\\.");
 		return split[split.length - 1];
 	}
 
@@ -107,8 +106,8 @@ public final class Logger implements ILogger {
 	 * @param args   Extra arguments for {@link String#format(String, Object...)}
 	 */
 	private void log(Level level, Object object, Object... args) {
-		final StackTraceElement element = Thread.currentThread().getStackTrace()[3];
-		final StringBuilder message = new StringBuilder();
+		val element = Thread.currentThread().getStackTrace()[3];
+		val message = new StringBuilder();
 		if (Client.DEBUG) {
 			message.append(String.format("[%s#%s]: ", sanitize(element.getClassName()), element.getMethodName()));
 		}

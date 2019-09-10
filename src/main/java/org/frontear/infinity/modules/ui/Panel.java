@@ -2,6 +2,7 @@ package org.frontear.infinity.modules.ui;
 
 import com.google.common.collect.Sets;
 import lombok.NonNull;
+import lombok.val;
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;
 
@@ -61,7 +62,7 @@ public final class Panel extends Drawable {
 
 	@Override public void setPosition(int x, int y) {
 		background.setPosition(x - offset, y - offset);
-		for (org.frontear.infinity.modules.ui.Button button : buttons) {
+		for (val button : buttons) {
 			button.setPosition(x, y);
 			y += button.getHeight();
 		}

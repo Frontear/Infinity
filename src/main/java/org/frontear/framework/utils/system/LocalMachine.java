@@ -2,8 +2,7 @@ package org.frontear.framework.utils.system;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import lombok.NonNull;
-import lombok.SneakyThrows;
+import lombok.*;
 import lombok.experimental.UtilityClass;
 
 import java.awt.*;
@@ -21,7 +20,7 @@ import java.util.Map;
 	static {
 		if (ManagementFactory.getRuntimeMXBean().getInputArguments().stream()
 				.noneMatch(x -> x.startsWith("-Dos.name="))) {
-			final String name = System.getProperty("os.name");
+			val name = System.getProperty("os.name");
 			if (name.contains("Windows")) {
 				OS = OperatingSystem.WINDOWS;
 			}
@@ -42,8 +41,9 @@ import java.util.Map;
 			throw new UnsupportedOperationException("Property \"os.name\" was overwritten in the JVM args"); // if os.name has been specified manually in the JVM args, we cannot guarantee the right result
 		}
 
-		if (ManagementFactory.getRuntimeMXBean().getInputArguments().stream().noneMatch(x -> x.startsWith("-Dos.arch="))) {
-			final String arch = System.getProperty("os.arch");
+		if (ManagementFactory.getRuntimeMXBean().getInputArguments().stream()
+				.noneMatch(x -> x.startsWith("-Dos.arch="))) {
+			val arch = System.getProperty("os.arch");
 			if (arch.equals("amd64")) {
 				ARCH = SystemArchitecture.x64;
 			}
@@ -60,21 +60,21 @@ import java.util.Map;
 	}
 
 	public Map<Integer, String> getProcesses() {
-		final Map<Integer, String> processes = Maps.newHashMap();
+		val processes = Maps.<Integer, String>newHashMap();
 		final boolean windows = OS == OperatingSystem.WINDOWS;
 		try {
-			final Process process = Runtime.getRuntime().exec(windows ? "tasklist /fo csv /nh" : "ps -e");
-			try (final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+			val process = Runtime.getRuntime().exec(windows ? "tasklist /fo csv /nh" : "ps -e");
+			try (val reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
 				reader.lines().skip(1).forEach(x -> { // the first line is usually just a line to explain the format
 					if (windows) {
 						// "name","id","type","priority","memory?"
-						final String[] split = x.replace("\"", "").split(",");
+						val split = x.replace("\"", "").split(",");
 						processes.put(Integer.valueOf(split[1]), split[0]);
 					}
 					else {
 						// id tty time command
-						final String[] split = Arrays.stream(x.trim().split(" ")).map(String::trim)
-								.filter(s -> !s.isEmpty()).toArray(String[]::new); // yikes
+						val split = Arrays.stream(x.trim().split(" ")).map(String::trim).filter(s -> !s.isEmpty())
+								.toArray(String[]::new); // yikes
 						processes.put(Integer.valueOf(split[0]), split[split.length - 1]);
 					}
 				});
@@ -97,7 +97,7 @@ import java.util.Map;
 	}
 
 	public String getClipboardContent() {
-		final Toolkit toolkit = Toolkit.getDefaultToolkit();
+		val toolkit = Toolkit.getDefaultToolkit();
 		try {
 			return (String) toolkit.getSystemClipboard().getData(DataFlavor.stringFlavor);
 		}
@@ -109,20 +109,20 @@ import java.util.Map;
 	}
 
 	public void setClipboardContent(@NonNull String content) {
-		final Toolkit toolkit = Toolkit.getDefaultToolkit();
+		val toolkit = Toolkit.getDefaultToolkit();
 		if (!content.isEmpty()) {
-			final StringSelection string = new StringSelection(content);
+			val string = new StringSelection(content);
 			toolkit.getSystemClipboard().setContents(string, string);
 		}
 	}
 
 	@SneakyThrows({ URISyntaxException.class, IOException.class }) public void openUrl(@NonNull String url) {
-		final URI uri = new URI(url); // intentional, this will catch errors with the URL, even if Desktop isn't supported, it still plays a role
+		val uri = new URI(url); // intentional, this will catch errors with the URL, even if Desktop isn't supported, it still plays a role
 		if (Desktop.isDesktopSupported()) {
 			Desktop.getDesktop().browse(uri); // this can lag a bit
 		}
 		else {
-			final Runtime runtime = Runtime.getRuntime();
+			val runtime = Runtime.getRuntime();
 			if (compareOS(OperatingSystem.WINDOWS)) {
 				runtime.exec("cmd /k start " + url);
 			}
@@ -149,7 +149,8 @@ import java.util.Map;
 	}
 
 	public boolean compareArch(byte arch) {
-		Preconditions.checkArgument(arch == SystemArchitecture.x64 || arch == SystemArchitecture.x86 || arch == SystemArchitecture.UNSUPPORTED);
+		Preconditions
+				.checkArgument(arch == SystemArchitecture.x64 || arch == SystemArchitecture.x86 || arch == SystemArchitecture.UNSUPPORTED);
 
 		return arch == ARCH;
 	}

@@ -1,6 +1,7 @@
 package org.frontear.infinity.modules.ui;
 
 import lombok.NonNull;
+import lombok.val;
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;
 import org.frontear.wrapper.IMinecraftWrapper;
@@ -63,7 +64,7 @@ public abstract class Button extends Drawable {
 
 	// https://stackoverflow.com/a/13030061/9091276
 	private int contrast(Color color) {
-		double y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000f;
+		val y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000f;
 		return (y >= 128 ? Color.BLACK : Color.WHITE).getRGB();
 	}
 

@@ -1,6 +1,7 @@
 package org.frontear.infinity.commands.gui;
 
 import lombok.NonNull;
+import lombok.val;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiTextField;
 import org.frontear.framework.ui.impl.Rectangle;
@@ -23,7 +24,7 @@ public final class ConsoleTextField extends GuiTextField {
 	}
 
 	@Override public boolean textboxKeyTyped(char p_146201_1_, int p_146201_2_) {
-		final String text = getText()
+		val text = getText()
 				.trim(); // removes all empty spaces from ends and beginnings, they are unnecessary and can cause problems
 		if (p_146201_2_ == Keyboard.KEY_RETURN && !text.isEmpty()) {
 			Infinity.inst().getCommands().processMessage(text);

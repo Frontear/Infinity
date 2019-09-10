@@ -2,6 +2,7 @@ package org.frontear.framework.client.impl;
 
 import com.google.gson.*;
 import lombok.Getter;
+import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
@@ -49,11 +50,11 @@ public abstract class Client implements IClient {
 	private ModInfo construct() {
 		JsonObject info;
 		try {
-			final ZipFile jar = new ZipFile(new File(StringUtils
+			val jar = new ZipFile(new File(StringUtils
 					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
 							.getPath(), "file:", "!")));
-			final InputStream stream = jar.getInputStream(jar.getEntry(ModEnvironment.getInfoJsonFilename()));
-			final JsonElement element = new JsonParser()
+			val stream = jar.getInputStream(jar.getEntry(ModEnvironment.getInfoJsonFilename()));
+			val element = new JsonParser()
 					.parse(new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)));
 			info = ModEnvironment.getInfoJsonObject(element);
 		}

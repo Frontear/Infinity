@@ -1,5 +1,6 @@
 package org.frontear.mixins;
 
+import lombok.var;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.ServerList;
@@ -37,7 +38,7 @@ import java.net.UnknownHostException;
 	 * @reason Optimizations (I mean really, a new screen each time?)
 	 */
 	@Overwrite private void refreshServerList() {
-		for (int i = 0; i < savedServerList.countServers(); i++) {
+		for (var i = 0; i < savedServerList.countServers(); i++) {
 			try {
 				oldServerPinger.ping(savedServerList.getServerData(i));
 			}

@@ -1,5 +1,6 @@
 package org.frontear.infinity.commands.gui;
 
+import lombok.val;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatComponentText;
 import org.frontear.infinity.commands.ui.Console;
@@ -22,7 +23,8 @@ public final class ConsoleGuiScreen extends GuiScreen {
 	}
 
 	@Override public void initGui() {
-		final int width = 320, height = 180;
+		val width = 320;
+		val height = 180;
 
 		Keyboard.enableRepeatEvents(true);
 		if (console == null) {
@@ -36,7 +38,7 @@ public final class ConsoleGuiScreen extends GuiScreen {
 	@Override public void handleMouseInput() throws IOException {
 		super.handleMouseInput();
 
-		final int i = Mouse.getEventDWheel();
+		val i = Mouse.getEventDWheel();
 		if (i != 0) {
 			console.scroll(Math.max(-1, Math.min(1, i))); // between -1 and 1
 		}

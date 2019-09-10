@@ -4,11 +4,11 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import lombok.experimental.UtilityClass;
+import lombok.val;
 import net.minecraft.util.*;
 import org.frontear.framework.logger.impl.Logger;
 
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @UtilityClass public class ChatUtils {
@@ -17,8 +17,8 @@ import java.util.regex.Pattern;
 	private final Logger logger = new Logger();
 
 	static {
-		final Map<Character, EnumChatFormatting> temp = Maps.newHashMap();
-		for (EnumChatFormatting format : EnumChatFormatting.values()) {
+		val temp = Maps.<Character, EnumChatFormatting>newHashMap();
+		for (val format : EnumChatFormatting.values()) {
 			temp.put(format.formattingCode, format);
 		}
 
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 	}
 
 	public ChatComponentText make(String text, EnumChatFormatting... formats) {
-		final ChatComponentText component = new ChatComponentText(text);
+		val component = new ChatComponentText(text);
 		setStyle(component.getChatStyle(), formats);
 
 		return component;
@@ -84,9 +84,9 @@ import java.util.regex.Pattern;
 		defaultStyle(style);
 
 		if (!formatted.isEmpty() && formatted.contains(FORMAT_SYMBOL)) {
-			final Matcher matcher = Pattern.compile(FORMAT_SYMBOL + ".").matcher(formatted);
+			val matcher = Pattern.compile(FORMAT_SYMBOL + ".").matcher(formatted);
 			while (matcher.find()) {
-				final String found = matcher.group();
+				val found = matcher.group();
 				setStyle(style, formats.get(found.charAt(1)));
 			}
 		}
@@ -95,7 +95,7 @@ import java.util.regex.Pattern;
 	}
 
 	public ChatComponentText append(ChatComponentText parent, ChatComponentText... siblings) {
-		final ChatComponentText component = new ChatComponentText(""); // acts as the parent, since if we directly append to parent, it'll remain there forever, and we don't want that
+		val component = new ChatComponentText(""); // acts as the parent, since if we directly append to parent, it'll remain there forever, and we don't want that
 
 		component.appendSibling(parent);
 		component.setChatStyle(parent.getChatStyle().createDeepCopy()); // we apply the parent styles onto our siblings
