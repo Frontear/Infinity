@@ -2,7 +2,6 @@ package org.frontear.framework.manager;
 
 import lombok.NonNull;
 
-import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
@@ -26,5 +25,5 @@ public interface IManager<T> {
 	 *
 	 * @return {@link Stream} for T objects
 	 */
-	@Nonnull Stream<T> getObjects();
+	Stream<T> getObjects();
 }

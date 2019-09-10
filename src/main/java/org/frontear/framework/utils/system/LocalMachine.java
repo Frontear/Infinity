@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import lombok.experimental.UtilityClass;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
@@ -14,7 +15,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Map;
 
-public final class LocalMachine {
+@UtilityClass public final class LocalMachine {
 	private static final byte OS;
 
 	static {

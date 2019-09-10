@@ -4,14 +4,12 @@ import com.google.common.collect.*;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.TypeToken;
 import lombok.NonNull;
+import lombok.SneakyThrows;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.manager.IManager;
 
-import javax.annotation.Nonnull;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -45,7 +43,7 @@ public abstract class Manager<T> implements IManager<T> {
 	 *
 	 * @return An {@link ImmutableSet} of elements which were instantiated
 	 */
-	@SuppressWarnings("UnstableApiUsage") private ImmutableSet<T> reflectionSearch(String pkg) {
+	@SuppressWarnings("UnstableApiUsage") @SneakyThrows private ImmutableSet<T> reflectionSearch(String pkg) {
 		logger.debug("Attempting to find parent...");
 		//noinspection unchecked
 		final Class<T> parent = (Class<T>) new TypeToken<T>(getClass()) {}
@@ -53,30 +51,19 @@ public abstract class Manager<T> implements IManager<T> {
 		logger.debug("Found parent: %s", parent.getSimpleName());
 		final Set<T> objects = Sets.newLinkedHashSet(); // forced order of elements
 
-		try {
-			logger.debug("Searching ClassLoader for classes in '%s'", pkg);
-			for (ClassPath.ClassInfo info : ClassPath.from(Thread.currentThread().getContextClassLoader())
-					.getTopLevelClasses(pkg)) {
-				final Class<?> target = info.load();
-				logger.debug("Found target: %s", target.getSimpleName());
+		logger.debug("Searching ClassLoader for classes in '%s'", pkg);
+		for (ClassPath.ClassInfo info : ClassPath.from(Thread.currentThread().getContextClassLoader())
+				.getTopLevelClasses(pkg)) {
+			final Class<?> target = info.load();
+			logger.debug("Found target: %s", target.getSimpleName());
 
-				try {
-					if ((Client.DEBUG || !target.isAnnotationPresent(Deprecated.class)) && parent
-							.isAssignableFrom(target)) {
-						logger.debug("Target of type '%s'", parent.getSimpleName());
-						final Constructor<? extends T> constructor = target.asSubclass(parent).getDeclaredConstructor();
-						constructor.setAccessible(true);
-						logger.debug("Instantiating '%s'", target.getSimpleName());
-						objects.add(constructor.newInstance());
-					}
-				}
-				catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-					e.printStackTrace();
-				}
+			if ((Client.DEBUG || !target.isAnnotationPresent(Deprecated.class)) && parent.isAssignableFrom(target)) {
+				logger.debug("Target of type '%s'", parent.getSimpleName());
+				final Constructor<? extends T> constructor = target.asSubclass(parent).getDeclaredConstructor();
+				constructor.setAccessible(true);
+				logger.debug("Instantiating '%s'", target.getSimpleName());
+				objects.add(constructor.newInstance());
 			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
 		}
 
 		return ImmutableSet.copyOf(objects);
@@ -88,7 +75,7 @@ public abstract class Manager<T> implements IManager<T> {
 	 *
 	 * @return {@link ImmutableSet#stream()}
 	 */
-	@Nonnull @Override public Stream<T> getObjects() {
+	@Override public Stream<T> getObjects() {
 		return objects.stream();
 	}
 }

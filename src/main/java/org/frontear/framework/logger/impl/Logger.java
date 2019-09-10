@@ -1,6 +1,7 @@
 package org.frontear.framework.logger.impl;
 
 import lombok.NonNull;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -43,7 +44,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#fatal(Throwable, Object, Object...)
 	 */
-	@Override public <T extends Throwable> T fatal(@NonNull T throwable, @NonNull Object object, Object... args) throws T {
+	@SneakyThrows @Override public <T extends Throwable> T fatal(@NonNull T throwable, @NonNull Object object, Object... args) {
 		log(Level.FATAL, object, args);
 		throw throwable;
 	}

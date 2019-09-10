@@ -15,7 +15,6 @@ import java.util.Set;
 public final class Ghost extends Module {
 	private static Ghost self = null;
 	private static Thread obsChecker = null;
-	private final LocalMachine machine = new LocalMachine();
 	private Set<Module> unsafe = Sets.newHashSet();
 
 	public Ghost() {
@@ -26,7 +25,7 @@ public final class Ghost extends Module {
 
 		if (obsChecker == null) {
 			obsChecker = new InfiniteThread(() -> {
-				final boolean obs = machine.getProcesses().containsValue("obs");
+				final boolean obs = LocalMachine.getProcesses().containsValue("obs");
 				if (!isActive() && obs) {
 					this.setActive(true);
 					Infinity.inst().getLogger().warn("OBS Studio was detected, Ghost will automatically enabled.");
