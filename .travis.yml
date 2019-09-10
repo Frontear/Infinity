@@ -1,12 +1,9 @@
 language: java
 install: true
 
-os:
-  - linux
-  - osx
-jdk:
-  - openjdk8
-  - oraclejdk8
+os: linux
+dist: trusty
+jdk: openjdk8
 
 notifications:
   email: false
@@ -28,4 +25,4 @@ cache:
     - $HOME/.gradle/wrapper/
 
 after_success:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then fossa test; fi'
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then fossa test; fi
