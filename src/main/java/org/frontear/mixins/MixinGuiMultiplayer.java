@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.network.OldServerPinger;
-import org.frontear.framework.async.InfiniteThread;
+import org.frontear.framework.threading.InfiniteThread;
 import org.frontear.framework.utils.time.TimeUnit;
 import org.frontear.framework.utils.time.Timer;
 import org.spongepowered.asm.mixin.*;

@@ -1,6 +1,5 @@
 package org.frontear.framework.ui.impl;
 
-import lombok.NonNull;
 import org.frontear.framework.ui.Drawable;
 
 import java.awt.*;
@@ -17,7 +16,7 @@ public final class Rectangle extends Drawable {
 	 * @param height The height of the {@link Drawable}
 	 * @param color  The color of the {@link Drawable}
 	 */
-	public Rectangle(int x, int y, int width, int height, @NonNull Color color) {
+	public Rectangle(int x, int y, int width, int height, Color color) {
 		super(x, y, width, height, color);
 	}
 

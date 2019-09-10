@@ -12,7 +12,7 @@ public abstract class Button extends Drawable {
 	private final Rectangle rectangle;
 	private String text;
 
-	protected Button(@NonNull String text, int x, int y, int width, int height, @NonNull Color color) {
+	protected Button(@NonNull String text, int x, int y, int width, int height, Color color) {
 		this.rectangle = new Rectangle(x, y, width, height, color);
 		this.text = text;
 	}

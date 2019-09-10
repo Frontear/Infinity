@@ -2,7 +2,7 @@ package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Sets;
 import net.minecraftforge.fml.common.Loader;
-import org.frontear.framework.async.InfiniteThread;
+import org.frontear.framework.threading.InfiniteThread;
 import org.frontear.framework.utils.system.LocalMachine;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;

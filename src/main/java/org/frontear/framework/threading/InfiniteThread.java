@@ -1,4 +1,4 @@
-package org.frontear.framework.async;
+package org.frontear.framework.threading;
 
 import lombok.NonNull;
 

@@ -13,7 +13,7 @@ public final class Panel extends Drawable {
 	private final Set<org.frontear.infinity.modules.ui.Button> buttons = Sets.newLinkedHashSet();
 	private final Rectangle background;
 
-	public Panel(int x, int y, int width, int height, @NonNull Color color) {
+	public Panel(int x, int y, int width, int height, Color color) {
 		super(x, y, width, height, color);
 
 		this.background = new Rectangle(x, y, width, height, new Color(0, 0, 0, 127));

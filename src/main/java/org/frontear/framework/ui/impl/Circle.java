@@ -1,6 +1,5 @@
 package org.frontear.framework.ui.impl;
 
-import lombok.NonNull;
 import org.frontear.framework.ui.Drawable;
 
 import java.awt.*;
@@ -21,7 +20,7 @@ public final class Circle extends Drawable {
 	 * @param factor Defines how smooth the edges will be, higher values are smoother
 	 * @param color  The color of the {@link Drawable}
 	 */
-	public Circle(int x, int y, int radius, int factor, @NonNull Color color) {
+	public Circle(int x, int y, int radius, int factor, Color color) {
 		super(x, y, 0, 0, color);
 
 		this.radius = radius;

@@ -1,6 +1,7 @@
 package org.frontear.framework.ui;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
@@ -13,7 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 public abstract class Drawable {
 	@Getter private int x, y;
 	@Getter @Setter private int width, height;
-	@Getter @Setter(onParam_ = @NonNull) private Color color;
+	@Getter @Setter private Color color;
 
 	/**
 	 * An empty constructor for a {@link Drawable} object
@@ -31,7 +32,7 @@ public abstract class Drawable {
 	 * @param height The height of the {@link Drawable}
 	 * @param color  The color of the {@link Drawable}
 	 */
-	public Drawable(int x, int y, int width, int height, @NonNull Color color) {
+	public Drawable(int x, int y, int width, int height, Color color) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
