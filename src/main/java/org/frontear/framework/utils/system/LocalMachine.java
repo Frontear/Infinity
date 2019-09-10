@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 @UtilityClass public class LocalMachine {
-	private static final byte OS;
+	private static final byte OS, ARCH;
 
 	static {
 		if (ManagementFactory.getRuntimeMXBean().getInputArguments().stream()
@@ -40,6 +40,22 @@ import java.util.Map;
 		}
 		else {
 			throw new UnsupportedOperationException("Property \"os.name\" was overwritten in the JVM args"); // if os.name has been specified manually in the JVM args, we cannot guarantee the right result
+		}
+
+		if (ManagementFactory.getRuntimeMXBean().getInputArguments().stream().noneMatch(x -> x.startsWith("-Dos.arch="))) {
+			final String arch = System.getProperty("os.arch");
+			if (arch.equals("amd64")) {
+				ARCH = SystemArchitecture.x64;
+			}
+			else if (arch.equals("x86")) {
+				ARCH = SystemArchitecture.x86;
+			}
+			else {
+				ARCH = SystemArchitecture.UNSUPPORTED;
+			}
+		}
+		else {
+			throw new UnsupportedOperationException("Property \"os.arch\" was overwritten in the JVM args");
 		}
 	}
 
@@ -130,5 +146,11 @@ import java.util.Map;
 				.checkArgument(os == OperatingSystem.WINDOWS || os == OperatingSystem.LINUX || os == OperatingSystem.MACOSX || os == OperatingSystem.SOLARIS || os == OperatingSystem.UNSUPPORTED);
 
 		return os == OS;
+	}
+
+	public boolean compareArch(byte arch) {
+		Preconditions.checkArgument(arch == SystemArchitecture.x64 || arch == SystemArchitecture.x86 || arch == SystemArchitecture.UNSUPPORTED);
+
+		return arch == ARCH;
 	}
 }

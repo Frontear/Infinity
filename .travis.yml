@@ -1,8 +1,12 @@
 language: java
 install: true
 
-os: linux
-dist: trusty
+os:
+  - linux
+  - windows
+  - osx
+dist:
+  - trusty
 jdk: openjdk8
 
 notifications:
