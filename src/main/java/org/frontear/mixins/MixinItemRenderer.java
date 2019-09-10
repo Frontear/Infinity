@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.*;
+import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.impl.Ghost;
 import org.spongepowered.asm.mixin.*;
 
@@ -41,7 +42,7 @@ import org.spongepowered.asm.mixin.*;
 			else if (abstractclientplayer.getItemInUseCount() > 0) {
 				EnumAction enumaction = this.itemToRender.getItemUseAction();
 
-				final float progress = !Ghost.active() ? f1 : 0.0F;
+				final float progress = !Infinity.inst().getModules().get(Ghost.class).isActive() ? f1 : 0.0F;
 
 				switch (enumaction) {
 					case EAT:

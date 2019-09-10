@@ -9,20 +9,21 @@ import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.manager.IManager;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 public abstract class Manager<T> implements IManager<T> {
 	private static final Logger logger = new Logger();
-	private final ImmutableSet<T> objects;
+	private final ImmutableMap<Class<? extends T>, T> objects;
 
 	/**
 	 * Creates the manager with an ImmutableSet of objects
 	 *
 	 * @param objects The objects that will be managed
 	 */
-	public Manager(@NonNull ImmutableSet<T> objects) {
+	public Manager(@NonNull ImmutableMap<Class<? extends T>, T> objects) {
 		this.objects = objects;
 	}
 
@@ -43,13 +44,13 @@ public abstract class Manager<T> implements IManager<T> {
 	 *
 	 * @return An {@link ImmutableSet} of elements which were instantiated
 	 */
-	@SuppressWarnings("UnstableApiUsage") @SneakyThrows private ImmutableSet<T> reflectionSearch(String pkg) {
+	@SuppressWarnings("UnstableApiUsage") @SneakyThrows private ImmutableMap<Class<? extends T>, T> reflectionSearch(String pkg) {
 		logger.debug("Attempting to find parent...");
 		//noinspection unchecked
 		final Class<T> parent = (Class<T>) new TypeToken<T>(getClass()) {}
 				.getRawType(); // won't work if manager is abstracted to another generic implementation
 		logger.debug("Found parent: %s", parent.getSimpleName());
-		final Set<T> objects = Sets.newLinkedHashSet(); // forced order of elements
+		final Map<Class<? extends T>, T> objects = Maps.newLinkedHashMap(); // forced order of elements
 
 		logger.debug("Searching ClassLoader for classes in '%s'", pkg);
 		for (ClassPath.ClassInfo info : ClassPath.from(Thread.currentThread().getContextClassLoader())
@@ -62,11 +63,23 @@ public abstract class Manager<T> implements IManager<T> {
 				final Constructor<? extends T> constructor = target.asSubclass(parent).getDeclaredConstructor();
 				constructor.setAccessible(true);
 				logger.debug("Instantiating '%s'", target.getSimpleName());
-				objects.add(constructor.newInstance());
+				objects.put(target.asSubclass(parent), constructor.newInstance());
 			}
 		}
 
-		return ImmutableSet.copyOf(objects);
+		return ImmutableMap.copyOf(objects);
+	}
+
+	/**
+	 * Streams {@link IManager#getObjects()} to find a retrieve a specific object based on the class type
+	 *
+	 * @param target The specified object, which extends T
+	 *
+	 * @return target object, or will throw a {@link NullPointerException} if the target cannot be found
+	 */
+	@NonNull @Override public <T1 extends T> T1 get(@NonNull Class<T1> target) {
+		//noinspection unchecked
+		return (T1) objects.get(target);
 	}
 
 	/**
@@ -76,6 +89,6 @@ public abstract class Manager<T> implements IManager<T> {
 	 * @return {@link ImmutableSet#stream()}
 	 */
 	@Override public Stream<T> getObjects() {
-		return objects.stream();
+		return objects.values().stream();
 	}
 }

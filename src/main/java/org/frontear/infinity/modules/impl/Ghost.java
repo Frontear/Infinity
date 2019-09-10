@@ -13,16 +13,11 @@ import org.lwjgl.opengl.Display;
 import java.util.Set;
 
 public final class Ghost extends Module {
-	private static Ghost self = null;
 	private static Thread obsChecker = null;
 	private Set<Module> unsafe = Sets.newHashSet();
 
 	public Ghost() {
 		super(Keyboard.KEY_G, true, Category.NONE);
-		if (self == null) {
-			self = this; // oh god gson
-		}
-
 		if (obsChecker == null) {
 			obsChecker = new InfiniteThread(() -> {
 				final boolean obs = LocalMachine.getProcesses().containsValue("obs");
@@ -33,10 +28,6 @@ public final class Ghost extends Module {
 			});
 			obsChecker.start();
 		}
-	}
-
-	public static boolean active() {
-		return self.isActive();
 	}
 
 	@Override public void load(Module self) {

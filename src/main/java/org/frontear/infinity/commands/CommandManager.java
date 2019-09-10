@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.ArrayUtils;
 import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.manager.impl.Manager;
+import org.frontear.infinity.Infinity;
 import org.frontear.infinity.commands.gui.ConsoleGuiScreen;
 import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.modules.impl.Ghost;
@@ -36,7 +37,7 @@ public final class CommandManager extends Manager<Command> {
 	}
 
 	@SubscribeEvent public void onKey(KeyEvent event) {
-		if (!Ghost.active() && event.isPressed() && event.getKey() == bind.getKeyCode()) {
+		if (!Infinity.inst().getModules().get(Ghost.class).isActive() && event.isPressed() && event.getKey() == bind.getKeyCode()) {
 			IMinecraftWrapper.getMinecraft().displayGuiScreen(console);
 		}
 	}

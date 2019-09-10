@@ -1,5 +1,6 @@
 package org.frontear.mixins;
 
+import lombok.NonNull;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -11,6 +12,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Session;
 import net.minecraftforge.common.MinecraftForge;
+import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.events.input.KeyEvent;
@@ -134,8 +136,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 	@Inject(method = "clickMouse",
 			at = @At("HEAD")) private void clickMouse(CallbackInfo info) {
-		if (AutoTool.active()) {
-			AutoTool.selectOptimizedItem(thePlayer.inventory, objectMouseOver);
+		final AutoTool tool = Infinity.inst().getModules().get(AutoTool.class);
+		if (tool.isActive()) {
+			tool.selectOptimizedItem(thePlayer.inventory, objectMouseOver);
 		}
 	}
 }

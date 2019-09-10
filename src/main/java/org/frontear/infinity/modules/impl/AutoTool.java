@@ -12,16 +12,11 @@ import org.lwjgl.input.Keyboard;
 import java.util.function.Predicate;
 
 public class AutoTool extends Module {
-	private static AutoTool self;
-
 	public AutoTool() {
 		super(Keyboard.KEY_L, true, Category.PLAYER);
-		if (self == null) {
-			self = this;
-		}
 	}
 
-	public static void selectOptimizedItem(final InventoryPlayer player, final MovingObjectPosition object) {
+	public void selectOptimizedItem(final InventoryPlayer player, final MovingObjectPosition object) {
 		int slot = -1;
 		switch (object.typeOfHit) {
 			case ENTITY:
@@ -41,7 +36,7 @@ public class AutoTool extends Module {
 		}
 	}
 
-	private static int searchHotbar(InventoryPlayer inventory, Predicate<? super Item> filter) {
+	private int searchHotbar(InventoryPlayer inventory, Predicate<? super Item> filter) {
 		for (int i = 0; i < 9; i++) {
 			final ItemStack stack = inventory.mainInventory[i];
 			if (stack != null && filter.test(stack.getItem())) {
@@ -50,9 +45,5 @@ public class AutoTool extends Module {
 		}
 
 		return -1;
-	}
-
-	public static boolean active() {
-		return self.isActive();
 	}
 }

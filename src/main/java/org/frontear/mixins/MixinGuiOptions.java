@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	 */
 	@Inject(method = "initGui",
 			at = @At("TAIL")) private void initGui(CallbackInfo info) {
-		if (!Ghost.active()) {
+		if (!Infinity.inst().getModules().get(Ghost.class).isActive()) {
 			this.buttonList.add(new GuiButton(-1, this.width / 2 + 5, this.height / 6 + 24 - 6, 150, 20, Infinity.inst()
 					.getInfo().getName() + " settings..."));
 		}
