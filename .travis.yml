@@ -1,49 +1,31 @@
-# Java is not yet supported on Windows, so the build would block.
-# You do not need any setup from Travis, use a plain bash build
-language: bash
-# Enable them all, if you need them.
+language: java
+install: true
+
 os:
   - linux
   - osx
-  - windows
-env:
-  global:
-    # This is a convenience variable for shortening download commands
-    - GRAVIS="https://raw.githubusercontent.com/DanySK/Gravis-CI/master/"
-    # If you use Windows, you may want to disable Windows Defender. It slows down the builds
-    # dramatically, also during cache setup. From a Tanzinul Islam's idea: http://bit.ly/348VPYS,
-    # This work around disables it before caching
-    - NO_WIN_DEFENDER=$(curl "${GRAVIS}.disable-windows-defender.sh" --output .no-defender.sh && source .no-defender.sh)
-  matrix:
-    # List any JDK you want to build your software with.
-    # You can see the list of supported environments by installing Jabba and using ls-remote:
-    # https://github.com/shyiko/jabba#usage
-    - JDK="adopt@1.8.212-04"
-    - JDK="openjdk@1.10-0"
-    # Partial versions are allowed. They are dynamically resoved by launching jabba ls-remote,
-    # filtering for the provided JDK string, then picking the *first* match. This is useful if
-    # the intent is to target the latest release of some Java major release, or if the latest
-    # available build differs among platforms.
-    - JDK="adopt-openj9@1.11"
-before_install:
-  # Download the script
-  - curl "${GRAVIS}.install-jdk-travis.sh" --output ~/.install-jdk-travis.sh
-  # Download, install, configue the JDK, and export the configuration to the current shell
-  - source ~/.install-jdk-travis.sh
+jdk:
+  - openjdk8
+  - oraclejdk8
+
+notifications:
+  email: false
+
 before_script:
   - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
-# This is your main script
+
 script:
   - ./gradlew setupDecompWorkspace build javadoc
-  - if [ "$TRAVIS_PULL_REQUEAST" = "false" ]; then fossa init && fossa analyze; fi
-# If you use Gradle, cleanup the build cache from lock/temporary files
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then fossa init && fossa analyze; fi
+
 before_cache:
-  - curl "${GRAVIS}.clean_gradle_cache.sh" --output ~/.clean_gradle_cache.sh
-  - bash ~/.clean_gradle_cache.sh
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
-    # This avoids re-downloading the JDK every time, but Travis recommends not to do it
-    # - $HOME/.jabba/
-    # If you use Gradle, you may want to save some time with caching
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+after_success:
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then fossa test; fi'
