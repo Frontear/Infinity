@@ -9,9 +9,9 @@ import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.manager.IManager;
 
-import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public abstract class Manager<T> implements IManager<T> {
@@ -59,11 +59,16 @@ public abstract class Manager<T> implements IManager<T> {
 			logger.debug("Found target: %s", target.getSimpleName());
 
 			if ((Client.DEBUG || !target.isAnnotationPresent(Deprecated.class)) && parent.isAssignableFrom(target)) {
+				final Class<? extends T> element = target.asSubclass(parent);
+				if (objects.containsKey(element)) {
+					logger.debug("%s already contains an object of type %s. The previous value will been removed!", this
+							.getClass().getSimpleName(), element.getSimpleName());
+				}
 				logger.debug("Target of type '%s'", parent.getSimpleName());
-				final Constructor<? extends T> constructor = target.asSubclass(parent).getDeclaredConstructor();
+				final Constructor<? extends T> constructor = element.getDeclaredConstructor();
 				constructor.setAccessible(true);
-				logger.debug("Instantiating '%s'", target.getSimpleName());
-				objects.put(target.asSubclass(parent), constructor.newInstance());
+				logger.debug("Instantiating '%s'", element.getSimpleName());
+				objects.put(element, constructor.newInstance());
 			}
 		}
 

@@ -37,7 +37,8 @@ public final class CommandManager extends Manager<Command> {
 	}
 
 	@SubscribeEvent public void onKey(KeyEvent event) {
-		if (!Infinity.inst().getModules().get(Ghost.class).isActive() && event.isPressed() && event.getKey() == bind.getKeyCode()) {
+		if (!Infinity.inst().getModules().get(Ghost.class).isActive() && event.isPressed() && event.getKey() == bind
+				.getKeyCode()) {
 			IMinecraftWrapper.getMinecraft().displayGuiScreen(console);
 		}
 	}

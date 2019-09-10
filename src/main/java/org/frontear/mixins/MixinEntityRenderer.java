@@ -39,6 +39,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 			at = @At(value = "INVOKE",
 					target = "Lnet/minecraft/entity/EntityLivingBase;isPotionActive(Lnet/minecraft/potion/Potion;)Z",
 					ordinal = 0)) private boolean isPotionActive(EntityLivingBase entity, Potion potion) {
-		return Infinity.inst().getModules().get(Ghost.class).isActive() && entity.isPotionActive(potion); // todo: remove sky blacking
+		return Infinity.inst().getModules().get(Ghost.class).isActive() && entity
+				.isPotionActive(potion); // todo: remove sky blacking
 	}
 }

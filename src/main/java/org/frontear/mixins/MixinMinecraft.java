@@ -1,6 +1,5 @@
 package org.frontear.mixins;
 
-import lombok.NonNull;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
