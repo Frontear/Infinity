@@ -1,12 +1,16 @@
 package org.frontear.infinity.events.render;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-public final class BlockEvent extends Event {
-	@Getter private final Block block;
-	private boolean render, side_check;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class BlockEvent extends Event {
+	@Getter Block block;
+	@NonFinal boolean render, side_check;
 
 	public BlockEvent(Block block, boolean render, boolean side_check) {
 		this.block = block;

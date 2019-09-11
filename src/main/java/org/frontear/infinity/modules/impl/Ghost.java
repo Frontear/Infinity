@@ -1,6 +1,8 @@
 package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Sets;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.val;
 import net.minecraftforge.fml.common.Loader;
 import org.frontear.framework.threading.InfiniteThread;
@@ -13,9 +15,10 @@ import org.lwjgl.opengl.Display;
 
 import java.util.Set;
 
-public final class Ghost extends Module {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Ghost extends Module {
 	private static Thread obsChecker = null;
-	private Set<Module> unsafe = Sets.newHashSet();
+	Set<Module> unsafe = Sets.newHashSet();
 
 	public Ghost() {
 		super(Keyboard.KEY_G, true, Category.NONE);

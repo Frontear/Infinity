@@ -1,7 +1,7 @@
 package org.frontear.infinity.modules.gui;
 
-import lombok.NonNull;
-import lombok.val;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import org.frontear.infinity.modules.Module;
@@ -12,9 +12,10 @@ import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
-public final class KeyBindScreen extends GuiScreen {
-	private final Module module;
-	private final GuiScreen parent;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class KeyBindScreen extends GuiScreen {
+	Module module;
+	GuiScreen parent;
 
 	KeyBindScreen(@NonNull Module module, @NonNull GuiScreen parent) {
 		this.module = module;

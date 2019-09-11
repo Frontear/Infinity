@@ -1,17 +1,19 @@
 package org.frontear.infinity.modules.ui;
 
-import lombok.NonNull;
-import lombok.val;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;
 import org.frontear.wrapper.IMinecraftWrapper;
 
 import java.awt.*;
 
-public abstract class Button extends Drawable {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public abstract class Button extends Drawable {
 	protected static final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
-	private final Rectangle rectangle;
-	private String text;
+	Rectangle rectangle;
+	@NonFinal String text;
 
 	protected Button(@NonNull String text, int x, int y, int width, int height, Color color) {
 		this.rectangle = new Rectangle(x, y, width, height, color);

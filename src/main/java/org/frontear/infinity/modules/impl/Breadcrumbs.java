@@ -1,6 +1,8 @@
 package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Queues;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.val;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.Vec3;
@@ -16,9 +18,10 @@ import java.util.Deque;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public final class Breadcrumbs extends Module {
-	private final Deque<Vec3> positions = Queues.newArrayDeque();
-	private final Timer timer = new Timer();
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Breadcrumbs extends Module {
+	Deque<Vec3> positions = Queues.newArrayDeque();
+	Timer timer = new Timer();
 
 	public Breadcrumbs() {
 		super(Keyboard.KEY_J, false, Category.RENDER);

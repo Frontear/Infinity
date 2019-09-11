@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 @UtilityClass public class LocalMachine {
-	private static final byte OS, ARCH;
+	private final byte OS, ARCH;
 
 	static {
 		if (ManagementFactory.getRuntimeMXBean().getInputArguments().stream()

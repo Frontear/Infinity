@@ -1,15 +1,16 @@
 package org.frontear.infinity.commands;
 
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.util.EnumChatFormatting;
 import org.frontear.infinity.Infinity;
 import org.frontear.wrapper.IMinecraftWrapper;
 
-public abstract class Command {
-	protected final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
-	@Getter private final String description;
-	@Getter private final int arguments; // represents only the mandatory arguments
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public abstract class Command {
+	protected IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
+	@Getter String description;
+	@Getter int arguments; // represents only the mandatory arguments
 
 	public Command(@NonNull String description) {
 		this(description, 0);

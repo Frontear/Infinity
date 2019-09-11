@@ -3,6 +3,7 @@ package org.frontear.framework.config.impl;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.frontear.framework.config.IConfig;
 import org.frontear.framework.config.IConfigurable;
 import org.frontear.framework.logger.impl.Logger;
@@ -14,12 +15,13 @@ import java.util.Set;
 /**
  * An implementation of {@link IConfig}
  */
-public final class Config implements IConfig {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Config implements IConfig {
 	private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls()
 			.enableComplexMapKeySerialization().setPrettyPrinting().create();
 	private static final Logger logger = new Logger();
-	private final Set<IConfigurable<?>> configurables = Sets.newLinkedHashSet();
-	private final File config_file;
+	Set<IConfigurable<?>> configurables = Sets.newLinkedHashSet();
+	File config_file;
 
 	/**
 	 * Sets the file that will be written to via {@link Gson}

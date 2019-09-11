@@ -2,6 +2,8 @@ package org.frontear.infinity.commands.ui;
 
 import com.google.common.collect.Queues;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ChatComponentText;
 import org.frontear.framework.ui.Drawable;
@@ -13,13 +15,14 @@ import java.util.Deque;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
-public final class Console extends Drawable {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Console extends Drawable {
 	private static final float scale = 0.5f;
-	private final FontRenderer renderer;
-	private final Rectangle backing;
-	private final ConsoleTextField field;
-	private final Deque<String> lines = Queues.newArrayDeque();
-	private int scrollFactor = 0;
+	FontRenderer renderer;
+	Rectangle backing;
+	ConsoleTextField field;
+	Deque<String> lines = Queues.newArrayDeque();
+	@NonFinal int scrollFactor = 0;
 
 	public Console(@NonNull FontRenderer renderer, int x, int y, int width, int height) {
 		val background = new Color(0, 0, 0, 127);

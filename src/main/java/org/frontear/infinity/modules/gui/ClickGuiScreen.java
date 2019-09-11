@@ -1,8 +1,8 @@
 package org.frontear.infinity.modules.gui;
 
 import com.google.common.collect.Queues;
-import lombok.val;
-import lombok.var;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.GuiScreen;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Deque;
 
-public final class ClickGuiScreen extends GuiScreen {
-	private Deque<Panel> categoryPanels = Queues.newArrayDeque();
-	private boolean init = false; // prevents initGui from being called more than once
+@FieldDefaults(level = AccessLevel.PRIVATE) public final class ClickGuiScreen extends GuiScreen {
+	Deque<Panel> categoryPanels = Queues.newArrayDeque();
+	boolean init = false; // prevents initGui from being called more than once
 
 	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		//this.drawDefaultBackground();

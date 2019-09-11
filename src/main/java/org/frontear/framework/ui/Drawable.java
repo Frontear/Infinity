@@ -1,7 +1,7 @@
 package org.frontear.framework.ui;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
@@ -11,10 +11,10 @@ import static org.lwjgl.opengl.GL11.*;
 /**
  * Represents an object that is to be drawn to the screen via OpenGL
  */
-public abstract class Drawable {
-	@Getter private int x, y;
-	@Getter @Setter private int width, height;
-	@Getter @Setter private Color color;
+@FieldDefaults(level = AccessLevel.PRIVATE) public abstract class Drawable {
+	@Getter int x, y;
+	@Getter @Setter int width, height;
+	@Getter @Setter Color color;
 
 	/**
 	 * An empty constructor for a {@link Drawable} object

@@ -1,5 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.val;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -12,9 +14,10 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public final class AutoClicker extends Module {
-	private final Timer timer = new Timer();
-	private final int[] cps = { 11, 13 }; // autoclicker does not actually hit these speeds, since they serve more so as a range
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class AutoClicker extends Module {
+	Timer timer = new Timer();
+	int[] cps = { 11, 13 }; // autoclicker does not actually hit these speeds, since they serve more so as a range
 
 	public AutoClicker() {
 		super(Keyboard.KEY_C, true, Category.COMBAT);

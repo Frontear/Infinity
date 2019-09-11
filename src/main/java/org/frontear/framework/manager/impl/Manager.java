@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.TypeToken;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.manager.IManager;
@@ -11,9 +12,10 @@ import org.frontear.framework.manager.IManager;
 import java.util.Set;
 import java.util.stream.Stream;
 
-public abstract class Manager<T> implements IManager<T> {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public abstract class Manager<T> implements IManager<T> {
 	private static final Logger logger = new Logger();
-	private final ImmutableMap<Class<? extends T>, T> objects;
+	ImmutableMap<Class<? extends T>, T> objects;
 
 	/**
 	 * Creates the manager with an ImmutableSet of objects

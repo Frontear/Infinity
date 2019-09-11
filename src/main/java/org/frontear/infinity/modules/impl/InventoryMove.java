@@ -1,5 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
@@ -12,8 +14,9 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 
-@Deprecated public final class InventoryMove extends Module {
-	private final KeyBinding[] keys = { mc.getGameSettings().keyBindForward, mc.getGameSettings().keyBindLeft, mc
+@Deprecated @FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class InventoryMove extends Module {
+	KeyBinding[] keys = { mc.getGameSettings().keyBindForward, mc.getGameSettings().keyBindLeft, mc
 			.getGameSettings().keyBindBack, mc.getGameSettings().keyBindRight, mc.getGameSettings().keyBindJump, mc
 			.getGameSettings().keyBindSneak };
 

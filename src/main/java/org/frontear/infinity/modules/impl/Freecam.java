@@ -1,5 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.val;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -13,9 +15,9 @@ import org.frontear.infinity.modules.Module;
 import org.frontear.infinity.utils.EntityUtils;
 import org.lwjgl.input.Keyboard;
 
-public final class Freecam extends Module {
+@FieldDefaults(level = AccessLevel.PRIVATE) public final class Freecam extends Module {
 	private static final byte ID = -2;
-	private EntityOtherPlayerMP clone;
+	EntityOtherPlayerMP clone;
 
 	public Freecam() {
 		super(Keyboard.KEY_I, false, Category.RENDER);

@@ -1,7 +1,7 @@
 package org.frontear.infinity.commands;
 
-import lombok.NonNull;
-import lombok.val;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -18,10 +18,11 @@ import org.frontear.infinity.utils.ChatUtils;
 import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
 
-public final class CommandManager extends Manager<Command> {
-	private final KeyBinding bind;
-	private final ChatComponentText prefix;
-	private final ConsoleGuiScreen console = new ConsoleGuiScreen();
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class CommandManager extends Manager<Command> {
+	KeyBinding bind;
+	ChatComponentText prefix;
+	ConsoleGuiScreen console = new ConsoleGuiScreen();
 
 	public CommandManager(@NonNull ModInfo info) {
 		super("org.frontear.infinity.commands.impl");

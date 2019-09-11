@@ -1,15 +1,15 @@
 package org.frontear.infinity.commands.impl;
 
-import lombok.NonNull;
-import lombok.val;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.util.EnumChatFormatting;
 import org.frontear.infinity.commands.Command;
 
 import java.lang.management.ManagementFactory;
 
-public final class GC extends Command {
-	private final boolean allowed = !ManagementFactory.getRuntimeMXBean().getInputArguments()
-			.contains("-XX:+DisableExplicitGC");
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class GC extends Command {
+	boolean allowed = !ManagementFactory.getRuntimeMXBean().getInputArguments().contains("-XX:+DisableExplicitGC");
 
 	public GC() {
 		super("Invokes the garbage collector. This can potentially resolve memory issues");

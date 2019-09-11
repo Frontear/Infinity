@@ -1,18 +1,19 @@
 package org.frontear.infinity.modules.ui;
 
 import com.google.common.collect.Sets;
-import lombok.NonNull;
-import lombok.val;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;
 
 import java.awt.*;
 import java.util.Set;
 
-public final class Panel extends Drawable {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Panel extends Drawable {
 	private static final int offset = 2;
-	private final Set<org.frontear.infinity.modules.ui.Button> buttons = Sets.newLinkedHashSet();
-	private final Rectangle background;
+	Set<Button> buttons = Sets.newLinkedHashSet();
+	Rectangle background;
 
 	public Panel(int x, int y, int width, int height, Color color) {
 		super(x, y, width, height, color);
@@ -20,7 +21,7 @@ public final class Panel extends Drawable {
 		this.background = new Rectangle(x, y, width, height, new Color(0, 0, 0, 127));
 	}
 
-	public void add(org.frontear.infinity.modules.ui.Button button) {
+	public void add(Button button) {
 		buttons.add(button);
 
 		this.setColor(this.getColor());

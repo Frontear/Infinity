@@ -1,5 +1,8 @@
 package org.frontear.framework.ui.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.var;
 import org.frontear.framework.ui.Drawable;
 
@@ -8,9 +11,10 @@ import java.awt.*;
 import static java.lang.Math.*;
 import static org.lwjgl.opengl.GL11.*;
 
-public final class Circle extends Drawable {
-	private final int factor;
-	private int radius;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Circle extends Drawable {
+	int factor;
+	@NonFinal int radius;
 
 	/**
 	 * Creates a circle {@link Drawable} object, which is rendered via {@link org.lwjgl.opengl.GL11#GL_TRIANGLE_FAN}

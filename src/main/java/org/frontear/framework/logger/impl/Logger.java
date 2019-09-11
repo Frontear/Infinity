@@ -1,6 +1,7 @@
 package org.frontear.framework.logger.impl;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -11,10 +12,11 @@ import org.frontear.framework.logger.ILogger;
 /**
  * An implementation of {@link ILogger}
  */
-public final class Logger implements ILogger {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Logger implements ILogger {
 	private static final char pad = '—';
 	private static final int repeat = 64;
-	private final org.apache.logging.log4j.Logger log;
+	org.apache.logging.log4j.Logger log;
 
 	/**
 	 * Creates a logger instance, and will automatically find the prefix name based on the calling class

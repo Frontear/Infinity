@@ -1,13 +1,15 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-public final class Fullbright extends Module {
-	private float last_gamma;
+@FieldDefaults(level = AccessLevel.PRIVATE) public final class Fullbright extends Module {
+	float last_gamma;
 
 	public Fullbright() {
 		super(Keyboard.KEY_B, true, Category.RENDER);

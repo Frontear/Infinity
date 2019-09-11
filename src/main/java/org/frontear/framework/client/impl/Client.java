@@ -1,8 +1,8 @@
 package org.frontear.framework.client.impl;
 
 import com.google.gson.*;
-import lombok.Getter;
-import lombok.val;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 import org.frontear.framework.client.IClient;
 import org.frontear.framework.config.impl.Config;
@@ -18,7 +18,8 @@ import java.util.zip.ZipFile;
 /**
  * An implementation of {@link IClient}
  */
-public abstract class Client implements IClient {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public abstract class Client implements IClient {
 	/**
 	 * Represents whether <i>-Dfrontear.debug=true</i> is passed as a JVM argument
 	 */
@@ -28,9 +29,9 @@ public abstract class Client implements IClient {
 	 * Represents the time since the {@link Client} first loaded (immediate call to the constructor)
 	 */
 	public static final Timer UPTIME = new Timer();
-	@Getter private final ModInfo info;
-	@Getter private final Logger logger;
-	@Getter private final Config config;
+	@Getter ModInfo info;
+	@Getter Logger logger;
+	@Getter Config config;
 
 	/**
 	 * This is marked protected to prevent outside construction, and is to specify that this can only be managed through

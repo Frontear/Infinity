@@ -2,6 +2,7 @@ package org.frontear.framework.info.impl;
 
 import com.google.gson.JsonObject;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.environment.ModEnvironment;
 import org.frontear.framework.info.IModInfo;
@@ -9,8 +10,9 @@ import org.frontear.framework.info.IModInfo;
 /**
  * An implementation of {@link IModInfo}
  */
-public final class ModInfo implements IModInfo {
-	@Getter private final String name, version, fullname, authors;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class ModInfo implements IModInfo {
+	@Getter String name, version, fullname, authors;
 
 	// todo: allow custom property definitions (allow user to specify which property contains which information)
 

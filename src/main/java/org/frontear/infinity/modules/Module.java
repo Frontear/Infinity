@@ -2,16 +2,19 @@ package org.frontear.infinity.modules;
 
 import com.google.gson.annotations.Expose;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.framework.config.IConfigurable;
 import org.frontear.wrapper.IMinecraftWrapper;
 
-public abstract class Module implements IConfigurable<Module> {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public abstract class Module implements IConfigurable<Module> {
 	protected static final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
-	@Getter private final boolean safe; // safe to use during Ghost
-	@Getter private final Category category;
-	@Expose @Getter @Setter private int bind;
-	@Expose @Getter private boolean active = false;
+	@Getter boolean safe; // safe to use during Ghost
+	@Getter Category category;
+	@Expose @NonFinal @Getter @Setter int bind;
+	@Expose @NonFinal @Getter boolean active = false;
 
 	public Module(int bind, boolean safe, @NonNull Category category) {
 		this.bind = bind;

@@ -1,5 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.val;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockRedstoneOre;
@@ -11,9 +13,9 @@ import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-public final class Xray extends Module {
-	private int last_ambient;
-	private boolean last_fullbright;
+@FieldDefaults(level = AccessLevel.PRIVATE) public final class Xray extends Module {
+	int last_ambient;
+	boolean last_fullbright;
 
 	public Xray() {
 		super(Keyboard.KEY_X, false, Category.RENDER);

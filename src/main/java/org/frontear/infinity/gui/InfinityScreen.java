@@ -1,6 +1,8 @@
 package org.frontear.infinity.gui;
 
+import lombok.AccessLevel;
 import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -8,8 +10,9 @@ import org.frontear.infinity.Infinity;
 
 import java.awt.*;
 
-public final class InfinityScreen extends GuiScreen {
-	private final GuiScreen parent;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class InfinityScreen extends GuiScreen {
+	GuiScreen parent;
 
 	public InfinityScreen(@NonNull GuiScreen parent) {
 		this.parent = parent;

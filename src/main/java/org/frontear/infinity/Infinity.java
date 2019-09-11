@@ -1,6 +1,8 @@
 package org.frontear.infinity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.client.impl.Client;
@@ -10,11 +12,11 @@ import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.modules.ModuleManager;
 import org.lwjgl.opengl.Display;
 
-public final class Infinity extends Client {
+@FieldDefaults(level = AccessLevel.PRIVATE) public final class Infinity extends Client {
 	private static Infinity inst;
 
-	@Getter private ModuleManager modules;
-	@Getter private CommandManager commands;
+	@Getter ModuleManager modules;
+	@Getter CommandManager commands;
 
 	private Infinity() {
 		super();

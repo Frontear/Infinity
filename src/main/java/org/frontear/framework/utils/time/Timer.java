@@ -1,7 +1,10 @@
 package org.frontear.framework.utils.time;
 
-public final class Timer {
-	private long nanoseconds;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+
+@FieldDefaults(level = AccessLevel.PRIVATE) public final class Timer {
+	long nanoseconds;
 
 	/**
 	 * Creates a new Timer, which calculates the passage of time using {@link System#nanoTime()}

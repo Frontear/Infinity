@@ -1,6 +1,8 @@
 package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Queues;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -12,9 +14,10 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Deque;
 
-@Deprecated public final class Blink extends Module {
+@Deprecated @FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Blink extends Module {
 	private static final byte ID = -1;
-	private final Deque<Packet> packets = Queues.newArrayDeque();
+	Deque<Packet> packets = Queues.newArrayDeque();
 
 	public Blink() {
 		super(Keyboard.KEY_Z, false, Category.RENDER);

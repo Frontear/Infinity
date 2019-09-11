@@ -1,5 +1,7 @@
 package org.frontear.infinity.commands.gui;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.val;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatComponentText;
@@ -9,8 +11,8 @@ import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 
-public final class ConsoleGuiScreen extends GuiScreen {
-	private Console console;
+@FieldDefaults(level = AccessLevel.PRIVATE) public final class ConsoleGuiScreen extends GuiScreen {
+	Console console;
 
 	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		console.draw();
