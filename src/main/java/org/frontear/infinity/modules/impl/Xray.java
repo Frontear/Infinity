@@ -29,20 +29,20 @@ import org.lwjgl.input.Keyboard;
 	}
 
 	@SubscribeEvent public void onShutdown(ShutdownEvent event) {
-		mc.getGameSettings().ambientOcclusion = last_ambient; // don't want to save 0
-		mc.getGameSettings().saveOptions();
+		mc.gameSettings.ambientOcclusion = last_ambient; // don't want to save 0
+		mc.gameSettings.saveOptions();
 	}
 
 
 	@Override protected void onToggle(boolean active) {
 		val instance = Infinity.inst().getModules().get(Fullbright.class);
 		if (active) {
-			last_ambient = mc.getGameSettings().ambientOcclusion;
+			last_ambient = mc.gameSettings.ambientOcclusion;
 			last_fullbright = instance.isActive();
 		}
 
-		mc.getGameSettings().ambientOcclusion = active ? 0 : last_ambient;
-		mc.getRenderGlobal().loadRenderers();
+		mc.gameSettings.ambientOcclusion = active ? 0 : last_ambient;
+		mc.renderGlobal.loadRenderers();
 
 		instance.setActive(active || last_fullbright);
 	}

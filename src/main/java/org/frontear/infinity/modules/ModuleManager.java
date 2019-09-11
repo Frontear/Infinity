@@ -1,13 +1,13 @@
 package org.frontear.infinity.modules;
 
 import lombok.*;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.manager.impl.Manager;
 import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.modules.impl.Ghost;
-import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
@@ -36,7 +36,7 @@ public final class ModuleManager extends Manager<Module> {
 			while (modules.hasNext()) {
 				val module = modules.next();
 				val name = String.format("%s [%s]", module.getName(), Keyboard.getKeyName(module.getBind()));
-				val renderer = IMinecraftWrapper.getMinecraft().getFontRenderer();
+				val renderer = Minecraft.getMinecraft().fontRendererObj;
 
 				renderer.drawString(name, event.resolution.getScaledWidth() - renderer
 						.getStringWidth(name) - 1, 1 + renderer.FONT_HEIGHT * iter++, Color.WHITE.getRGB());

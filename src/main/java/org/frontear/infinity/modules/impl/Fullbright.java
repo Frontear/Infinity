@@ -16,15 +16,15 @@ import org.lwjgl.input.Keyboard;
 	}
 
 	@SubscribeEvent public void onShutdown(ShutdownEvent event) {
-		mc.getGameSettings().gammaSetting = last_gamma; // we don't want 100f to be stored
-		mc.getGameSettings().saveOptions();
+		mc.gameSettings.gammaSetting = last_gamma; // we don't want 100f to be stored
+		mc.gameSettings.saveOptions();
 	}
 
 	@Override protected void onToggle(boolean active) {
 		if (active) {
-			last_gamma = mc.getGameSettings().gammaSetting;
+			last_gamma = mc.gameSettings.gammaSetting;
 		}
 
-		mc.getGameSettings().gammaSetting = active ? 100f : last_gamma;
+		mc.gameSettings.gammaSetting = active ? 100f : last_gamma;
 	}
 }

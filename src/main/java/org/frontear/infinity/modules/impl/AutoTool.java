@@ -24,7 +24,7 @@ public class AutoTool extends Module {
 				slot = searchHotbar(player, ItemSword.class::isInstance);
 				break;
 			case BLOCK:
-				val block = mc.getWorld().getBlockState(object.getBlockPos()).getBlock();
+				val block = mc.theWorld.getBlockState(object.getBlockPos()).getBlock();
 				slot = searchHotbar(player, x -> x instanceof ItemTool && ((ItemTool) x).effectiveBlocks
 						.contains(block));
 				break;

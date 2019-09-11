@@ -55,10 +55,10 @@ import org.lwjgl.input.Keyboard;
 
 			val speed = 0.4f;
 			((EntityPlayerSP) event.getEntity()).jumpMovementFactor = speed / 2;
-			if (mc.getGameSettings().keyBindJump.isKeyDown()) {
+			if (mc.gameSettings.keyBindJump.isKeyDown()) {
 				event.getEntity().motionY += speed;
 			}
-			if (mc.getGameSettings().keyBindSneak.isKeyDown()) {
+			if (mc.gameSettings.keyBindSneak.isKeyDown()) {
 				event.getEntity().motionY -= speed;
 			}
 		}
@@ -70,17 +70,17 @@ import org.lwjgl.input.Keyboard;
 
 	@Override protected void onToggle(boolean active) {
 		if (active) {
-			this.clone = EntityUtils.clone(mc.getPlayer());
+			this.clone = EntityUtils.clone(mc.thePlayer);
 
-			mc.getWorld().addEntityToWorld(ID, clone);
+			mc.theWorld.addEntityToWorld(ID, clone);
 		}
 		else {
-			mc.getWorld().removeEntityFromWorld(ID);
+			mc.theWorld.removeEntityFromWorld(ID);
 
-			mc.getPlayer()
+			mc.thePlayer
 					.setPositionAndRotation(clone.posX, clone.posY, clone.posZ, clone.rotationYaw, clone.rotationPitch);
-			mc.getPlayer().setVelocity(0, 0, 0);
-			mc.getPlayer().noClip = false;
+			mc.thePlayer.setVelocity(0, 0, 0);
+			mc.thePlayer.noClip = false;
 		}
 	}
 }

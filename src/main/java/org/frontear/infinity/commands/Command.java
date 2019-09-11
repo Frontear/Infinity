@@ -2,13 +2,13 @@ package org.frontear.infinity.commands;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
 import org.frontear.infinity.Infinity;
-import org.frontear.wrapper.IMinecraftWrapper;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public abstract class Command {
-	protected IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
+	protected Minecraft mc = Minecraft.getMinecraft();
 	@Getter String description;
 	@Getter int arguments; // represents only the mandatory arguments
 

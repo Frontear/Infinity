@@ -4,13 +4,13 @@ import com.google.gson.annotations.Expose;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.framework.config.IConfigurable;
-import org.frontear.wrapper.IMinecraftWrapper;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public abstract class Module implements IConfigurable<Module> {
-	protected static final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
+	protected static final Minecraft mc = Minecraft.getMinecraft();
 	@Getter boolean safe; // safe to use during Ghost
 	@Getter Category category;
 	@Expose @NonFinal @Getter @Setter int bind;

@@ -25,14 +25,14 @@ import java.util.Deque;
 
 	@Override protected void onToggle(boolean active) {
 		if (active) {
-			mc.getWorld().addEntityToWorld(ID, EntityUtils.clone(mc.getPlayer()));
+			mc.theWorld.addEntityToWorld(ID, EntityUtils.clone(mc.thePlayer));
 		}
 		else {
-			mc.getWorld().removeEntityFromWorld(ID);
+			mc.theWorld.removeEntityFromWorld(ID);
 
 			while (packets.size() > 0) {
-				if (mc.getPlayer().sendQueue.getNetworkManager().isChannelOpen()) {
-					mc.getPlayer().sendQueue.getNetworkManager().sendPacket(packets.remove());
+				if (mc.thePlayer.sendQueue.getNetworkManager().isChannelOpen()) {
+					mc.thePlayer.sendQueue.getNetworkManager().sendPacket(packets.remove());
 				}
 			}
 		}

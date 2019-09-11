@@ -10,7 +10,7 @@ public final class Ping extends Command {
 	}
 
 	@Override public void process(@NonNull String[] args) throws Exception {
-		val info = mc.getPlayer().sendQueue.getPlayerInfo(args[0]);
+		val info = mc.thePlayer.sendQueue.getPlayerInfo(args[0]);
 		if (info != null) {
 			sendMessage(String.format("%s: %dms", info.getGameProfile().getName(), info.getResponseTime()));
 		}

@@ -24,7 +24,7 @@ public final class ESP extends Module {
 	}
 
 	@SubscribeEvent public void onRender(RenderWorldLastEvent event) {
-		mc.getWorld().getLoadedEntityList().stream().filter(x -> !x.equals(mc.getPlayer())).forEach(x -> {
+		mc.theWorld.getLoadedEntityList().stream().filter(x -> !x.equals(mc.thePlayer)).forEach(x -> {
 			//noinspection RedundantCast
 			val color = x instanceof EntityPlayer ? Color.WHITE : x instanceof EntityLivingBase && x
 					.isInvisible() ? Color.PINK : x instanceof EntityAnimal ? Color.YELLOW : x instanceof EntityMob ? Color.RED : (Color) null;

@@ -2,6 +2,7 @@ package org.frontear.infinity.commands;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -15,7 +16,6 @@ import org.frontear.infinity.commands.gui.ConsoleGuiScreen;
 import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.modules.impl.Ghost;
 import org.frontear.infinity.utils.ChatUtils;
-import org.frontear.wrapper.IMinecraftWrapper;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
@@ -39,7 +39,7 @@ import org.lwjgl.input.Keyboard;
 	@SubscribeEvent public void onKey(KeyEvent event) {
 		if (!Infinity.inst().getModules().get(Ghost.class).isActive() && event.isPressed() && event.getKey() == bind
 				.getKeyCode()) {
-			IMinecraftWrapper.getMinecraft().displayGuiScreen(console);
+			Minecraft.getMinecraft().displayGuiScreen(console);
 		}
 	}
 

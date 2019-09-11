@@ -28,13 +28,13 @@ import java.util.concurrent.ThreadLocalRandom;
 				.isUsingItem()) {
 			val elapsed = timer
 					.hasElapsed(TimeUnit.MILLISECOND, 1000 / ThreadLocalRandom.current().nextInt(cps[0], cps[1] + 1));
-			val attacking = mc.getGameSettings().keyBindAttack.isKeyDown();
+			val attacking = mc.gameSettings.keyBindAttack.isKeyDown();
 
 			if (!attacking || elapsed) {
 				timer.reset();
 
 				if (attacking) {
-					mc.clickMouse(true);
+					mc.clickMouse();
 				}
 			}
 		}

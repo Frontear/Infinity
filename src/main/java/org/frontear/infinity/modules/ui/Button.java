@@ -3,15 +3,15 @@ package org.frontear.infinity.modules.ui;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import net.minecraft.client.Minecraft;
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;
-import org.frontear.wrapper.IMinecraftWrapper;
 
 import java.awt.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public abstract class Button extends Drawable {
-	protected static final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
+	protected static final Minecraft mc = Minecraft.getMinecraft();
 	Rectangle rectangle;
 	@NonFinal String text;
 
@@ -58,10 +58,10 @@ import java.awt.*;
 
 	@Override public void draw() {
 		rectangle.draw();
-		mc.getFontRenderer()
-				.drawString(text, ((rectangle.getX() + (rectangle.getX() + rectangle.getWidth())) - mc.getFontRenderer()
+		mc.fontRendererObj
+				.drawString(text, ((rectangle.getX() + (rectangle.getX() + rectangle.getWidth())) - mc.fontRendererObj
 						.getStringWidth(text)) / 2, (((rectangle.getY() + (rectangle.getY() + rectangle
-						.getHeight())) - (mc.getFontRenderer().FONT_HEIGHT + 1)) / 2), contrast(rectangle.getColor()));
+						.getHeight())) - (mc.fontRendererObj.FONT_HEIGHT + 1)) / 2), contrast(rectangle.getColor()));
 	}
 
 	// https://stackoverflow.com/a/13030061/9091276

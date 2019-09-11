@@ -16,16 +16,14 @@ import java.util.Arrays;
 
 @Deprecated @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public final class InventoryMove extends Module {
-	KeyBinding[] keys = { mc.getGameSettings().keyBindForward, mc.getGameSettings().keyBindLeft, mc
-			.getGameSettings().keyBindBack, mc.getGameSettings().keyBindRight, mc.getGameSettings().keyBindJump, mc
-			.getGameSettings().keyBindSneak };
+	KeyBinding[] keys = { mc.gameSettings.keyBindForward, mc.gameSettings.keyBindLeft, mc.gameSettings.keyBindBack, mc.gameSettings.keyBindRight, mc.gameSettings.keyBindJump, mc.gameSettings.keyBindSneak };
 
 	public InventoryMove() {
 		super(Keyboard.KEY_K, false, Category.PLAYER);
 	}
 
 	@SubscribeEvent public void onTick(TickEvent.PlayerTickEvent event) {
-		if (mc.getCurrentScreen() instanceof GuiContainerCreative || mc.getCurrentScreen() instanceof GuiInventory) {
+		if (mc.currentScreen instanceof GuiContainerCreative || mc.currentScreen instanceof GuiInventory) {
 			Arrays.stream(keys)
 					.forEach(x -> KeyBinding.setKeyBindState(x.getKeyCode(), Keyboard.isKeyDown(x.getKeyCode())));
 		}
