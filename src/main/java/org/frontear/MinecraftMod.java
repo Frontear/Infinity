@@ -2,7 +2,8 @@ package org.frontear;
 
 import com.ea.agentloader.AgentLoader;
 import lombok.AccessLevel;
-import lombok.experimental.*;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.val;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -13,11 +14,9 @@ import org.frontear.framework.environment.ModEnvironment;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
 
-import java.util.Arrays;
-
 @Mod(modid = "${modid}",
 		version = "${version}") @FieldDefaults(level = AccessLevel.PRIVATE,
-		makeFinal = true) @ExtensionMethod(Arrays.class) public final class MinecraftMod {
+		makeFinal = true) public final class MinecraftMod {
 	Logger logger = new Logger("${name} MinecraftMod");
 	@NonFinal Thread concurrent;
 
@@ -26,11 +25,6 @@ import java.util.Arrays;
 	}
 
 	@Mod.EventHandler private void onFMLPreInitialization(FMLPreInitializationEvent event) {
-		if (true) {
-			final int[] arr = { 1, 5, 3, 6, 8, 2 }; // 1, 2, 3, 5, 6, 8
-			arr.sort();
-			System.out.println(arr.toString()); // Arrays.toString()
-		}
 		logger.debug("Creating concurrent client thread");
 		this.concurrent = new Thread(() -> {
 			try {
