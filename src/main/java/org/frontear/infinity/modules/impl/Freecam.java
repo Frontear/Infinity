@@ -3,6 +3,7 @@ package org.frontear.infinity.modules.impl;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
+import manifold.ext.api.Jailbreak;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,7 +35,7 @@ import org.lwjgl.input.Keyboard;
 		}
 	}
 
-	private C03PacketPlayer normalize(EntityPlayer player, C03PacketPlayer packet) {
+	private C03PacketPlayer normalize(EntityPlayer player, @Jailbreak C03PacketPlayer packet) {
 		packet.x = player.posX;
 		packet.y = player.posY;
 		packet.z = player.posZ;

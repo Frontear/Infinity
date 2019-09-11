@@ -2,6 +2,7 @@ package org.frontear.infinity.modules.impl;
 
 import lombok.val;
 import lombok.var;
+import manifold.ext.api.Jailbreak;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.MovingObjectPosition;
@@ -25,8 +26,14 @@ public class AutoTool extends Module {
 				break;
 			case BLOCK:
 				val block = mc.theWorld.getBlockState(object.getBlockPos()).getBlock();
-				slot = searchHotbar(player, x -> x instanceof ItemTool && ((ItemTool) x).effectiveBlocks
-						.contains(block));
+				slot = searchHotbar(player, x -> {
+					if (x instanceof ItemTool) {
+						@Jailbreak final ItemTool tool = (ItemTool) x;
+						return tool.effectiveBlocks.contains(block);
+					}
+
+					return false;
+				});
 				break;
 			default:
 				Infinity.inst().getLogger().debug("%s not supported", object.typeOfHit.name());

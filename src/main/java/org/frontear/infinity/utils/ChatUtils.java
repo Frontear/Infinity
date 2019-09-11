@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import lombok.experimental.UtilityClass;
 import lombok.val;
+import manifold.ext.api.Jailbreak;
 import net.minecraft.util.*;
 import org.frontear.framework.logger.impl.Logger;
 
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 
 	static {
 		val temp = Maps.<Character, EnumChatFormatting>newHashMap();
-		for (val format : EnumChatFormatting.values()) {
+		for (@Jailbreak EnumChatFormatting format : EnumChatFormatting.values()) {
 			temp.put(format.formattingCode, format);
 		}
 
