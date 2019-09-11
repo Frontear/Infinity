@@ -13,7 +13,11 @@ archivesBaseName = "Infinity"
 def access_transformer = "infinity_at.cfg"
 def mixin = "mixins.infinity.json"
 def refmap = new JsonSlurper().parse(file("src/main/resources/$mixin")).refmap
-
+def replacements = [
+        "modid"    : archivesBaseName.toLowerCase(),
+        "name"     : archivesBaseName,
+        "version"  : project.version,
+]
 sourceSets.main.ext.refMap = refmap
 
 minecraft {
@@ -22,16 +26,11 @@ minecraft {
     mappings = "stable_22"
     makeObfSourceJar = false
 
+    replacements["mcversion"] = version
+
     replaceIn "MinecraftMod.java"
     replacements.each { k, v -> replace "\${$k}": v }
 }
-
-def replacements = [
-        "modid"    : archivesBaseName.toLowerCase(),
-        "name"     : archivesBaseName,
-        "version"  : project.version,
-        "mcversion": project.minecraft.version
-]
 
 repositories {
     mavenCentral()
@@ -47,6 +46,11 @@ dependencies {
         // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
     }
 
+    compile("com.ea.agentloader:ea-agent-loader:1.0.3") {
+        exclude module: "*" // attach-api is loaded at runtime, it's located in the resources for the ea-agent-loader
+    }
+
+    //implementation files("${System.getProperty('java.home')}/../${OperatingSystem.isMacOsX() ? 'Classes/classes.jar' : 'lib/tools.jar'}") // ahh, mac os
     implementation("org.projectlombok:lombok:1.18.8")
 }
 

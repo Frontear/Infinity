@@ -59,29 +59,24 @@ import java.util.Map;
 		}
 	}
 
-	public Map<Integer, String> getProcesses() {
+	@SneakyThrows(IOException.class) public Map<Integer, String> getProcesses() {
 		val processes = Maps.<Integer, String>newHashMap();
 		final boolean windows = OS == OperatingSystem.WINDOWS;
-		try {
-			val process = Runtime.getRuntime().exec(windows ? "tasklist /fo csv /nh" : "ps -e");
-			try (val reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-				reader.lines().skip(1).forEach(x -> { // the first line is usually just a line to explain the format
-					if (windows) {
-						// "name","id","type","priority","memory?"
-						val split = x.replace("\"", "").split(",");
-						processes.put(Integer.valueOf(split[1]), split[0]);
-					}
-					else {
-						// id tty time command
-						val split = Arrays.stream(x.trim().split(" ")).map(String::trim).filter(s -> !s.isEmpty())
-								.toArray(String[]::new); // yikes
-						processes.put(Integer.valueOf(split[0]), split[split.length - 1]);
-					}
-				});
-			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
+		val process = Runtime.getRuntime().exec(windows ? "tasklist /fo csv /nh" : "ps -e");
+		try (val reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+			reader.lines().skip(1).forEach(x -> { // the first line is usually just a line to explain the format
+				if (windows) {
+					// "name","id","type","priority","memory?"
+					val split = x.replace("\"", "").split(",");
+					processes.put(Integer.valueOf(split[1]), split[0]);
+				}
+				else {
+					// id tty time command
+					val split = Arrays.stream(x.trim().split(" ")).map(String::trim).filter(s -> !s.isEmpty())
+							.toArray(String[]::new); // yikes
+					processes.put(Integer.valueOf(split[0]), split[split.length - 1]);
+				}
+			});
 		}
 
 		return processes;
@@ -96,16 +91,9 @@ import java.util.Map;
 		}
 	}
 
-	public String getClipboardContent() {
+	@SneakyThrows({ UnsupportedFlavorException.class, IOException.class }) public String getClipboardContent() {
 		val toolkit = Toolkit.getDefaultToolkit();
-		try {
-			return (String) toolkit.getSystemClipboard().getData(DataFlavor.stringFlavor);
-		}
-		catch (UnsupportedFlavorException | IOException e) {
-			e.printStackTrace();
-		}
-
-		return "";
+		return (String) toolkit.getSystemClipboard().getData(DataFlavor.stringFlavor);
 	}
 
 	public void setClipboardContent(@NonNull String content) {

@@ -1,11 +1,13 @@
 package org.frontear;
 
+import com.ea.agentloader.AgentLoader;
 import lombok.val;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.environment.ModEnvironment;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
@@ -23,6 +25,9 @@ import org.frontear.infinity.Infinity;
 		logger.debug("Creating concurrent client thread");
 		this.concurrent = new Thread(() -> {
 			try {
+				logger.debug("Loading agent");
+				AgentLoader.loadAgentClass(MinecraftAgent.class.getName(), "");
+
 				logger.debug("Loading ${name}");
 				val instance = Infinity.inst();
 				instance.getLogger().debug("Registering to EVENT_BUS");
