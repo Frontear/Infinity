@@ -55,14 +55,7 @@ dependencies {
 
     //implementation files("${System.getProperty('java.home')}/../${OperatingSystem.isMacOsX() ? 'Classes/classes.jar' : 'lib/tools.jar'}") // ahh, mac os
     implementation("org.projectlombok:lombok:1.18.8")
-
-    def manifold_format = {
-        return "systems.manifold:manifold-$it:2019.1.14"
-    }
-
-    compile(manifold_format("strings"))
-    compile(manifold_format("exceptions"))
-    compile(manifold_format("ext"))
+    compile("systems.manifold:manifold-all:2019.1.14")
 }
 
 processResources {
