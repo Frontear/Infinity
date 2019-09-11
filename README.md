@@ -2,8 +2,8 @@
 Infinity is a simple client designed in [Forge](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.8.9.html). It adds a variety of features into minecraft, and also comes with performance improvements and bug fixes. This is possible due to [Mixin](https://github.com/SpongePowered/Mixin).
 
 ## Getting Started
-Before starting, please make sure you have a thorough understanding of mixins and java. Additionally, we recommend [IntelliJ IDEA](https://www.jetbrains.com/idea/) as your Java IDE alongside the [MinecraftDev](https://github.com/minecraft-dev/MinecraftDev) plugin.
-For lombok setup, please see [Baeldung](https://www.baeldung.com/lombok-ide) for a simple tutorial 
+Before starting, please make sure you have a thorough understanding of mixins and java. Additionally, we recommend [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/) as your Java IDE alongside the [MinecraftDev](https://github.com/minecraft-dev/MinecraftDev) plugin.
+Please also make sure that you install the [Lombok](https://plugins.jetbrains.com/plugin/6317-lombok) plugin and the [Manifold](https://plugins.jetbrains.com/plugin/10057-manifold) plugin.
 
 - Clone this repository via using `git clone https://github.com/Frontear/Infinity.git Infinity`
 - Run `task setupDecompWorkspace` either using `./gradlew` or through IntelliJ IDEA

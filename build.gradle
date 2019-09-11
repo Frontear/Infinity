@@ -19,6 +19,9 @@ def replacements = [
         "version"  : project.version,
 ]
 sourceSets.main.ext.refMap = refmap
+tasks.withType(JavaCompile) {
+    options.compilerArgs += [ "-Xplugin:Manifold" ] // manifold requires this
+}
 
 minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
@@ -52,6 +55,7 @@ dependencies {
 
     //implementation files("${System.getProperty('java.home')}/../${OperatingSystem.isMacOsX() ? 'Classes/classes.jar' : 'lib/tools.jar'}") // ahh, mac os
     implementation("org.projectlombok:lombok:1.18.8")
+    compile("systems.manifold:manifold-all:2019.1.14")
 }
 
 processResources {
