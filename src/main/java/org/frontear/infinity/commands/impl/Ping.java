@@ -12,10 +12,10 @@ public final class Ping extends Command {
 	@Override public void process(@NonNull String[] args) throws Exception {
 		val info = mc.thePlayer.sendQueue.getPlayerInfo(args[0]);
 		if (info != null) {
-			sendMessage(String.format("%s: %dms", info.getGameProfile().getName(), info.getResponseTime()));
+			sendMessage("${info.getGameProfile().getName()}: ${info.getResponseTime()}ms");
 		}
 		else {
-			sendMessage(String.format("Could not find %s (are they in-game)", args[0]));
+			sendMessage("Could not find ${args[0]} (are they in-game)");
 		}
 	}
 }

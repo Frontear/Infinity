@@ -84,7 +84,7 @@ import java.util.regex.Pattern;
 		defaultStyle(style);
 
 		if (!formatted.isEmpty() && formatted.contains(FORMAT_SYMBOL)) {
-			val matcher = Pattern.compile(FORMAT_SYMBOL + ".").matcher(formatted);
+			val matcher = Pattern.compile("$FORMAT_SYMBOL.").matcher(formatted);
 			while (matcher.find()) {
 				val found = matcher.group();
 				setStyle(style, formats.get(found.charAt(1)));

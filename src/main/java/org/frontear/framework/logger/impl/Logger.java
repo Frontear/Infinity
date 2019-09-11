@@ -45,7 +45,7 @@ import org.frontear.framework.logger.ILogger;
 	 *
 	 * @see ILogger#fatal(Throwable, Object, Object...)
 	 */
-	@SneakyThrows @Override public <T extends Throwable> T fatal(@NonNull T throwable, @NonNull Object object, Object... args) {
+	@Override public <T extends Throwable> T fatal(@NonNull T throwable, @NonNull Object object, Object... args) {
 		log(Level.FATAL, object, args);
 		throw throwable;
 	}
@@ -95,7 +95,7 @@ import org.frontear.framework.logger.ILogger;
 	}
 
 	@Override public void startSection(@NonNull String title) {
-		info(StringUtils.center(String.format(" %s ", title), repeat, pad));
+		info(StringUtils.center(" $title ", repeat, pad));
 	}
 
 	/**
@@ -111,7 +111,7 @@ import org.frontear.framework.logger.ILogger;
 		val element = Thread.currentThread().getStackTrace()[3];
 		val message = new StringBuilder();
 		if (Client.DEBUG) {
-			message.append(String.format("[%s#%s]: ", sanitize(element.getClassName()), element.getMethodName()));
+			message.append("[${sanitize(element.getClassName())}#${element.getMethodName()}]: ");
 		}
 		message.append(String.format(String.valueOf(object), args));
 

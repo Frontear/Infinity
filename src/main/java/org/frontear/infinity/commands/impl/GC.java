@@ -20,7 +20,7 @@ import java.lang.management.ManagementFactory;
 			val last = getMemory();
 			System.gc();
 			val current = getMemory();
-			sendMessage(String.format("Freed %dMB", Math.abs(current - last)));
+			sendMessage("Freed ${Math.abs(current - last)}MB");
 		}
 		else {
 			sendMessage("Explicit garbage collection has been disabled [-XX:+DisableExplicitGC]", EnumChatFormatting.RED);

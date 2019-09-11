@@ -1,5 +1,6 @@
 package org.frontear.infinity.commands.impl;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonParser;
 import lombok.*;
@@ -23,9 +24,9 @@ public final class History extends Command {
 
 		new Thread(() -> {
 			val parser = new JsonParser();
-			val uuid = parser.parse(get("https://api.mojang.com/users/profiles/minecraft/" + username))
-					.getAsJsonObject().get("id").getAsString();
-			val names = parser.parse(get("https://api.mojang.com/user/profiles/" + uuid + "/names")).getAsJsonArray();
+			val uuid = parser.parse(get("https://api.mojang.com/users/profiles/minecraft/$username")).getAsJsonObject()
+					.get("id").getAsString();
+			val names = parser.parse(get("https://api.mojang.com/user/profiles/$uuid/names")).getAsJsonArray();
 			val history = Lists.<Object[]>newArrayList(); // ugh
 
 			names.forEach(x -> {
@@ -35,10 +36,10 @@ public final class History extends Command {
 			});
 
 			if (history.size() > 1) {
-				sendMessage(String.format("Name history for %s:", username));
+				sendMessage("Name history for $username:");
 				for (var i = 0; i < history.size(); i++) {
 					val data = history.get(i);
-					sendMessage(String.format("    %d. %s: %s", i + 1, data[0], normalizeDate((Long) data[1])));
+					sendMessage("    ${i + 1}. ${data[0]}: ${normalizeDate(data[1])}");
 				}
 			}
 			else {
@@ -47,7 +48,7 @@ public final class History extends Command {
 		}).start(); // this can take some time, as it's contacting an API
 	}
 
-	@SneakyThrows(IOException.class) private String get(String url) {
+	private String get(String url) {
 		val connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("GET");
 
@@ -57,8 +58,10 @@ public final class History extends Command {
 		return string.toString();
 	}
 
-	private String normalizeDate(long time) {
-		return time == 0 ? "unknown" : ZonedDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault())
+	private String normalizeDate(Object time) {
+		Preconditions.checkArgument(time instanceof Long);
+		return ((Long) time) == 0 ? "unknown" : ZonedDateTime
+				.ofInstant(Instant.ofEpochMilli((Long) time), ZoneId.systemDefault())
 				.format(DateTimeFormatter.ofPattern("E, MMM d, Y, hh:mm:ss a"));
 	}
 }

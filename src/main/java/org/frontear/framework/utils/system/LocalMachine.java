@@ -59,7 +59,7 @@ import java.util.Map;
 		}
 	}
 
-	@SneakyThrows(IOException.class) public Map<Integer, String> getProcesses() {
+	public Map<Integer, String> getProcesses() {
 		val processes = Maps.<Integer, String>newHashMap();
 		final boolean windows = OS == OperatingSystem.WINDOWS;
 		val process = Runtime.getRuntime().exec(windows ? "tasklist /fo csv /nh" : "ps -e");
@@ -91,7 +91,7 @@ import java.util.Map;
 		}
 	}
 
-	@SneakyThrows({ UnsupportedFlavorException.class, IOException.class }) public String getClipboardContent() {
+	public String getClipboardContent() {
 		val toolkit = Toolkit.getDefaultToolkit();
 		return (String) toolkit.getSystemClipboard().getData(DataFlavor.stringFlavor);
 	}
@@ -104,7 +104,7 @@ import java.util.Map;
 		}
 	}
 
-	@SneakyThrows({ URISyntaxException.class, IOException.class }) public void openUrl(@NonNull String url) {
+	public void openUrl(@NonNull String url) {
 		val uri = new URI(url); // intentional, this will catch errors with the URL, even if Desktop isn't supported, it still plays a role
 		if (Desktop.isDesktopSupported()) {
 			Desktop.getDesktop().browse(uri); // this can lag a bit
@@ -112,19 +112,19 @@ import java.util.Map;
 		else {
 			val runtime = Runtime.getRuntime();
 			if (compareOS(OperatingSystem.WINDOWS)) {
-				runtime.exec("cmd /k start " + url);
+				runtime.exec("cmd /k start $url");
 			}
 			else if (compareOS(OperatingSystem.LINUX)) {
-				runtime.exec("xdg-open " + url);
+				runtime.exec("xdg-open $url");
 			}
 			else if (compareOS(OperatingSystem.MACOSX)) {
-				runtime.exec("open " + url);
+				runtime.exec("open $url");
 			}
 			else if (compareOS(OperatingSystem.SOLARIS)) {
-				runtime.exec("/usr/dt/bin/sdtwebclient -b " + url); // https://trac.sagemath.org/ticket/4979
+				runtime.exec("/usr/dt/bin/sdtwebclient -b $url"); // https://trac.sagemath.org/ticket/4979
 			}
 			else {
-				new UnsupportedOperationException("Couldn't open url " + url).printStackTrace();
+				new UnsupportedOperationException("Couldn't open url $url").printStackTrace();
 			}
 		}
 	}

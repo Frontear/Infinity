@@ -10,6 +10,6 @@ public final class Uptime extends Command {
 	}
 
 	@Override public void process(@NonNull String[] args) throws Exception {
-		sendMessage(String.format("Running for: %s", Client.UPTIME));
+		sendMessage("Running for: ${Client.UPTIME}");
 	}
 }

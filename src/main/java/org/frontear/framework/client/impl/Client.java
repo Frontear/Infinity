@@ -42,7 +42,7 @@ import java.util.zip.ZipFile;
 
 		this.info = this.construct();
 		this.logger = new Logger(info.getName());
-		this.config = new Config(new File(".", info.getName().toLowerCase() + ".json"));
+		this.config = new Config(new File(".", "${info.getName().toLowerCase()}.json"));
 	}
 
 	/*

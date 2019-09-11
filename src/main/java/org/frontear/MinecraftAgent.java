@@ -11,7 +11,7 @@ public final class MinecraftAgent {
 	@Getter private static Instrumentation instrumentation;
 	@Getter private static Unsafe unsafe;
 
-	@SneakyThrows({ NoSuchFieldException.class, IllegalAccessException.class }) public static void agentmain(String args, Instrumentation inst) {
+	public static void agentmain(String args, Instrumentation inst) {
 		instrumentation = inst;
 		final Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
 		theUnsafe.setAccessible(true);

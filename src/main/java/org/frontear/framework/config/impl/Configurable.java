@@ -23,7 +23,7 @@ public final class Configurable<C extends Configurable<C>> implements IConfigura
 		exposed.forEach(x -> this.apply(self, x));
 	}
 
-	@SneakyThrows({ NoSuchFieldException.class, IllegalAccessException.class }) private void apply(@NonNull C self, @NonNull final Field field) {
+	private void apply(@NonNull C self, @NonNull final Field field) {
 		val equivalent = self.getClass().getDeclaredField(field.getName());
 		equivalent.setAccessible(true);
 

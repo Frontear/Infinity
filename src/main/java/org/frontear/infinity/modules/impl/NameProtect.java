@@ -20,8 +20,7 @@ public final class NameProtect extends Module {
 		val username = mc.getSession().getUsername();
 		if (StringUtils.containsIgnoreCase(event.getText(), username)) {
 			event.setText(StringUtils
-					.replacePattern(event.getText(), String.format("(?i)%s", username), protect(username, event
-							.getText())));
+					.replacePattern(event.getText(), "(?i)$username", protect(username, event.getText())));
 		}
 	}
 

@@ -59,8 +59,7 @@ import org.lwjgl.input.Keyboard;
 					command.process(args);
 				}
 				catch (Exception e) {
-					sendMessage(String.format("An unknown error has occured [%s]", e.getClass()
-							.getSimpleName()), EnumChatFormatting.RED);
+					sendMessage("An unknown error has occured [${e.getClass().getSimpleName()}]", EnumChatFormatting.RED);
 					e.printStackTrace();
 				}
 			}

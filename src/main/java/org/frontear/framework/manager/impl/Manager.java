@@ -43,7 +43,7 @@ import java.util.stream.Stream;
 	 *
 	 * @return An {@link ImmutableSet} of elements which were instantiated
 	 */
-	@SuppressWarnings("UnstableApiUsage") @SneakyThrows private ImmutableMap<Class<? extends T>, T> reflectionSearch(String pkg) {
+	@SuppressWarnings("UnstableApiUsage") private ImmutableMap<Class<? extends T>, T> reflectionSearch(String pkg) {
 		logger.debug("Attempting to find parent...");
 		//noinspection unchecked
 		val parent = (Class<T>) new TypeToken<T>(getClass()) {}

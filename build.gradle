@@ -55,7 +55,8 @@ dependencies {
 
     //implementation files("${System.getProperty('java.home')}/../${OperatingSystem.isMacOsX() ? 'Classes/classes.jar' : 'lib/tools.jar'}") // ahh, mac os
     implementation("org.projectlombok:lombok:1.18.8")
-    compile("systems.manifold:manifold-all:2019.1.14")
+    compile("systems.manifold:manifold-strings:2019.1.14")
+    compile("systems.manifold:manifold-exceptions:2019.1.14")
 }
 
 processResources {

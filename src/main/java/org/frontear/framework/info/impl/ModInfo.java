@@ -26,7 +26,7 @@ import org.frontear.framework.info.IModInfo;
 	public ModInfo(@NonNull JsonObject json) {
 		this.name = json.get("name").getAsString();
 		this.version = json.get("version").getAsString();
-		this.fullname = String.format("%s v%s", name, version);
+		this.fullname = "$name v$version";
 		{
 			val authorList = json.get(ModEnvironment.getAuthorProperty()).getAsJsonArray();
 			val str = new StringBuilder();
