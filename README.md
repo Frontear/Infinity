@@ -16,3 +16,4 @@ This project is licensed under the [MIT License](https://tldrlegal.com/license/m
 This project makes use of the following libraries, each of which can have their licenses viewed:
 - [SpongePowered/Mixin](https://github.com/SpongePowered/Mixin), license [MIT](https://github.com/SpongePowered/Mixin/blob/master/LICENSE.txt)
 - [rzwitserloot/lombok](https://github.com/rzwitserloot/lombok), license [MIT](https://github.com/rzwitserloot/lombok/blob/master/LICENSE)
+- [manifold-system/manifold](https://github.com/manifold-systems/manifold), license [Apache 2.0](https://github.com/manifold-systems/manifold/blob/master/LICENSE)
