@@ -39,7 +39,8 @@ import java.util.Set;
 	}
 
 	@Override protected void onToggle(boolean active) {
-		Display.setTitle(active ? "Minecraft ${Loader.MC_VERSION}" : Infinity.inst().getInfo().getFullname());
+		Display.setTitle(active ? "Minecraft ${net.minecraftforge.fml.common.Loader.MC_VERSION}" : Infinity.inst()
+				.getInfo().getFullname());
 		if (active) {
 			Infinity.inst().getModules().getObjects().filter(x -> !x.isSafe()).filter(Module::isActive).forEach(x -> {
 				x.toggle();

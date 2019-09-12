@@ -34,7 +34,7 @@ public final class ModuleManager extends Manager<Module> {
 
 			while (modules.hasNext()) {
 				val module = modules.next();
-				val name = "${module.getName()} [${Keyboard.getKeyName(module.getBind())}]";
+				val name = "${module.getName()} [${org.lwjgl.input.Keyboard.getKeyName(module.getBind())}]";
 				val renderer = Minecraft.getMinecraft().fontRendererObj;
 
 				renderer.drawString(name, event.resolution.getScaledWidth() - renderer
