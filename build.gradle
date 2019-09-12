@@ -7,7 +7,7 @@ plugins {
 }
 
 sourceCompatibility = targetCompatibility = 1.8
-version = "2.2-alpha"
+version = "2.3-alpha"
 group = "org.frontear"
 archivesBaseName = "Infinity"
 def access_transformer = "infinity_at.cfg"
@@ -32,7 +32,7 @@ minecraft {
     replacements["mcversion"] = version
 
     replaceIn "MinecraftMod.java"
-    replacements.each { k, v -> replace "\${$k}": v }
+    replacements.each { k, v -> replace "%$k": v }
 }
 
 repositories {
