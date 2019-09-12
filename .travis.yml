@@ -13,7 +13,6 @@ before_script:
 
 script:
   - ./gradlew setupDecompWorkspace build javadoc
-  - timeout --preserve-status 60s ./gradlew runClient # runs the minecraft client for 60s. Designed to hopefully catch (some) runtime errors, since I keep forgetting to
   - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then fossa init && fossa analyze; fi
 
 before_cache:
