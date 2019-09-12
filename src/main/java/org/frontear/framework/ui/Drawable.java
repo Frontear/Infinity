@@ -6,6 +6,7 @@ import org.lwjgl.input.Mouse;
 
 import java.awt.*;
 
+import static org.frontear.framework.utils.opengl.OpenGLState.*;
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -45,24 +46,22 @@ import static org.lwjgl.opengl.GL11.*;
 	 * org.lwjgl.opengl.GL11#GL_BLEND} is enabled, and {@link org.lwjgl.opengl.GL11#GL_TEXTURE_2D} is disabled
 	 */
 	public void draw() {
-		glPushAttrib(GL_CURRENT_BIT);
-		glPushMatrix();
+		pushAttrib(GL_CURRENT_BIT);
+		pushMatrix();
 		{
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
+			blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			color(color);
 
-			glEnable(GL_BLEND);
-			glDisable(GL_CULL_FACE);
-			glDisable(GL_TEXTURE_2D);
+			enable(GL_BLEND);
+			disable(GL_CULL_FACE, GL_TEXTURE_2D);
 			{
 				render(x, y, width, height);
 			}
-			glEnable(GL_TEXTURE_2D);
-			glEnable(GL_CULL_FACE);
-			glDisable(GL_BLEND);
+			disable(GL_BLEND);
+			enable(GL_CULL_FACE, GL_TEXTURE_2D);
 		}
-		glPopMatrix();
-		glPopAttrib();
+		popMatrix();
+		popAttrib();
 	}
 
 	/**
