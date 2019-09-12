@@ -1,9 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
 import lombok.val;
-import manifold.ext.api.Jailbreak;
 import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
@@ -49,10 +47,12 @@ public final class ESP extends Module {
 			glDisable(GL_DEPTH_TEST);
 			{
 				// normalize using partial ticks
-				@Jailbreak RenderManager renderManager = mc.getRenderManager();
-				val x = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks) - renderManager.renderPosX;
-				val y = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) - renderManager.renderPosY;
-				val z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - renderManager.renderPosZ;
+				val x = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks) - mc
+						.getRenderManager().renderPosX;
+				val y = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) - mc
+						.getRenderManager().renderPosY;
+				val z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - mc
+						.getRenderManager().renderPosZ;
 
 				RenderGlobal.drawOutlinedBoundingBox(AxisAlignedBB
 						.fromBounds(x - entity.width / 2, y, z - entity.width / 2, x + entity.width / 2, y + entity.height, z + entity.width / 2), color

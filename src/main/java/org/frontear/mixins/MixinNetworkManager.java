@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 	 */
 	@SuppressWarnings("UnresolvedMixinReference") @Redirect(method = "*",
 			at = @At(value = "INVOKE",
-					target = "Lnet/minecraft/network/NetworkManager;dispatchPacket(Lnet/minecraft/network/Packet;[Lio/netty/util/concurrent/GenericFutureListener;)V")) private void dispatchPacket(@Jailbreak NetworkManager manager, final Packet inPacket, final GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
+					target = "Lnet/minecraft/network/NetworkManager;dispatchPacket(Lnet/minecraft/network/Packet;[Lio/netty/util/concurrent/GenericFutureListener;)V")) private void dispatchPacket(NetworkManager manager, final Packet inPacket, final GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
 		val event = new PacketEvent(inPacket);
 		MinecraftForge.EVENT_BUS.post(event);
 
