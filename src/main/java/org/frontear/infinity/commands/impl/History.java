@@ -8,7 +8,6 @@ import net.minecraft.util.EnumChatFormatting;
 import org.apache.commons.io.IOUtils;
 import org.frontear.infinity.commands.Command;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.*;

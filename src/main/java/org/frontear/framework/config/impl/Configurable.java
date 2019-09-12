@@ -1,7 +1,8 @@
 package org.frontear.framework.config.impl;
 
 import com.google.gson.annotations.Expose;
-import lombok.*;
+import lombok.NonNull;
+import lombok.val;
 import org.frontear.framework.config.IConfigurable;
 
 import java.lang.reflect.Field;

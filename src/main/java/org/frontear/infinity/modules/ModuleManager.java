@@ -8,7 +8,6 @@ import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.manager.impl.Manager;
 import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.modules.impl.Ghost;
-import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 

@@ -1,7 +1,6 @@
 package org.frontear.mixins;
 
 import lombok.val;
-import manifold.ext.api.Self;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.Infinity;

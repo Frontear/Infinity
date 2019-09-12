@@ -1,7 +1,6 @@
 package org.frontear.infinity.commands.impl;
 
 import lombok.NonNull;
-import org.frontear.framework.client.impl.Client;
 import org.frontear.infinity.commands.Command;
 
 public final class Uptime extends Command {

@@ -2,15 +2,17 @@ package org.frontear.framework.utils.system;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import lombok.*;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+import lombok.val;
 
 import java.awt.*;
-import java.awt.datatransfer.*;
-import java.io.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Map;
 

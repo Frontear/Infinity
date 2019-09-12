@@ -11,8 +11,8 @@ import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.utils.time.Timer;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.IOException;
 import java.util.zip.ZipFile;
 
 /**

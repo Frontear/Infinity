@@ -4,7 +4,6 @@ import com.google.common.collect.Sets;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
-import net.minecraftforge.fml.common.Loader;
 import org.frontear.framework.threading.InfiniteThread;
 import org.frontear.framework.utils.system.LocalMachine;
 import org.frontear.infinity.Infinity;
