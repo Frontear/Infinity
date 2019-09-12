@@ -264,8 +264,5 @@
             <property name="exceptionVariableName" value="expected"/>
         </module>
         <module name="CommentsIndentation"/>
-        <module name="IllegalImport">
-            <property name="illegalPkgs" value="net.minecraftforge" />
-        </module>
     </module>
 </module>
