@@ -1,5 +1,7 @@
 package org.frontear.framework.logger.impl;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -10,10 +12,11 @@ import org.frontear.framework.logger.ILogger;
 /**
  * An implementation of {@link ILogger}
  */
-public final class Logger implements ILogger {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Logger implements ILogger {
 	private static final char pad = '—';
 	private static final int repeat = 64;
-	private final org.apache.logging.log4j.Logger log;
+	org.apache.logging.log4j.Logger log;
 
 	/**
 	 * Creates a logger instance, and will automatically find the prefix name based on the calling class
@@ -27,13 +30,13 @@ public final class Logger implements ILogger {
 	 *
 	 * @param name Will prefix all log stream outputs
 	 */
-	public Logger(String name) {
+	public Logger(@NonNull String name) {
 		this.log = LogManager.getLogger(name);
 	}
 
 	// removes package prefix
-	private static String sanitize(String className) {
-		final String[] split = className.split("\\.");
+	private static String sanitize(@NonNull String className) {
+		val split = className.split("\\.");
 		return split[split.length - 1];
 	}
 
@@ -42,7 +45,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#fatal(Throwable, Object, Object...)
 	 */
-	@Override public <T extends Throwable> T fatal(T throwable, Object object, Object... args) throws T {
+	@Override public <T extends Throwable> T fatal(@NonNull T throwable, @NonNull Object object, Object... args) {
 		log(Level.FATAL, object, args);
 		throw throwable;
 	}
@@ -53,7 +56,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#error(Object, Object...)
 	 */
-	@Override public void error(Object object, Object... args) {
+	@Override public void error(@NonNull Object object, Object... args) {
 		log(Level.ERROR, object, args);
 	}
 
@@ -62,7 +65,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#warn(Object, Object...)
 	 */
-	@Override public void warn(Object object, Object... args) {
+	@Override public void warn(@NonNull Object object, Object... args) {
 		log(Level.WARN, object, args);
 	}
 
@@ -71,7 +74,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#info(Object, Object...)
 	 */
-	@Override public void info(Object object, Object... args) {
+	@Override public void info(@NonNull Object object, Object... args) {
 		log(Level.INFO, object, args);
 	}
 
@@ -81,7 +84,7 @@ public final class Logger implements ILogger {
 	 *
 	 * @see ILogger#debug(Object, Object...)
 	 */
-	@Override public void debug(Object object, Object... args) {
+	@Override public void debug(@NonNull Object object, Object... args) {
 		if (Client.DEBUG) {
 			log(Level.OFF, object, args);
 		}
@@ -91,8 +94,8 @@ public final class Logger implements ILogger {
 		info(StringUtils.repeat(pad, repeat));
 	}
 
-	@Override public void startSection(String title) {
-		info(StringUtils.center(String.format(" %s ", title), repeat, pad));
+	@Override public void startSection(@NonNull String title) {
+		info(StringUtils.center(" $title ", repeat, pad));
 	}
 
 	/**
@@ -105,10 +108,10 @@ public final class Logger implements ILogger {
 	 * @param args   Extra arguments for {@link String#format(String, Object...)}
 	 */
 	private void log(Level level, Object object, Object... args) {
-		final StackTraceElement element = Thread.currentThread().getStackTrace()[3];
-		final StringBuilder message = new StringBuilder();
+		val element = Thread.currentThread().getStackTrace()[3];
+		val message = new StringBuilder();
 		if (Client.DEBUG) {
-			message.append(String.format("[%s#%s]: ", sanitize(element.getClassName()), element.getMethodName()));
+			message.append("[${sanitize(element.getClassName())}#${element.getMethodName()}]: ");
 		}
 		message.append(String.format(String.valueOf(object), args));
 

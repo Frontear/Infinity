@@ -1,5 +1,10 @@
 package org.frontear;
 
+import com.ea.agentloader.AgentLoader;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import lombok.val;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -9,10 +14,11 @@ import org.frontear.framework.environment.ModEnvironment;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
 
-@Mod(modid = "${modid}",
-		version = "${version}") public final class MinecraftMod {
-	private final Logger logger = new Logger("${name} MinecraftMod");
-	private Thread concurrent;
+@Mod(modid = "%modid",
+		version = "%version") @FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class MinecraftMod {
+	Logger logger = new Logger("%name MinecraftMod");
+	@NonFinal Thread concurrent;
 
 	public static byte getEnvironment() {
 		return ModEnvironment.FORGE;
@@ -22,8 +28,11 @@ import org.frontear.infinity.Infinity;
 		logger.debug("Creating concurrent client thread");
 		this.concurrent = new Thread(() -> {
 			try {
-				logger.debug("Loading ${name}");
-				final Infinity instance = Infinity.inst();
+				logger.debug("Loading agent");
+				AgentLoader.loadAgentClass(MinecraftAgent.class.getName(), "");
+
+				logger.debug("Loading %name");
+				val instance = Infinity.inst();
 				instance.getLogger().debug("Registering to EVENT_BUS");
 				MinecraftForge.EVENT_BUS.register(instance);
 			}
@@ -33,7 +42,7 @@ import org.frontear.infinity.Infinity;
 						.exitJava(-1, false); // Infinity has failed to load, which is technically game-breaking. (Mixins are dependant on it)
 			}
 		});
-		concurrent.setName("${name} loader");
+		concurrent.setName("%name loader");
 		concurrent.start();
 	}
 

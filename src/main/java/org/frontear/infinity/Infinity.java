@@ -1,5 +1,8 @@
 package org.frontear.infinity;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.client.impl.Client;
@@ -9,17 +12,17 @@ import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.modules.ModuleManager;
 import org.lwjgl.opengl.Display;
 
-public final class Infinity extends Client {
+@FieldDefaults(level = AccessLevel.PRIVATE) public final class Infinity extends Client {
 	private static Infinity inst;
 
-	private ModuleManager module_manager;
-	private CommandManager command_manager;
+	@Getter ModuleManager modules;
+	@Getter CommandManager commands;
 
 	private Infinity() {
 		super();
 
-		MinecraftForge.EVENT_BUS.register(this.module_manager = new ModuleManager(getConfig()));
-		MinecraftForge.EVENT_BUS.register(this.command_manager = new CommandManager(getModInfo()));
+		MinecraftForge.EVENT_BUS.register(this.modules = new ModuleManager(getConfig()));
+		MinecraftForge.EVENT_BUS.register(this.commands = new CommandManager(getInfo()));
 	}
 
 	public static Infinity inst() {
@@ -27,23 +30,15 @@ public final class Infinity extends Client {
 	}
 
 	@SubscribeEvent public void onStartup(StartupEvent event) {
-		getLogger().debug("Hello %s!", getModInfo().getName());
-		Display.setTitle(getModInfo().getFullname());
+		getLogger().debug("Hello %s!", getInfo().getName());
+		Display.setTitle(getInfo().getFullname());
 
 		getConfig().load();
 	}
 
 	@SubscribeEvent public void onShutdown(ShutdownEvent event) {
-		getLogger().debug("Goodbye %s!", getModInfo().getName());
+		getLogger().debug("Goodbye %s!", getInfo().getName());
 
 		getConfig().save();
-	}
-
-	public ModuleManager getModules() {
-		return module_manager;
-	}
-
-	public CommandManager getCommands() {
-		return command_manager;
 	}
 }

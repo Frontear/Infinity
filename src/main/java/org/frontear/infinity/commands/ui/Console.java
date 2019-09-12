@@ -1,6 +1,9 @@
 package org.frontear.infinity.commands.ui;
 
 import com.google.common.collect.Queues;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ChatComponentText;
 import org.frontear.framework.ui.Drawable;
@@ -12,16 +15,17 @@ import java.util.Deque;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
-public final class Console extends Drawable {
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Console extends Drawable {
 	private static final float scale = 0.5f;
-	private final FontRenderer renderer;
-	private final Rectangle backing;
-	private final ConsoleTextField field;
-	private final Deque<String> lines = Queues.newArrayDeque();
-	private int scrollFactor = 0;
+	FontRenderer renderer;
+	Rectangle backing;
+	ConsoleTextField field;
+	Deque<String> lines = Queues.newArrayDeque();
+	@NonFinal int scrollFactor = 0;
 
-	public Console(FontRenderer renderer, int x, int y, int width, int height) {
-		final Color background = new Color(0, 0, 0, 127);
+	public Console(@NonNull FontRenderer renderer, int x, int y, int width, int height) {
+		val background = new Color(0, 0, 0, 127);
 
 		this.renderer = renderer;
 		this.backing = new Rectangle(x, y, width, height, background);
@@ -36,15 +40,10 @@ public final class Console extends Drawable {
 		field.textboxKeyTyped(p_146201_1_, p_146201_2_);
 	}
 
-	@Override public void setPosition(int x, int y) {
-		backing.setPosition(x, y);
-		field.setPosition(x, y + backing.getHeight() + 1);
-	}
-
 	@Override public void draw() {
 		backing.draw();
 
-		int scrollPos = scrollFactor;
+		var scrollPos = scrollFactor;
 		glScalef(scale, scale, 1f);
 		{
 			int y = backing.getY() + backing.getHeight(); // text starts from the bottom to the top
@@ -71,11 +70,16 @@ public final class Console extends Drawable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override public void setPosition(int x, int y) {
+		backing.setPosition(x, y);
+		field.setPosition(x, y + backing.getHeight() + 1);
+	}
+
 	public void scroll(int factor) {
 		this.scrollFactor = Math.min(lines.size(), Math.max(0, scrollFactor + factor)); // between 0 and lines.size
 	}
 
-	public void print(ChatComponentText text) {
+	public void print(@NonNull ChatComponentText text) {
 		lines.addFirst(text.getFormattedText());
 	}
 }

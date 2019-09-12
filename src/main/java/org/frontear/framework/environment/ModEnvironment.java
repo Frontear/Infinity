@@ -7,9 +7,7 @@ import org.frontear.MinecraftMod;
 public final class ModEnvironment {
 	public static final byte FORGE = 0x0, FABRIC = 0x1;
 	private static final byte ENVIRONMENT = MinecraftMod.getEnvironment();
-	private static final UnsupportedOperationException unsupported = new UnsupportedOperationException(String
-			.format("Environment 0x%s is not supported [Use ModEnvironment environment values]", Integer
-					.toHexString(ENVIRONMENT)));
+	private static final UnsupportedOperationException unsupported = new UnsupportedOperationException("Environment 0x${Integer.toHexString(ENVIRONMENT)} is not supported [Use ModEnvironment environment values]");
 
 	public static String getAuthorProperty() {
 		switch (ENVIRONMENT) {

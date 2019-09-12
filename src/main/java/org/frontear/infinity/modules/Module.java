@@ -1,18 +1,22 @@
 package org.frontear.infinity.modules;
 
 import com.google.gson.annotations.Expose;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.framework.config.IConfigurable;
-import org.frontear.wrapper.IMinecraftWrapper;
 
-public abstract class Module implements IConfigurable<Module> {
-	protected static final IMinecraftWrapper mc = IMinecraftWrapper.getMinecraft();
-	private final boolean safe; // safe to use during Ghost
-	private final Category category;
-	@Expose private int bind;
-	@Expose private boolean active = false;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public abstract class Module implements IConfigurable<Module> {
+	protected static final Minecraft mc = Minecraft.getMinecraft();
+	@Getter boolean safe; // safe to use during Ghost
+	@Getter Category category;
+	@Expose @NonFinal @Getter @Setter int bind;
+	@Expose @NonFinal @Getter boolean active = false;
 
-	public Module(int bind, boolean safe, Category category) {
+	public Module(int bind, boolean safe, @NonNull Category category) {
 		this.bind = bind;
 		this.safe = safe;
 		this.category = category;
@@ -22,20 +26,6 @@ public abstract class Module implements IConfigurable<Module> {
 		this.setBind(self.getBind());
 		this.setActive(self.isActive());
 	}
-
-	public int getBind() {
-		return bind;
-	}
-
-	public void setBind(int bind) {
-		this.bind = bind;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	protected void onToggle(boolean active) {}
 
 	public void setActive(boolean active) {
 		if (active) {
@@ -50,15 +40,9 @@ public abstract class Module implements IConfigurable<Module> {
 		}
 	}
 
-	public boolean isSafe() {
-		return safe;
-	}
+	protected void onToggle(boolean active) {}
 
 	public void toggle() {
 		setActive(!isActive());
-	}
-
-	public Category getCategory() {
-		return category;
 	}
 }

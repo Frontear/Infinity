@@ -1,5 +1,7 @@
 package org.frontear.infinity.modules.gui;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import org.frontear.infinity.modules.Module;
@@ -10,11 +12,12 @@ import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
-public final class KeyBindScreen extends GuiScreen {
-	private final Module module;
-	private final GuiScreen parent;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class KeyBindScreen extends GuiScreen {
+	Module module;
+	GuiScreen parent;
 
-	KeyBindScreen(Module module, GuiScreen parent) {
+	KeyBindScreen(@NonNull Module module, @NonNull GuiScreen parent) {
 		this.module = module;
 		this.parent = parent;
 	}
@@ -22,7 +25,7 @@ public final class KeyBindScreen extends GuiScreen {
 	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();
 
-		final int scale = 2;
+		val scale = 2;
 		glScalef(scale, scale, 1f);
 		{
 			this.drawCenteredString(fontRendererObj, "Press any key to bind", (width / 2) / scale, 15 / scale, Color.WHITE
@@ -41,7 +44,7 @@ public final class KeyBindScreen extends GuiScreen {
 		mc.displayGuiScreen(parent);
 	}
 
-	@Override protected void actionPerformed(GuiButton button) throws IOException {
+	@Override protected void actionPerformed(@NonNull GuiButton button) throws IOException {
 		if (button.enabled) {
 			if (button.id == -1) {
 				this.keyTyped('\0', Keyboard.KEY_NONE);

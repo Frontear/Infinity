@@ -1,5 +1,7 @@
 package org.frontear.infinity.commands.gui;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiTextField;
 import org.frontear.framework.ui.impl.Rectangle;
@@ -8,10 +10,11 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 
-public final class ConsoleTextField extends GuiTextField {
-	private final Rectangle backing;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class ConsoleTextField extends GuiTextField {
+	Rectangle backing;
 
-	public ConsoleTextField(FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height, Color color) {
+	public ConsoleTextField(@NonNull FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height, @NonNull Color color) {
 		super(-1, fontrendererObj, x + 4 / 2, y + (par6Height - 8) / 2, par5Width, par6Height); // see GuiTextField#drawTextBox
 
 		this.setCanLoseFocus(false);
@@ -22,7 +25,7 @@ public final class ConsoleTextField extends GuiTextField {
 	}
 
 	@Override public boolean textboxKeyTyped(char p_146201_1_, int p_146201_2_) {
-		final String text = getText()
+		val text = getText()
 				.trim(); // removes all empty spaces from ends and beginnings, they are unnecessary and can cause problems
 		if (p_146201_2_ == Keyboard.KEY_RETURN && !text.isEmpty()) {
 			Infinity.inst().getCommands().processMessage(text);

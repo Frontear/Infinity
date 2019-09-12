@@ -3,12 +3,12 @@ package org.frontear.mixins;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import lombok.val;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.events.client.PacketEvent;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
@@ -23,13 +23,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 	@SuppressWarnings("UnresolvedMixinReference") @Redirect(method = "*",
 			at = @At(value = "INVOKE",
 					target = "Lnet/minecraft/network/NetworkManager;dispatchPacket(Lnet/minecraft/network/Packet;[Lio/netty/util/concurrent/GenericFutureListener;)V")) private void dispatchPacket(NetworkManager manager, final Packet inPacket, final GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
-		final PacketEvent event = new PacketEvent(inPacket);
+		val event = new PacketEvent(inPacket);
 		MinecraftForge.EVENT_BUS.post(event);
 
 		if (event.getPacket() != null) {
-			this.dispatchPacket(event.getPacket(), futureListeners);
+			manager.dispatchPacket(event.getPacket(), futureListeners);
 		}
 	}
-
-	@Shadow protected abstract void dispatchPacket(Packet inPacket, GenericFutureListener<? extends Future<? super Void>>[] futureListeners);
 }

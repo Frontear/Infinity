@@ -1,6 +1,7 @@
 package org.frontear.infinity.commands.impl;
 
-import net.minecraft.client.network.NetworkPlayerInfo;
+import lombok.NonNull;
+import lombok.val;
 import org.frontear.infinity.commands.Command;
 
 public final class Ping extends Command {
@@ -8,13 +9,13 @@ public final class Ping extends Command {
 		super("Retrieves the latency value of a player. Name is case-sensitive", 1);
 	}
 
-	@Override public void process(String[] args) throws Exception {
-		NetworkPlayerInfo info = mc.getPlayer().sendQueue.getPlayerInfo(args[0]);
+	@Override public void process(@NonNull String[] args) throws Exception {
+		val info = mc.thePlayer.sendQueue.getPlayerInfo(args[0]);
 		if (info != null) {
-			sendMessage(String.format("%s: %dms", info.getGameProfile().getName(), info.getResponseTime()));
+			sendMessage("${info.getGameProfile().getName()}: ${info.getResponseTime()}ms");
 		}
 		else {
-			sendMessage(String.format("Could not find %s (are they in-game)", args[0]));
+			sendMessage("Could not find ${args[0]} (are they in-game)");
 		}
 	}
 }

@@ -1,17 +1,21 @@
 package org.frontear.framework.ui;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
 
+import static org.frontear.framework.utils.opengl.OpenGLState.*;
 import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Represents an object that is to be drawn to the screen via OpenGL
  */
-public abstract class Drawable {
-	private int x, y, width, height;
-	private Color color;
+@FieldDefaults(level = AccessLevel.PRIVATE) public abstract class Drawable {
+	@Getter int x, y;
+	@Getter @Setter int width, height;
+	@Getter @Setter Color color;
 
 	/**
 	 * An empty constructor for a {@link Drawable} object
@@ -38,39 +42,26 @@ public abstract class Drawable {
 	}
 
 	/**
-	 * Sets the position of the {@link Drawable} in an xy plane
-	 *
-	 * @param x The new x-coordinate of the {@link Drawable}
-	 * @param y The new y-coordinate of the {@link Drawable}
-	 */
-	public void setPosition(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	/**
 	 * Draws the {@link Drawable} in an OpenGL context. Color is automatically applied. {@link
 	 * org.lwjgl.opengl.GL11#GL_BLEND} is enabled, and {@link org.lwjgl.opengl.GL11#GL_TEXTURE_2D} is disabled
 	 */
 	public void draw() {
-		glPushAttrib(GL_CURRENT_BIT);
-		glPushMatrix();
+		pushAttrib(GL_CURRENT_BIT);
+		pushMatrix();
 		{
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
+			blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			color(color);
 
-			glEnable(GL_BLEND);
-			glDisable(GL_CULL_FACE);
-			glDisable(GL_TEXTURE_2D);
+			enable(GL_BLEND);
+			disable(GL_CULL_FACE, GL_TEXTURE_2D);
 			{
 				render(x, y, width, height);
 			}
-			glEnable(GL_TEXTURE_2D);
-			glEnable(GL_CULL_FACE);
-			glDisable(GL_BLEND);
+			disable(GL_BLEND);
+			enable(GL_CULL_FACE, GL_TEXTURE_2D);
 		}
-		glPopMatrix();
-		glPopAttrib();
+		popMatrix();
+		popAttrib();
 	}
 
 	/**
@@ -107,61 +98,13 @@ public abstract class Drawable {
 	protected abstract void click(int mouseX, int mouseY, boolean hover, int button);
 
 	/**
-	 * @return The x-coordinate of this {@link Drawable}
-	 */
-	public int getX() {
-		return x;
-	}
-
-	/**
-	 * @return The y-coordinate of this {@link Drawable}
-	 */
-	public int getY() {
-		return y;
-	}
-
-	/**
-	 * @return The width of this {@link Drawable}
-	 */
-	public int getWidth() {
-		return width;
-	}
-
-	/**
-	 * Sets the width of the {@link Drawable}
+	 * Sets the position of the {@link Drawable} in an x-y plane
 	 *
-	 * @param width The new width of the {@link Drawable}
+	 * @param x The new x-coordinate of the {@link Drawable}
+	 * @param y The new y-coordinate of the {@link Drawable}
 	 */
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return The height of this {@link Drawable}
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-	/**
-	 * Sets the height of the {@link Drawable}
-	 *
-	 * @param height The new height of the {@link Drawable}
-	 */
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	/**
-	 * Sets the color of the {@link Drawable}
-	 *
-	 * @param color The new color of the {@link Drawable}
-	 */
-	public void setColor(Color color) {
-		this.color = color;
+	public void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }

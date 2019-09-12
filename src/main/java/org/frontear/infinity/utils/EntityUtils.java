@@ -1,11 +1,13 @@
 package org.frontear.infinity.utils;
 
+import lombok.experimental.UtilityClass;
+import lombok.val;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 
-public final class EntityUtils {
-	public static EntityOtherPlayerMP clone(EntityPlayer player) {
-		final EntityOtherPlayerMP clone = new EntityOtherPlayerMP(player.worldObj, player.getGameProfile());
+@UtilityClass public class EntityUtils {
+	public EntityOtherPlayerMP clone(EntityPlayer player) {
+		val clone = new EntityOtherPlayerMP(player.worldObj, player.getGameProfile());
 
 		// rotation, position, and inventory (doesn't copy all rotations for some reason)
 		clone.copyLocationAndAnglesFrom(player);

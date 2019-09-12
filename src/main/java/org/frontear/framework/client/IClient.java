@@ -14,7 +14,7 @@ public interface IClient {
 	 *
 	 * @return {@link IModInfo}
 	 */
-	IModInfo getModInfo();
+	IModInfo getInfo();
 
 	/**
 	 * A basic logging system, backed by {@link org.apache.logging.log4j.Logger}

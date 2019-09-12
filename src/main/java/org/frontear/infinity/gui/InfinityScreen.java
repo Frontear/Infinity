@@ -1,5 +1,8 @@
 package org.frontear.infinity.gui;
 
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -7,23 +10,25 @@ import org.frontear.infinity.Infinity;
 
 import java.awt.*;
 
-public final class InfinityScreen extends GuiScreen {
-	private final GuiScreen parent;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class InfinityScreen extends GuiScreen {
+	GuiScreen parent;
 
-	public InfinityScreen(GuiScreen parent) {
+	public InfinityScreen(@NonNull GuiScreen parent) {
 		this.parent = parent;
 	}
 
 	@Override public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();
-		this.drawCenteredString(fontRendererObj, Infinity.inst().getModInfo().getName(), width / 2, 15, Color.WHITE
+		this.drawCenteredString(fontRendererObj, Infinity.inst().getInfo().getName(), width / 2, 15, Color.WHITE
 				.getRGB());
 
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
-	@Override protected void actionPerformed(GuiButton button) {
+	@Override protected void actionPerformed(@NonNull GuiButton button) {
 		if (button.enabled) {
+			//noinspection SwitchStatementWithTooFewBranches
 			switch (button.id) {
 				case 200:
 					mc.displayGuiScreen(parent);

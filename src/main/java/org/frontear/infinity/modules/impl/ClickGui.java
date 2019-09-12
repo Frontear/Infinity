@@ -1,12 +1,15 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.frontear.infinity.modules.gui.ClickGuiScreen;
 import org.lwjgl.input.Keyboard;
 
-public final class ClickGui extends Module {
-	private final ClickGuiScreen screen = new ClickGuiScreen();
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class ClickGui extends Module {
+	ClickGuiScreen screen = new ClickGuiScreen();
 
 	public ClickGui() {
 		super(Keyboard.KEY_RSHIFT, false, Category.NONE);

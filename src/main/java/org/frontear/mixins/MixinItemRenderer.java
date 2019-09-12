@@ -1,12 +1,15 @@
 package org.frontear.mixins;
 
+import lombok.val;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemMap;
+import net.minecraft.item.ItemStack;
+import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.impl.Ghost;
 import org.spongepowered.asm.mixin.*;
 
@@ -23,11 +26,11 @@ import org.spongepowered.asm.mixin.*;
 	 * @reason Allow 1.7 blockhit animations back into the game
 	 */
 	@Overwrite public void renderItemInFirstPerson(float partialTicks) {
-		float f = 1.0F - (this.prevEquippedProgress + (this.equippedProgress - this.prevEquippedProgress) * partialTicks);
-		EntityPlayerSP abstractclientplayer = this.mc.thePlayer;
-		float f1 = abstractclientplayer.getSwingProgress(partialTicks);
-		float f2 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
-		float f3 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;
+		val f = 1.0F - (this.prevEquippedProgress + (this.equippedProgress - this.prevEquippedProgress) * partialTicks);
+		val abstractclientplayer = this.mc.thePlayer;
+		val f1 = abstractclientplayer.getSwingProgress(partialTicks);
+		val f2 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
+		val f3 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;
 		this.rotateArroundXAndY(f2, f3);
 		this.setLightMapFromPlayer(abstractclientplayer);
 		this.rotateWithPlayerRotations(abstractclientplayer, partialTicks);
@@ -39,9 +42,9 @@ import org.spongepowered.asm.mixin.*;
 				this.renderItemMap(abstractclientplayer, f2, f, f1);
 			}
 			else if (abstractclientplayer.getItemInUseCount() > 0) {
-				EnumAction enumaction = this.itemToRender.getItemUseAction();
+				val enumaction = this.itemToRender.getItemUseAction();
 
-				final float progress = !Ghost.active() ? f1 : 0.0F;
+				val progress = !Infinity.inst().getModules().get(Ghost.class).isActive() ? f1 : 0.0F;
 
 				switch (enumaction) {
 					case EAT:

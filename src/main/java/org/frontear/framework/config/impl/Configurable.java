@@ -1,11 +1,12 @@
 package org.frontear.framework.config.impl;
 
 import com.google.gson.annotations.Expose;
+import lombok.NonNull;
+import lombok.val;
 import org.frontear.framework.config.IConfigurable;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 /**
  * An implementation of {@link IConfigurable}. Usage of this class is heavily discouraged, instead, implement {@link
@@ -17,19 +18,16 @@ public final class Configurable<C extends Configurable<C>> implements IConfigura
 	 *
 	 * @see IConfigurable#load(IConfigurable)
 	 */
-	@Override public void load(C self) {
-		final Stream<Field> exposed = Arrays.stream(this.getClass().getDeclaredFields())
+	public void load(@NonNull C self) {
+		val exposed = Arrays.stream(this.getClass().getDeclaredFields())
 				.filter(x -> x.isAnnotationPresent(Expose.class)).peek(x -> x.setAccessible(true));
-		exposed.forEach(x -> {
-			try {
-				final Field equivalent = self.getClass().getDeclaredField(x.getName());
-				equivalent.setAccessible(true);
+		exposed.forEach(x -> this.apply(self, x));
+	}
 
-				x.set(this, equivalent.get(self));
-			}
-			catch (NoSuchFieldException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		});
+	private void apply(@NonNull C self, @NonNull final Field field) {
+		val equivalent = self.getClass().getDeclaredField(field.getName());
+		equivalent.setAccessible(true);
+
+		field.set(this, equivalent.get(self));
 	}
 }

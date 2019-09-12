@@ -1,5 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
@@ -12,17 +14,16 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 
-@Deprecated public final class InventoryMove extends Module {
-	private final KeyBinding[] keys = { mc.getGameSettings().keyBindForward, mc.getGameSettings().keyBindLeft, mc
-			.getGameSettings().keyBindBack, mc.getGameSettings().keyBindRight, mc.getGameSettings().keyBindJump, mc
-			.getGameSettings().keyBindSneak };
+@Deprecated @FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class InventoryMove extends Module {
+	KeyBinding[] keys = { mc.gameSettings.keyBindForward, mc.gameSettings.keyBindLeft, mc.gameSettings.keyBindBack, mc.gameSettings.keyBindRight, mc.gameSettings.keyBindJump, mc.gameSettings.keyBindSneak };
 
 	public InventoryMove() {
 		super(Keyboard.KEY_K, false, Category.PLAYER);
 	}
 
 	@SubscribeEvent public void onTick(TickEvent.PlayerTickEvent event) {
-		if (mc.getCurrentScreen() instanceof GuiContainerCreative || mc.getCurrentScreen() instanceof GuiInventory) {
+		if (mc.currentScreen instanceof GuiContainerCreative || mc.currentScreen instanceof GuiInventory) {
 			Arrays.stream(keys)
 					.forEach(x -> KeyBinding.setKeyBindState(x.getKeyCode(), Keyboard.isKeyDown(x.getKeyCode())));
 		}

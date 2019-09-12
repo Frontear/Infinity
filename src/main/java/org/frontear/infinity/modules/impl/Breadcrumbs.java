@@ -1,6 +1,9 @@
 package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Queues;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import lombok.val;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -15,9 +18,10 @@ import java.util.Deque;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public final class Breadcrumbs extends Module {
-	private final Deque<Vec3> positions = Queues.newArrayDeque();
-	private final Timer timer = new Timer();
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class Breadcrumbs extends Module {
+	Deque<Vec3> positions = Queues.newArrayDeque();
+	Timer timer = new Timer();
 
 	public Breadcrumbs() {
 		super(Keyboard.KEY_J, false, Category.RENDER);
@@ -40,7 +44,7 @@ public final class Breadcrumbs extends Module {
 	}
 
 	@SubscribeEvent public void onRender(RenderWorldLastEvent event) {
-		final float width = 3.5f;
+		val width = 3.5f;
 		glPushMatrix();
 		{
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -54,7 +58,7 @@ public final class Breadcrumbs extends Module {
 			glBegin(GL_LINE_STRIP);
 			{
 				// GL cannot work with lambdas due to how GLContext handles capabilities on threads
-				for (Vec3 pos : positions) {
+				for (val pos : positions) {
 					glVertex3d(pos.xCoord - mc
 							.getRenderManager().renderPosX, (pos.yCoord + (width / 200f)) - mc // raise line above the ground, so that half of it isn't inside a block
 							.getRenderManager().renderPosY, pos.zCoord - mc.getRenderManager().renderPosZ);

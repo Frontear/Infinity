@@ -1,5 +1,6 @@
 package org.frontear.mixins;
 
+import lombok.val;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.Infinity;
@@ -10,8 +11,6 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class) public abstract class MixinEntity {
-	private SafeWalk instance;
-
 	/**
 	 * @author Frontear
 	 * @reason {@link UpdateEvent}
@@ -21,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 			at = { @At(value = "HEAD",
 					id = "pre"), @At(value = "TAIL",
 					id = "post") }) private void onEntityUpdate(CallbackInfo info) {
-		final Entity self = (Entity) (Object) this;
+		val self = (Entity) (Object) this;
 
 		if (info.getId().equals("updateEvent:pre")) {
 			MinecraftForge.EVENT_BUS.post(new UpdateEvent(self, true));
@@ -42,10 +41,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	@Redirect(method = "moveEntity",
 			at = @At(value = "INVOKE",
 					target = "Lnet/minecraft/entity/Entity;isSneaking()Z")) private boolean isSneaking(Entity entity) {
-		if (instance == null) {
-			instance = Infinity.inst().getModules().get(SafeWalk.class);
-		}
-
-		return instance.isActive() || entity.isSneaking();
+		return Infinity.inst().getModules().get(SafeWalk.class).isActive() || entity.isSneaking();
 	}
 }

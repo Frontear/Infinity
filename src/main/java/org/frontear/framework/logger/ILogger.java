@@ -1,5 +1,7 @@
 package org.frontear.framework.logger;
 
+import lombok.NonNull;
+
 /**
  * A basic logging system, backed by {@link org.apache.logging.log4j.Logger}
  */
@@ -16,7 +18,7 @@ public interface ILogger {
 	 *
 	 * @throws T The throwable that prevents continuation of the application
 	 */
-	<T extends Throwable> T fatal(T throwable, Object object, Object... args) throws T;
+	<T extends Throwable> T fatal(@NonNull T throwable, @NonNull Object object, Object... args) throws T;
 
 	/**
 	 * An error usually represents something that causes an issue in a small part of the application, such as a method
@@ -25,7 +27,7 @@ public interface ILogger {
 	 * @param object An object that is converted into a string
 	 * @param args   Any additional objects that are passed into a {@link String#format(String, Object...)}
 	 */
-	void error(Object object, Object... args);
+	void error(@NonNull Object object, Object... args);
 
 	/**
 	 * A warning represents a minor issue, something that can potentially end up causing an error
@@ -33,7 +35,7 @@ public interface ILogger {
 	 * @param object An object that is converted into a string
 	 * @param args   Any additional objects that are passed into a {@link String#format(String, Object...)}
 	 */
-	void warn(Object object, Object... args);
+	void warn(@NonNull Object object, Object... args);
 
 	/**
 	 * An info represents a simple informative log, this can just be telling the user of small things, such as changes
@@ -42,7 +44,7 @@ public interface ILogger {
 	 * @param object An object that is converted into a string
 	 * @param args   Any additional objects that are passed into a {@link String#format(String, Object...)}
 	 */
-	void info(Object object, Object... args);
+	void info(@NonNull Object object, Object... args);
 
 	/**
 	 * A debug represents a log that will only show up if "-Dfrontear.debug=true" is passed as a JVM argument
@@ -50,14 +52,14 @@ public interface ILogger {
 	 * @param object An object that is converted into a string
 	 * @param args   Any additional objects that are passed into a {@link String#format(String, Object...)}
 	 */
-	void debug(Object object, Object... args);
+	void debug(@NonNull Object object, Object... args);
 
 	/**
 	 * Calls {@link ILogger#endSection()}, then {@link ILogger#startSection(String)}
 	 *
 	 * @param title The section name
 	 */
-	default void endStartSection(String title) {
+	default void endStartSection(@NonNull String title) {
 		endSection();
 		startSection(title);
 	}
@@ -72,5 +74,5 @@ public interface ILogger {
 	 *
 	 * @param title The section name
 	 */
-	void startSection(String title);
+	void startSection(@NonNull String title);
 }

@@ -1,29 +1,13 @@
 import groovy.json.JsonSlurper
 
-buildscript {
-    repositories {
-        jcenter()
-        maven {
-            name = "forge"
-            url = "https://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sponge"
-            url = "https://repo.spongepowered.org/maven"
-        }
-    }
-    dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT"
-        classpath "org.spongepowered:mixingradle:0.6-SNAPSHOT"
-    }
+plugins {
+    id "net.minecraftforge.gradle.forge" version "2.1-SNAPSHOT"
+    id "org.spongepowered.mixin" version "0.6-SNAPSHOT"
+    id "java"
 }
 
-apply plugin: "net.minecraftforge.gradle.forge"
-apply plugin: "org.spongepowered.mixin"
-apply plugin: "java"
-
 sourceCompatibility = targetCompatibility = 1.8
-version = "2.2-alpha"
+version = "2.3-alpha"
 group = "org.frontear"
 archivesBaseName = "Infinity"
 def access_transformer = "infinity_at.cfg"
@@ -33,9 +17,11 @@ def replacements = [
         "modid"    : archivesBaseName.toLowerCase(),
         "name"     : archivesBaseName,
         "version"  : project.version,
-        "mcversion": project.minecraft.version
 ]
 sourceSets.main.ext.refMap = refmap
+tasks.withType(JavaCompile) {
+    options.compilerArgs += [ "-Xplugin:Manifold" ] // manifold requires this
+}
 
 minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
@@ -43,8 +29,10 @@ minecraft {
     mappings = "stable_22"
     makeObfSourceJar = false
 
+    replacements["mcversion"] = version
+
     replaceIn "MinecraftMod.java"
-    replacements.each { k, v -> replace "\${$k}": v }
+    replacements.each { k, v -> replace "%$k": v }
 }
 
 repositories {
@@ -53,10 +41,6 @@ repositories {
         name = "sponge"
         url = "https://repo.spongepowered.org/maven"
     }
-    maven {
-        name = "jitpack"
-        url = "https://jitpack.io"
-    }
 }
 
 dependencies {
@@ -64,6 +48,14 @@ dependencies {
         exclude module: "*"
         // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
     }
+
+    compile("com.ea.agentloader:ea-agent-loader:1.0.3") {
+        exclude module: "*" // attach-api is loaded at runtime, it's located in the resources for the ea-agent-loader
+    }
+
+    //implementation files("${System.getProperty('java.home')}/../${OperatingSystem.isMacOsX() ? 'Classes/classes.jar' : 'lib/tools.jar'}") // ahh, mac os
+    implementation("org.projectlombok:lombok:1.18.8")
+    compile("systems.manifold:manifold-all:2019.1.14")
 }
 
 processResources {

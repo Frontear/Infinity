@@ -1,10 +1,14 @@
 package org.frontear.infinity.events.input;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-public final class MouseEvent extends Event {
-	private final int button;
-	private final boolean pressed;
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class MouseEvent extends Event {
+	int button;
+	@Getter boolean pressed;
 
 	public MouseEvent(int button, boolean pressed) {
 		this.button = button;
@@ -17,9 +21,5 @@ public final class MouseEvent extends Event {
 
 	public boolean isRight() {
 		return button == 1;
-	}
-
-	public boolean isPressed() {
-		return pressed;
 	}
 }

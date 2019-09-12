@@ -1,5 +1,6 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.val;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,9 +24,10 @@ public final class ESP extends Module {
 	}
 
 	@SubscribeEvent public void onRender(RenderWorldLastEvent event) {
-		mc.getWorld().getLoadedEntityList().stream().filter(x -> !x.equals(mc.getPlayer())).forEach(x -> {
-			final Color color = x instanceof EntityPlayer ? Color.WHITE : x instanceof EntityLivingBase && x
-					.isInvisible() ? Color.PINK : x instanceof EntityAnimal ? Color.YELLOW : x instanceof EntityMob ? Color.RED : null;
+		mc.theWorld.getLoadedEntityList().stream().filter(x -> !x.equals(mc.thePlayer)).forEach(x -> {
+			//noinspection RedundantCast
+			val color = x instanceof EntityPlayer ? Color.WHITE : x instanceof EntityLivingBase && x
+					.isInvisible() ? Color.PINK : x instanceof EntityAnimal ? Color.YELLOW : x instanceof EntityMob ? Color.RED : (Color) null;
 			if (color != null) {
 				this.renderESP(x, color, event.partialTicks);
 			}
@@ -45,11 +47,11 @@ public final class ESP extends Module {
 			glDisable(GL_DEPTH_TEST);
 			{
 				// normalize using partial ticks
-				double x = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks) - mc
+				val x = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks) - mc
 						.getRenderManager().renderPosX;
-				double y = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) - mc
+				val y = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) - mc
 						.getRenderManager().renderPosY;
-				double z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - mc
+				val z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - mc
 						.getRenderManager().renderPosZ;
 
 				RenderGlobal.drawOutlinedBoundingBox(AxisAlignedBB

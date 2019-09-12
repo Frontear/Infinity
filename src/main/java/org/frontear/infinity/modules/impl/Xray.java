@@ -1,5 +1,8 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import lombok.val;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockRedstoneOre;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -10,9 +13,9 @@ import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-public final class Xray extends Module {
-	private int last_ambient;
-	private boolean last_fullbright;
+@FieldDefaults(level = AccessLevel.PRIVATE) public final class Xray extends Module {
+	int last_ambient;
+	boolean last_fullbright;
 
 	public Xray() {
 		super(Keyboard.KEY_X, false, Category.RENDER);
@@ -26,20 +29,20 @@ public final class Xray extends Module {
 	}
 
 	@SubscribeEvent public void onShutdown(ShutdownEvent event) {
-		mc.getGameSettings().ambientOcclusion = last_ambient; // don't want to save 0
-		mc.getGameSettings().saveOptions();
+		mc.gameSettings.ambientOcclusion = last_ambient; // don't want to save 0
+		mc.gameSettings.saveOptions();
 	}
 
 
 	@Override protected void onToggle(boolean active) {
-		Fullbright instance = Infinity.inst().getModules().get(Fullbright.class);
+		val instance = Infinity.inst().getModules().get(Fullbright.class);
 		if (active) {
-			last_ambient = mc.getGameSettings().ambientOcclusion;
+			last_ambient = mc.gameSettings.ambientOcclusion;
 			last_fullbright = instance.isActive();
 		}
 
-		mc.getGameSettings().ambientOcclusion = active ? 0 : last_ambient;
-		mc.getRenderGlobal().loadRenderers();
+		mc.gameSettings.ambientOcclusion = active ? 0 : last_ambient;
+		mc.renderGlobal.loadRenderers();
 
 		instance.setActive(active || last_fullbright);
 	}

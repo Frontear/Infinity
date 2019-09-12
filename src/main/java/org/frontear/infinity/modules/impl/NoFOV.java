@@ -1,8 +1,8 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.val;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -27,7 +27,7 @@ public final class NoFOV extends Module {
 
 	// reverses fov, from AbstractClientPlayer
 	private float reset(EntityPlayer entity, float fov) {
-		IAttributeInstance iattributeinstance = entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+		val iattributeinstance = entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
 		return (float) ((double) fov / ((iattributeinstance.getAttributeValue() / (double) entity.capabilities
 				.getWalkSpeed() + 1.0D) / 2.0D));
 	}
