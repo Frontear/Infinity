@@ -18,22 +18,12 @@ public final class Execute extends Command {
 
 	@Override public void process(@NonNull String[] args) throws Exception {
 		async.execute(() -> {
-			try {
-				Thread.sleep(Long.parseLong(args[0]));
-				Infinity.inst().getCommands().getObjects().filter(x -> x.getName().equalsIgnoreCase(args[1]))
-						.findFirst().ifPresent(x -> {
-					val arguments = ArrayUtils.removeAll(args, 0, 1);
-					try {
+			Thread.sleep(Long.parseLong(args[0]));
+			Infinity.inst().getCommands().getObjects().filter(x -> x.getName().equalsIgnoreCase(args[1])).findFirst()
+					.ifPresent(x -> {
+						val arguments = ArrayUtils.removeAll(args, 0, 1);
 						x.process(arguments);
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-					}
-				});
-			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+					});
 		});
 	}
 }

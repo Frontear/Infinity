@@ -39,12 +39,7 @@ import java.net.UnknownHostException;
 	 */
 	@Overwrite private void refreshServerList() {
 		for (var i = 0; i < savedServerList.countServers(); i++) {
-			try {
-				oldServerPinger.ping(savedServerList.getServerData(i));
-			}
-			catch (UnknownHostException e) {
-				e.printStackTrace();
-			}
+			oldServerPinger.ping(savedServerList.getServerData(i));
 		}
 	}
 

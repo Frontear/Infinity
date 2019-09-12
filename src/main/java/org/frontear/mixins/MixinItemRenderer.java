@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.*;
 	 */
 	@Overwrite public void renderItemInFirstPerson(float partialTicks) {
 		val f = 1.0F - (this.prevEquippedProgress + (this.equippedProgress - this.prevEquippedProgress) * partialTicks);
-		EntityPlayerSP abstractclientplayer = this.mc.thePlayer;
+		val abstractclientplayer = this.mc.thePlayer;
 		val f1 = abstractclientplayer.getSwingProgress(partialTicks);
 		val f2 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
 		val f3 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;

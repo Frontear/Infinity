@@ -83,12 +83,7 @@ import java.util.Map;
 	}
 
 	public void kill(int id) {
-		try {
-			Runtime.getRuntime().exec((OS == OperatingSystem.WINDOWS ? "taskkill /F /PID " : "kill -9 ") + id);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		Runtime.getRuntime().exec((OS == OperatingSystem.WINDOWS ? "taskkill /F /PID " : "kill -9 ") + id);
 	}
 
 	public String getClipboardContent() {
