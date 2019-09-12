@@ -55,8 +55,7 @@ import java.util.zip.ZipFile;
 					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
 							.getPath(), "file:", "!")));
 			val stream = jar.getInputStream(jar.getEntry(ModEnvironment.getInfoJsonFilename()));
-			val element = new JsonParser()
-					.parse(new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)));
+			val element = new JsonParser().parse(stream.bufferedReader());
 			info = ModEnvironment.getInfoJsonObject(element);
 		}
 		catch (NullPointerException | IOException e) {

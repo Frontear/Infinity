@@ -51,8 +51,7 @@ import org.lwjgl.input.Keyboard;
 			val command = potential.get();
 			val args = ArrayUtils.remove(split, 0); // 0th index is just the command name
 			if (args.length < command.getArguments()) {
-				sendMessage(String
-						.format("Too few arguments (min %d)", command.getArguments()), EnumChatFormatting.RED);
+				sendMessage("Too few arguments (min ${command.getArguments()})", EnumChatFormatting.RED);
 			}
 			else {
 				try {
