@@ -13,8 +13,19 @@ import org.lwjgl.input.Keyboard;
 import java.util.function.Predicate;
 
 public class AutoTool extends Module {
+	private boolean last_autoclicker = false; // todo: fix dependency on autoclicker
+
 	public AutoTool() {
 		super(Keyboard.KEY_L, true, Category.PLAYER);
+	}
+
+	@Override protected void onToggle(boolean active) {
+		val instance = Infinity.inst().getModules().get(AutoClicker.class);
+		if (active) {
+			last_autoclicker = instance.isActive();
+		}
+
+		instance.setActive(active || last_autoclicker);
 	}
 
 	public void selectOptimizedItem(final InventoryPlayer player, final MovingObjectPosition object) {
