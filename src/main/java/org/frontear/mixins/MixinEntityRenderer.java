@@ -1,9 +1,12 @@
 package org.frontear.mixins;
 
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
+import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.Infinity;
+import org.frontear.infinity.events.render.OverlayEvent;
 import org.frontear.infinity.modules.impl.Ghost;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,5 +44,12 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 					ordinal = 0)) private boolean isPotionActive(EntityLivingBase entity, Potion potion) {
 		return Infinity.inst().getModules().get(Ghost.class).isActive() && entity
 				.isPotionActive(potion); // todo: remove sky blacking
+	}
+
+	@Redirect(method = "updateCameraAndRender",
+			at = @At(value = "INVOKE",
+					target = "Lnet/minecraft/client/gui/GuiIngame;renderGameOverlay(F)V")) private void renderGameOverlay(GuiIngame ingame, float partialTicks) {
+		ingame.renderGameOverlay(partialTicks);
+		MinecraftForge.EVENT_BUS.post(new OverlayEvent(partialTicks));
 	}
 }
