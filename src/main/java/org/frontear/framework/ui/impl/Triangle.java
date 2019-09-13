@@ -4,7 +4,8 @@ import org.frontear.framework.ui.Drawable;
 
 import java.awt.*;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.frontear.framework.utils.opengl.OpenGLState.*;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 
 public final class Triangle extends Drawable {
 	/**
@@ -22,13 +23,13 @@ public final class Triangle extends Drawable {
 	}
 
 	@Override protected void render(int x, int y, int width, int height) {
-		glBegin(GL_TRIANGLES);
+		begin(GL_TRIANGLES);
 		{
-			glVertex2d(x, y);
-			glVertex2d(x - width / 2f, y + height);
-			glVertex2d(x + width / 2f, y + height);
+			vertex2(x, y);
+			vertex2(x - width / 2f, y + height);
+			vertex2(x + width / 2f, y + height);
 		}
-		glEnd();
+		end();
 	}
 
 	@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {

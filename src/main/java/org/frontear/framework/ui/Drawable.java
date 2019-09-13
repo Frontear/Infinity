@@ -49,16 +49,28 @@ import static org.lwjgl.opengl.GL11.*;
 		pushAttrib(GL_CURRENT_BIT);
 		pushMatrix();
 		{
-			blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			val blend = enable(GL_BLEND);
+			val texture_2d = disable(GL_TEXTURE_2D);
+			val cull_face = disable(GL_CULL_FACE);
+
+			if (blend) {
+				blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			}
 			color(color);
 
-			enable(GL_BLEND);
-			disable(GL_CULL_FACE, GL_TEXTURE_2D);
 			{
 				render(x, y, width, height);
 			}
-			disable(GL_BLEND);
-			enable(GL_CULL_FACE, GL_TEXTURE_2D);
+
+			if (blend) {
+				disable(GL_BLEND);
+			}
+			if (texture_2d) {
+				enable(GL_TEXTURE_2D);
+			}
+			if (cull_face) {
+				enable(GL_CULL_FACE);
+			}
 		}
 		popMatrix();
 		popAttrib();

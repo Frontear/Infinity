@@ -84,30 +84,44 @@ import static org.lwjgl.opengl.GL11.*;
 		}
 	}
 
-	public void enable(int... caps) {
+	/**
+	 * Attempts to enable an OpenGL capability
+	 *
+	 * @param cap The targeted OpenGL capability
+	 *
+	 * @return Whether the targeted capability was just enabled, and was <b>not</b>> previously enabled
+	 */
+	public boolean enable(int cap) {
+		boolean flag = false;
+
 		if (matrix) {
-			for (int cap : caps) {
-				if (!glIsEnabled(cap)) {
-					glEnable(cap);
-				}
-				else {
-					logger.debug("cannot glEnable 0x%s, it's already enabled", String.format("%x", cap).toUpperCase());
-				}
+			flag = glIsEnabled(cap);
+			if (!flag) {
+				glEnable(cap);
 			}
 		}
+
+		return flag;
 	}
 
-	public void disable(int... caps) {
+	/**
+	 * Attempts to disable an OpenGL capability
+	 *
+	 * @param cap The targeted OpenGL capability
+	 *
+	 * @return Whether the targeted capability was just disabled, and was <b>not</b>> previously disabled
+	 */
+	public boolean disable(int cap) {
+		boolean flag = false;
+
 		if (matrix) {
-			for (int cap : caps) {
-				if (glIsEnabled(cap)) {
-					glDisable(cap);
-				}
-				else {
-					logger.debug("cannot glDisable 0x%s, as it's not enabled", String.format("%x", cap).toUpperCase());
-				}
+			flag = glIsEnabled(cap);
+			if (flag) {
+				glDisable(cap);
 			}
 		}
+
+		return flag;
 	}
 
 	public void blendFunc(int sfactor, int dfactor) {
@@ -116,6 +130,26 @@ import static org.lwjgl.opengl.GL11.*;
 		}
 		else {
 			logger.error("Cannot glBlendFunc(0x%x, 0x%x), no active matrix", sfactor, dfactor);
+		}
+	}
+
+	public void vertex2(@NonNull Number x, @NonNull Number y) {
+		if (matrix && drawing) {
+			if (x instanceof Float) {
+				glVertex2f(x.floatValue(), y.floatValue());
+			}
+			else if (x instanceof Double) {
+				glVertex2d(x.doubleValue(), y.doubleValue());
+			}
+			else if (x instanceof Integer) {
+				glVertex2i(x.intValue(), y.intValue());
+			}
+			else {
+				logger.error("Failed to glVertex2(%s, %s), parameters not of type float, double, or int", x, y);
+			}
+		}
+		else {
+			logger.error("Cannot glVertex2(%s, %s), no active rendering/matrix set", x, y);
 		}
 	}
 }

@@ -9,7 +9,8 @@ import org.frontear.framework.ui.Drawable;
 import java.awt.*;
 
 import static java.lang.Math.*;
-import static org.lwjgl.opengl.GL11.*;
+import static org.frontear.framework.utils.opengl.OpenGLState.*;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLE_FAN;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public final class Circle extends Drawable {
@@ -46,14 +47,14 @@ import static org.lwjgl.opengl.GL11.*;
 
 	// https://stackoverflow.com/a/24843626/9091276
 	@Override protected void render(int x, int y, int width, int height) {
-		glBegin(GL_TRIANGLE_FAN);
+		begin(GL_TRIANGLE_FAN);
 		{
-			glVertex2d(x, y);
+			vertex2(x, y);
 			for (var i = 0; i <= factor; i++) {
-				glVertex2d((x + (radius * cos(i * (PI * 2f) / factor))), (y + (radius * sin(i * (PI * 2f) / factor))));
+				vertex2((x + (radius * cos(i * (PI * 2f) / factor))), (y + (radius * sin(i * (PI * 2f) / factor))));
 			}
 		}
-		glEnd();
+		end();
 	}
 
 	@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {

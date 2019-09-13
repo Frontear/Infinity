@@ -4,7 +4,8 @@ import org.frontear.framework.ui.Drawable;
 
 import java.awt.*;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.frontear.framework.utils.opengl.OpenGLState.*;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
 
 public final class Rectangle extends Drawable {
 	/**
@@ -21,14 +22,14 @@ public final class Rectangle extends Drawable {
 	}
 
 	@Override protected void render(int x, int y, int width, int height) {
-		glBegin(GL_QUADS);
+		begin(GL_QUADS);
 		{
-			glVertex2d(x, y);
-			glVertex2d(x + width, y);
-			glVertex2d(x + width, y + height);
-			glVertex2d(x, y + height);
+			vertex2(x, y);
+			vertex2(x + width, y);
+			vertex2(x + width, y + height);
+			vertex2(x, y + height);
 		}
-		glEnd();
+		end();
 	}
 
 	@Override protected void click(int mouseX, int mouseY, boolean hover, int button) {
