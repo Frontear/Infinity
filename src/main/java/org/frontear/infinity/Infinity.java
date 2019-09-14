@@ -36,8 +36,8 @@ import static org.lwjgl.opengl.GL11.glScalef;
 	}
 
 	@SubscribeEvent public void onOverlay(OverlayEvent event) {
-		if (!modules.get(Ghost.class).isActive()) {
-			val scale = 1.75f;
+		if (!event.isDebugging() && !modules.get(Ghost.class).isActive()) {
+			val scale = 2.25f;
 			glScalef(scale, scale, 1);
 			{
 				Minecraft.getMinecraft().fontRendererObj

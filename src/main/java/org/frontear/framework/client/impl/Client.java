@@ -60,7 +60,7 @@ import java.util.zip.ZipFile;
 		if (DEBUG) {
 			val info = new JsonObject();
 			info.addProperty("name", "Developer");
-			info.addProperty("version", "0x0");
+			info.addProperty("version", "0.0");
 			info.add(ModEnvironment.getAuthorProperty(), new JsonArray());
 
 			return new ModInfo(info);

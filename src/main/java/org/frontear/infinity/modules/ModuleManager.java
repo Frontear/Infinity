@@ -28,7 +28,7 @@ public final class ModuleManager extends Manager<Module> {
 	}
 
 	@SubscribeEvent public void onRender(OverlayEvent event) {
-		if (!get(Ghost.class).isActive()) {
+		if (!event.isDebugging() && !get(Ghost.class).isActive()) {
 			val modules = getObjects().filter(Module::isActive).iterator();
 			var iter = 0;
 
