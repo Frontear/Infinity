@@ -49,7 +49,7 @@ import java.util.zip.ZipFile;
 		this.config = new Config(file);
 
 		if (DEBUG) {
-			logger.debug("Starting %s in debug mode (no changes will be saved)", this.getClassName());
+			logger.debug("Starting %s in debug mode (no changes will be saved)", this.getSimpleName());
 		}
 	}
 

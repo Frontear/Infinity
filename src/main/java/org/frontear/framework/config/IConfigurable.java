@@ -22,6 +22,6 @@ public interface IConfigurable<C extends IConfigurable<C>> {
 	 * @return the name of the json property
 	 */
 	default String getName() {
-		return this.getClassName();
+		return this.getSimpleName();
 	}
 }
