@@ -7,7 +7,7 @@ Please also make sure that you install the [Lombok](https://plugins.jetbrains.co
 
 - Clone this repository via using `git clone https://github.com/Frontear/Infinity.git Infinity`
 - Run `task setupDecompWorkspace` either using `./gradlew` or through IntelliJ IDEA
-- Use the pre-generated IntelliJ run configurations from `./gradlew genIntelliJRuns` to live test and debug the code. Use `./gradlew runClient` to test the code as if it were in production
+- Use `./gradlew runClient` to test the code as if it were in production, we don't support nor recommend using `./gradlew genIntelliJRuns`
 
 ## License
 This project is licensed under the [MIT License](https://tldrlegal.com/license/mit-license) &#8212; you can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
