@@ -12,7 +12,6 @@ import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.utils.time.Timer;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.zip.ZipFile;
 
 /**
@@ -42,31 +41,38 @@ import java.util.zip.ZipFile;
 
 		this.info = this.construct();
 		this.logger = new Logger(info.getName());
-		this.config = new Config(new File(".", "${info.getName().toLowerCase()}.json"));
+		val file = new File(DEBUG ? System.getProperty("java.io.tmpdir") : ".", "${info.getName().toLowerCase()}.json");
+		if (DEBUG) {
+			//noinspection ResultOfMethodCallIgnored
+			Runtime.getRuntime().addShutdownHook(new Thread(file::delete)); // see: deleteOnExit is evil
+		}
+		this.config = new Config(file);
+
+		if (DEBUG) {
+			logger.debug("Starting %s in debug mode (no changes will be saved)", this.getClass().getSimpleName());
+		}
 	}
 
 	/*
 	This mainly exists due to the Fabric API loading classes but not resources until later, causing discrepancies with resources attempting to be loaded
 	 */
 	private ModInfo construct() {
-		JsonObject info;
-		try {
+		if (DEBUG) {
+			val info = new JsonObject();
+			info.addProperty("name", "Developer");
+			info.addProperty("version", "0x0");
+			info.add(ModEnvironment.getAuthorProperty(), new JsonArray());
+
+			return new ModInfo(info);
+		}
+		else {
 			val jar = new ZipFile(new File(StringUtils
 					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
 							.getPath(), "file:", "!")));
 			val stream = jar.getInputStream(jar.getEntry(ModEnvironment.getInfoJsonFilename()));
 			val element = new JsonParser().parse(stream.bufferedReader());
-			info = ModEnvironment.getInfoJsonObject(element);
+
+			return new ModInfo(ModEnvironment.getInfoJsonObject(element));
 		}
-		catch (NullPointerException | IOException e) {
-			e.printStackTrace();
-			{
-				info = new JsonObject();
-				info.addProperty("name", "null");
-				info.addProperty("version", "null");
-				info.add(ModEnvironment.getAuthorProperty(), new JsonArray());
-			}
-		}
-		return new ModInfo(info);
 	}
 }

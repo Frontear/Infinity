@@ -54,7 +54,7 @@ import java.util.Set;
 	 * @see IConfig#load()
 	 */
 	@Override public void load() {
-		try (val reader = config_file.reader()) {
+		try (val reader = new FileReader(config_file)) {
 			logger.debug("Loading config from %s", config_file.getAbsolutePath());
 			val config = new JsonParser().parse(reader).getAsJsonObject();
 

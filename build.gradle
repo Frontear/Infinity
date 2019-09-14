@@ -18,6 +18,10 @@ def replacements = [
         "name"     : archivesBaseName,
         "version"  : project.version,
 ]
+def runArgs = [
+        "--tweakClass", "org.spongepowered.asm.launch.MixinTweaker",
+        "--mixin", mixin
+]
 sourceSets.main.ext.refMap = refmap
 tasks.withType(JavaCompile) {
     options.compilerArgs += [ "-Xplugin:Manifold" ] // manifold requires this
@@ -28,6 +32,11 @@ minecraft {
     runDir = "run"
     mappings = "stable_22"
     makeObfSourceJar = false
+    clientJvmArgs = [
+            "-Dmixin.hotSwap=true",
+            "-Dfrontear.debug=true"
+    ]
+    clientRunArgs = runArgs
 
     replacements["mcversion"] = version
 
@@ -76,8 +85,8 @@ processResources {
 }
 
 runClient {
-    jvmArgs "-Xmx1G", "-Dmixin.hotSwap=true", "-Dfrontear.debug=true" // debugging property
-    args "--tweakClass", "org.spongepowered.asm.launch.MixinTweaker", "--mixin", mixin
+    jvmArgs "-Xmx1G"
+    args runArgs
 }
 
 javadoc {
