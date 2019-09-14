@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 	 * @param z     The z-coordinate to rotate from
 	 *
 	 * @author Frontear
-	 * @reason Reduce screen rotate effect by 3x, will return to normal if {@link Ghost#active()}
+	 * @reason Reduce screen rotate effect by 3x, will return to normal if {@link Ghost#isActive()}
 	 */
 	@Redirect(method = "hurtCameraEffect",
 			at = @At(value = "INVOKE",

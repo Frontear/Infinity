@@ -46,8 +46,8 @@ import static org.lwjgl.opengl.GL11.glScalef;
 		var scrollPos = scrollFactor;
 		glScalef(scale, scale, 1f);
 		{
-			int y = backing.getY() + backing.getHeight(); // text starts from the bottom to the top
-			for (String line : lines) {
+			var y = backing.getY() + backing.getHeight(); // text starts from the bottom to the top
+			for (val line : lines) {
 				if (scrollPos-- > 0) {
 					continue;
 				}

@@ -13,7 +13,7 @@ public final class MinecraftAgent {
 
 	public static void agentmain(String args, Instrumentation inst) {
 		instrumentation = inst;
-		//final Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
+		//val theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
 		//theUnsafe.setAccessible(true);
 		//unsafe = (Unsafe) theUnsafe.get(null);
 	}

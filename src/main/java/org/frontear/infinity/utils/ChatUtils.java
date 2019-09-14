@@ -80,7 +80,7 @@ import java.util.regex.Pattern;
 	public ChatStyle styleFrom(String formatted) {
 		Preconditions.checkArgument(formatted != null);
 
-		final ChatStyle style = new ChatStyle();
+		val style = new ChatStyle();
 		defaultStyle(style);
 
 		if (!formatted.isEmpty() && formatted.contains(FORMAT_SYMBOL)) {

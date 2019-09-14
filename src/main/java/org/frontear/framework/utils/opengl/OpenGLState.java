@@ -2,6 +2,7 @@ package org.frontear.framework.utils.opengl;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+import lombok.var;
 import org.frontear.framework.logger.impl.Logger;
 
 import java.awt.*;
@@ -92,7 +93,7 @@ import static org.lwjgl.opengl.GL11.*;
 	 * @return Whether the targeted capability was just enabled, and was <b>not</b>> previously enabled
 	 */
 	public boolean enable(int cap) {
-		boolean flag = false;
+		var flag = false;
 
 		if (matrix) {
 			flag = glIsEnabled(cap);
@@ -112,7 +113,7 @@ import static org.lwjgl.opengl.GL11.*;
 	 * @return Whether the targeted capability was just disabled, and was <b>not</b>> previously disabled
 	 */
 	public boolean disable(int cap) {
-		boolean flag = false;
+		var flag = false;
 
 		if (matrix) {
 			flag = glIsEnabled(cap);

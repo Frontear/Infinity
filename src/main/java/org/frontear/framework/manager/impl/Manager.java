@@ -52,8 +52,7 @@ import java.util.stream.Stream;
 		val objects = Maps.<Class<? extends T>, T>newLinkedHashMap(); // forced order of elements
 
 		logger.debug("Searching ClassLoader for classes in '%s'", pkg);
-		for (ClassPath.ClassInfo info : ClassPath.from(Thread.currentThread().getContextClassLoader())
-				.getTopLevelClasses(pkg)) {
+		for (val info : ClassPath.from(Thread.currentThread().getContextClassLoader()).getTopLevelClasses(pkg)) {
 			val target = info.load();
 			logger.debug("Found target: %s", target.getSimpleName());
 

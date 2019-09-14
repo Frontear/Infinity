@@ -37,12 +37,12 @@ import java.util.Deque;
 
 			Category[] categories = Arrays.stream(Category.values()).filter(z -> z != Category.NONE)
 					.toArray(Category[]::new);
-			for (Category category : categories) {
-				final Panel panel = new Panel(x, y, width, height, new Color(255, 170, 0).darker());
+			for (val category : categories) {
+				val panel = new Panel(x, y, width, height, new Color(255, 170, 0).darker());
 
-				Module[] categoryModules = Infinity.inst().getModules().getObjects()
-						.filter(z -> z.getCategory() == category).toArray(Module[]::new);
-				for (Module module : categoryModules) {
+				val categoryModules = Infinity.inst().getModules().getObjects().filter(z -> z.getCategory() == category)
+						.toArray(Module[]::new);
+				for (val module : categoryModules) {
 					panel.add(new Button(module.getName(), 0, 0, 0, 0, null) {
 						@Override public void draw() {
 							if (module.isActive()) {

@@ -1,15 +1,9 @@
 package org.frontear.mixins;
 
+import lombok.val;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Session;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.client.ShutdownEvent;
@@ -20,21 +14,15 @@ import org.frontear.infinity.modules.impl.AutoClicker;
 import org.frontear.infinity.modules.impl.AutoTool;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class) public abstract class MixinMinecraft {
-	@Shadow public FontRenderer fontRendererObj;
-	@Shadow public RenderGlobal renderGlobal;
 	@Shadow public EntityPlayerSP thePlayer;
-	@Shadow public WorldClient theWorld;
-	@Shadow public GameSettings gameSettings;
-	@Shadow public GuiScreen currentScreen;
 	@Shadow public MovingObjectPosition objectMouseOver;
-	@Shadow @Final private Session session;
 	@Shadow private int leftClickCounter;
-	@Shadow private RenderManager renderManager;
 
 	/**
 	 * @author Frontear
@@ -86,7 +74,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 	@Inject(method = "clickMouse",
 			at = @At("HEAD")) private void clickMouse(CallbackInfo info) {
-		final AutoTool tool = Infinity.inst().getModules().get(AutoTool.class);
+		val tool = Infinity.inst().getModules().get(AutoTool.class);
 		if (tool.isActive()) {
 			tool.selectOptimizedItem(thePlayer.inventory, objectMouseOver);
 		}

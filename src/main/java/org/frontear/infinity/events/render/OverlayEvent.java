@@ -8,7 +8,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
-		makeFinal = true) public class OverlayEvent extends Event {
+		makeFinal = true) public final class OverlayEvent extends Event {
 	@Getter float partialTicks;
 	@Getter ScaledResolution resolution;
 
