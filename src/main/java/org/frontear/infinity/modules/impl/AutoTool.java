@@ -12,7 +12,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.function.Predicate;
 
-public class AutoTool extends Module {
+public final class AutoTool extends Module {
 	private boolean last_autoclicker = false; // todo: fix dependency on autoclicker
 
 	public AutoTool() {
