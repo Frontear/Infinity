@@ -6,7 +6,6 @@ import org.lwjgl.input.Mouse;
 
 import java.awt.*;
 
-import static org.frontear.framework.utils.opengl.OpenGLState.*;
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -46,34 +45,41 @@ import static org.lwjgl.opengl.GL11.*;
 	 * org.lwjgl.opengl.GL11#GL_BLEND} is enabled, and {@link org.lwjgl.opengl.GL11#GL_TEXTURE_2D} is disabled
 	 */
 	public void draw() {
-		pushAttrib(GL_CURRENT_BIT);
-		pushMatrix();
+		glPushAttrib(GL_CURRENT_BIT);
+		glPushMatrix();
 		{
-			val blend = enable(GL_BLEND);
-			val texture_2d = disable(GL_TEXTURE_2D);
-			val cull_face = disable(GL_CULL_FACE);
+			val blend = !glIsEnabled(GL_BLEND);
+			val texture_2d = glIsEnabled(GL_TEXTURE_2D);
+			val cull_face = glIsEnabled(GL_CULL_FACE);
 
 			if (blend) {
-				blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			}
-			color(color);
+			if (texture_2d) {
+				glDisable(GL_TEXTURE_2D);
+			}
+			if (cull_face) {
+				glDisable(GL_CULL_FACE);
+			}
+			glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
 
 			{
 				render(x, y, width, height);
 			}
 
 			if (blend) {
-				disable(GL_BLEND);
+				glDisable(GL_BLEND);
 			}
 			if (texture_2d) {
-				enable(GL_TEXTURE_2D);
+				glEnable(GL_TEXTURE_2D);
 			}
 			if (cull_face) {
-				enable(GL_CULL_FACE);
+				glEnable(GL_CULL_FACE);
 			}
 		}
-		popMatrix();
-		popAttrib();
+		glPopMatrix();
+		glPopAttrib();
 	}
 
 	/**
