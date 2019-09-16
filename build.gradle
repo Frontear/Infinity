@@ -49,13 +49,12 @@ dependencies {
         // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
     }
 
-    compile("com.ea.agentloader:ea-agent-loader:1.0.3") {
-        exclude module: "*" // attach-api is loaded at runtime, it's located in the resources for the ea-agent-loader
+    compile("systems.manifold:manifold-all:2019.1.14") {
+        exclude module: "*"
     }
 
     //implementation files("${System.getProperty('java.home')}/../${OperatingSystem.isMacOsX() ? 'Classes/classes.jar' : 'lib/tools.jar'}") // ahh, mac os
     implementation("org.projectlombok:lombok:1.18.8")
-    compile("systems.manifold:manifold-all:2019.1.14")
 }
 
 processResources {
