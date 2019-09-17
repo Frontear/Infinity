@@ -12,7 +12,7 @@ before_script:
   - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
 
 script:
-  - ./gradlew setupDecompWorkspace build javadoc
+  - ./gradlew setupDecompWorkspace build
   - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then fossa init && fossa analyze; fi
 
 before_cache:
