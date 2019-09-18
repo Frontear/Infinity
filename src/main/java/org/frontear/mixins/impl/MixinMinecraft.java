@@ -1,10 +1,12 @@
-package org.frontear.mixins;
+package org.frontear.mixins.impl;
 
+import lombok.Getter;
 import lombok.val;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.MinecraftForge;
+import org.frontear.framework.utils.unsafe.MemoryPool;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
@@ -12,6 +14,7 @@ import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.events.input.MouseEvent;
 import org.frontear.infinity.modules.impl.AutoClicker;
 import org.frontear.infinity.modules.impl.AutoTool;
+import org.frontear.mixins.IMinecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,10 +22,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Minecraft.class) public abstract class MixinMinecraft {
+@Mixin(Minecraft.class) public abstract class MixinMinecraft implements IMinecraft {
 	@Shadow public EntityPlayerSP thePlayer;
 	@Shadow public MovingObjectPosition objectMouseOver;
 	@Shadow private int leftClickCounter;
+	@Getter private final MemoryPool pool = new MemoryPool();
 
 	/**
 	 * @author Frontear

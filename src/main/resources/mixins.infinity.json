@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.7.10",
-  "package": "org.frontear.mixins",
+  "package": "org.frontear.mixins.impl",
   "refmap": "mixins.infinity.refmap.json",
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",

@@ -1,4 +1,4 @@
-package org.frontear.mixins;
+package org.frontear.mixins.impl;
 
 import net.minecraft.client.settings.GameSettings;
 import org.frontear.framework.config.IConfig;
