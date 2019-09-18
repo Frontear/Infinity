@@ -14,10 +14,18 @@ import java.awt.*;
 	protected static final Minecraft mc = Minecraft.getMinecraft();
 	Rectangle rectangle;
 	@NonFinal String text;
+	@NonFinal int color;
 
 	protected Button(@NonNull String text, int x, int y, int width, int height, Color color) {
 		this.rectangle = new Rectangle(x, y, width, height, color);
 		this.text = text;
+		this.color = contrast(color);
+	}
+
+	// https://stackoverflow.com/a/13030061/9091276
+	private int contrast(Color color) {
+		val y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000f;
+		return (y >= 128 ? Color.BLACK : Color.WHITE).getRGB();
 	}
 
 	public String getText() {
@@ -54,6 +62,7 @@ import java.awt.*;
 
 	@Override public void setColor(Color color) {
 		rectangle.setColor(color);
+		this.color = contrast(color);
 	}
 
 	@Override public void draw() {
@@ -61,13 +70,7 @@ import java.awt.*;
 		mc.fontRendererObj
 				.drawString(text, ((rectangle.getX() + (rectangle.getX() + rectangle.getWidth())) - mc.fontRendererObj
 						.getStringWidth(text)) / 2, (((rectangle.getY() + (rectangle.getY() + rectangle
-						.getHeight())) - (mc.fontRendererObj.FONT_HEIGHT + 1)) / 2), contrast(rectangle.getColor()));
-	}
-
-	// https://stackoverflow.com/a/13030061/9091276
-	private int contrast(Color color) {
-		val y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000f;
-		return (y >= 128 ? Color.BLACK : Color.WHITE).getRGB();
+						.getHeight())) - (mc.fontRendererObj.FONT_HEIGHT + 1)) / 2), color);
 	}
 
 	@Override protected void render(int x, int y, int width, int height) {

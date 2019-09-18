@@ -35,10 +35,13 @@ import java.util.Deque;
 			var x = 5;
 			var y = 5;
 
+			val normal = new Color(255, 170, 0).darker();
+			val active = normal.darker();
+
 			Category[] categories = Arrays.stream(Category.values()).filter(z -> z != Category.NONE)
 					.toArray(Category[]::new);
 			for (val category : categories) {
-				val panel = new Panel(x, y, width, height, new Color(255, 170, 0).darker());
+				val panel = new Panel(x, y, width, height, normal);
 
 				val categoryModules = Infinity.inst().getModules().getObjects().filter(z -> z.getCategory() == category)
 						.toArray(Module[]::new);
@@ -46,10 +49,10 @@ import java.util.Deque;
 					panel.add(new Button(module.getName(), 0, 0, 0, 0, null) {
 						@Override public void draw() {
 							if (module.isActive()) {
-								setColor(new Color(255, 170, 0).darker().darker());
+								setColor(normal);
 							}
 							else {
-								setColor(new Color(255, 170, 0).darker());
+								setColor(active);
 							}
 
 							super.draw();
