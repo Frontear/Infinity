@@ -54,6 +54,7 @@ import java.util.regex.Pattern;
 							return;
 						case ITALIC:
 							style.setItalic(true);
+							return;
 						default:
 							logger.fatal(new UnsupportedOperationException(), "Invalid format %s", x.name());
 					}
