@@ -23,10 +23,10 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class) public abstract class MixinMinecraft implements IMinecraft {
+	@Getter private final MemoryPool pool = new MemoryPool();
 	@Shadow public EntityPlayerSP thePlayer;
 	@Shadow public MovingObjectPosition objectMouseOver;
 	@Shadow private int leftClickCounter;
-	@Getter private final MemoryPool pool = new MemoryPool();
 
 	/**
 	 * @author Frontear
