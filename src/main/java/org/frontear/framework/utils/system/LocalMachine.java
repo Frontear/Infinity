@@ -63,7 +63,7 @@ import java.util.Map;
 
 	public Map<Integer, String> getProcesses() {
 		val processes = Maps.<Integer, String>newHashMap();
-		final boolean windows = OS == OperatingSystem.WINDOWS;
+		val windows = OS == OperatingSystem.WINDOWS;
 		val process = Runtime.getRuntime().exec(windows ? "tasklist /fo csv /nh" : "ps -e");
 		try (val reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
 			reader.lines().skip(1).forEach(x -> { // the first line is usually just a line to explain the format

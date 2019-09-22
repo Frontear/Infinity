@@ -3,9 +3,6 @@ package org.frontear.infinity.modules.impl;
 import com.google.common.collect.Sets;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
-import org.frontear.framework.threading.InfiniteThread;
-import org.frontear.framework.utils.system.LocalMachine;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
@@ -16,21 +13,10 @@ import java.util.Set;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public final class Ghost extends Module {
-	private static Thread obsChecker = null;
 	Set<Module> unsafe = Sets.newHashSet();
 
 	public Ghost() {
 		super(Keyboard.KEY_G, true, Category.NONE);
-		if (obsChecker == null) {
-			obsChecker = new InfiniteThread(() -> {
-				val obs = LocalMachine.getProcesses().containsValue("obs");
-				if (!isActive() && obs) {
-					this.setActive(true);
-					Infinity.inst().getLogger().warn("OBS Studio was detected, Ghost will automatically enabled.");
-				}
-			});
-			obsChecker.start();
-		}
 	}
 
 	@Override public void load(Module self) {

@@ -1,4 +1,4 @@
-package org.frontear.mixins;
+package org.frontear.mixins.impl;
 
 import net.minecraft.client.gui.*;
 import org.frontear.infinity.Infinity;

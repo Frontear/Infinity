@@ -4,7 +4,8 @@ import lombok.val;
 import lombok.var;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.*;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
@@ -12,23 +13,20 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.function.Predicate;
 
-public class AutoTool extends Module {
-	private boolean last_autoclicker = false; // todo: fix dependency on autoclicker
-
+public final class AutoTool extends Module {
 	public AutoTool() {
 		super(Keyboard.KEY_L, true, Category.PLAYER);
 	}
 
-	@Override protected void onToggle(boolean active) {
-		val instance = Infinity.inst().getModules().get(AutoClicker.class);
-		if (active) {
-			last_autoclicker = instance.isActive();
+	@SubscribeEvent public void onTick(TickEvent.PlayerTickEvent event) {
+		if (isActive() && mc.gameSettings.keyBindAttack.isKeyDown()) {
+			this.selectOptimizedItem(event.player.inventory);
+			mc.clickMouse();
 		}
-
-		instance.setActive(active || last_autoclicker);
 	}
 
-	public void selectOptimizedItem(final InventoryPlayer player, final MovingObjectPosition object) {
+	public void selectOptimizedItem(final InventoryPlayer player) {
+		val object = mc.objectMouseOver;
 		var slot = -1;
 		switch (object.typeOfHit) {
 			case ENTITY:

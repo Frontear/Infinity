@@ -31,17 +31,7 @@ import org.frontear.framework.info.IModInfo;
 			val authorList = json.get(ModEnvironment.getAuthorProperty()).getAsJsonArray();
 			val str = new StringBuilder();
 			authorList.forEach(str::append);
-			this.authors = replaceLast(String.join(", ", str.toString()), ", ", ", and ");
-		}
-	}
-
-	@SuppressWarnings("SameParameterValue") private String replaceLast(String string, String lookup, String replacement) {
-		val lastIndexOf = string.lastIndexOf(lookup);
-		if (lastIndexOf > -1) { // found last instance of 'lookup'
-			return string.substring(0, lastIndexOf) + replacement + string.substring(lastIndexOf + lookup.length());
-		}
-		else {
-			return string;
+			this.authors = String.join(", ", str.toString()).replaceLast(", ", ", and ");
 		}
 	}
 }

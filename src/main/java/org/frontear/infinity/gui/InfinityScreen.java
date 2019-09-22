@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import org.frontear.infinity.Infinity;
+import org.frontear.infinity.modules.impl.ClickGui;
 
 import java.awt.*;
 
@@ -28,8 +29,10 @@ import java.awt.*;
 
 	@Override protected void actionPerformed(@NonNull GuiButton button) {
 		if (button.enabled) {
-			//noinspection SwitchStatementWithTooFewBranches
 			switch (button.id) {
+				case -1:
+					Infinity.inst().getModules().get(ClickGui.class).toggle();
+					break;
 				case 200:
 					mc.displayGuiScreen(parent);
 					break;
@@ -41,8 +44,8 @@ import java.awt.*;
 	}
 
 	@Override public void initGui() {
+		this.buttonList.add(new GuiButton(-1, this.width / 2 - 155, this.height / 6 + 24 - 6, 150, 20, "ClickGUI"));
 		/*
-		this.buttonList.add(new GuiButton(-1, this.width / 2 - 155, this.height / 6 + 24 - 6, 150, 20, "..."));
 		this.buttonList.add(new GuiButton(-2, this.width / 2 + 5, this.height / 6 + 24 - 6, 150, 20, "..."));
 		this.buttonList.add(new GuiButton(-3, this.width / 2 - 155, this.height / 6 + 48 - 6, 150, 20, "..."));
 		this.buttonList.add(new GuiButton(-4, this.width / 2 + 5, this.height / 6 + 48 - 6, 150, 20, "..."));

@@ -54,6 +54,7 @@ import java.util.regex.Pattern;
 							return;
 						case ITALIC:
 							style.setItalic(true);
+							return;
 						default:
 							logger.fatal(new UnsupportedOperationException(), "Invalid format %s", x.name());
 					}
@@ -80,7 +81,7 @@ import java.util.regex.Pattern;
 	public ChatStyle styleFrom(String formatted) {
 		Preconditions.checkArgument(formatted != null);
 
-		final ChatStyle style = new ChatStyle();
+		val style = new ChatStyle();
 		defaultStyle(style);
 
 		if (!formatted.isEmpty() && formatted.contains(FORMAT_SYMBOL)) {

@@ -1,4 +1,4 @@
-package org.frontear.mixins;
+package org.frontear.mixins.impl;
 
 import lombok.val;
 import net.minecraft.block.state.IBlockState;

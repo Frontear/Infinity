@@ -17,7 +17,7 @@ import static org.lwjgl.opengl.GL11.glScalef;
 	Module module;
 	GuiScreen parent;
 
-	KeyBindScreen(@NonNull Module module, @NonNull GuiScreen parent) {
+	public KeyBindScreen(@NonNull Module module, @NonNull GuiScreen parent) {
 		this.module = module;
 		this.parent = parent;
 	}

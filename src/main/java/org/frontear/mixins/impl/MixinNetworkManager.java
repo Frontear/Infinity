@@ -1,4 +1,4 @@
-package org.frontear.mixins;
+package org.frontear.mixins.impl;
 
 import io.netty.channel.ChannelFutureListener;
 import io.netty.util.concurrent.Future;

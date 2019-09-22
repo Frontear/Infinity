@@ -1,6 +1,5 @@
 package org.frontear;
 
-import com.ea.agentloader.AgentLoader;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
@@ -28,9 +27,6 @@ import org.frontear.infinity.Infinity;
 		logger.debug("Creating concurrent client thread");
 		this.concurrent = new Thread(() -> {
 			try {
-				logger.debug("Loading agent");
-				AgentLoader.loadAgentClass(MinecraftAgent.class.getName(), "");
-
 				logger.debug("Loading %name");
 				val instance = Infinity.inst();
 				instance.getLogger().debug("Registering to EVENT_BUS");

@@ -35,7 +35,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 	@SubscribeEvent public void onUpdate(UpdateEvent event) {
 		if (event.getEntity() instanceof EntityPlayerSP && event.isPost()) {
-			EntityPlayerSP player = (EntityPlayerSP) event.getEntity();
+			val player = (EntityPlayerSP) event.getEntity();
 
 			if (player.motionX != 0 || player.motionY != 0 || player.motionZ != 0) {
 				positions.add(player.getPositionVector());
