@@ -64,6 +64,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 			at = @At(value = "FIELD",
 					opcode = Opcodes.GETFIELD,
 					target = "Lnet/minecraft/client/settings/GameSettings;gammaSetting:F")) private float updateLightmap(GameSettings settings) {
-		return Infinity.inst().getModules().get(Fullbright.class).isActive() ? Float.MAX_VALUE : settings.gammaSetting;
+		return Infinity.inst().getModules().get(Fullbright.class).isActive() ? 100f : settings.gammaSetting;
 	}
 }
