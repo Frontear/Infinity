@@ -13,7 +13,7 @@ import org.frontear.infinity.modules.gui.KeyBindScreen;
 import java.awt.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
-		makeFinal = true) public class Button extends Drawable {
+		makeFinal = true) public final class Button extends Drawable {
 	protected static final Minecraft mc = Minecraft.getMinecraft();
 	private static final Color DEFAULT = new Color(54, 71, 96);
 	private static final Color ACTIVE = new Color(7, 152, 252);

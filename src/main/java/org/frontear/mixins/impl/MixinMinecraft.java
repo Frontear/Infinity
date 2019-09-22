@@ -1,11 +1,8 @@
 package org.frontear.mixins.impl;
 
 import lombok.Getter;
-import lombok.val;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.framework.utils.unsafe.MemoryPool;
 import org.frontear.infinity.Infinity;
@@ -13,7 +10,8 @@ import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.events.input.MouseEvent;
-import org.frontear.infinity.modules.impl.*;
+import org.frontear.infinity.modules.impl.AutoClicker;
+import org.frontear.infinity.modules.impl.Xray;
 import org.frontear.mixins.IMinecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -25,8 +23,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class) public abstract class MixinMinecraft implements IMinecraft {
 	@Getter private final MemoryPool pool = new MemoryPool();
-	@Shadow public EntityPlayerSP thePlayer;
-	@Shadow public MovingObjectPosition objectMouseOver;
 	@Shadow private int leftClickCounter;
 
 	@Redirect(method = "isAmbientOcclusionEnabled",
@@ -86,11 +82,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 	@Inject(method = "clickMouse",
 			at = @At("HEAD")) private void clickMouse(CallbackInfo info) {
-		val tool = Infinity.inst().getModules().get(AutoTool.class);
-		if (tool.isActive()) {
-			tool.selectOptimizedItem(thePlayer.inventory, objectMouseOver);
-		}
-
 		if (Infinity.inst().getModules().get(AutoClicker.class).isActive()) {
 			leftClickCounter = 0; // this was meant to have been an auto-clicker preventative thing, but... yeah
 		}
