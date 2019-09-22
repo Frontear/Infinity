@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.val;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.framework.utils.unsafe.MemoryPool;
@@ -12,11 +13,11 @@ import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.events.input.MouseEvent;
-import org.frontear.infinity.modules.impl.AutoClicker;
-import org.frontear.infinity.modules.impl.AutoTool;
+import org.frontear.infinity.modules.impl.*;
 import org.frontear.mixins.IMinecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
@@ -27,6 +28,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	@Shadow public EntityPlayerSP thePlayer;
 	@Shadow public MovingObjectPosition objectMouseOver;
 	@Shadow private int leftClickCounter;
+
+	@Redirect(method = "isAmbientOcclusionEnabled",
+			at = @At(value = "FIELD",
+					opcode = Opcodes.GETFIELD,
+					target = "Lnet/minecraft/client/settings/GameSettings;ambientOcclusion:I")) private static int isAmbientOcclusionEnabled(GameSettings settings) {
+		return Infinity.inst().getModules().get(Xray.class).isActive() ? 0 : settings.ambientOcclusion;
+	}
 
 	/**
 	 * @author Frontear

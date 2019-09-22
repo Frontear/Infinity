@@ -3,13 +3,16 @@ package org.frontear.mixins.impl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.render.OverlayEvent;
+import org.frontear.infinity.modules.impl.Fullbright;
 import org.frontear.infinity.modules.impl.Ghost;
 import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -55,5 +58,12 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 					target = "Lnet/minecraft/client/gui/GuiIngame;renderGameOverlay(F)V")) private void renderGameOverlay(GuiIngame ingame, float partialTicks) {
 		ingame.renderGameOverlay(partialTicks);
 		MinecraftForge.EVENT_BUS.post(new OverlayEvent(partialTicks, mc.gameSettings.showDebugInfo));
+	}
+
+	@Redirect(method = "updateLightmap",
+			at = @At(value = "FIELD",
+					opcode = Opcodes.GETFIELD,
+					target = "Lnet/minecraft/client/settings/GameSettings;gammaSetting:F")) private float updateLightmap(GameSettings settings) {
+		return Infinity.inst().getModules().get(Fullbright.class).isActive() ? 100f : settings.gammaSetting;
 	}
 }

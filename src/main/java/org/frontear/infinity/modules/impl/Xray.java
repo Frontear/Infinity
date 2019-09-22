@@ -7,14 +7,13 @@ import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockRedstoneOre;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.infinity.Infinity;
-import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.render.BlockEvent;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
+// implementation in MixinMinecraft
 @FieldDefaults(level = AccessLevel.PRIVATE) public final class Xray extends Module {
-	int last_ambient;
 	boolean last_fullbright;
 
 	public Xray() {
@@ -28,20 +27,13 @@ import org.lwjgl.input.Keyboard;
 		}
 	}
 
-	@SubscribeEvent public void onShutdown(ShutdownEvent event) {
-		mc.gameSettings.ambientOcclusion = last_ambient; // don't want to save 0
-		mc.gameSettings.saveOptions();
-	}
-
 
 	@Override protected void onToggle(boolean active) {
 		val instance = Infinity.inst().getModules().get(Fullbright.class);
 		if (active) {
-			last_ambient = mc.gameSettings.ambientOcclusion;
 			last_fullbright = instance.isActive();
 		}
 
-		mc.gameSettings.ambientOcclusion = active ? 0 : last_ambient;
 		mc.renderGlobal.loadRenderers();
 
 		instance.setActive(active || last_fullbright);
