@@ -13,7 +13,6 @@
     "MixinEntityRenderer",
     "MixinFontRenderer",
     "MixinGameSettings",
-    "MixinGuiMultiplayer",
     "MixinGuiOptions",
     "MixinItemRenderer",
     "MixinMinecraft",
