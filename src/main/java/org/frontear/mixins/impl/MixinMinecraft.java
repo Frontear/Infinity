@@ -1,10 +1,8 @@
 package org.frontear.mixins.impl;
 
-import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.common.MinecraftForge;
-import org.frontear.framework.utils.unsafe.MemoryPool;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
@@ -12,7 +10,6 @@ import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.events.input.MouseEvent;
 import org.frontear.infinity.modules.impl.AutoClicker;
 import org.frontear.infinity.modules.impl.Xray;
-import org.frontear.mixins.IMinecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.lib.Opcodes;
@@ -21,8 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Minecraft.class) public abstract class MixinMinecraft implements IMinecraft {
-	@Getter private final MemoryPool pool = new MemoryPool();
+@Mixin(Minecraft.class) public abstract class MixinMinecraft {
 	@Shadow private int leftClickCounter;
 
 	@Redirect(method = "isAmbientOcclusionEnabled",

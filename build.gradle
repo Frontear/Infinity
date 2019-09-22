@@ -7,7 +7,7 @@ plugins {
 }
 
 sourceCompatibility = targetCompatibility = 1.8
-version = "2.3-alpha"
+version = "2.4-alpha"
 group = "org.frontear"
 archivesBaseName = "Infinity"
 def access_transformer = "infinity_at.cfg"
