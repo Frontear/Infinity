@@ -1,13 +1,15 @@
 package org.frontear.infinity.modules;
 
-import lombok.*;
-import net.minecraft.client.Minecraft;
+import lombok.NonNull;
+import lombok.val;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.manager.impl.Manager;
+import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.events.render.OverlayEvent;
 import org.frontear.infinity.modules.impl.Ghost;
+import org.frontear.infinity.ui.renderer.TextPositions;
 
 import java.awt.*;
 
@@ -28,18 +30,9 @@ public final class ModuleManager extends Manager<Module> {
 	}
 
 	@SubscribeEvent public void onRender(OverlayEvent event) {
-		if (!event.isDebugging() && !get(Ghost.class).isActive()) {
-			val modules = getObjects().filter(Module::isActive).iterator();
-			var iter = 0;
-
-			while (modules.hasNext()) {
-				val module = modules.next();
-				val name = "${module.getName()} [${org.lwjgl.input.Keyboard.getKeyName(module.getBind())}]";
-				val renderer = Minecraft.getMinecraft().fontRendererObj;
-
-				renderer.drawString(name, event.getResolution().getScaledWidth() - renderer
-						.getStringWidth(name) - 1, 1 + renderer.FONT_HEIGHT * iter++, Color.WHITE.getRGB());
-			}
+		if (!event.isDebugging()) {
+			getObjects().filter(Module::isActive).forEach(x -> Infinity.inst().getTextRenderer()
+					.render(TextPositions.RIGHT, "${x.getName()} [${org.lwjgl.input.Keyboard.getKeyName(x.getBind())}]", Color.WHITE, false, 1f));
 		}
 	}
 }

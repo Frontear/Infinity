@@ -1,8 +1,8 @@
 package org.frontear.infinity;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.client.impl.Client;
@@ -11,24 +11,25 @@ import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
 import org.frontear.infinity.events.render.OverlayEvent;
 import org.frontear.infinity.modules.ModuleManager;
-import org.frontear.infinity.modules.impl.Ghost;
+import org.frontear.infinity.ui.renderer.TextPositions;
+import org.frontear.infinity.ui.renderer.TextRenderer;
 import org.lwjgl.opengl.Display;
 
 import java.awt.*;
-
-import static org.lwjgl.opengl.GL11.glScalef;
 
 @FieldDefaults(level = AccessLevel.PRIVATE) public final class Infinity extends Client {
 	private static Infinity inst;
 
 	@Getter ModuleManager modules;
 	@Getter CommandManager commands;
+	@Getter TextRenderer textRenderer; // prefer this renderer only for when you need to render Infinity stuff directly
 
 	private Infinity() {
 		super();
 
 		MinecraftForge.EVENT_BUS.register(this.modules = new ModuleManager(getConfig()));
 		MinecraftForge.EVENT_BUS.register(this.commands = new CommandManager(getInfo()));
+		MinecraftForge.EVENT_BUS.register(this.textRenderer = new TextRenderer());
 	}
 
 	public static Infinity inst() {
@@ -36,14 +37,8 @@ import static org.lwjgl.opengl.GL11.glScalef;
 	}
 
 	@SubscribeEvent public void onOverlay(OverlayEvent event) {
-		if (!event.isDebugging() && !modules.get(Ghost.class).isActive()) {
-			val scale = 2.25f;
-			glScalef(scale, scale, 1);
-			{
-				Minecraft.getMinecraft().fontRendererObj
-						.drawStringWithShadow(getInfo().getName(), 2 / scale, 2 / scale, Color.WHITE.getRGB());
-			}
-			glScalef(1 / scale, 1 / scale, 1);
+		if (!event.isDebugging()) {
+			textRenderer.render(TextPositions.LEFT, getInfo().getName(), Color.WHITE, true, 2.25f);
 		}
 	}
 
