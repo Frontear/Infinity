@@ -2,6 +2,9 @@ package org.frontear.framework.utils.time;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.val;
+
+import java.util.concurrent.TimeUnit;
 
 @FieldDefaults(level = AccessLevel.PRIVATE) public final class Timer {
 	long nanoseconds;
@@ -41,7 +44,25 @@ import lombok.experimental.FieldDefaults;
 	 * @return The duration, specific to the unit of time
 	 */
 	public long getElapsed(TimeUnit unit) {
-		return (System.nanoTime() - nanoseconds) / unit.getDivisor();
+		val time = (System.nanoTime() - nanoseconds);
+		switch (unit) {
+			case NANOSECONDS:
+				return TimeUnit.NANOSECONDS.toNanos(time);
+			case MICROSECONDS:
+				return TimeUnit.NANOSECONDS.toMicros(time);
+			case MILLISECONDS:
+				return TimeUnit.NANOSECONDS.toMillis(time);
+			case SECONDS:
+				return TimeUnit.NANOSECONDS.toSeconds(time);
+			case MINUTES:
+				return TimeUnit.NANOSECONDS.toMinutes(time);
+			case HOURS:
+				return TimeUnit.NANOSECONDS.toHours(time);
+			case DAYS:
+				return TimeUnit.NANOSECONDS.toDays(time);
+			default:
+				throw new UnsupportedOperationException("Unknown TimeUnit ${unit.getSimpleName()}");
+		}
 	}
 
 	/**
@@ -51,6 +72,6 @@ import lombok.experimental.FieldDefaults;
 	 */
 	@Override public String toString() {
 		return String
-				.format("%02d:%02d:%02d.%03d", getElapsed(TimeUnit.HOUR) % 24, getElapsed(TimeUnit.MINUTE) % 60, getElapsed(TimeUnit.SECOND) % 60, getElapsed(TimeUnit.MILLISECOND) % 1000);
+				.format("%02d:%02d:%02d.%03d", getElapsed(TimeUnit.HOURS) % 24, getElapsed(TimeUnit.MINUTES) % 60, getElapsed(TimeUnit.SECONDS) % 60, getElapsed(TimeUnit.MILLISECONDS) % 1000);
 	}
 }
