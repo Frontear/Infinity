@@ -1,4 +1,4 @@
-package org.frontear.infinity.gui;
+package org.frontear.infinity.ui;
 
 import lombok.AccessLevel;
 import lombok.NonNull;
