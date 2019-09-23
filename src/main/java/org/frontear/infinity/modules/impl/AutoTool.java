@@ -19,7 +19,7 @@ public final class AutoTool extends Module {
 	}
 
 	@SubscribeEvent public void onTick(TickEvent.PlayerTickEvent event) {
-		if (isActive() && mc.gameSettings.keyBindAttack.isKeyDown()) {
+		if (mc.gameSettings.keyBindAttack.isKeyDown()) {
 			this.selectOptimizedItem(event.player.inventory);
 			mc.clickMouse();
 		}
