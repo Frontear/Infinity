@@ -35,7 +35,7 @@ import org.frontear.infinity.Infinity;
 			catch (Throwable e) {
 				e.printStackTrace();
 				FMLCommonHandler.instance()
-						.exitJava(-1, false); // Infinity has failed to load, which is technically game-breaking. (Mixins are dependant on it)
+						.exitJava(-1, false); // Infinity has failed to load, which is technically game-breaking. (Mixins are dependent on it)
 			}
 		});
 		concurrent.setName("%name loader");

@@ -30,9 +30,7 @@ public final class ModuleManager extends Manager<Module> {
 	}
 
 	@SubscribeEvent public void onRender(OverlayEvent event) {
-		if (!event.isDebugging()) {
-			getObjects().filter(Module::isActive).forEach(x -> Infinity.inst().getTextRenderer()
+		getObjects().filter(Module::isActive).forEach(x -> Infinity.inst().getTextRenderer()
 					.render(TextPositions.RIGHT, "${x.getName()} [${org.lwjgl.input.Keyboard.getKeyName(x.getBind())}]", Color.WHITE, false, 1f));
-		}
 	}
 }

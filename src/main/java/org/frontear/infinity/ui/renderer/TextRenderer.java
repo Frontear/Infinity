@@ -26,7 +26,8 @@ import static org.lwjgl.opengl.GL11.glScalef;
 		Preconditions.checkArgument(position == TextPositions.LEFT || position == TextPositions.RIGHT);
 		Preconditions.checkArgument(scale > 0);
 
-		if (!Infinity.inst().getModules().get(Ghost.class).isActive()) {
+		if (!Infinity.inst().getModules().get(Ghost.class).isActive() && !Minecraft
+				.getMinecraft().gameSettings.showDebugInfo) {
 			val renderer = Minecraft.getMinecraft().fontRendererObj;
 			val x = position == TextPositions.RIGHT ? new ScaledResolution(Minecraft.getMinecraft())
 					.getScaledWidth() - renderer.getStringWidth(text) - offset : offset;

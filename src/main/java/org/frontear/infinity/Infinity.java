@@ -37,9 +37,7 @@ import java.awt.*;
 	}
 
 	@SubscribeEvent public void onOverlay(OverlayEvent event) {
-		if (!event.isDebugging()) {
-			textRenderer.render(TextPositions.LEFT, getInfo().getName(), Color.WHITE, true, 2.25f);
-		}
+		textRenderer.render(TextPositions.LEFT, getInfo().getName(), Color.WHITE, true, 2.25f);
 	}
 
 	@SubscribeEvent public void onStartup(StartupEvent event) {
