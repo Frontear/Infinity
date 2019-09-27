@@ -53,6 +53,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 				.isPotionActive(potion); // todo: remove sky blacking
 	}
 
+	/**
+	 * @param ingame The instance of {@link net.minecraftforge.client.GuiIngameForge}
+	 * @param partialTicks The percentage of how far we have gone within a single tick
+	 * @reason Handle the rendering on the ingame gui without forge interference
+	 */
 	@Redirect(method = "updateCameraAndRender",
 			at = @At(value = "INVOKE",
 					target = "Lnet/minecraft/client/gui/GuiIngame;renderGameOverlay(F)V")) private void renderGameOverlay(GuiIngame ingame, float partialTicks) {
@@ -60,6 +65,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 		MinecraftForge.EVENT_BUS.post(new OverlayEvent(partialTicks, mc.gameSettings.showDebugInfo));
 	}
 
+	/**
+	 * @param settings The instance of {@link GameSettings}
+	 * @return 100f if {@link Fullbright#isActive()}, otherwise {@link GameSettings#gammaSetting}
+	 * @reason Sets the lightmap to a very high value, preventing any form of darkness to exist in the rendered world
+	 */
 	@Redirect(method = "updateLightmap",
 			at = @At(value = "FIELD",
 					opcode = Opcodes.GETFIELD,

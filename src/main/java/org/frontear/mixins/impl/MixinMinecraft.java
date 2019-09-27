@@ -21,6 +21,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Minecraft.class) public abstract class MixinMinecraft {
 	@Shadow private int leftClickCounter;
 
+	/**
+	 * @param settings The instance of {@link GameSettings}
+	 * @return 0 if {@link Xray#isActive()}, otherwise {@link GameSettings#ambientOcclusion}
+	 * @reason Prevent ambient occlusion from affected Xray
+	 */
 	@Redirect(method = "isAmbientOcclusionEnabled",
 			at = @At(value = "FIELD",
 					opcode = Opcodes.GETFIELD,
@@ -70,7 +75,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 	}
 
 	/**
-	 * @author prplz Please see https://prplz.io/memoryfix/ for more information
+	 * @author prplz
+	 * @reason Please see https://prplz.io/memoryfix/ for more information
 	 */
 	@SuppressWarnings("UnresolvedMixinReference") @Redirect(method = "*",
 			at = @At(value = "INVOKE",
