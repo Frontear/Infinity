@@ -45,6 +45,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 	@SubscribeEvent public void onRender(RenderWorldLastEvent event) {
 		val width = 3.5f;
+		glPushAttrib(GL_CURRENT_BIT);
 		glPushMatrix();
 		{
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -71,5 +72,6 @@ import static org.lwjgl.opengl.GL11.*;
 			glDisable(GL_BLEND);
 		}
 		glPopMatrix();
+		glPopAttrib();
 	}
 }
