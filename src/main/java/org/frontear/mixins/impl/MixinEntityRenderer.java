@@ -54,8 +54,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 	}
 
 	/**
-	 * @param ingame The instance of {@link net.minecraftforge.client.GuiIngameForge}
+	 * @param ingame       The instance of {@link net.minecraftforge.client.GuiIngameForge}
 	 * @param partialTicks The percentage of how far we have gone within a single tick
+	 *
 	 * @reason Handle the rendering on the ingame gui without forge interference
 	 */
 	@Redirect(method = "updateCameraAndRender",
@@ -67,7 +68,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 	/**
 	 * @param settings The instance of {@link GameSettings}
+	 *
 	 * @return 100f if {@link Fullbright#isActive()}, otherwise {@link GameSettings#gammaSetting}
+	 *
 	 * @reason Sets the lightmap to a very high value, preventing any form of darkness to exist in the rendered world
 	 */
 	@Redirect(method = "updateLightmap",

@@ -23,7 +23,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 	/**
 	 * @param settings The instance of {@link GameSettings}
+	 *
 	 * @return 0 if {@link Xray#isActive()}, otherwise {@link GameSettings#ambientOcclusion}
+	 *
 	 * @reason Prevent ambient occlusion from affected Xray
 	 */
 	@Redirect(method = "isAmbientOcclusionEnabled",

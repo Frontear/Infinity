@@ -28,6 +28,12 @@ import java.util.zip.ZipFile;
 	 * Represents the time since the {@link Client} first loaded (immediate call to the constructor)
 	 */
 	public static final Timer UPTIME = new Timer();
+
+	/**
+	 * This is the expected/recommended working directory for the client. Should always point to the minecraft data folder
+	 */
+	public static final String WORKING_DIRECTORY = DEBUG ? System.getProperty("java.io.tmpdir") : System
+			.getProperty("user.dir");
 	@Getter ModInfo info;
 	@Getter Logger logger;
 	@Getter Config config;
@@ -41,7 +47,7 @@ import java.util.zip.ZipFile;
 
 		this.info = this.construct();
 		this.logger = new Logger(info.getName());
-		val file = new File(DEBUG ? System.getProperty("java.io.tmpdir") : ".", "${info.getName().toLowerCase()}.json");
+		val file = new File(WORKING_DIRECTORY, "${info.getName().toLowerCase()}.json");
 		if (DEBUG) {
 			//noinspection ResultOfMethodCallIgnored
 			Runtime.getRuntime().addShutdownHook(new Thread(file::delete)); // see: deleteOnExit is evil
