@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 	private final String FORMAT_SYMBOL = "§";
 	private final Map<Character, EnumChatFormatting> formats;
 	private final Logger logger = new Logger();
+	private final Pattern FORMAT_PATTERN = Pattern.compile("$FORMAT_SYMBOL.");
 
 	static {
 		val temp = Maps.<Character, EnumChatFormatting>newHashMap();
@@ -85,7 +86,7 @@ import java.util.regex.Pattern;
 		defaultStyle(style);
 
 		if (!formatted.isEmpty() && formatted.contains(FORMAT_SYMBOL)) {
-			val matcher = Pattern.compile("$FORMAT_SYMBOL.").matcher(formatted);
+			val matcher = FORMAT_PATTERN.matcher(formatted);
 			while (matcher.find()) {
 				val found = matcher.group();
 				setStyle(style, formats.get(found.charAt(1)));
@@ -103,5 +104,9 @@ import java.util.regex.Pattern;
 		Arrays.stream(siblings).forEach(component::appendSibling);
 
 		return component;
+	}
+
+	public String replaceSymbol(String string) {
+		return string.replaceAll("&", FORMAT_SYMBOL);
 	}
 }
