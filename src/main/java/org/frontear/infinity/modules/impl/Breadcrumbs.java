@@ -38,7 +38,8 @@ import static org.lwjgl.opengl.GL11.*;
 		if (event.getEntity() instanceof EntityPlayerSP && event.isPost()) {
 			val player = (EntityPlayerSP) event.getEntity();
 
-			if (player.motionX != 0 || player.motionY != 0 || player.motionZ != 0) {
+			if (player.motionX != 0 || Math
+					.max(0, player.motionY) != 0 || player.motionZ != 0) { // motionY is never 0, because the game treats gravity as a continuous downward force, which it is
 				val vector = player.getPositionVector();
 				logger.debug("Adding player vector: $vector");
 				positions.add(vector);
@@ -62,7 +63,6 @@ import static org.lwjgl.opengl.GL11.*;
 			glBegin(GL_LINE_STRIP);
 			{
 				// GL cannot work with lambdas due to how GLContext handles capabilities on threads
-				logger.debug("Drawing ${positions.size()} positions");
 				for (val pos : positions) {
 					glVertex3d(pos.xCoord - mc
 							.getRenderManager().renderPosX, (pos.yCoord + (width / 200f)) - mc // raise line above the ground, so that half of it isn't inside a block

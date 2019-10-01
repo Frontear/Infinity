@@ -32,7 +32,7 @@ import static org.lwjgl.opengl.GL11.*;
 		mc.theWorld.getLoadedEntityList().stream().filter(x -> !x.equals(mc.thePlayer)).forEach(x -> {
 			//noinspection RedundantCast
 			val color = x instanceof EntityPlayer ? Color.WHITE : x instanceof EntityLivingBase && x
-					.isInvisible() ? Color.PINK : x instanceof EntityAnimal ? Color.YELLOW : x instanceof EntityMob ? Color.RED : (Color) null;
+					.isInvisible() ? Color.PINK : x instanceof EntityAnimal ? Color.YELLOW : x instanceof EntityMob ? Color.RED : (Color) null; // cast is necessary for lombok
 			if (color != null) {
 				this.renderESP(x, color, event.partialTicks);
 			}
@@ -59,7 +59,7 @@ import static org.lwjgl.opengl.GL11.*;
 				val z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - mc
 						.getRenderManager().renderPosZ;
 
-				logger.debug("Drawing for ${entity.getSimpleName()} [x: $x, y: $y, z: $z]");
+				logger.debug("Drawing for ${entity.getSimpleName()} at ${entity.getPositionVector()}");
 				RenderGlobal.drawOutlinedBoundingBox(AxisAlignedBB
 						.fromBounds(x - entity.width / 2, y, z - entity.width / 2, x + entity.width / 2, y + entity.height, z + entity.width / 2), color
 						.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());

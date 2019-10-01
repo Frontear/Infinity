@@ -39,23 +39,27 @@ import java.util.function.Predicate;
 				slot = searchHotbar(player, x -> x instanceof ItemTool && ((ItemTool) x).effectiveBlocks
 						.contains(block));
 				break;
-			default:
+			case MISS:
+				return; // we don't need to handle this at all
+			default: // codefactor is gonna cry
 				logger.debug("%s not supported", object.typeOfHit.name());
 		}
 
 		if (slot != -1) {
-			logger.debug("Setting slot to $slot");
+			val tool = (ItemTool) player.mainInventory[slot].getItem(); // this shouldn't ever fail
+			logger.debug("Setting slot to $slot with item ${tool.getSimpleName()}:${tool.getToolMaterial()} for hit ${object.typeOfHit}");
 			player.currentItem = slot;
 		}
-
-		logger.debug("No slot with useful item found");
+		else {
+			logger.debug("No slot with useful item found for hit ${object.typeOfHit}");
+		}
 	}
 
+	// todo: detect materials and enchants
 	private int searchHotbar(InventoryPlayer inventory, Predicate<? super Item> filter) {
 		for (var i = 0; i < 9; i++) {
 			val stack = inventory.mainInventory[i];
 			if (stack != null && filter.test(stack.getItem())) {
-				logger.debug("Found slot for ${stack.getItem().getSimpleName()} [slot $i]");
 				return i;
 			}
 		}
