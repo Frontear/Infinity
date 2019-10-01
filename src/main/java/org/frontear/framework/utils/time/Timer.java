@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 	 * @return The duration, specific to the unit of time
 	 */
 	public long getElapsed(TimeUnit unit) {
-		return TimeUnit.NANOSECONDS.convert(System.nanoTime() - nanoseconds, unit);
+		return unit.convert(System.nanoTime() - nanoseconds, TimeUnit.NANOSECONDS);
 	}
 
 	/**
