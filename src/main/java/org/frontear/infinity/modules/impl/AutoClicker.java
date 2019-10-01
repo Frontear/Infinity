@@ -6,7 +6,6 @@ import lombok.val;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.utils.time.Timer;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
@@ -17,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public final class AutoClicker extends Module {
-	Logger logger = new Logger();
+
 	Timer timer = new Timer();
 	int[] cps = { 11, 13 }; // autoclicker does not actually hit these speeds, since they serve more so as a range
 

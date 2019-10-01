@@ -7,10 +7,12 @@ import lombok.experimental.NonFinal;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.framework.config.IConfigurable;
+import org.frontear.framework.logger.impl.Logger;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public abstract class Module implements IConfigurable<Module> {
 	protected static final Minecraft mc = Minecraft.getMinecraft();
+	protected Logger logger = new Logger();
 	@Getter boolean safe; // safe to use during Ghost
 	@Getter Category category;
 	@Expose @NonFinal @Getter @Setter int bind;

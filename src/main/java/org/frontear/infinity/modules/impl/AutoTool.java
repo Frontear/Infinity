@@ -6,16 +6,15 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.frontear.framework.logger.impl.Logger;
-import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
 import java.util.function.Predicate;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true) public final class AutoTool extends Module {
-	Logger logger = new Logger();
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public final class AutoTool extends Module {
+
 
 	public AutoTool() {
 		super(Keyboard.KEY_L, true, Category.PLAYER);

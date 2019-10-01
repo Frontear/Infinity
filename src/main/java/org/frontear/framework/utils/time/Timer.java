@@ -2,7 +2,6 @@ package org.frontear.framework.utils.time;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 
 import java.util.concurrent.TimeUnit;
 

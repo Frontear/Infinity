@@ -7,7 +7,6 @@ import lombok.val;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.utils.time.Timer;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.render.OverlayEvent;
@@ -17,11 +16,11 @@ import org.frontear.infinity.ui.renderer.TextPositions;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
-import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true) public class Info extends Module {
-	Logger logger = new Logger();
+@FieldDefaults(level = AccessLevel.PRIVATE,
+		makeFinal = true) public class Info extends Module {
+
 	Timer timer = new Timer();
 	float max_ticks = mc.timer.ticksPerSecond;
 	@NonFinal int ticks = 0;

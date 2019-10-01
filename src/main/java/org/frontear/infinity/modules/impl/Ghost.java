@@ -4,7 +4,6 @@ import com.google.common.collect.Sets;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
-import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
@@ -15,7 +14,7 @@ import java.util.Set;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public final class Ghost extends Module {
-	Logger logger = new Logger();
+
 	Set<Module> unsafe = Sets.newHashSet();
 
 	public Ghost() {
