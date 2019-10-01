@@ -59,7 +59,7 @@ import static org.lwjgl.opengl.GL11.*;
 				val z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - mc
 						.getRenderManager().renderPosZ;
 
-				logger.debug("Drawing for ${x.getSimpleName()} [x: $x, y: $y, z: $z]");
+				logger.debug("Drawing for ${entity.getSimpleName()} [x: $x, y: $y, z: $z]");
 				RenderGlobal.drawOutlinedBoundingBox(AxisAlignedBB
 						.fromBounds(x - entity.width / 2, y, z - entity.width / 2, x + entity.width / 2, y + entity.height, z + entity.width / 2), color
 						.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
