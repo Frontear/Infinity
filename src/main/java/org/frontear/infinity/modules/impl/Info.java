@@ -18,8 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Info extends Module {
 	private final Timer timer = new Timer();
-	private final float max_ticks = mc.timer.ticksPerSecond; // we don't need the precision
-	private final DecimalFormat formatter = new DecimalFormat("#.##");
+	private final float max_ticks = mc.timer.ticksPerSecond;
 	private int ticks = 0;
 	private String tps = "$max_ticks"; // max_ticks are the expected rate
 
@@ -53,7 +52,7 @@ public class Info extends Module {
 	@SubscribeEvent(priority = EventPriority.LOWEST) public void onTick(TickEvent.ClientTickEvent event) { // calculate after everything is done
 		if (event.phase == TickEvent.Phase.END) {
 			if (++ticks == max_ticks) {
-				this.tps = formatter.format(1000 * (max_ticks / timer.getElapsed(TimeUnit.MILLISECONDS)));
+				this.tps = String.format("%.2f", 1000 * (max_ticks / timer.getElapsed(TimeUnit.MILLISECONDS)));
 
 				reset();
 			}
