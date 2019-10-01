@@ -3,6 +3,8 @@ package org.frontear.infinity.modules.impl;
 import com.google.common.collect.Sets;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.val;
+import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
@@ -13,6 +15,7 @@ import java.util.Set;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public final class Ghost extends Module {
+	Logger logger = new Logger();
 	Set<Module> unsafe = Sets.newHashSet();
 
 	public Ghost() {
@@ -28,7 +31,9 @@ import java.util.Set;
 		Display.setTitle(active ? "Minecraft ${net.minecraftforge.fml.common.Loader.MC_VERSION}" : Infinity.inst()
 				.getInfo().getFullname());
 		if (active) {
-			Infinity.inst().getModules().getObjects().filter(x -> !x.isSafe()).filter(Module::isActive).forEach(x -> {
+			val stream = Infinity.inst().getModules().getObjects().filter(x -> !x.isSafe()).filter(Module::isActive);
+			logger.debug("Found ${stream.count()} unsafe modules");
+			stream.forEach(x -> {
 				x.toggle();
 				unsafe.add(x);
 			});

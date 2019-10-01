@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public abstract class Manager<T> implements IManager<T> {
-	private static final Logger logger = new Logger();
+	Logger logger = new Logger();
 	ImmutableMap<Class<? extends T>, T> objects;
 
 	/**

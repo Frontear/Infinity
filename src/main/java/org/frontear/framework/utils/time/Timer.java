@@ -44,25 +44,7 @@ import java.util.concurrent.TimeUnit;
 	 * @return The duration, specific to the unit of time
 	 */
 	public long getElapsed(TimeUnit unit) {
-		val time = (System.nanoTime() - nanoseconds);
-		switch (unit) {
-			case NANOSECONDS:
-				return TimeUnit.NANOSECONDS.toNanos(time);
-			case MICROSECONDS:
-				return TimeUnit.NANOSECONDS.toMicros(time);
-			case MILLISECONDS:
-				return TimeUnit.NANOSECONDS.toMillis(time);
-			case SECONDS:
-				return TimeUnit.NANOSECONDS.toSeconds(time);
-			case MINUTES:
-				return TimeUnit.NANOSECONDS.toMinutes(time);
-			case HOURS:
-				return TimeUnit.NANOSECONDS.toHours(time);
-			case DAYS:
-				return TimeUnit.NANOSECONDS.toDays(time);
-			default:
-				throw new UnsupportedOperationException("Unknown TimeUnit ${unit.getSimpleName()}");
-		}
+		return TimeUnit.NANOSECONDS.convert(System.nanoTime() - nanoseconds, unit);
 	}
 
 	/**

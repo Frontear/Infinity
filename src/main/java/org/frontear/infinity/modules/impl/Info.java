@@ -1,9 +1,13 @@
 package org.frontear.infinity.modules.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.val;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.utils.time.Timer;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.render.OverlayEvent;
@@ -16,11 +20,12 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
-public class Info extends Module {
-	private final Timer timer = new Timer();
-	private final float max_ticks = mc.timer.ticksPerSecond;
-	private int ticks = 0;
-	private String tps = "$max_ticks"; // max_ticks are the expected rate
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true) public class Info extends Module {
+	Logger logger = new Logger();
+	Timer timer = new Timer();
+	float max_ticks = mc.timer.ticksPerSecond;
+	@NonFinal int ticks = 0;
+	@NonFinal String tps = "$max_ticks"; // max_ticks are the expected rate
 
 	public Info() {
 		super(Keyboard.KEY_O, false, Category.RENDER);
@@ -52,7 +57,10 @@ public class Info extends Module {
 	@SubscribeEvent(priority = EventPriority.LOWEST) public void onTick(TickEvent.ClientTickEvent event) { // calculate after everything is done
 		if (event.phase == TickEvent.Phase.END) {
 			if (++ticks == max_ticks) {
-				this.tps = String.format("%.2f", 1000 * (max_ticks / timer.getElapsed(TimeUnit.MILLISECONDS)));
+				val elapsed = timer.getElapsed(TimeUnit.MILLISECONDS);
+				val tps = 1000f * (max_ticks / elapsed);
+				logger.debug("${elapsed}ms, $ticks ticks [$tps tps]");
+				this.tps = String.format("%.2f", tps);
 
 				reset();
 			}

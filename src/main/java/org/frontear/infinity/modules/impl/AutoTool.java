@@ -1,11 +1,12 @@
 package org.frontear.infinity.modules.impl;
 
-import lombok.val;
-import lombok.var;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
@@ -13,7 +14,9 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.function.Predicate;
 
-public final class AutoTool extends Module {
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true) public final class AutoTool extends Module {
+	Logger logger = new Logger();
+
 	public AutoTool() {
 		super(Keyboard.KEY_L, true, Category.PLAYER);
 	}
@@ -38,18 +41,22 @@ public final class AutoTool extends Module {
 						.contains(block));
 				break;
 			default:
-				Infinity.inst().getLogger().debug("%s not supported", object.typeOfHit.name());
+				logger.debug("%s not supported", object.typeOfHit.name());
 		}
 
 		if (slot != -1) {
+			logger.debug("Setting slot to $slot");
 			player.currentItem = slot;
 		}
+
+		logger.debug("No slot with useful item found");
 	}
 
 	private int searchHotbar(InventoryPlayer inventory, Predicate<? super Item> filter) {
 		for (var i = 0; i < 9; i++) {
 			val stack = inventory.mainInventory[i];
 			if (stack != null && filter.test(stack.getItem())) {
+				logger.debug("Found slot for ${stack.getItem().getSimpleName()} [slot $i]");
 				return i;
 			}
 		}

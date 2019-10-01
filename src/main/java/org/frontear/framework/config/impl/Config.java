@@ -19,7 +19,7 @@ import java.util.Set;
 		makeFinal = true) public final class Config implements IConfig {
 	private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls()
 			.enableComplexMapKeySerialization().setPrettyPrinting().create();
-	private static final Logger logger = new Logger();
+	Logger logger = new Logger();
 	Set<IConfigurable<?>> configurables = Sets.newLinkedHashSet();
 	File config_file;
 

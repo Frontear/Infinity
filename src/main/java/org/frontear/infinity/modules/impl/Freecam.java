@@ -2,12 +2,14 @@ package org.frontear.infinity.modules.impl;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.val;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.events.client.PacketEvent;
 import org.frontear.infinity.events.entity.UpdateEvent;
 import org.frontear.infinity.modules.Category;
@@ -15,9 +17,9 @@ import org.frontear.infinity.modules.Module;
 import org.frontear.infinity.utils.EntityUtils;
 import org.lwjgl.input.Keyboard;
 
-@FieldDefaults(level = AccessLevel.PRIVATE) public final class Freecam extends Module {
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true) public final class Freecam extends Module {
 	private static final byte ID = -2;
-	EntityOtherPlayerMP clone;
+	@NonFinal EntityOtherPlayerMP clone;
 
 	public Freecam() {
 		super(Keyboard.KEY_I, false, Category.RENDER);
