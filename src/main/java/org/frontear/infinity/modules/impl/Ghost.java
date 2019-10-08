@@ -30,12 +30,13 @@ import java.util.Set;
 		Display.setTitle(active ? "Minecraft ${net.minecraftforge.fml.common.Loader.MC_VERSION}" : Infinity.inst()
 				.getInfo().getFullname());
 		if (active) {
-			val stream = Infinity.inst().getModules().getObjects().filter(x -> !x.isSafe()).filter(Module::isActive);
-			logger.debug("Found ${stream.count()} unsafe modules");
-			stream.forEach(x -> {
-				x.toggle();
-				unsafe.add(x);
-			});
+			val stream = Infinity.inst().getModules().getObjects().filter(x -> !x.isSafe()).filter(Module::isActive)
+					.toArray(Module[]::new);
+			logger.debug("Found ${stream.length} unsafe modules");
+			for (Module module : stream) {
+				module.toggle();
+				unsafe.add(module);
+			}
 		}
 		else {
 			unsafe.forEach(Module::toggle);

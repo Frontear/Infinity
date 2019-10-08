@@ -17,9 +17,11 @@ import org.lwjgl.input.Keyboard;
 	}
 
 	@Override public void toggle() {
-		val stream = Infinity.inst().getModules().getObjects().filter(Module::isActive);
-		logger.debug("Disabling ${stream.count()} modules");
-		stream.forEach(Module::toggle);
+		val stream = Infinity.inst().getModules().getObjects().filter(Module::isActive).toArray(Module[]::new);
+		logger.debug("Disabling ${stream.length} modules");
+		for (Module module : stream) {
+			module.toggle();
+		}
 
 		super.setActive(false);
 	}
