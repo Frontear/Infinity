@@ -8,7 +8,6 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.framework.utils.time.Timer;
 import org.frontear.infinity.events.entity.UpdateEvent;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
@@ -20,9 +19,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public final class Breadcrumbs extends Module {
-
 	Deque<Vec3> positions = Queues.newArrayDeque();
-	Timer timer = new Timer();
 
 	public Breadcrumbs() {
 		super(Keyboard.KEY_J, false, Category.RENDER);

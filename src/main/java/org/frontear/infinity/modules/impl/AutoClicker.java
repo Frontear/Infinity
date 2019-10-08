@@ -6,12 +6,12 @@ import lombok.val;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.frontear.framework.utils.rand.Random;
 import org.frontear.framework.utils.time.Timer;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 		if (event.phase == TickEvent.Phase.START && event.player instanceof EntityPlayerSP && !event.player
 				.isUsingItem()) {
 			val ms = timer.getElapsed(TimeUnit.MILLISECONDS);
-			val elapsed = ms >= 1000 / ThreadLocalRandom.current().nextInt(cps[0], cps[1] + 1);
+			val elapsed = ms >= 1000 / Random.nextInt(cps[0], cps[1]);
 			val attacking = mc.gameSettings.keyBindAttack.isKeyDown();
 
 			if (!attacking || elapsed) {
