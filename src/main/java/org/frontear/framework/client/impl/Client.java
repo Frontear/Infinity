@@ -74,7 +74,7 @@ import java.util.zip.ZipFile;
 		else {
 			val jar = new ZipFile(new File(StringUtils
 					.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation()
-							.getPath(), "file:", "!").replaceAll("%20", " ")));
+							.getPath(), "file:", "!").replace("%20", " ")));
 			val stream = jar.getInputStream(jar.getEntry(ModEnvironment.getInfoJsonFilename()));
 			val element = new JsonParser().parse(stream.bufferedReader());
 

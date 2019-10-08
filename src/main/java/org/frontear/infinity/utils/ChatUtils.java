@@ -107,6 +107,6 @@ import java.util.regex.Pattern;
 	}
 
 	public String replaceSymbol(String string) {
-		return string.replaceAll("&", FORMAT_SYMBOL);
+		return string.replace("&", FORMAT_SYMBOL);
 	}
 }
