@@ -5,10 +5,18 @@ import lombok.experimental.FieldDefaults;
 import net.minecraft.network.Packet;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-@FieldDefaults(level = AccessLevel.PRIVATE) public final class PacketEvent extends Event {
-	@Getter @Setter Packet packet;
+public final class PacketEvent extends Event {
+	private static Packet packet;
 
 	public PacketEvent(@NonNull Packet packet) {
-		this.packet = packet;
+		PacketEvent.packet = packet;
+	}
+
+	public Packet getPacket() {
+		return packet;
+	}
+
+	public void setPacket(Packet packet) {
+		PacketEvent.packet = packet;
 	}
 }

@@ -17,7 +17,7 @@ import org.lwjgl.opengl.Display;
 
 import java.awt.*;
 
-@FieldDefaults(level = AccessLevel.PRIVATE) public final class Infinity extends Client {
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true) public final class Infinity extends Client {
 	private static Infinity inst;
 
 	@Getter ModuleManager modules;

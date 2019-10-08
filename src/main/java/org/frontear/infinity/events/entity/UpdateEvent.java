@@ -8,12 +8,16 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public final class UpdateEvent extends Event {
-	@Getter Entity entity;
+	private static Entity entity;
 	boolean pre;
 
 	public UpdateEvent(Entity entity, boolean pre) {
-		this.entity = entity;
+		UpdateEvent.entity = entity;
 		this.pre = pre;
+	}
+
+	public Entity getEntity() {
+		return entity;
 	}
 
 	public boolean isPost() {

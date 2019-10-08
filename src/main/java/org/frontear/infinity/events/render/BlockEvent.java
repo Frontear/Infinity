@@ -9,13 +9,17 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
 		makeFinal = true) public final class BlockEvent extends Event {
-	@Getter Block block;
+	private static Block block;
 	@NonFinal boolean render, side_check;
 
 	public BlockEvent(Block block, boolean render, boolean side_check) {
-		this.block = block;
+		BlockEvent.block = block;
 		this.render = render;
 		this.side_check = side_check;
+	}
+
+	public Block getBlock() {
+		return block;
 	}
 
 	public boolean shouldRender() {
