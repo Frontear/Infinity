@@ -12,28 +12,33 @@ import org.frontear.infinity.utils.ChatUtils;
 import org.lwjgl.input.Keyboard;
 
 public final class NameProtect extends Module {
-	public NameProtect() {
-		super(Keyboard.KEY_N, false, Category.RENDER);
-	}
+    public NameProtect() {
+        super(Keyboard.KEY_N, false, Category.RENDER);
+    }
 
-	@SubscribeEvent public void onFont(FontEvent event) {
-		val username = mc.getSession().getUsername();
-		if (StringUtils.containsIgnoreCase(event.getText(), username)) {
-			event.setText(StringUtils
-					.replacePattern(event.getText(), "(?i)$username", protect(username, event.getText())));
-		}
-	}
+    @SubscribeEvent
+    public void onFont(FontEvent event) {
+        val username = mc.getSession().getUsername();
+        if (StringUtils.containsIgnoreCase(event.getText(), username)) {
+            event.setText(StringUtils
+                .replacePattern(event.getText(), "(?i)$username",
+                    protect(username, event.getText())));
+        }
+    }
 
-	private String protect(String username, String text) {
-		val before = StringUtils.substringBefore(text, username); // all the text before our username
-		val style = ChatUtils.styleFrom(before); // sets the style from that past text
-		val obfuscated = (ChatComponentText) new ChatComponentText(username)
-				.setChatStyle(style.createDeepCopy().setObfuscated(true));
-		val protect = ChatUtils
-				.append(obfuscated, (ChatComponentText) new ChatComponentText("").setChatStyle(style.createDeepCopy()))
-				.getFormattedText();
+    private String protect(String username, String text) {
+        val before = StringUtils
+            .substringBefore(text, username); // all the text before our username
+        val style = ChatUtils.styleFrom(before); // sets the style from that past text
+        val obfuscated = (ChatComponentText) new ChatComponentText(username)
+            .setChatStyle(style.createDeepCopy().setObfuscated(true));
+        val protect = ChatUtils
+            .append(obfuscated,
+                (ChatComponentText) new ChatComponentText("").setChatStyle(style.createDeepCopy()))
+            .getFormattedText();
 
-		return protect.substring(0, protect
-				.lastIndexOf(String.valueOf(EnumChatFormatting.RESET))); // removes the trailing reset code
-	}
+        return protect.substring(0, protect
+            .lastIndexOf(
+                String.valueOf(EnumChatFormatting.RESET))); // removes the trailing reset code
+    }
 }

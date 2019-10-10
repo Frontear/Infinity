@@ -9,14 +9,16 @@ import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
 public final class Sprint extends Module {
-	public Sprint() {
-		super(Keyboard.KEY_LSHIFT, true, Category.PLAYER);
-	}
+    public Sprint() {
+        super(Keyboard.KEY_LSHIFT, true, Category.PLAYER);
+    }
 
-	@SubscribeEvent public void onUpdate(UpdateEvent event) {
-		if (event.getEntity() instanceof EntityPlayerSP && event.isPost() && !((EntityPlayerSP) event.getEntity())
-				.isPotionActive(Potion.blindness)) {
-			event.getEntity().setSprinting(true);
-		}
-	}
+    @SubscribeEvent
+    public void onUpdate(UpdateEvent event) {
+        if (event.getEntity() instanceof EntityPlayerSP && event.isPost()
+            && !((EntityPlayerSP) event.getEntity())
+            .isPotionActive(Potion.blindness)) {
+            event.getEntity().setSprinting(true);
+        }
+    }
 }

@@ -1,5 +1,22 @@
 package org.frontear.infinity.modules.impl;
 
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_CURRENT_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.GL_LINE_SMOOTH;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLineWidth;
+import static org.lwjgl.opengl.GL11.glPopAttrib;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushAttrib;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+
+import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
@@ -16,60 +33,67 @@ import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
-
-import static org.lwjgl.opengl.GL11.*;
-
 @FieldDefaults(level = AccessLevel.PRIVATE,
-		makeFinal = true) public final class ESP extends Module {
+    makeFinal = true)
+public final class ESP extends Module {
 
 
-	public ESP() {
-		super(Keyboard.KEY_H, false, Category.RENDER);
-	}
+    public ESP() {
+        super(Keyboard.KEY_H, false, Category.RENDER);
+    }
 
-	@SubscribeEvent public void onRender(RenderWorldLastEvent event) {
-		mc.theWorld.getLoadedEntityList().stream().filter(x -> !x.equals(mc.thePlayer)).forEach(x -> {
-			//noinspection RedundantCast
-			val color = x instanceof EntityPlayer ? Color.WHITE : x instanceof EntityLivingBase && x
-					.isInvisible() ? Color.PINK : x instanceof EntityAnimal ? Color.YELLOW : x instanceof EntityMob ? Color.RED : (Color) null; // cast is necessary for lombok
-			if (color != null) {
-				this.renderESP(x, color, event.partialTicks);
-			}
-		});
-	}
+    @SubscribeEvent
+    public void onRender(RenderWorldLastEvent event) {
+        mc.theWorld.getLoadedEntityList().stream().filter(x -> !x.equals(mc.thePlayer))
+            .forEach(x -> {
+                //noinspection RedundantCast
+                val color =
+                    x instanceof EntityPlayer ? Color.WHITE : x instanceof EntityLivingBase && x
+                        .isInvisible() ? Color.PINK : x instanceof EntityAnimal ? Color.YELLOW
+                        : x instanceof EntityMob ? Color.RED
+                            : (Color) null; // cast is necessary for lombok
+                if (color != null) {
+                    this.renderESP(x, color, event.partialTicks);
+                }
+            });
+    }
 
-	private void renderESP(Entity entity, Color color, float partialTicks) {
-		glPushAttrib(GL_CURRENT_BIT);
-		glPushMatrix();
-		{
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glLineWidth(2f);
+    private void renderESP(Entity entity, Color color, float partialTicks) {
+        glPushAttrib(GL_CURRENT_BIT);
+        glPushMatrix();
+        {
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glLineWidth(2f);
 
-			glEnable(GL_BLEND);
-			glEnable(GL_LINE_SMOOTH);
-			glDisable(GL_TEXTURE_2D);
-			glDisable(GL_DEPTH_TEST);
-			{
-				// normalize using partial ticks
-				val x = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks) - mc
-						.getRenderManager().renderPosX;
-				val y = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) - mc
-						.getRenderManager().renderPosY;
-				val z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - mc
-						.getRenderManager().renderPosZ;
+            glEnable(GL_BLEND);
+            glEnable(GL_LINE_SMOOTH);
+            glDisable(GL_TEXTURE_2D);
+            glDisable(GL_DEPTH_TEST);
+            {
+                // normalize using partial ticks
+                val x =
+                    (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks) - mc
+                        .getRenderManager().renderPosX;
+                val y =
+                    (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) - mc
+                        .getRenderManager().renderPosY;
+                val z =
+                    (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks) - mc
+                        .getRenderManager().renderPosZ;
 
-				logger.debug("Drawing for ${entity.getSimpleName()} at ${entity.getPositionVector()}");
-				RenderGlobal.drawOutlinedBoundingBox(AxisAlignedBB
-						.fromBounds(x - entity.width / 2, y, z - entity.width / 2, x + entity.width / 2, y + entity.height, z + entity.width / 2), color
-						.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
-			}
-			glEnable(GL_DEPTH_TEST);
-			glEnable(GL_TEXTURE_2D);
-			glDisable(GL_LINE_SMOOTH);
-			glDisable(GL_BLEND);
-		}
-		glPopMatrix();
-		glPopAttrib();
-	}
+                logger.debug(
+                    "Drawing for ${entity.getSimpleName()} at ${entity.getPositionVector()}");
+                RenderGlobal.drawOutlinedBoundingBox(AxisAlignedBB
+                    .fromBounds(x - entity.width / 2, y, z - entity.width / 2, x + entity.width / 2,
+                        y + entity.height, z + entity.width / 2), color
+                    .getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+            }
+            glEnable(GL_DEPTH_TEST);
+            glEnable(GL_TEXTURE_2D);
+            glDisable(GL_LINE_SMOOTH);
+            glDisable(GL_BLEND);
+        }
+        glPopMatrix();
+        glPopAttrib();
+    }
 }

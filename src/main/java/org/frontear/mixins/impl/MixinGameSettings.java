@@ -8,13 +8,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(GameSettings.class) public abstract class MixinGameSettings {
-	/**
-	 * @author Frontear
-	 * @reason Allow {@link IConfig} to {@link IConfig#save()}
-	 */
-	@Inject(method = "saveOptions",
-			at = @At("TAIL")) private void saveOptions(CallbackInfo info) {
-		Infinity.inst().getConfig().save();
-	}
+@Mixin(GameSettings.class)
+public abstract class MixinGameSettings {
+    /**
+     * @author Frontear
+     * @reason Allow {@link IConfig} to {@link IConfig#save()}
+     */
+    @Inject(method = "saveOptions",
+        at = @At("TAIL"))
+    private void saveOptions(CallbackInfo info) {
+        Infinity.inst().getConfig().save();
+    }
 }

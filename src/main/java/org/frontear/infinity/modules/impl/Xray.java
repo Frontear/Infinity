@@ -13,29 +13,33 @@ import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
 // implementation in MixinMinecraft
-@FieldDefaults(level = AccessLevel.PRIVATE) public final class Xray extends Module {
-	boolean last_fullbright;
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public final class Xray extends Module {
+    boolean last_fullbright;
 
-	public Xray() {
-		super(Keyboard.KEY_X, false, Category.RENDER);
-	}
+    public Xray() {
+        super(Keyboard.KEY_X, false, Category.RENDER);
+    }
 
-	@SubscribeEvent public void onBlock(BlockEvent event) {
-		event.setRender(event.getBlock() instanceof BlockOre || event.getBlock() instanceof BlockRedstoneOre);
-		if (event.shouldRender()) {
-			event.setSideCheck(false); // necessary so that block renders like a full cube
-		}
-	}
+    @SubscribeEvent
+    public void onBlock(BlockEvent event) {
+        event.setRender(
+            event.getBlock() instanceof BlockOre || event.getBlock() instanceof BlockRedstoneOre);
+        if (event.shouldRender()) {
+            event.setSideCheck(false); // necessary so that block renders like a full cube
+        }
+    }
 
 
-	@Override protected void onToggle(boolean active) {
-		val instance = Infinity.inst().getModules().get(Fullbright.class);
-		if (active) {
-			last_fullbright = instance.isActive();
-		}
+    @Override
+    protected void onToggle(boolean active) {
+        val instance = Infinity.inst().getModules().get(Fullbright.class);
+        if (active) {
+            last_fullbright = instance.isActive();
+        }
 
-		mc.renderGlobal.loadRenderers();
+        mc.renderGlobal.loadRenderers();
 
-		instance.setActive(active || last_fullbright);
-	}
+        instance.setActive(active || last_fullbright);
+    }
 }
