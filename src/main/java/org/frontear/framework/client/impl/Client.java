@@ -26,9 +26,7 @@ public abstract class Client implements IClient {
     /**
      * Represents whether <i>-Dfrontear.debug=true</i> is passed as a JVM argument
      */
-    public static final boolean DEBUG = Boolean.parseBoolean(System
-        .getProperty("frontear.debug",
-            "false")); // either get value of frontear.debug, or return false if it doesn't exist
+    public static final boolean DEBUG = Boolean.getBoolean("frontear.debug");
     /**
      * Represents the time since the {@link Client} first loaded (immediate call to the
      * constructor)
