@@ -85,7 +85,7 @@ public abstract class MixinEntityRenderer {
             opcode = Opcodes.GETFIELD,
             target = "Lnet/minecraft/client/settings/GameSettings;gammaSetting:F"))
     private float updateLightmap(GameSettings settings) {
-        return Infinity.inst().getModules().get(Fullbright.class).isActive() ? 100f
+        return Infinity.inst().getModules().get(Fullbright.class).isActive() ? 10f
             : settings.gammaSetting;
     }
 }

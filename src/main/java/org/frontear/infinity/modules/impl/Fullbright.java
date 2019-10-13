@@ -12,4 +12,9 @@ public final class Fullbright extends Module {
     public Fullbright() {
         super(Keyboard.KEY_B, true, Category.RENDER);
     }
+
+    @Override
+    protected void onToggle(final boolean active) {
+        mc.renderGlobal.loadRenderers(); // mostly for shaders, which will break if this isn't done
+    }
 }
