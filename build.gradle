@@ -54,7 +54,7 @@ dependencies {
     }
 
     //implementation files("${System.getProperty('java.home')}/../${OperatingSystem.isMacOsX() ? 'Classes/classes.jar' : 'lib/tools.jar'}") // ahh, mac os
-    implementation("org.projectlombok:lombok:1.18.8")
+    implementation("org.projectlombok:lombok:1.18.10")
 }
 
 processResources {
