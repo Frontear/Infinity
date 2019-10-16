@@ -34,12 +34,12 @@ public final class Logger implements ILogger {
      *
      * @param name Will prefix all log stream outputs
      */
-    public Logger(@NonNull String name) {
+    public Logger(@NonNull final String name) {
         this.log = LogManager.getLogger(name);
     }
 
     // removes package prefix
-    private static String sanitize(@NonNull String className) {
+    private static String sanitize(@NonNull final String className) {
         val split = className.split("\\.");
         return split[split.length - 1];
     }
@@ -50,8 +50,8 @@ public final class Logger implements ILogger {
      * @see ILogger#fatal(Throwable, Object, Object...)
      */
     @Override
-    public <T extends Throwable> T fatal(@NonNull T throwable, @NonNull Object object,
-        Object... args) {
+    public <T extends Throwable> T fatal(@NonNull final T throwable, @NonNull final Object object,
+        final Object... args) {
         log(Level.FATAL, object, args);
         throw throwable;
     }
@@ -63,7 +63,7 @@ public final class Logger implements ILogger {
      * @see ILogger#error(Object, Object...)
      */
     @Override
-    public void error(@NonNull Object object, Object... args) {
+    public void error(@NonNull final Object object, final Object... args) {
         log(Level.ERROR, object, args);
     }
 
@@ -74,7 +74,7 @@ public final class Logger implements ILogger {
      * @see ILogger#warn(Object, Object...)
      */
     @Override
-    public void warn(@NonNull Object object, Object... args) {
+    public void warn(@NonNull final Object object, final Object... args) {
         log(Level.WARN, object, args);
     }
 
@@ -85,7 +85,7 @@ public final class Logger implements ILogger {
      * @see ILogger#info(Object, Object...)
      */
     @Override
-    public void info(@NonNull Object object, Object... args) {
+    public void info(@NonNull final Object object, final Object... args) {
         log(Level.INFO, object, args);
     }
 
@@ -96,7 +96,7 @@ public final class Logger implements ILogger {
      * @see ILogger#debug(Object, Object...)
      */
     @Override
-    public void debug(@NonNull Object object, Object... args) {
+    public void debug(@NonNull final Object object, final Object... args) {
         if (Client.DEBUG) {
             log(Level.OFF, object, args);
         }
@@ -108,7 +108,7 @@ public final class Logger implements ILogger {
     }
 
     @Override
-    public void startSection(@NonNull String title) {
+    public void startSection(@NonNull final String title) {
         info(StringUtils.center(" $title ", repeat, pad));
     }
 
@@ -121,7 +121,8 @@ public final class Logger implements ILogger {
      * @param object Will be converted into a string via {@link String#valueOf(Object)}
      * @param args   Extra arguments for {@link String#format(String, Object...)}
      */
-    private void log(Level level, Object object, Object... args) {
+    private void log(final Level level, final Object object, final Object... args) {
+        //noinspection unused
         val element = Thread.currentThread().getStackTrace()[3];
         val message = new StringBuilder();
         if (Client.DEBUG) {

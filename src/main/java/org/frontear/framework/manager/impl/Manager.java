@@ -27,7 +27,7 @@ public abstract class Manager<T> implements IManager<T> {
      *
      * @param objects The objects that will be managed
      */
-    public Manager(@NonNull ImmutableMap<Class<? extends T>, T> objects) {
+    public Manager(@NonNull final ImmutableMap<Class<? extends T>, T> objects) {
         this.objects = objects;
     }
 
@@ -37,7 +37,7 @@ public abstract class Manager<T> implements IManager<T> {
      *
      * @param pkg The package that will be searched through via {@link Manager#reflectionSearch(String)}
      */
-    public Manager(@NonNull String pkg) {
+    public Manager(@NonNull final String pkg) {
         this.objects = reflectionSearch(pkg);
     }
 
@@ -50,7 +50,7 @@ public abstract class Manager<T> implements IManager<T> {
      * @return An {@link ImmutableSet} of elements which were instantiated
      */
     @SuppressWarnings("UnstableApiUsage")
-    private ImmutableMap<Class<? extends T>, T> reflectionSearch(String pkg) {
+    private ImmutableMap<Class<? extends T>, T> reflectionSearch(final String pkg) {
         logger.debug("Attempting to find parent...");
         //noinspection unchecked
         val parent = (Class<T>) new TypeToken<T>(getClass()) {
@@ -96,7 +96,7 @@ public abstract class Manager<T> implements IManager<T> {
      */
     @NonNull
     @Override
-    public <T1 extends T> T1 get(@NonNull Class<T1> target) {
+    public <T1 extends T> T1 get(@NonNull final Class<T1> target) {
         //noinspection unchecked
         return (T1) objects.get(target);
     }

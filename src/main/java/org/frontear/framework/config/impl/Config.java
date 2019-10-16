@@ -38,7 +38,7 @@ public final class Config implements IConfig {
      *
      * @param config_file The file that will contain all {@link IConfigurable} objects
      */
-    public Config(@NonNull File config_file) {
+    public Config(@NonNull final File config_file) {
         this.config_file = config_file;
     }
 
@@ -46,7 +46,7 @@ public final class Config implements IConfig {
      * @see IConfig#register(IConfigurable)
      */
     @Override
-    public void register(@NonNull IConfigurable<?> object) {
+    public void register(@NonNull final IConfigurable<?> object) {
         logger.debug("Registering configurable '%s', successful: %b", object.getName(),
             configurables.add(object));
     }
@@ -55,7 +55,7 @@ public final class Config implements IConfig {
      * @see IConfig#unregister(IConfigurable)
      */
     @Override
-    public void unregister(@NonNull IConfigurable<?> object) {
+    public void unregister(@NonNull final IConfigurable<?> object) {
         logger.debug("Unregistering configurable '%s', successful: %b", object.getName(),
             configurables.remove(object));
     }

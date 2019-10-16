@@ -20,7 +20,8 @@ public interface ILogger {
      *
      * @throws T The throwable that prevents continuation of the application
      */
-    <T extends Throwable> T fatal(@NonNull T throwable, @NonNull Object object, Object... args)
+    <T extends Throwable> T fatal(@NonNull final T throwable, @NonNull final Object object,
+        final Object... args)
         throws T;
 
     /**
@@ -31,7 +32,7 @@ public interface ILogger {
      * @param args   Any additional objects that are passed into a {@link String#format(String,
      *               Object...)}
      */
-    void error(@NonNull Object object, Object... args);
+    void error(@NonNull final Object object, final Object... args);
 
     /**
      * A warning represents a minor issue, something that can potentially end up causing an error
@@ -40,7 +41,7 @@ public interface ILogger {
      * @param args   Any additional objects that are passed into a {@link String#format(String,
      *               Object...)}
      */
-    void warn(@NonNull Object object, Object... args);
+    void warn(@NonNull final Object object, final Object... args);
 
     /**
      * An info represents a simple informative log, this can just be telling the user of small
@@ -50,7 +51,7 @@ public interface ILogger {
      * @param args   Any additional objects that are passed into a {@link String#format(String,
      *               Object...)}
      */
-    void info(@NonNull Object object, Object... args);
+    void info(@NonNull final Object object, final Object... args);
 
     /**
      * A debug represents a log that will only show up if "-Dfrontear.debug=true" is passed as a JVM
@@ -60,14 +61,14 @@ public interface ILogger {
      * @param args   Any additional objects that are passed into a {@link String#format(String,
      *               Object...)}
      */
-    void debug(@NonNull Object object, Object... args);
+    void debug(@NonNull final Object object, final Object... args);
 
     /**
      * Calls {@link ILogger#endSection()}, then {@link ILogger#startSection(String)}
      *
      * @param title The section name
      */
-    default void endStartSection(@NonNull String title) {
+    default void endStartSection(@NonNull final String title) {
         endSection();
         startSection(title);
     }
@@ -82,5 +83,5 @@ public interface ILogger {
      *
      * @param title The section name
      */
-    void startSection(@NonNull String title);
+    void startSection(@NonNull final String title);
 }

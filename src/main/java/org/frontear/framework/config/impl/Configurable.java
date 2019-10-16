@@ -17,13 +17,13 @@ public final class Configurable<C extends Configurable<C>> implements IConfigura
      *
      * @see IConfigurable#load(IConfigurable)
      */
-    public void load(@NonNull C self) {
+    public void load(@NonNull final C self) {
         val exposed = Arrays.stream(this.getClass().getDeclaredFields())
             .filter(x -> x.isAnnotationPresent(Expose.class)).peek(x -> x.setAccessible(true));
         exposed.forEach(x -> this.apply(self, x));
     }
 
-    private void apply(@NonNull C self, @NonNull final Field field) {
+    private void apply(@NonNull final C self, @NonNull final Field field) {
         val equivalent = self.getClass().getDeclaredField(field.getName());
         equivalent.setAccessible(true);
 

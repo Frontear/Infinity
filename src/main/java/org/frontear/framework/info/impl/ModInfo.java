@@ -28,7 +28,7 @@ public final class ModInfo implements IModInfo {
      * @param json {@link JsonObject} which is created when loading the specified json file in
      *             {@link Client} construction
      */
-    public ModInfo(@NonNull JsonObject json) {
+    public ModInfo(@NonNull final JsonObject json) {
         this.name = json.get("name").getAsString();
         this.version = json.get("version").getAsString();
         this.fullname = "$name v$version";

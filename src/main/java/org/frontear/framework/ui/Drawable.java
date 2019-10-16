@@ -49,7 +49,8 @@ public abstract class Drawable {
      * @param height The height of the {@link Drawable}
      * @param color  The color of the {@link Drawable}
      */
-    public Drawable(int x, int y, int width, int height, Color color) {
+    public Drawable(final int x, final int y, final int width, final int height,
+        final Color color) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -109,7 +110,7 @@ public abstract class Drawable {
      * @param width  The width of the {@link Drawable}
      * @param height The height of the {@link Drawable}
      */
-    protected abstract void render(int x, int y, int width, int height);
+    protected abstract void render(final int x, final int y, final int width, final int height);
 
     /**
      * This should be called when {@link Mouse#next()} is available, in order to allow the {@link
@@ -120,7 +121,7 @@ public abstract class Drawable {
      * @param button The button being pressed by the {@link Mouse}, 0 == LEFT, 1 == RIGHT, else ==
      *               NONE
      */
-    public void mouse(int mouseX, int mouseY, int button) {
+    public void mouse(final int mouseX, final int mouseY, final int button) {
         click(mouseX, mouseY, mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth()
             && mouseY < getY() + getHeight(), button);
     }
@@ -135,7 +136,8 @@ public abstract class Drawable {
      * @param button The button being pressed by the {@link Mouse}, 0 == LEFT, 1 == RIGHT, else ==
      *               NONE
      */
-    protected abstract void click(int mouseX, int mouseY, boolean hover, int button);
+    protected abstract void click(final int mouseX, final int mouseY, final boolean hover,
+        final int button);
 
     /**
      * Sets the position of the {@link Drawable} in an x-y plane
@@ -143,7 +145,7 @@ public abstract class Drawable {
      * @param x The new x-coordinate of the {@link Drawable}
      * @param y The new y-coordinate of the {@link Drawable}
      */
-    public void setPosition(int x, int y) {
+    public void setPosition(final int x, final int y) {
         this.x = x;
         this.y = y;
     }

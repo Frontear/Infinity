@@ -30,7 +30,7 @@ public final class Timer {
      *
      * @return Whether that amount has elapsed yet
      */
-    public boolean hasElapsed(TimeUnit unit, long time) {
+    public boolean hasElapsed(final TimeUnit unit, final long time) {
         return getElapsed(unit) >= time;
     }
 
@@ -42,7 +42,7 @@ public final class Timer {
      *
      * @return The duration, specific to the unit of time
      */
-    public long getElapsed(TimeUnit unit) {
+    public long getElapsed(final TimeUnit unit) {
         return unit.convert(System.nanoTime() - nanoseconds, TimeUnit.NANOSECONDS);
     }
 

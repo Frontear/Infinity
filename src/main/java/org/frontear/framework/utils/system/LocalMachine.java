@@ -19,6 +19,7 @@ import lombok.val;
 @UtilityClass
 public class LocalMachine {
     private final byte OS, ARCH;
+    private Map<Integer, String> processes = Maps.newLinkedHashMap();
 
     static {
         if (ManagementFactory.getRuntimeMXBean().getInputArguments().stream()
@@ -65,7 +66,6 @@ public class LocalMachine {
     }
 
     public Map<Integer, String> getProcesses() {
-        val processes = Maps.<Integer, String>newHashMap();
         val windows = OS == OperatingSystem.WINDOWS;
         val process = Runtime.getRuntime().exec(windows ? "tasklist /fo csv /nh" : "ps -e");
         try (val reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {

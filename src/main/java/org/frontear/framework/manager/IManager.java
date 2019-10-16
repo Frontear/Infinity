@@ -13,7 +13,7 @@ public interface IManager<T> {
      *
      * @return target object, or throws {@link NoSuchElementException} if object cannot be found
      */
-    default <T1 extends T> T1 get(@NonNull Class<T1> target) {
+    default <T1 extends T> T1 get(@NonNull final Class<T1> target) {
         //noinspection unchecked,OptionalGetWithoutIsPresent
         return (T1) getObjects().filter(x -> x.getClass() == target).findFirst().get();
     }
