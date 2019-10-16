@@ -1,14 +1,13 @@
 package org.frontear.mixins.impl;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.InputStream;
 import lombok.val;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.AbstractResourcePack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(AbstractResourcePack.class)
 public abstract class MixinAbstractResourcePack {
@@ -18,9 +17,10 @@ public abstract class MixinAbstractResourcePack {
      * @author prplz
      * @reason Please see https://prplz.io/memoryfix/ for more information
      */
-    @Overwrite
-    public BufferedImage getPackImage() throws IOException {
-        val image = TextureUtil.readBufferedImage(this.getInputStreamByName("pack.png"));
+    @Redirect(method = "getPackImage", at = @At(value = "INVOKE",
+        target = "Lnet/minecraft/client/renderer/texture/TextureUtil;readBufferedImage(Ljava/io/InputStream;)Ljava/awt/image/BufferedImage;"))
+    private BufferedImage getPackImage(final InputStream stream) {
+        val image = TextureUtil.readBufferedImage(stream);
         if (image != null) {
             val scaled = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
             val graphics = scaled.createGraphics();
@@ -32,7 +32,4 @@ public abstract class MixinAbstractResourcePack {
 
         return null;
     }
-
-    @Shadow
-    protected abstract InputStream getInputStreamByName(String name) throws IOException;
 }

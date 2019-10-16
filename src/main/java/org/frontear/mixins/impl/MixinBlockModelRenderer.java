@@ -10,35 +10,39 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.events.render.BlockEvent;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(BlockModelRenderer.class)
 public abstract class MixinBlockModelRenderer {
     /**
-     * @param blockAccessIn   Block access class
-     * @param modelIn         Block model
-     * @param blockStateIn    State of the block
-     * @param blockPosIn      Position of the block
-     * @param worldRendererIn The global world renderer
+     * @param self       Instance of this
+     * @param access     Block access class
+     * @param model      Block model
+     * @param state      State of the block
+     * @param pos        Position of the block
+     * @param renderer   The global world renderer
+     * @param checkSides Calculate whether sides should be rendered if visible
      *
      * @return true if rendered successfully, else false
      *
      * @author Frontear
      * @reason {@link BlockEvent}
      */
-    @Overwrite
-    public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn,
-        IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn) {
-        val block = blockStateIn.getBlock();
-        block.setBlockBoundsBasedOnState(blockAccessIn, blockPosIn);
-        val event = new BlockEvent(block, true, true);
+    @Redirect(
+        method = "renderModel(Lnet/minecraft/world/IBlockAccess;Lnet/minecraft/client/resources/model/IBakedModel;Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/util/BlockPos;Lnet/minecraft/client/renderer/WorldRenderer;)Z",
+        at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/client/renderer/BlockModelRenderer;renderModel(Lnet/minecraft/world/IBlockAccess;Lnet/minecraft/client/resources/model/IBakedModel;Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/util/BlockPos;Lnet/minecraft/client/renderer/WorldRenderer;Z)Z"))
+    private boolean renderModel(final BlockModelRenderer self, final IBlockAccess access,
+        final IBakedModel model, final IBlockState state, final BlockPos pos,
+        final WorldRenderer renderer, final boolean checkSides) {
+        val block = state.getBlock();
+        val event = new BlockEvent(block, true, checkSides);
         MinecraftForge.EVENT_BUS.post(event);
+
         if (event.shouldRender()) {
-            return this
-                .renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, worldRendererIn,
-                    event
-                        .checkSide()); // todo: fire event from deeper into the BlockModelRenderer, as the other methods are public, meaning rendering could be happening at a deeper level without us realizing
+            return this.renderModel(access, model, state, pos, renderer, event.checkSide());
         }
 
         return false;
