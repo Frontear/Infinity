@@ -37,7 +37,7 @@ public final class Ghost extends Module {
                 .filter(Module::isActive)
                 .toArray(Module[]::new);
             logger.debug("Found ${stream.length} unsafe modules");
-            for (Module module : stream) {
+            for (val module : stream) {
                 module.toggle();
                 unsafe.add(module);
             }

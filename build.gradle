@@ -49,7 +49,7 @@ dependencies {
         // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
     }
 
-    compile("systems.manifold:manifold-all:2019.1.14") {
+    compile("systems.manifold:manifold-all:2019.1.21") {
         exclude module: "*"
     }
 

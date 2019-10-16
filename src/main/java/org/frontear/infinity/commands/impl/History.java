@@ -1,5 +1,7 @@
 package org.frontear.infinity.commands.impl;
 
+import static manifold.collections.api.range.RangeFun.*;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonParser;
@@ -42,9 +44,10 @@ public final class History extends Command {
                         .get("changedToAt").getAsLong() : 0 });
             });
 
-            if (history.size() > 1) {
+            val size = history.size();
+            if (size > 1) {
                 sendMessage("Name history for $username:");
-                for (var i = 0; i < history.size(); i++) {
+                for (val i : 0 to_ size) {
                     val data = history.get(i);
                     sendMessage("    ${i + 1}. ${data[0]}: ${normalizeDate(data[1])}");
                 }

@@ -1,5 +1,7 @@
 package org.frontear.infinity.modules.impl;
 
+import static manifold.collections.api.range.RangeFun.*;
+
 import java.util.function.Predicate;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -64,7 +66,7 @@ public final class AutoTool extends Module {
 
     // todo: detect materials and enchants
     private int searchHotbar(InventoryPlayer inventory, Predicate<? super Item> filter) {
-        for (var i = 0; i < 9; i++) {
+        for (val i : 0 to_ 9) {
             val stack = inventory.mainInventory[i];
             if (stack != null && filter.test(stack.getItem())) {
                 return i;
