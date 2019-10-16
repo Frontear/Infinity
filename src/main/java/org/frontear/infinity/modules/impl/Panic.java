@@ -22,7 +22,7 @@ public final class Panic extends Module {
         val stream = Infinity.inst().getModules().getObjects().filter(Module::isActive)
             .toArray(Module[]::new);
         logger.debug("Disabling ${stream.length} modules");
-        for (val module : stream) {
+        for (Module module : stream) {
             module.toggle();
         }
 

@@ -13,7 +13,7 @@ import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
-import lombok.val;
+import lombok.var;
 import org.frontear.framework.ui.Drawable;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
@@ -61,7 +61,7 @@ public final class Circle extends Drawable {
         glBegin(GL_TRIANGLE_FAN);
         {
             glVertex2d(x, y);
-            for (val i : 0to factor) {
+            for (var i = 0; i <= factor; i++) {
                 glVertex2d((x + (radius * cos(i * (PI * 2f) / factor))),
                     (y + (radius * sin(i * (PI * 2f) / factor))));
             }

@@ -1,7 +1,5 @@
 package org.frontear.framework.utils.rand;
 
-import static manifold.collections.api.range.RangeFun.to_;
-
 import com.google.common.base.Preconditions;
 import java.lang.reflect.Array;
 import java.util.concurrent.ThreadLocalRandom;
@@ -15,7 +13,7 @@ public class Random {
 
     public String nextString(final int length, final boolean rand_case) {
         val string = new StringBuilder(length);
-        for (val i : 0to_ length) {
+        for (int i = 0; i < length; i++) {
             string.append(nextChar(rand_case && nextBoolean()));
         }
 
