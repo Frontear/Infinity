@@ -5,6 +5,7 @@ import java.lang.reflect.Array;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.experimental.UtilityClass;
 import lombok.val;
+import lombok.var;
 
 @UtilityClass
 public class Random {
@@ -21,16 +22,16 @@ public class Random {
     }
 
     public char nextChar(final boolean upper) {
-        val c = chars[nextInt(chars)];
+        val c = chars[nextIndex(chars)];
 
         return upper ? Character.toUpperCase(c) : c;
     }
 
     public boolean nextBoolean() {
-        return nextInt(0, 1) == 1;
+        return nextInt(0, 1) != 0;
     }
 
-    public int nextInt(final Object array) {
+    public int nextIndex(final Object array) {
         Preconditions.checkArgument(array.getClass().isArray());
 
         return nextInt(0, Array.getLength(array) - 1);
@@ -41,5 +42,12 @@ public class Random {
             .checkArgument((max > min) && (max != Integer.MAX_VALUE)); // we don't want an overflow
 
         return random.nextInt(min, max + 1);
+    }
+
+    public double nextDouble(final double min, final double max) {
+        Preconditions
+            .checkArgument((max > min) && (max != Double.MAX_VALUE)); // we don't want an overflow
+
+        return random.nextDouble(min, max + 1);
     }
 }

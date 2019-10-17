@@ -10,7 +10,7 @@ import lombok.val;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.infinity.commands.Command;
 
-public class Dump extends Command {
+public final class Dump extends Command {
     public Dump() {
         super("Dumps a full stacktrace of all active threads to the logs.");
     }
