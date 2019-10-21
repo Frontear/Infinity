@@ -3,8 +3,6 @@ package org.frontear.infinity.commands.impl;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonParser;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -13,7 +11,7 @@ import lombok.NonNull;
 import lombok.val;
 import lombok.var;
 import net.minecraft.util.EnumChatFormatting;
-import org.apache.commons.io.IOUtils;
+import org.frontear.framework.utils.net.HttpConnection;
 import org.frontear.infinity.commands.Command;
 
 public final class History extends Command {
@@ -28,10 +26,12 @@ public final class History extends Command {
         new Thread(() -> {
             val parser = new JsonParser();
             val uuid = parser
-                .parse(get("https://api.mojang.com/users/profiles/minecraft/$username"))
+                .parse(
+                    HttpConnection.get("https://api.mojang.com/users/profiles/minecraft/$username"))
                 .getAsJsonObject()
                 .get("id").getAsString();
-            val names = parser.parse(get("https://api.mojang.com/user/profiles/$uuid/names"))
+            val names = parser
+                .parse(HttpConnection.get("https://api.mojang.com/user/profiles/$uuid/names"))
                 .getAsJsonArray();
             val history = Lists.<Object[]>newArrayList(); // ugh
 
@@ -53,16 +53,6 @@ public final class History extends Command {
                 sendMessage("This player has never changed their name", EnumChatFormatting.RED);
             }
         }).start(); // this can take some time, as it's contacting an API
-    }
-
-    private String get(String url) {
-        val connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
-
-        val string = new StringBuilder();
-        IOUtils.readLines(connection.getInputStream()).forEach(string::append);
-
-        return string.toString();
     }
 
     private String normalizeDate(Object time) {

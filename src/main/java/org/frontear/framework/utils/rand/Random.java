@@ -5,7 +5,6 @@ import java.lang.reflect.Array;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.experimental.UtilityClass;
 import lombok.val;
-import lombok.var;
 
 @UtilityClass
 public class Random {

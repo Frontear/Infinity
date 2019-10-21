@@ -1,25 +1,22 @@
 package org.frontear.infinity.modules.impl;
 
-import java.util.function.Predicate;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
 import lombok.var;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.utils.InventoryUtils;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)
 public final class AutoTool extends Module {
-
-
     public AutoTool() {
         super(Keyboard.KEY_L, true, Category.PLAYER);
     }
@@ -32,18 +29,19 @@ public final class AutoTool extends Module {
         }
     }
 
+    // todo: detect materials and enchants
     public void selectOptimizedItem(final InventoryPlayer player) {
         val object = mc.objectMouseOver;
-        var slot = -1;
+        var slot = 0;
         switch (object.typeOfHit) {
             case ENTITY:
-                slot = searchHotbar(player, ItemSword.class::isInstance);
+                slot = InventoryUtils.findItem(player, ItemSword.class::isInstance, true);
                 break;
             case BLOCK:
                 val block = mc.theWorld.getBlockState(object.getBlockPos()).getBlock();
-                slot = searchHotbar(player,
+                slot = InventoryUtils.findItem(player,
                     x -> x instanceof ItemTool && ((ItemTool) x).effectiveBlocks
-                        .contains(block));
+                        .contains(block), true);
                 break;
             case MISS:
                 return; // we don't need to handle this at all
@@ -51,7 +49,7 @@ public final class AutoTool extends Module {
                 logger.debug("%s not supported", object.typeOfHit.name());
         }
 
-        if (slot != -1) {
+        if (slot != InventoryUtils.NO_ITEM_FOUND) {
             val tool = (ItemTool) player.mainInventory[slot].getItem(); // this shouldn't ever fail
             logger.debug(
                 "Setting slot to $slot with item ${tool.getSimpleName()}:${tool.getToolMaterial()} for hit ${object.typeOfHit}");
@@ -60,17 +58,5 @@ public final class AutoTool extends Module {
         else {
             logger.debug("No slot with useful item found for hit ${object.typeOfHit}");
         }
-    }
-
-    // todo: detect materials and enchants
-    private int searchHotbar(InventoryPlayer inventory, Predicate<? super Item> filter) {
-        for (var i = 0; i < 9; i++) {
-            val stack = inventory.mainInventory[i];
-            if (stack != null && filter.test(stack.getItem())) {
-                return i;
-            }
-        }
-
-        return -1;
     }
 }

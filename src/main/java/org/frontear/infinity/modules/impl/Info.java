@@ -19,7 +19,7 @@ import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)
-public class Info extends Module {
+public final class Info extends Module {
 
     Timer timer = new Timer();
     float max_ticks = mc.timer.ticksPerSecond;
