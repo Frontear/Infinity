@@ -34,9 +34,7 @@ public final class ModInfo implements IModInfo {
         this.fullname = "$name v$version";
         {
             val authorList = json.get(environment.getAuthorProperty()).getAsJsonArray();
-            val str = new StringBuilder();
-            authorList.forEach(str::append);
-            this.authors = String.join(", ", str.toString()).replaceLast(", ", ", and ");
+            this.authors = authorList.joinToString(", ").replaceLast(", ", ", and ");
         }
     }
 }

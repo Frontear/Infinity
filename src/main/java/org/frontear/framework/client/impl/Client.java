@@ -57,9 +57,7 @@ public abstract class Client implements IClient {
         this.logger = new Logger(info.getName());
         val file = new File(WORKING_DIRECTORY, "${info.getName().toLowerCase()}.json");
         if (DEBUG) {
-            //noinspection ResultOfMethodCallIgnored
-            Runtime.getRuntime()
-                .addShutdownHook(new Thread(file::delete)); // see: deleteOnExit is evil
+            file.deleteOnExit();
         }
         this.config = new Config(file);
 

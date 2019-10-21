@@ -49,14 +49,17 @@ public final class AutoTool extends Module {
                 logger.debug("%s not supported", object.typeOfHit.name());
         }
 
-        if (slot != InventoryUtils.NO_ITEM_FOUND) {
-            val tool = (ItemTool) player.mainInventory[slot].getItem(); // this shouldn't ever fail
-            logger.debug(
-                "Setting slot to $slot with item ${tool.getSimpleName()}:${tool.getToolMaterial()} for hit ${object.typeOfHit}");
-            player.currentItem = slot;
-        }
-        else {
-            logger.debug("No slot with useful item found for hit ${object.typeOfHit}");
+        if (player.currentItem != slot) {
+            if (slot != InventoryUtils.NO_ITEM_FOUND) {
+                val tool = (ItemTool) player.mainInventory[slot]
+                    .getItem(); // this shouldn't ever fail
+                logger.debug(
+                    "Setting slot to $slot with item ${tool.getSimpleName()}:${tool.getToolMaterial()} for hit ${object.typeOfHit}");
+                player.currentItem = slot;
+            }
+            else {
+                logger.debug("No slot with useful item found for hit ${object.typeOfHit}");
+            }
         }
     }
 }
