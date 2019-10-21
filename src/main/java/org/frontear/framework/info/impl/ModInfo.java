@@ -7,7 +7,7 @@ import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
 import org.frontear.framework.client.impl.Client;
-import org.frontear.framework.environment.ModEnvironment;
+import org.frontear.framework.environments.IEnvironment;
 import org.frontear.framework.info.IModInfo;
 
 /**
@@ -28,12 +28,12 @@ public final class ModInfo implements IModInfo {
      * @param json {@link JsonObject} which is created when loading the specified json file in
      *             {@link Client} construction
      */
-    public ModInfo(@NonNull final JsonObject json) {
+    public ModInfo(@NonNull final JsonObject json, @NonNull final IEnvironment environment) {
         this.name = json.get("name").getAsString();
         this.version = json.get("version").getAsString();
         this.fullname = "$name v$version";
         {
-            val authorList = json.get(ModEnvironment.getAuthorProperty()).getAsJsonArray();
+            val authorList = json.get(environment.getAuthorProperty()).getAsJsonArray();
             val str = new StringBuilder();
             authorList.forEach(str::append);
             this.authors = String.join(", ", str.toString()).replaceLast(", ", ", and ");

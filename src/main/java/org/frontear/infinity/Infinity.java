@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.client.impl.Client;
+import org.frontear.framework.environments.impl.ForgeEnvironment;
 import org.frontear.infinity.commands.CommandManager;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
@@ -25,7 +26,7 @@ public final class Infinity extends Client {
     @Getter TextRenderer textRenderer; // prefer this renderer only for when you need to render Infinity stuff directly
 
     private Infinity() {
-        super();
+        super(new ForgeEnvironment());
 
         MinecraftForge.EVENT_BUS.register(this.modules = new ModuleManager(getConfig()));
         MinecraftForge.EVENT_BUS.register(this.commands = new CommandManager(getInfo()));

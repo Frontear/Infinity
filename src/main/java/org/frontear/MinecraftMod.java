@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.frontear.framework.environment.ModEnvironment;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.infinity.Infinity;
 
@@ -20,10 +19,6 @@ import org.frontear.infinity.Infinity;
 public final class MinecraftMod {
     Logger logger = new Logger("%name MinecraftMod");
     @NonFinal Thread concurrent;
-
-    public static byte getEnvironment() {
-        return ModEnvironment.FORGE;
-    }
 
     @Mod.EventHandler
     private void onFMLPreInitialization(FMLPreInitializationEvent event) {
