@@ -1,22 +1,31 @@
-package org.frontear.infinity.commands.gui;
+package org.frontear.infinity.commands.ui;
 
+import java.awt.Color;
 import java.io.IOException;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.val;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatComponentText;
-import org.frontear.infinity.commands.ui.Console;
+import org.frontear.framework.graphics.IRenderer;
+import org.frontear.framework.graphics.impl.Renderer;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public final class ConsoleGuiScreen extends GuiScreen {
-    Console console;
+    private static final Color COLOR = new Color(0, 0, 0, 127);
+    IRenderer renderer = new Renderer();
+    @NonFinal Console console;
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        console.draw();
+        renderer.begin(COLOR);
+        {
+            console.render();
+        }
+        renderer.end();
     }
 
     @Override
@@ -30,13 +39,16 @@ public final class ConsoleGuiScreen extends GuiScreen {
     public void initGui() {
         val width = 320;
         val height = 180;
+        val x = this.width - width - 2;
+        val y = 2;
 
         Keyboard.enableRepeatEvents(true);
         if (console == null) {
-            this.console = new Console(fontRendererObj, this.width - width - 2, 2, width, height);
+            this.console = new Console(fontRendererObj, x, y, width, height,
+                renderer);
         }
         else {
-            console.setPosition(this.width - width - 2, 2);
+            console.setPosition(x, y); // for when the minecraft window height/width change
         }
     }
 

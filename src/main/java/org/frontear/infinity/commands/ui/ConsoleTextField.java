@@ -1,31 +1,37 @@
-package org.frontear.infinity.commands.gui;
+package org.frontear.infinity.commands.ui;
 
-import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiTextField;
-import org.frontear.framework.ui.impl.Rectangle;
+import org.frontear.framework.graphics.IRenderer;
+import org.frontear.framework.graphics.shapes.Rectangle;
 import org.frontear.infinity.Infinity;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)
 public final class ConsoleTextField extends GuiTextField {
+    IRenderer renderer;
     Rectangle backing;
 
-    public ConsoleTextField(@NonNull FontRenderer fontrendererObj, int x, int y, int par5Width,
-        int par6Height, @NonNull Color color) {
-        super(-1, fontrendererObj, x + 4 / 2, y + (par6Height - 8) / 2, par5Width,
-            par6Height); // see GuiTextField#drawTextBox
+    ConsoleTextField(@NonNull FontRenderer fontrendererObj, int x, int y, int par5Width,
+        int par6Height, @NonNull final
+    IRenderer renderer) {
+        super(-1, fontrendererObj, 0, 0, par5Width,
+            par6Height);
 
         this.setCanLoseFocus(false);
         this.setMaxStringLength(par5Width / 6); // majority of the character widths are 6
         this.setEnableBackgroundDrawing(false);
 
-        this.backing = new Rectangle(x, y, par5Width, par6Height, color);
+        this.setPosition(x, y);
+
+        this.renderer = renderer;
+        this.backing = new Rectangle(x, y, par5Width, par6Height);
+        backing.setRenderer(renderer);
     }
 
     @Override
@@ -44,13 +50,15 @@ public final class ConsoleTextField extends GuiTextField {
 
     @Override
     public void drawTextBox() {
-        backing.draw();
-
-        super.drawTextBox();
+        backing.render();
+        renderer.escapeContext(super::drawTextBox);
     }
 
-    public void setPosition(int x, int y) {
-        backing.setPosition(x, y);
+    void setPosition(int x, int y) {
+        backing.setX(x);
+        backing.setY(y);
+
+        // see GuiTextField#drawTextBox
         this.xPosition = x + 4 / 2;
         this.yPosition = y + (backing.getHeight() - 8) / 2;
     }

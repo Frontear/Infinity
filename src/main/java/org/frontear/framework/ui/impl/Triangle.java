@@ -26,7 +26,8 @@ public final class Triangle extends Drawable {
         super(x, y, width, height, color);
     }
 
-    @Override @Deprecated
+    @Override
+    @Deprecated
     protected void render(final int x, final int y, final int width, final int height) {
         glBegin(GL_TRIANGLES);
         {

@@ -14,6 +14,17 @@ public abstract class Renderable implements IRenderable {
     @Getter @Setter int x, y, width, height;
     @Setter @NonNull private IRenderer renderer;
 
+    public Renderable() {
+        this(0, 0, 0, 0);
+    }
+
+    public Renderable(final int x, final int y, final int width, final int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
     @Override
     public void render() throws IllegalArgumentException {
         Preconditions.checkArgument(renderer != null && renderer.isActive());

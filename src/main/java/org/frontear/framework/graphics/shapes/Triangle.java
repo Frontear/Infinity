@@ -8,6 +8,10 @@ import static org.lwjgl.opengl.GL11.glVertex2d;
 import org.frontear.framework.graphics.impl.Renderable;
 
 public final class Triangle extends Renderable {
+    public Triangle(final int x, final int y, final int width, final int height) {
+        super(x, y, width, height);
+    }
+
     @Override
     public void render() throws IllegalArgumentException {
         super.render();

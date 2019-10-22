@@ -14,6 +14,15 @@ public interface IRenderer {
     void begin(@NonNull final Color color) throws IllegalArgumentException;
 
     /**
+     * Runs an uncertain amount of {@link Runnable}, disabling the OpenGL context with {@link
+     * IRenderer#end()} and re-enabling it at the end of the execution with {@link
+     * IRenderer#begin(Color)}
+     *
+     * @param render The group of {@link Runnable} to run outside the OpenGL context
+     */
+    void escapeContext(@NonNull final Runnable render);
+
+    /**
      * Closes the previously made OpenGL context by {@link IRenderer#begin(Color)}. This should
      * ideally reset the modifications made, and the context should be in the same state as it was
      * before {@link IRenderer#begin(Color)} was invoked. This <b>must</b> throw an {@link

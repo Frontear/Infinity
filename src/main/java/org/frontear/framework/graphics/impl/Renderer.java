@@ -28,6 +28,7 @@ import org.frontear.framework.graphics.IRenderer;
 public final class Renderer implements IRenderer {
     @Getter boolean active;
     boolean blend, tex_2d, cull_face;
+    Color color;
 
     @Override
     public void begin(@NonNull final Color color) throws IllegalArgumentException {
@@ -55,7 +56,17 @@ public final class Renderer implements IRenderer {
                 color.getAlpha() / 255.0f);
         }
 
+        this.color = color;
         this.active = true;
+    }
+
+    @Override
+    public void escapeContext(final @NonNull Runnable render) {
+        this.end();
+        {
+            render.run();
+        }
+        this.begin(color);
     }
 
     @Override

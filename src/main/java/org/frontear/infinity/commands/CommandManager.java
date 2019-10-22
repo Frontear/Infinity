@@ -14,7 +14,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.frontear.framework.info.impl.ModInfo;
 import org.frontear.framework.manager.impl.Manager;
 import org.frontear.infinity.Infinity;
-import org.frontear.infinity.commands.gui.ConsoleGuiScreen;
+import org.frontear.infinity.commands.ui.ConsoleGuiScreen;
 import org.frontear.infinity.events.input.KeyEvent;
 import org.frontear.infinity.modules.impl.Ghost;
 import org.frontear.infinity.utils.ChatUtils;

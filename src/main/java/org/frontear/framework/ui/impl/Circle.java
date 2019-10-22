@@ -16,7 +16,8 @@ import lombok.var;
 import org.frontear.framework.ui.Drawable;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
-    makeFinal = true) @Deprecated
+    makeFinal = true)
+@Deprecated
 public final class Circle extends Drawable {
     int factor;
     @NonFinal int radius;

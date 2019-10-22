@@ -15,6 +15,10 @@ import org.frontear.framework.graphics.impl.Renderable;
 public final class Circle extends Renderable {
     private static final byte FACTOR = 8; // consider it a smoothing factor
 
+    public Circle(final int x, final int y, final int width, final int height) {
+        super(x, y, width, height);
+    }
+
     @Override
     public void render() throws IllegalArgumentException {
         super.render();

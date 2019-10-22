@@ -27,7 +27,8 @@ import org.lwjgl.input.Mouse;
 /**
  * Represents an object that is to be drawn to the screen via OpenGL
  */
-@FieldDefaults(level = AccessLevel.PRIVATE) @Deprecated
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Deprecated
 public abstract class Drawable {
     @Getter int x, y;
     @Getter @Setter int width, height;
