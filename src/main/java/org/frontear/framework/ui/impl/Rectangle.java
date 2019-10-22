@@ -8,6 +8,7 @@ import static org.lwjgl.opengl.GL11.glVertex2d;
 import java.awt.Color;
 import org.frontear.framework.ui.Drawable;
 
+@Deprecated
 public final class Rectangle extends Drawable {
     /**
      * Creates a rectangle {@link Drawable} object, which is rendered via {@link

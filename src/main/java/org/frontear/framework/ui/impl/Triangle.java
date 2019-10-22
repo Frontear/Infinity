@@ -8,6 +8,7 @@ import static org.lwjgl.opengl.GL11.glVertex2d;
 import java.awt.Color;
 import org.frontear.framework.ui.Drawable;
 
+@Deprecated
 public final class Triangle extends Drawable {
     /**
      * Creates a triangle {@link Drawable} object, which is rendered via {@link
@@ -25,7 +26,7 @@ public final class Triangle extends Drawable {
         super(x, y, width, height, color);
     }
 
-    @Override
+    @Override @Deprecated
     protected void render(final int x, final int y, final int width, final int height) {
         glBegin(GL_TRIANGLES);
         {

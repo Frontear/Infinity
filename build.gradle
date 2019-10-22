@@ -20,7 +20,7 @@ def replacements = [
 ]
 sourceSets.main.ext.refMap = refmap
 tasks.withType(JavaCompile) {
-    options.compilerArgs += [ "-Xplugin:Manifold" ] // manifold requires this
+    options.compilerArgs += [ "-Xplugin:Manifold", "-Xlint:deprecation", "-Xlint:unchecked" ]
 }
 
 minecraft {
