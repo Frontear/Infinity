@@ -5,11 +5,14 @@ import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glVertex2d;
 
+import java.awt.Color;
+import lombok.NonNull;
 import org.frontear.framework.graphics.impl.Renderable;
 
 public final class Triangle extends Renderable {
-    public Triangle(final int x, final int y, final int width, final int height) {
-        super(x, y, width, height);
+    public Triangle(final int x, final int y, final int width, final int height,
+        final @NonNull Color color) {
+        super(x, y, width, height, color);
     }
 
     @Override

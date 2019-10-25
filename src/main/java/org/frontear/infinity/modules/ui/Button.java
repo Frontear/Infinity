@@ -8,6 +8,7 @@ import lombok.experimental.NonFinal;
 import lombok.val;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import org.frontear.framework.graphics.color.ColorFactory;
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;
 import org.frontear.infinity.modules.Module;
@@ -17,8 +18,8 @@ import org.frontear.infinity.modules.gui.KeyBindScreen;
     makeFinal = true)
 public final class Button extends Drawable {
     protected static final Minecraft mc = Minecraft.getMinecraft();
-    private static final Color DEFAULT = new Color(54, 71, 96);
-    private static final Color ACTIVE = new Color(7, 152, 252);
+    private static final Color DEFAULT = ColorFactory.from(54, 71, 96);
+    private static final Color ACTIVE = ColorFactory.from(7, 152, 252);
     Rectangle rectangle;
     GuiScreen parent;
     @NonFinal Module module;

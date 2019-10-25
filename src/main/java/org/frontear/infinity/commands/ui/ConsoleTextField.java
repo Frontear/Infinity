@@ -7,6 +7,7 @@ import lombok.val;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiTextField;
 import org.frontear.framework.graphics.IRenderer;
+import org.frontear.framework.graphics.color.ColorFactory;
 import org.frontear.framework.graphics.shapes.Rectangle;
 import org.frontear.infinity.Infinity;
 import org.lwjgl.input.Keyboard;
@@ -27,11 +28,11 @@ public final class ConsoleTextField extends GuiTextField {
         this.setMaxStringLength(par5Width / 6); // majority of the character widths are 6
         this.setEnableBackgroundDrawing(false);
 
-        this.setPosition(x, y);
-
         this.renderer = renderer;
-        this.backing = new Rectangle(x, y, par5Width, par6Height);
+        this.backing = new Rectangle(x, y, par5Width, par6Height, ColorFactory.from(0, 0, 0, 127));
         backing.setRenderer(renderer);
+
+        this.setPosition(x, y);
     }
 
     @Override

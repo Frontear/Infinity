@@ -6,13 +6,14 @@ import java.util.Set;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
+import org.frontear.framework.graphics.color.ColorFactory;
 import org.frontear.framework.ui.Drawable;
 import org.frontear.framework.ui.impl.Rectangle;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)
 public final class Panel extends Drawable {
-    private static final Color DEFAULT = new Color(0, 0, 0, 127);
+    private static final Color DEFAULT = ColorFactory.from(0, 0, 0, 127);
     Set<Button> buttons = Sets.newLinkedHashSet();
     Rectangle background;
 

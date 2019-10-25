@@ -9,14 +9,17 @@ import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glVertex2d;
 
 import com.google.common.base.Preconditions;
+import java.awt.Color;
+import lombok.NonNull;
 import lombok.var;
 import org.frontear.framework.graphics.impl.Renderable;
 
 public final class Circle extends Renderable {
     private static final byte FACTOR = 8; // consider it a smoothing factor
 
-    public Circle(final int x, final int y, final int width, final int height) {
-        super(x, y, width, height);
+    public Circle(final int x, final int y, final int width, final int height,
+        final @NonNull Color color) {
+        super(x, y, width, height, color);
     }
 
     @Override

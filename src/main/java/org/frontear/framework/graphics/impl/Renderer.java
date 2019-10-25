@@ -7,7 +7,6 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glColor4f;
 import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glIsEnabled;
@@ -17,7 +16,6 @@ import static org.lwjgl.opengl.GL11.glPushAttrib;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 
 import com.google.common.base.Preconditions;
-import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -28,10 +26,9 @@ import org.frontear.framework.graphics.IRenderer;
 public final class Renderer implements IRenderer {
     @Getter boolean active;
     boolean blend, tex_2d, cull_face;
-    Color color;
 
     @Override
-    public void begin(@NonNull final Color color) throws IllegalArgumentException {
+    public void begin() throws IllegalArgumentException {
         Preconditions.checkArgument(!active);
 
         glPushAttrib(GL_CURRENT_BIT);
@@ -51,12 +48,8 @@ public final class Renderer implements IRenderer {
             if (cull_face) {
                 glDisable(GL_CULL_FACE);
             }
-
-            glColor4f(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f,
-                color.getAlpha() / 255.0f);
         }
 
-        this.color = color;
         this.active = true;
     }
 
@@ -66,7 +59,7 @@ public final class Renderer implements IRenderer {
         {
             render.run();
         }
-        this.begin(color);
+        this.begin();
     }
 
     @Override

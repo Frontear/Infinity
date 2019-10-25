@@ -1,6 +1,5 @@
 package org.frontear.infinity.commands.ui;
 
-import java.awt.Color;
 import java.io.IOException;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -15,13 +14,12 @@ import org.lwjgl.input.Mouse;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public final class ConsoleGuiScreen extends GuiScreen {
-    private static final Color COLOR = new Color(0, 0, 0, 127);
     IRenderer renderer = new Renderer();
     @NonFinal Console console;
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        renderer.begin(COLOR);
+        renderer.begin();
         {
             console.render();
         }

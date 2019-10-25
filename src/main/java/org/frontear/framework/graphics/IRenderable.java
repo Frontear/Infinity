@@ -1,5 +1,6 @@
 package org.frontear.framework.graphics;
 
+import java.awt.Color;
 import lombok.NonNull;
 import org.lwjgl.opengl.GL11;
 
@@ -21,4 +22,10 @@ public interface IRenderable {
      * @param renderer The renderer that will manage this {@link IRenderable}
      */
     void setRenderer(@NonNull final IRenderer renderer);
+
+    /**
+     * @param color The new color of the specified render that will be automatically applied when
+     *              {@link IRenderer#begin()} is called
+     */
+    void setColor(@NonNull final Color color); // todo: getColor?
 }

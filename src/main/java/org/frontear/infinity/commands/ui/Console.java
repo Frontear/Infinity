@@ -14,6 +14,7 @@ import lombok.var;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ChatComponentText;
 import org.frontear.framework.graphics.IRenderer;
+import org.frontear.framework.graphics.color.ColorFactory;
 import org.frontear.framework.graphics.impl.Renderable;
 import org.frontear.framework.graphics.shapes.Rectangle;
 
@@ -32,7 +33,7 @@ public final class Console extends Renderable {
     IRenderer renderer) {
         this.font = font;
         this.renderer = renderer;
-        this.backing = new Rectangle(x, y, width, height);
+        this.backing = new Rectangle(x, y, width, height, ColorFactory.from(0, 0, 0, 127));
         backing.setRenderer(renderer);
         this.field = new ConsoleTextField(font, 0, 0, width, 12, renderer);
 
