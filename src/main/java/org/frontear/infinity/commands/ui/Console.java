@@ -23,7 +23,6 @@ import org.frontear.framework.graphics.shapes.Rectangle;
 public final class Console extends Renderable {
     private static final float scale = 0.5f;
     FontRenderer font;
-    IRenderer renderer;
     Rectangle backing;
     ConsoleTextField field;
     Deque<String> lines = Queues.newArrayDeque();
@@ -32,12 +31,12 @@ public final class Console extends Renderable {
     Console(@NonNull FontRenderer font, int x, int y, int width, int height, @NonNull final
     IRenderer renderer) {
         this.font = font;
-        this.renderer = renderer;
         this.backing = new Rectangle(x, y, width, height, ColorFactory.from(0, 0, 0, 127));
         backing.setRenderer(renderer);
         this.field = new ConsoleTextField(font, 0, 0, width, 12, renderer);
 
         this.setPosition(x, y);
+        this.setRenderer(renderer);
     }
 
     void updateCursorCounter() {

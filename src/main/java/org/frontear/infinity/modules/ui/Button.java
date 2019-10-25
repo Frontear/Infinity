@@ -8,15 +8,16 @@ import lombok.experimental.NonFinal;
 import lombok.val;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import org.frontear.framework.graphics.IRenderer;
 import org.frontear.framework.graphics.color.ColorFactory;
-import org.frontear.framework.ui.Drawable;
-import org.frontear.framework.ui.impl.Rectangle;
+import org.frontear.framework.graphics.impl.Renderable;
+import org.frontear.framework.graphics.shapes.Rectangle;
 import org.frontear.infinity.modules.Module;
 import org.frontear.infinity.modules.gui.KeyBindScreen;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)
-public final class Button extends Drawable {
+public final class Button extends Renderable {
     protected static final Minecraft mc = Minecraft.getMinecraft();
     private static final Color DEFAULT = ColorFactory.from(54, 71, 96);
     private static final Color ACTIVE = ColorFactory.from(7, 152, 252);
@@ -77,25 +78,19 @@ public final class Button extends Drawable {
     }
 
     @Override
-    public void draw() {
+    public void render() throws IllegalArgumentException {
         val text = module.getName();
         this.setColor(module.isActive() ? ACTIVE : DEFAULT);
 
-        rectangle.draw();
-        mc.fontRendererObj
-            .drawString(text,
-                ((rectangle.getX() + (rectangle.getX() + rectangle.getWidth())) - mc.fontRendererObj
-                    .getStringWidth(text)) / 2, (((rectangle.getY() + (rectangle.getY() + rectangle
-                    .getHeight())) - (mc.fontRendererObj.FONT_HEIGHT + 1)) / 2), color);
+        rectangle.render();
+        renderer.escapeContext(() -> mc.fontRendererObj.drawString(text,
+            ((rectangle.getX() + (rectangle.getX() + rectangle.getWidth())) - mc.fontRendererObj
+                .getStringWidth(text)) / 2,
+            (((rectangle.getY() + (rectangle.getY() + rectangle.getHeight())) - (
+                mc.fontRendererObj.FONT_HEIGHT + 1)) / 2), color));
     }
 
-    @Override
-    protected void render(int x, int y, int width, int height) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void click(int mouseX, int mouseY, boolean hover, int button) {
+    void click(int mouseX, int mouseY, boolean hover, int button) {
         if (hover) {
             if (button == 0) {
                 module.toggle();
@@ -106,8 +101,14 @@ public final class Button extends Drawable {
         }
     }
 
+    void setPosition(int x, int y) {
+        rectangle.setX(x);
+        rectangle.setY(y);
+    }
+
     @Override
-    public void setPosition(int x, int y) {
-        rectangle.setPosition(x, y);
+    public void setRenderer(@NonNull final IRenderer renderer) {
+        super.setRenderer(renderer);
+        rectangle.setRenderer(renderer);
     }
 }

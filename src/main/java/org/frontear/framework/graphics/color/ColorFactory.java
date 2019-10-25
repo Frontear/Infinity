@@ -1,14 +1,13 @@
 package org.frontear.framework.graphics.color;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
 import java.awt.Color;
-import java.util.Map;
+import java.util.WeakHashMap;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class ColorFactory {
-    private final Map<Integer, Color> colors = Maps.newHashMap();
+    private final WeakHashMap<Integer, Color> colors = new WeakHashMap<>(); // todo: is this enough?
 
     public Color from(final int red, final int green, final int blue) {
         return from(red, green, blue, 255);

@@ -15,15 +15,15 @@ import org.frontear.framework.graphics.IRenderer;
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public abstract class Renderable implements IRenderable {
     @Getter @Setter int x, y, width, height;
-    @Setter @NonNull private IRenderer renderer;
+    @Setter @NonNull IRenderer renderer;
     @Setter @NonNull private Color color;
 
     public Renderable() {
-        this(0, 0, 0, 0, Color.WHITE);
+        this(0, 0, 0, 0, null);
     }
 
     public Renderable(final int x, final int y, final int width, final int height,
-        @NonNull final Color color) {
+        final Color color) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -34,6 +34,10 @@ public abstract class Renderable implements IRenderable {
     @Override
     public void render() throws IllegalArgumentException {
         Preconditions.checkArgument(renderer != null && renderer.isActive());
+        if (color == null) {
+            throw new NullPointerException("Renderable#color is null!");
+        }
+
         glColor4f(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f,
             color.getAlpha() / 255.0f);
     }

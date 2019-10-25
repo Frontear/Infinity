@@ -9,6 +9,8 @@ import lombok.experimental.NonFinal;
 import lombok.val;
 import lombok.var;
 import net.minecraft.client.gui.GuiScreen;
+import org.frontear.framework.graphics.IRenderer;
+import org.frontear.framework.graphics.impl.Renderer;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.Category;
 import org.frontear.infinity.modules.ui.Button;
@@ -17,12 +19,17 @@ import org.frontear.infinity.modules.ui.Panel;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public final class ClickGuiScreen extends GuiScreen {
     Deque<Panel> categoryPanels = Queues.newArrayDeque();
+    IRenderer renderer = new Renderer();
     @NonFinal boolean init = false; // prevents initGui from being called more than once
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        categoryPanels.forEach(Panel::draw);
+        renderer.begin();
+        {
+            categoryPanels.forEach(Panel::render);
+        }
+        renderer.end();
     }
 
     @Override
@@ -48,6 +55,7 @@ public final class ClickGuiScreen extends GuiScreen {
 
                 x += width + 5;
 
+                panel.setRenderer(renderer);
                 categoryPanels.add(panel);
             }
 
