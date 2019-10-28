@@ -75,7 +75,7 @@ processResources {
 }
 
 runClient {
-    jvmArgs "-Xmx1G", "-Dmixin.hotSwap=true", "-Dfrontear.debug=true"
+    jvmArgs "-Xmx1G", "-Dmixin.debug=true", "-Dfrontear.debug=true"
     args "--tweakClass", "org.spongepowered.asm.launch.MixinTweaker", "--mixin", mixin
 }
 

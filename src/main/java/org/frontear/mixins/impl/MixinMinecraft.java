@@ -97,6 +97,15 @@ public abstract class MixinMinecraft {
     private void gc() {
     }
 
+    /**
+     * @author Frontear
+     * @reason Add a garbage collection call in freeMemory, since {@link MixinMinecraft#gc()} cleans them all up
+     */
+    @Inject(method = "freeMemory", at = @At("TAIL"))
+    private void freeMemory(final CallbackInfo info) {
+        System.gc();
+    }
+
     @Inject(method = "clickMouse",
         at = @At("HEAD"))
     private void clickMouse(CallbackInfo info) {
