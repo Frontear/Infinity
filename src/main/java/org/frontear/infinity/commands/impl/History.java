@@ -1,6 +1,5 @@
 package org.frontear.infinity.commands.impl;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonParser;
 import java.time.Instant;
@@ -20,7 +19,7 @@ public final class History extends Command {
     }
 
     @Override
-    public void process(@NonNull String[] args) throws Exception {
+    public void process(@NonNull final String[] args) throws Exception {
         val username = args[0];
 
         new Thread(() -> {
@@ -55,8 +54,7 @@ public final class History extends Command {
         }).start(); // this can take some time, as it's contacting an API
     }
 
-    private String normalizeDate(Object time) {
-        Preconditions.checkArgument(time instanceof Long);
+    private String normalizeDate(final Object time) {
         return ((Long) time) == 0 ? "unknown" : ZonedDateTime
             .ofInstant(Instant.ofEpochMilli((Long) time), ZoneId.systemDefault())
             .format(DateTimeFormatter.ofPattern("E, MMM d, Y, hh:mm:ss a"));

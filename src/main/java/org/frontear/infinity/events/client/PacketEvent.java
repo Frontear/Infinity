@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 public final class PacketEvent extends Event {
     private static Packet packet;
 
-    public PacketEvent(@NonNull Packet packet) {
+    public PacketEvent(@NonNull final Packet packet) {
         PacketEvent.packet = packet;
     }
 
@@ -15,7 +15,7 @@ public final class PacketEvent extends Event {
         return packet;
     }
 
-    public void setPacket(Packet packet) {
+    public void setPacket(final Packet packet) {
         PacketEvent.packet = packet;
     }
 }

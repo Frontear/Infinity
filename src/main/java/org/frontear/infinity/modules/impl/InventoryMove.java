@@ -26,7 +26,7 @@ public final class InventoryMove extends Module {
     }
 
     @SubscribeEvent
-    public void onTick(TickEvent.PlayerTickEvent event) {
+    public void onTick(final TickEvent.PlayerTickEvent event) {
         if (mc.currentScreen instanceof GuiContainerCreative
             || mc.currentScreen instanceof GuiInventory) {
             Arrays.stream(keys)
@@ -36,7 +36,7 @@ public final class InventoryMove extends Module {
     }
 
     @SubscribeEvent
-    public void onPacket(PacketEvent event) {
+    public void onPacket(final PacketEvent event) {
         // C0EPacketClickWindow -> When clicking an inventory slot
         // C0BPacketEntityAction -> Sprinting, Sneaking
         // C16PacketClientStatus -> When opening the inventory

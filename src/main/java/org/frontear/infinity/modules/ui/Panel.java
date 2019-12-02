@@ -19,13 +19,13 @@ public final class Panel extends Renderable {
     Set<Button> buttons = Sets.newLinkedHashSet();
     Rectangle background;
 
-    public Panel(int x, int y, int width, int height) {
+    public Panel(final int x, final int y, final int width, final int height) {
         super(x, y, width, height, null);
 
         this.background = new Rectangle(x, y, width, height, DEFAULT);
     }
 
-    public void add(Button button) {
+    public void add(@NonNull final Button button) {
         buttons.add(button);
 
         this.setHeight(this.getHeight());
@@ -34,13 +34,13 @@ public final class Panel extends Renderable {
     }
 
     @Override
-    public void setWidth(int width) {
+    public void setWidth(final int width) {
         buttons.forEach(x -> x.setWidth(width));
         background.setWidth(width);
     }
 
     @Override
-    public void setHeight(int height) {
+    public void setHeight(final int height) {
         buttons.forEach(x -> x.setHeight(height));
         background.setHeight(height * buttons.size());
     }
@@ -57,13 +57,13 @@ public final class Panel extends Renderable {
         buttons.forEach(x -> x.setRenderer(renderer));
     }
 
-    public void mouse(int mouseX, int mouseY, int button) {
+    public void mouse(final int mouseX, final int mouseY, final int button) {
         buttons.forEach(x -> x.click(mouseX, mouseY,
             mouseX >= x.getX() && mouseY >= x.getY() && mouseX < x.getX() + x.getWidth()
                 && mouseY < x.getY() + x.getHeight(), button));
     }
 
-    public void setPosition(int x, int y) {
+    public void setPosition(final int x, int y) {
         background.setX(x);
         background.setY(y);
 

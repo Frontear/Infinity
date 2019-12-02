@@ -22,7 +22,7 @@ public final class Xray extends Module {
     }
 
     @SubscribeEvent
-    public void onBlock(BlockEvent event) {
+    public void onBlock(final BlockEvent event) {
         event.setRender(
             event.getBlock() instanceof BlockOre || event.getBlock() instanceof BlockRedstoneOre);
         if (event.shouldRender()) {
@@ -32,7 +32,7 @@ public final class Xray extends Module {
 
 
     @Override
-    protected void onToggle(boolean active) {
+    protected void onToggle(final boolean active) {
         val instance = Infinity.inst().getModules().get(Fullbright.class);
         if (active) {
             last_fullbright = instance.isActive();

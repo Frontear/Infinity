@@ -16,7 +16,7 @@ public final class NoFOV extends Module {
     }
 
     @SubscribeEvent
-    public void onFOV(FOVUpdateEvent event) {
+    public void onFOV(final FOVUpdateEvent event) {
         if (event.entity instanceof EntityPlayerSP) {
             event.newfov = reset(event.entity, event.fov);
 
@@ -27,7 +27,7 @@ public final class NoFOV extends Module {
     }
 
     // reverses fov, from AbstractClientPlayer
-    private float reset(EntityPlayer entity, float fov) {
+    private float reset(final EntityPlayer entity, final float fov) {
         val iattributeinstance = entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
         return (float) ((double) fov / (
             (iattributeinstance.getAttributeValue() / (double) entity.capabilities

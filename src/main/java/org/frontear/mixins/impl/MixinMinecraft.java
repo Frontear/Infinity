@@ -35,7 +35,7 @@ public abstract class MixinMinecraft {
         at = @At(value = "FIELD",
             opcode = Opcodes.GETFIELD,
             target = "Lnet/minecraft/client/settings/GameSettings;ambientOcclusion:I"))
-    private static int isAmbientOcclusionEnabled(GameSettings settings) {
+    private static int isAmbientOcclusionEnabled(final GameSettings settings) {
         return Infinity.inst().getModules().get(Xray.class).isActive() ? 0
             : settings.ambientOcclusion;
     }
@@ -46,7 +46,7 @@ public abstract class MixinMinecraft {
      */
     @Inject(method = "startGame",
         at = @At(value = "TAIL"))
-    private void startGame(CallbackInfo info) {
+    private void startGame(final CallbackInfo info) {
         MinecraftForge.EVENT_BUS.post(new StartupEvent());
     }
 
@@ -56,7 +56,7 @@ public abstract class MixinMinecraft {
      */
     @Inject(method = "shutdownMinecraftApplet",
         at = @At(value = "HEAD"))
-    private void shutdownMinecraftApplet(CallbackInfo info) {
+    private void shutdownMinecraftApplet(final CallbackInfo info) {
         MinecraftForge.EVENT_BUS.post(new ShutdownEvent());
     }
 
@@ -73,7 +73,7 @@ public abstract class MixinMinecraft {
             id = "mouse",
             target = "Lnet/minecraftforge/fml/common/FMLCommonHandler;fireMouseInput()V",
             remap = false) })
-    private void runTick(CallbackInfo info) {
+    private void runTick(final CallbackInfo info) {
         if (info.getId().equals("inputEvent:key")) {
             MinecraftForge.EVENT_BUS
                 .post(new KeyEvent(
@@ -99,7 +99,8 @@ public abstract class MixinMinecraft {
 
     /**
      * @author Frontear
-     * @reason Add a garbage collection call in freeMemory, since {@link MixinMinecraft#gc()} cleans them all up
+     * @reason Add a garbage collection call in freeMemory, since {@link MixinMinecraft#gc()} cleans
+     * them all up
      */
     @Inject(method = "freeMemory", at = @At("TAIL"))
     private void freeMemory(final CallbackInfo info) {
@@ -108,7 +109,7 @@ public abstract class MixinMinecraft {
 
     @Inject(method = "clickMouse",
         at = @At("HEAD"))
-    private void clickMouse(CallbackInfo info) {
+    private void clickMouse(final CallbackInfo info) {
         if (Infinity.inst().getModules().get(AutoClicker.class).isActive()) {
             leftClickCounter = 0; // this was meant to have been an auto-clicker preventative thing, but... yeah
         }

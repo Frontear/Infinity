@@ -1,6 +1,7 @@
 package org.frontear.infinity.events.render;
 
 import lombok.AccessLevel;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import net.minecraft.block.Block;
@@ -12,7 +13,7 @@ public final class BlockEvent extends Event {
     private static Block block;
     @NonFinal boolean render, side_check;
 
-    public BlockEvent(Block block, boolean render, boolean side_check) {
+    public BlockEvent(@NonNull final Block block, final boolean render, final boolean side_check) {
         BlockEvent.block = block;
         this.render = render;
         this.side_check = side_check;
@@ -26,7 +27,7 @@ public final class BlockEvent extends Event {
         return render;
     }
 
-    public void setRender(boolean render) {
+    public void setRender(final boolean render) {
         this.render = render;
     }
 
@@ -34,7 +35,7 @@ public final class BlockEvent extends Event {
         return side_check;
     }
 
-    public void setSideCheck(boolean side_check) {
+    public void setSideCheck(final boolean side_check) {
         this.side_check = side_check;
     }
 }

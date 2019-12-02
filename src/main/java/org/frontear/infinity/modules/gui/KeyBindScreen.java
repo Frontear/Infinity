@@ -19,13 +19,13 @@ public final class KeyBindScreen extends GuiScreen {
     Module module;
     GuiScreen parent;
 
-    public KeyBindScreen(@NonNull Module module, @NonNull GuiScreen parent) {
+    public KeyBindScreen(@NonNull final Module module, @NonNull final GuiScreen parent) {
         this.module = module;
         this.parent = parent;
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
         this.drawDefaultBackground();
 
         val scale = 2;
@@ -41,7 +41,7 @@ public final class KeyBindScreen extends GuiScreen {
     }
 
     @Override
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(final char typedChar, final int keyCode) throws IOException {
         if (keyCode != Keyboard.KEY_ESCAPE) {
             module.setBind(keyCode);
         }
@@ -50,7 +50,7 @@ public final class KeyBindScreen extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(@NonNull GuiButton button) throws IOException {
+    protected void actionPerformed(@NonNull final GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == -1) {
                 this.keyTyped('\0', Keyboard.KEY_NONE);

@@ -26,7 +26,7 @@ public final class AutoClicker extends Module {
     }
 
     @SubscribeEvent
-    public void onTick(TickEvent.PlayerTickEvent event) {
+    public void onTick(final TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.START && event.player instanceof EntityPlayerSP
             && !event.player
             .isUsingItem()) {

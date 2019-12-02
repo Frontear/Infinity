@@ -31,7 +31,7 @@ public final class Info extends Module {
     }
 
     @SubscribeEvent
-    public void onOverlay(OverlayEvent event) {
+    public void onOverlay(final OverlayEvent event) {
         val renderer = Infinity.inst().getTextRenderer();
 
         val player = mc.thePlayer;
@@ -47,7 +47,7 @@ public final class Info extends Module {
     }
 
     @Override
-    protected void onToggle(boolean active) {
+    protected void onToggle(final boolean active) {
         if (active) {
             reset();
         }
@@ -60,7 +60,8 @@ public final class Info extends Module {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onTick(TickEvent.ClientTickEvent event) { // calculate after everything is done
+    public void onTick(
+        final TickEvent.ClientTickEvent event) { // calculate after everything is done
         if (event.phase == TickEvent.Phase.END) {
             if (++ticks == max_ticks) {
                 val elapsed = timer.getElapsed(TimeUnit.MILLISECONDS);

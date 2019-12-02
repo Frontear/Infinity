@@ -25,7 +25,7 @@ public abstract class MixinNetworkManager {
     @Redirect(method = "*",
         at = @At(value = "INVOKE",
             target = "Lnet/minecraft/network/NetworkManager;dispatchPacket(Lnet/minecraft/network/Packet;[Lio/netty/util/concurrent/GenericFutureListener;)V"))
-    private void dispatchPacket(NetworkManager manager, final Packet inPacket,
+    private void dispatchPacket(final NetworkManager manager, final Packet inPacket,
         final GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
         val event = new PacketEvent(inPacket);
         MinecraftForge.EVENT_BUS.post(event);

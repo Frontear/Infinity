@@ -6,7 +6,7 @@ import manifold.ext.api.Extension;
 import manifold.ext.api.This;
 
 @Extension
-public class ExtensionString {
+public final class ExtensionString {
     public static String replaceLast(@This final String thiz, @NonNull final String s,
         @NonNull final String s1) {
         val lastIndexOf = thiz.lastIndexOf(s);

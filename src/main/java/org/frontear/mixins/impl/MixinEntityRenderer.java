@@ -34,7 +34,7 @@ public abstract class MixinEntityRenderer {
     @Redirect(method = "hurtCameraEffect",
         at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/renderer/GlStateManager;rotate(FFFF)V"))
-    private void rotate(float angle, float x, float y, float z) {
+    private void rotate(final float angle, final float x, final float y, final float z) {
         GL11.glRotatef(
             angle / (!Infinity.inst().getModules().get(Ghost.class).isActive() ? 3f : 1f), x, y, z);
     }
@@ -52,7 +52,7 @@ public abstract class MixinEntityRenderer {
         at = @At(value = "INVOKE",
             target = "Lnet/minecraft/entity/EntityLivingBase;isPotionActive(Lnet/minecraft/potion/Potion;)Z",
             ordinal = 0))
-    private boolean isPotionActive(EntityLivingBase entity, Potion potion) {
+    private boolean isPotionActive(final EntityLivingBase entity, final Potion potion) {
         return Infinity.inst().getModules().get(Ghost.class).isActive() && entity
             .isPotionActive(potion); // todo: remove sky blacking
     }
@@ -66,7 +66,7 @@ public abstract class MixinEntityRenderer {
     @Redirect(method = "updateCameraAndRender",
         at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/gui/GuiIngame;renderGameOverlay(F)V"))
-    private void renderGameOverlay(GuiIngame ingame, float partialTicks) {
+    private void renderGameOverlay(final GuiIngame ingame, final float partialTicks) {
         ingame.renderGameOverlay(partialTicks);
         MinecraftForge.EVENT_BUS
             .post(new OverlayEvent(partialTicks, mc.gameSettings.showDebugInfo));
@@ -84,7 +84,7 @@ public abstract class MixinEntityRenderer {
         at = @At(value = "FIELD",
             opcode = Opcodes.GETFIELD,
             target = "Lnet/minecraft/client/settings/GameSettings;gammaSetting:F"))
-    private float updateLightmap(GameSettings settings) {
+    private float updateLightmap(final GameSettings settings) {
         return Infinity.inst().getModules().get(Fullbright.class).isActive() ? 10f
             : settings.gammaSetting;
     }

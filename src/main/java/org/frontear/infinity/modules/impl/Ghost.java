@@ -22,13 +22,13 @@ public final class Ghost extends Module {
     }
 
     @Override
-    public void load(Module self) {
+    public void load(final Module self) {
         this.setBind(self.getBind());
         this.setActive(false);
     }
 
     @Override
-    protected void onToggle(boolean active) {
+    protected void onToggle(final boolean active) {
         Display.setTitle(active ? "Minecraft ${net.minecraftforge.fml.common.Loader.MC_VERSION}"
             : Infinity.inst()
                 .getInfo().getFullname());

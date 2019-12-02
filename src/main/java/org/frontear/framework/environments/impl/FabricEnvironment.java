@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.frontear.framework.environments.IEnvironment;
 
-public class FabricEnvironment implements IEnvironment {
+public final class FabricEnvironment implements IEnvironment {
     @Override
     public String getName() {
         return "Fabric";

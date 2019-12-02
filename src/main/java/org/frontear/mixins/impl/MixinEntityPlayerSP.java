@@ -18,7 +18,7 @@ public abstract class MixinEntityPlayerSP extends Entity {
      * @reason Please see https://prplz.io/mousedelayfix/ for more information
      */
     @Override
-    public Vec3 getLook(float partialTicks) {
+    public Vec3 getLook(final float partialTicks) {
         val f =
             this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * partialTicks;
         val f1 = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * partialTicks;

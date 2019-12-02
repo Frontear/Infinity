@@ -25,7 +25,7 @@ public final class Blink extends Module {
     }
 
     @Override
-    protected void onToggle(boolean active) {
+    protected void onToggle(final boolean active) {
         if (active) {
             mc.theWorld.addEntityToWorld(ID, EntityUtils.clone(mc.thePlayer));
         }
@@ -41,7 +41,7 @@ public final class Blink extends Module {
     }
 
     @SubscribeEvent
-    public void onPacket(PacketEvent event) {
+    public void onPacket(final PacketEvent event) {
         if (event.getPacket() instanceof C03PacketPlayer) {
             packets.add(event.getPacket());
 

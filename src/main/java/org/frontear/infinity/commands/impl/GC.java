@@ -19,7 +19,7 @@ public final class GC extends Command {
     }
 
     @Override
-    public void process(@NonNull String[] args) throws Exception {
+    public void process(@NonNull final String[] args) throws Exception {
         if (allowed) {
             val last = getMemory();
             System.gc();

@@ -1,12 +1,12 @@
 package org.frontear.infinity.utils;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import lombok.val;
 import net.minecraft.util.ChatComponentText;
@@ -30,14 +30,14 @@ public class ChatUtils {
         formats = ImmutableMap.copyOf(temp);
     }
 
-    public ChatComponentText make(String text, EnumChatFormatting... formats) {
+    public ChatComponentText make(@NonNull final String text, final EnumChatFormatting... formats) {
         val component = new ChatComponentText(text);
         setStyle(component.getChatStyle(), formats);
 
         return component;
     }
 
-    private void setStyle(ChatStyle style, EnumChatFormatting... formats) {
+    private void setStyle(final ChatStyle style, final EnumChatFormatting... formats) {
         if (formats != null) {
             Arrays.stream(formats).filter(Objects::nonNull).forEach(x -> {
                 if (x == EnumChatFormatting.RESET) {
@@ -84,9 +84,7 @@ public class ChatUtils {
         style.setItalic(false);
     }
 
-    public ChatStyle styleFrom(String formatted) {
-        Preconditions.checkArgument(formatted != null);
-
+    public ChatStyle styleFrom(@NonNull final String formatted) {
         val style = new ChatStyle();
         defaultStyle(style);
 
@@ -101,7 +99,8 @@ public class ChatUtils {
         return style;
     }
 
-    public ChatComponentText append(ChatComponentText parent, ChatComponentText... siblings) {
+    public ChatComponentText append(final ChatComponentText parent,
+        final ChatComponentText... siblings) {
         val component = new ChatComponentText(
             ""); // acts as the parent, since if we directly append to parent, it'll remain there forever, and we don't want that
 
@@ -113,7 +112,7 @@ public class ChatUtils {
         return component;
     }
 
-    public String replaceSymbol(String string) {
+    public String replaceSymbol(@NonNull final String string) {
         return string.replace("&", FORMAT_SYMBOL);
     }
 }

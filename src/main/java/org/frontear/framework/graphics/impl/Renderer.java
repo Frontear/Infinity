@@ -29,7 +29,7 @@ public final class Renderer implements IRenderer {
 
     @Override
     public void begin() throws IllegalArgumentException {
-        Preconditions.checkArgument(!active);
+        Preconditions.checkArgument(!active, "Renderer is already active [can't begin]");
 
         glPushAttrib(GL_CURRENT_BIT);
         glPushMatrix();
@@ -64,7 +64,7 @@ public final class Renderer implements IRenderer {
 
     @Override
     public void end() throws IllegalArgumentException {
-        Preconditions.checkArgument(active);
+        Preconditions.checkArgument(active, "Render is already inactive [cant end]");
 
         {
             if (blend) {

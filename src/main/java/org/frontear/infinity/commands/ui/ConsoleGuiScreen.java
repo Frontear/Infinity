@@ -18,7 +18,7 @@ public final class ConsoleGuiScreen extends GuiScreen {
     @NonFinal Console console;
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
         renderer.begin();
         {
             console.render();
@@ -27,7 +27,7 @@ public final class ConsoleGuiScreen extends GuiScreen {
     }
 
     @Override
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(final char typedChar, final int keyCode) throws IOException {
         console.textboxKeyTyped(typedChar, keyCode);
 
         super.keyTyped(typedChar, keyCode);

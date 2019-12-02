@@ -10,7 +10,7 @@ public final class Help extends Command {
     }
 
     @Override
-    public void process(@NonNull String[] args) throws Exception {
+    public void process(@NonNull final String[] args) throws Exception {
         Infinity.inst().getCommands().getObjects().forEach(x -> {
             sendMessage("${x.getName()}: ${x.getDescription()}");
         });

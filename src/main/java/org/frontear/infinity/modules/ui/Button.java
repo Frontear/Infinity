@@ -26,8 +26,8 @@ public final class Button extends Renderable {
     @NonFinal Module module;
     @NonFinal int color;
 
-    public Button(@NonNull Module module, int x, int y, int width, int height,
-        @NonNull GuiScreen parent) {
+    public Button(@NonNull final Module module, final int x, final int y, final int width,
+        final int height, @NonNull final GuiScreen parent) {
         val color = module.isActive() ? ACTIVE : DEFAULT;
         this.rectangle = new Rectangle(x, y, width, height, color);
         this.module = module;
@@ -36,7 +36,7 @@ public final class Button extends Renderable {
     }
 
     // https://stackoverflow.com/a/13030061/9091276
-    private int contrast(Color color) {
+    private int contrast(final Color color) {
         val y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000f;
         return (y >= 128 ? Color.BLACK : Color.WHITE).getRGB();
     }
@@ -57,7 +57,7 @@ public final class Button extends Renderable {
     }
 
     @Override
-    public void setWidth(int width) {
+    public void setWidth(final int width) {
         rectangle.setWidth(width);
     }
 
@@ -67,7 +67,7 @@ public final class Button extends Renderable {
     }
 
     @Override
-    public void setHeight(int height) {
+    public void setHeight(final int height) {
         rectangle.setHeight(height);
     }
 
@@ -90,7 +90,7 @@ public final class Button extends Renderable {
                 mc.fontRendererObj.FONT_HEIGHT + 1)) / 2), color));
     }
 
-    void click(int mouseX, int mouseY, boolean hover, int button) {
+    void click(final int mouseX, final int mouseY, final boolean hover, final int button) {
         if (hover) {
             if (button == 0) {
                 module.toggle();
@@ -101,7 +101,7 @@ public final class Button extends Renderable {
         }
     }
 
-    void setPosition(int x, int y) {
+    void setPosition(final int x, final int y) {
         rectangle.setX(x);
         rectangle.setY(y);
     }

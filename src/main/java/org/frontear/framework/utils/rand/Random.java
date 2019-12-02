@@ -3,6 +3,7 @@ package org.frontear.framework.utils.rand;
 import com.google.common.base.Preconditions;
 import java.lang.reflect.Array;
 import java.util.concurrent.ThreadLocalRandom;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import lombok.val;
 
@@ -12,6 +13,10 @@ public class Random {
     private final char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
     public String nextString(final int length, final boolean rand_case) {
+        Preconditions
+            .checkArgument(length > 0, "Length of random string must not be less than 0 [is %d]",
+                length);
+
         val string = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
             string.append(nextChar(rand_case && nextBoolean()));
@@ -30,8 +35,9 @@ public class Random {
         return nextInt(0, 1) != 0;
     }
 
-    public int nextIndex(final Object array) {
-        Preconditions.checkArgument(array.getClass().isArray());
+    public int nextIndex(@NonNull final Object array) {
+        Preconditions.checkArgument(array.getClass().isArray(), "Invalid array [is %s]",
+            array.getSimpleName());
 
         return nextInt(0, Array.getLength(array) - 1);
     }

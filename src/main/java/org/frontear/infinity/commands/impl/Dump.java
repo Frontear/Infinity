@@ -16,7 +16,7 @@ public final class Dump extends Command {
     }
 
     @Override
-    public void process(@NonNull String[] args) throws Exception {
+    public void process(@NonNull final String[] args) throws Exception {
         val dump = ManagementFactory.getThreadMXBean().dumpAllThreads(true, true);
         val file = new File(Client.WORKING_DIRECTORY,
             "${org.frontear.infinity.Infinity.inst().getInfo().getName().toLowerCase()}.dmp");

@@ -9,7 +9,7 @@ public final class Uptime extends Command {
     }
 
     @Override
-    public void process(@NonNull String[] args) throws Exception {
+    public void process(@NonNull final String[] args) throws Exception {
         sendMessage("Running for: ${org.frontear.framework.client.impl.Client.UPTIME}");
     }
 }

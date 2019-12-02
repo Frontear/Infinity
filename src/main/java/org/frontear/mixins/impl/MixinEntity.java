@@ -23,7 +23,7 @@ public abstract class MixinEntity {
         at = { @At(value = "HEAD",
             id = "pre"), @At(value = "TAIL",
             id = "post") })
-    private void onEntityUpdate(CallbackInfo info) {
+    private void onEntityUpdate(final CallbackInfo info) {
         val self = (Entity) (Object) this;
 
         if (info.getId().equals("updateEvent:pre")) {
@@ -45,7 +45,7 @@ public abstract class MixinEntity {
     @Redirect(method = "moveEntity",
         at = @At(value = "INVOKE",
             target = "Lnet/minecraft/entity/Entity;isSneaking()Z"))
-    private boolean isSneaking(Entity entity) {
+    private boolean isSneaking(final Entity entity) {
         return Infinity.inst().getModules().get(SafeWalk.class).isActive() || entity.isSneaking();
     }
 }

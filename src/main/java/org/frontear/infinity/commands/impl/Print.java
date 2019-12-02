@@ -20,7 +20,7 @@ public final class Print extends Command {
     }
 
     @Override
-    public void process(@NonNull String[] args) throws Exception {
+    public void process(@NonNull final String[] args) throws Exception {
         val message = new StringBuilder();
         Arrays.stream(args).map(x -> "${x.trim()} ").forEach(message::append);
 
@@ -30,7 +30,7 @@ public final class Print extends Command {
     }
 
     @SubscribeEvent
-    public void onFont(FontEvent event) {
+    public void onFont(final FontEvent event) {
         if (StringUtils.startsWithIgnoreCase(event.getText(), getName())) {
             event.setText(
                 ChatUtils.replaceSymbol(event.getText())); // let user see what they are typing

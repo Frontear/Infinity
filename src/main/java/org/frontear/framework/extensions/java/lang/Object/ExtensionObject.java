@@ -4,7 +4,7 @@ import manifold.ext.api.Extension;
 import manifold.ext.api.This;
 
 @Extension
-public class ExtensionObject {
+public final class ExtensionObject {
     public static String getSimpleName(@This final Object thiz) {
         return thiz.getClass().getSimpleName();
     }

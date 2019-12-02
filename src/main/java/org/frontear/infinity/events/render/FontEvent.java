@@ -14,7 +14,8 @@ public final class FontEvent extends Event {
     @Getter @Setter int color;
     @Getter @Setter boolean dropShadow;
 
-    public FontEvent(@NonNull String text, float x, float y, int color, boolean dropShadow) {
+    public FontEvent(@NonNull final String text, final float x, final float y, final int color,
+        final boolean dropShadow) {
         FontEvent.text = text;
         this.x = x;
         this.y = y;
@@ -26,7 +27,7 @@ public final class FontEvent extends Event {
         return text;
     }
 
-    public void setText(@NonNull String text) {
+    public void setText(@NonNull final String text) {
         FontEvent.text = text;
     }
 }

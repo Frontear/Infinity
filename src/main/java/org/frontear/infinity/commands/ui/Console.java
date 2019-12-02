@@ -28,7 +28,8 @@ public final class Console extends Renderable {
     Deque<String> lines = Queues.newArrayDeque();
     @NonFinal int scrollFactor = 0;
 
-    Console(@NonNull FontRenderer font, int x, int y, int width, int height, @NonNull final
+    Console(@NonNull final FontRenderer font, final int x, final int y, final int width,
+        final int height, @NonNull final
     IRenderer renderer) {
         this.font = font;
         this.backing = new Rectangle(x, y, width, height, ColorFactory.from(0, 0, 0, 127));
@@ -43,7 +44,7 @@ public final class Console extends Renderable {
         field.updateCursorCounter();
     }
 
-    void textboxKeyTyped(char p_146201_1_, int p_146201_2_) {
+    void textboxKeyTyped(final char p_146201_1_, final int p_146201_2_) {
         field.textboxKeyTyped(p_146201_1_, p_146201_2_);
     }
 
@@ -72,18 +73,18 @@ public final class Console extends Renderable {
         field.setFocused(true);
     }
 
-    void setPosition(int x, int y) {
+    void setPosition(final int x, final int y) {
         backing.setX(x);
         backing.setY(y);
         field.setPosition(x, y + backing.getHeight() + 1);
     }
 
-    void scroll(int factor) {
+    void scroll(final int factor) {
         this.scrollFactor = Math
             .min(lines.size(), Math.max(0, scrollFactor + factor)); // between 0 and lines.size
     }
 
-    void print(@NonNull ChatComponentText text) {
+    void print(@NonNull final ChatComponentText text) {
         lines.addFirst(text.getFormattedText());
     }
 }

@@ -18,9 +18,8 @@ public final class ConsoleTextField extends GuiTextField {
     IRenderer renderer;
     Rectangle backing;
 
-    ConsoleTextField(@NonNull FontRenderer fontrendererObj, int x, int y, int par5Width,
-        int par6Height, @NonNull final
-    IRenderer renderer) {
+    ConsoleTextField(@NonNull final FontRenderer fontrendererObj, final int x, final int y,
+        final int par5Width, final int par6Height, @NonNull final IRenderer renderer) {
         super(-1, fontrendererObj, 0, 0, par5Width,
             par6Height);
 
@@ -36,7 +35,7 @@ public final class ConsoleTextField extends GuiTextField {
     }
 
     @Override
-    public boolean textboxKeyTyped(char p_146201_1_, int p_146201_2_) {
+    public boolean textboxKeyTyped(final char p_146201_1_, final int p_146201_2_) {
         val text = getText()
             .trim(); // removes all empty spaces from ends and beginnings, they are unnecessary and can cause problems
         if (p_146201_2_ == Keyboard.KEY_RETURN && !text.isEmpty()) {
@@ -55,7 +54,7 @@ public final class ConsoleTextField extends GuiTextField {
         renderer.escapeContext(super::drawTextBox);
     }
 
-    void setPosition(int x, int y) {
+    void setPosition(final int x, final int y) {
         backing.setX(x);
         backing.setY(y);
 

@@ -14,7 +14,7 @@ public final class Sprint extends Module {
     }
 
     @SubscribeEvent
-    public void onUpdate(UpdateEvent event) {
+    public void onUpdate(final UpdateEvent event) {
         if (event.getEntity() instanceof EntityPlayerSP && event.isPost()
             && !((EntityPlayerSP) event.getEntity())
             .isPotionActive(Potion.blindness)) {

@@ -22,7 +22,7 @@ public abstract class MixinGuiOptions extends GuiScreen {
      */
     @Inject(method = "initGui",
         at = @At("TAIL"))
-    private void initGui(CallbackInfo info) {
+    private void initGui(final CallbackInfo info) {
         if (!Infinity.inst().getModules().get(Ghost.class).isActive()) {
             this.buttonList
                 .add(new GuiButton(-1, this.width / 2 + 5, this.height / 6 + 24 - 6, 150, 20,
@@ -41,7 +41,7 @@ public abstract class MixinGuiOptions extends GuiScreen {
      */
     @Inject(method = "actionPerformed",
         at = @At("TAIL"))
-    private void actionPerformed(GuiButton button, CallbackInfo info) {
+    private void actionPerformed(final GuiButton button, final CallbackInfo info) {
         if (button.enabled) {
             if (button.id == -1) {
                 this.mc.gameSettings.saveOptions();

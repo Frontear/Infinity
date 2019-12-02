@@ -33,7 +33,7 @@ public abstract class MixinItemRenderer {
      * @reason Allow 1.7 blockhit animations back into the game
      */
     @Overwrite
-    public void renderItemInFirstPerson(float partialTicks) {
+    public void renderItemInFirstPerson(final float partialTicks) {
         val f = 1.0F - (this.prevEquippedProgress
             + (this.equippedProgress - this.prevEquippedProgress) * partialTicks);
         val abstractclientplayer = this.mc.thePlayer;

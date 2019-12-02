@@ -13,14 +13,14 @@ import org.frontear.infinity.modules.impl.Ghost;
 import org.frontear.infinity.ui.renderer.TextPositions;
 
 public final class ModuleManager extends Manager<Module> {
-    public ModuleManager(@NonNull Config config) {
+    public ModuleManager(@NonNull final Config config) {
         super("org.frontear.infinity.modules.impl");
 
         getObjects().forEach(config::register);
     }
 
     @SubscribeEvent
-    public void onKey(KeyEvent event) {
+    public void onKey(final KeyEvent event) {
         val ghost = get(Ghost.class).isActive();
 
         if (event.isPressed()) {
@@ -31,7 +31,7 @@ public final class ModuleManager extends Manager<Module> {
     }
 
     @SubscribeEvent
-    public void onRender(OverlayEvent event) {
+    public void onRender(final OverlayEvent event) {
         getObjects().filter(Module::isActive).forEach(x -> Infinity.inst().getTextRenderer()
             .render(TextPositions.RIGHT,
                 "${x.getName()} [${org.lwjgl.input.Keyboard.getKeyName(x.getBind())}]", Color.WHITE,

@@ -89,7 +89,7 @@ public class LocalMachine {
         return processes;
     }
 
-    public void kill(int id) {
+    public void kill(final int id) {
         Runtime.getRuntime()
             .exec((OS == OperatingSystem.WINDOWS ? "taskkill /F /PID " : "kill -9 ") + id);
     }
@@ -99,7 +99,7 @@ public class LocalMachine {
         return (String) toolkit.getSystemClipboard().getData(DataFlavor.stringFlavor);
     }
 
-    public void setClipboardContent(@NonNull String content) {
+    public void setClipboardContent(@NonNull final String content) {
         val toolkit = Toolkit.getDefaultToolkit();
         if (!content.isEmpty()) {
             val string = new StringSelection(content);
@@ -107,7 +107,7 @@ public class LocalMachine {
         }
     }
 
-    public void openUrl(@NonNull String url) {
+    public void openUrl(@NonNull final String url) {
         val uri = new URI(
             url); // intentional, this will catch errors with the URL, even if Desktop isn't supported, it still plays a role
         if (Desktop.isDesktopSupported()) {
@@ -134,7 +134,7 @@ public class LocalMachine {
         }
     }
 
-    public boolean compareOS(byte os) {
+    public boolean compareOS(final byte os) {
         Preconditions
             .checkArgument(os == OperatingSystem.WINDOWS || os == OperatingSystem.LINUX
                 || os == OperatingSystem.MACOSX || os == OperatingSystem.SOLARIS
@@ -143,7 +143,7 @@ public class LocalMachine {
         return os == OS;
     }
 
-    public boolean compareArch(byte arch) {
+    public boolean compareArch(final byte arch) {
         Preconditions
             .checkArgument(arch == SystemArchitecture.x64 || arch == SystemArchitecture.x86
                 || arch == SystemArchitecture.UNSUPPORTED);

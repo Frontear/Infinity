@@ -15,18 +15,19 @@ public abstract class Command {
     @Getter String description;
     @Getter int arguments; // represents only the mandatory arguments
 
-    public Command(@NonNull String description) {
+    public Command(@NonNull final String description) {
         this(description, 0);
     }
 
-    public Command(@NonNull String description, int arguments) {
+    public Command(@NonNull final String description, final int arguments) {
         this.description = description;
         this.arguments = arguments;
     }
 
-    public abstract void process(@NonNull String[] args) throws Exception; // catch all
+    public abstract void process(@NonNull final String[] args) throws Exception; // catch all
 
-    protected final void sendMessage(@NonNull String message, EnumChatFormatting... format) {
+    protected final void sendMessage(@NonNull final String message,
+        final EnumChatFormatting... format) {
         Infinity.inst().getCommands().sendMessage(message, format);
     }
 

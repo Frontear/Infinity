@@ -33,7 +33,8 @@ public abstract class Renderable implements IRenderable {
 
     @Override
     public void render() throws IllegalArgumentException {
-        Preconditions.checkArgument(renderer != null && renderer.isActive());
+        Preconditions.checkArgument(renderer != null && renderer.isActive(),
+            renderer == null ? "Renderer is null" : "Renderer is not active");
         if (color == null) {
             throw new NullPointerException("Renderable#color is null!");
         }

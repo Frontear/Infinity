@@ -25,7 +25,9 @@ public final class Circle extends Renderable {
     @Override
     public void render() throws IllegalArgumentException {
         super.render();
-        Preconditions.checkArgument(width == height); // todo: better way to handle this?
+        Preconditions.checkArgument(width == height,
+            "Width and height of the circle are different, they must be the same [either %d or %d]",
+            width, height); // todo: better way to handle this?
 
         glBegin(GL_TRIANGLE_FAN);
         {

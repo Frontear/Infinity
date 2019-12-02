@@ -43,7 +43,7 @@ public final class ESP extends Module {
     }
 
     @SubscribeEvent
-    public void onRender(RenderWorldLastEvent event) {
+    public void onRender(final RenderWorldLastEvent event) {
         mc.theWorld.getLoadedEntityList().stream().filter(x -> !x.equals(mc.thePlayer))
             .forEach(x -> {
                 //noinspection RedundantCast
@@ -58,7 +58,7 @@ public final class ESP extends Module {
             });
     }
 
-    private void renderESP(Entity entity, Color color, float partialTicks) {
+    private void renderESP(final Entity entity, final Color color, final float partialTicks) {
         glPushAttrib(GL_CURRENT_BIT);
         glPushMatrix();
         {

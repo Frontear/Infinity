@@ -11,7 +11,7 @@ public final class KeyEvent extends Event {
     @Getter int key;
     @Getter boolean pressed;
 
-    public KeyEvent(int key, boolean pressed) {
+    public KeyEvent(final int key, final boolean pressed) {
         this.key = key;
         this.pressed = pressed;
     }

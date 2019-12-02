@@ -14,7 +14,7 @@ public final class OverlayEvent extends Event {
     @Getter ScaledResolution resolution;
     @Getter boolean debugging;
 
-    public OverlayEvent(float partialTicks, boolean debugging) {
+    public OverlayEvent(final float partialTicks, final boolean debugging) {
         this.partialTicks = partialTicks;
         this.resolution = new ScaledResolution(Minecraft.getMinecraft());
         this.debugging = debugging;

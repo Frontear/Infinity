@@ -23,7 +23,7 @@ public final class ClickGuiScreen extends GuiScreen {
     @NonFinal boolean init = false; // prevents initGui from being called more than once
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
         this.drawDefaultBackground();
         renderer.begin();
         {
@@ -33,7 +33,7 @@ public final class ClickGuiScreen extends GuiScreen {
     }
 
     @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+    protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton) {
         categoryPanels.forEach(x -> x.mouse(mouseX, mouseY, mouseButton));
     }
 

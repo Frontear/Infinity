@@ -15,12 +15,12 @@ import org.frontear.infinity.modules.impl.ClickGui;
 public final class InfinityScreen extends GuiScreen {
     GuiScreen parent;
 
-    public InfinityScreen(@NonNull GuiScreen parent) {
+    public InfinityScreen(@NonNull final GuiScreen parent) {
         this.parent = parent;
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(fontRendererObj, Infinity.inst().getInfo().getName(), width / 2, 15,
             Color.WHITE
@@ -30,7 +30,7 @@ public final class InfinityScreen extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(@NonNull GuiButton button) {
+    protected void actionPerformed(@NonNull final GuiButton button) {
         if (button.enabled) {
             switch (button.id) {
                 case -1:

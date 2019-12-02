@@ -29,7 +29,7 @@ public final class Freecam extends Module {
     }
 
     @SubscribeEvent
-    public void onPacket(PacketEvent event) {
+    public void onPacket(final PacketEvent event) {
         if (event.getPacket() instanceof C03PacketPlayer) {
             event.setPacket(normalize(clone, (C03PacketPlayer) event.getPacket()));
         }
@@ -41,7 +41,7 @@ public final class Freecam extends Module {
         }
     }
 
-    private C03PacketPlayer normalize(EntityPlayer player, C03PacketPlayer packet) {
+    private C03PacketPlayer normalize(final EntityPlayer player, final C03PacketPlayer packet) {
         packet.x = player.posX;
         packet.y = player.posY;
         packet.z = player.posZ;
@@ -55,7 +55,7 @@ public final class Freecam extends Module {
     }
 
     @SubscribeEvent
-    public void onUpdate(UpdateEvent event) {
+    public void onUpdate(final UpdateEvent event) {
         if (event.getEntity() instanceof EntityPlayerSP) {
             event.getEntity().noClip = true;
             event.getEntity().onGround = false;
@@ -73,12 +73,12 @@ public final class Freecam extends Module {
     }
 
     @Override
-    public void load(Module self) {
+    public void load(final Module self) {
         this.setBind(self.getBind());
     }
 
     @Override
-    protected void onToggle(boolean active) {
+    protected void onToggle(final boolean active) {
         if (active) {
             this.clone = EntityUtils.clone(mc.thePlayer);
 

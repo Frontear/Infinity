@@ -38,12 +38,12 @@ public final class Infinity extends Client {
     }
 
     @SubscribeEvent
-    public void onOverlay(OverlayEvent event) {
+    public void onOverlay(final OverlayEvent event) {
         textRenderer.render(TextPositions.LEFT, getInfo().getName(), Color.WHITE, true, 2.25f);
     }
 
     @SubscribeEvent
-    public void onStartup(StartupEvent event) {
+    public void onStartup(final StartupEvent event) {
         getLogger().debug("Hello %s!", getInfo().getName());
         Display.setTitle(getInfo().getFullname());
 
@@ -51,7 +51,7 @@ public final class Infinity extends Client {
     }
 
     @SubscribeEvent
-    public void onShutdown(ShutdownEvent event) {
+    public void onShutdown(final ShutdownEvent event) {
         getLogger().debug("Goodbye %s!", getInfo().getName());
 
         getConfig().save();

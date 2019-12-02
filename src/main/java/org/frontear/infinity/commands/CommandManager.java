@@ -27,7 +27,7 @@ public final class CommandManager extends Manager<Command> {
     ChatComponentText prefix;
     ConsoleGuiScreen console = new ConsoleGuiScreen();
 
-    public CommandManager(@NonNull ModInfo info) {
+    public CommandManager(@NonNull final ModInfo info) {
         super("org.frontear.infinity.commands.impl");
 
         this.bind = new KeyBinding("Console", Keyboard.KEY_GRAVE, info.getName());
@@ -41,7 +41,7 @@ public final class CommandManager extends Manager<Command> {
     }
 
     @SubscribeEvent
-    public void onKey(KeyEvent event) {
+    public void onKey(final KeyEvent event) {
         if (!Infinity.inst().getModules().get(Ghost.class).isActive() && event.isPressed()
             && event.getKey() == bind
             .getKeyCode()) {
@@ -49,7 +49,7 @@ public final class CommandManager extends Manager<Command> {
         }
     }
 
-    public void processMessage(String text) {
+    public void processMessage(final String text) {
         val split = text.split(" ");
         val potential = getObjects().filter(x -> x.getName().equalsIgnoreCase(split[0]))
             .findFirst();
@@ -77,7 +77,7 @@ public final class CommandManager extends Manager<Command> {
         }
     }
 
-    void sendMessage(String message, EnumChatFormatting... format) {
+    void sendMessage(final String message, final EnumChatFormatting... format) {
         val text = ChatUtils.make(message, format);
 
         console.print(ChatUtils.append(prefix, text));

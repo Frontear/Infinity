@@ -16,7 +16,7 @@ public final class Execute extends Command {
     }
 
     @Override
-    public void process(@NonNull String[] args) throws Exception {
+    public void process(@NonNull final String[] args) throws Exception {
         async.execute(() -> {
             Thread.sleep(Long.parseLong(args[0]));
             Infinity.inst().getCommands().getObjects()

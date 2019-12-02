@@ -22,19 +22,19 @@ public abstract class Module implements IConfigurable<Module> {
     @Expose @NonFinal @Getter @Setter int bind;
     @Expose @NonFinal @Getter boolean active = false;
 
-    public Module(int bind, boolean safe, @NonNull Category category) {
+    public Module(final int bind, final boolean safe, @NonNull final Category category) {
         this.bind = bind;
         this.safe = safe;
         this.category = category;
     }
 
     @Override
-    public void load(Module self) {
+    public void load(final Module self) {
         this.setBind(self.getBind());
         this.setActive(self.isActive());
     }
 
-    public void setActive(boolean active) {
+    public void setActive(final boolean active) {
         if (active) {
             MinecraftForge.EVENT_BUS.register(this);
         }
@@ -47,7 +47,7 @@ public abstract class Module implements IConfigurable<Module> {
         }
     }
 
-    protected void onToggle(boolean active) {
+    protected void onToggle(final boolean active) {
     }
 
     public void toggle() {

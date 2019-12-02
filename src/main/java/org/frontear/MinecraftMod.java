@@ -21,7 +21,7 @@ public final class MinecraftMod {
     @NonFinal Thread concurrent;
 
     @Mod.EventHandler
-    private void onFMLPreInitialization(FMLPreInitializationEvent event) {
+    private void onFMLPreInitialization(final FMLPreInitializationEvent event) {
         logger.debug("Creating concurrent client thread");
         this.concurrent = new Thread(() -> {
             try {
@@ -42,7 +42,7 @@ public final class MinecraftMod {
     }
 
     @Mod.EventHandler
-    private void onFMLPostInitialization(FMLPostInitializationEvent event)
+    private void onFMLPostInitialization(final FMLPostInitializationEvent event)
         throws InterruptedException {
         logger.debug("Joining concurrent client thread");
         concurrent.join();

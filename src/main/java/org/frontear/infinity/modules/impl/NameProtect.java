@@ -17,7 +17,7 @@ public final class NameProtect extends Module {
     }
 
     @SubscribeEvent
-    public void onFont(FontEvent event) {
+    public void onFont(final FontEvent event) {
         val username = mc.getSession().getUsername();
         if (StringUtils.containsIgnoreCase(event.getText(), username)) {
             event.setText(StringUtils
@@ -26,7 +26,7 @@ public final class NameProtect extends Module {
         }
     }
 
-    private String protect(String username, String text) {
+    private String protect(final String username, String text) {
         val before = StringUtils
             .substringBefore(text, username); // all the text before our username
         val style = ChatUtils.styleFrom(before); // sets the style from that past text

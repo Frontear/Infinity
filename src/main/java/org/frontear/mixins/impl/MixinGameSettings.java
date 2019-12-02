@@ -16,7 +16,7 @@ public abstract class MixinGameSettings {
      */
     @Inject(method = "saveOptions",
         at = @At("TAIL"))
-    private void saveOptions(CallbackInfo info) {
+    private void saveOptions(final CallbackInfo info) {
         Infinity.inst().getConfig().save();
     }
 }

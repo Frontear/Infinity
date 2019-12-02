@@ -11,7 +11,7 @@ public final class MouseEvent extends Event {
     int button;
     @Getter boolean pressed;
 
-    public MouseEvent(int button, boolean pressed) {
+    public MouseEvent(final int button, final boolean pressed) {
         this.button = button;
         this.pressed = pressed;
     }

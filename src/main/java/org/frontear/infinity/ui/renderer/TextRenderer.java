@@ -24,11 +24,11 @@ public class TextRenderer {
     @NonFinal int y_left = 0;
     @NonFinal int y_right = 0;
 
-    public void render(byte position, @NonNull String text, @NonNull Color color, boolean shadow,
-        float scale) {
+    public void render(final byte position, @NonNull final String text, @NonNull final Color color,
+        final boolean shadow, final float scale) {
         Preconditions
             .checkArgument(position == TextPositions.LEFT || position == TextPositions.RIGHT);
-        Preconditions.checkArgument(scale > 0);
+        Preconditions.checkArgument(scale > 0, "Scale cannot be less than 0 [is %f]", scale);
 
         if (!Infinity.inst().getModules().get(Ghost.class).isActive() && !Minecraft
             .getMinecraft().gameSettings.showDebugInfo) {
@@ -52,7 +52,7 @@ public class TextRenderer {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onOverlay(OverlayEvent event) {
+    public void onOverlay(final OverlayEvent event) {
         y_right = y_left = 0; // reset for the next tick and it's drawings
     }
 }

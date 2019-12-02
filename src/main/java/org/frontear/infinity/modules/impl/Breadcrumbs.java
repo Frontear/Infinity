@@ -44,14 +44,14 @@ public final class Breadcrumbs extends Module {
     }
 
     @Override
-    protected void onToggle(boolean active) {
+    protected void onToggle(final boolean active) {
         if (!active) {
             positions.clear();
         }
     }
 
     @SubscribeEvent
-    public void onUpdate(UpdateEvent event) {
+    public void onUpdate(final UpdateEvent event) {
         if (event.getEntity() instanceof EntityPlayerSP && event.isPost()) {
             val player = (EntityPlayerSP) event.getEntity();
 
@@ -66,7 +66,7 @@ public final class Breadcrumbs extends Module {
     }
 
     @SubscribeEvent
-    public void onRender(RenderWorldLastEvent event) {
+    public void onRender(final RenderWorldLastEvent event) {
         val width = 3.5f;
         glPushAttrib(GL_CURRENT_BIT);
         glPushMatrix();
