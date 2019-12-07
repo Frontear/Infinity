@@ -17,7 +17,7 @@ public interface IEventExecutor {
      * @param listener The listener that will invoke once the event is {@link
      *                 IEventExecutor#fire(IEvent)}
      */
-    <E extends IEvent> void register(@NonNull final Object instance, @NonNull final E event,
+    <E extends IEvent> void register(@NonNull final Object instance, @NonNull final Class<E> event,
         @NonNull final Consumer<E> listener);
 
     /**
@@ -27,7 +27,7 @@ public interface IEventExecutor {
      * @param event    The event that you are targeting
      * @param listener The listener that will be removed
      */
-    <E extends IEvent> void unregister(@NonNull final E event, @NonNull final Consumer<E> listener);
+    <E extends IEvent> void unregister(@NonNull final Class<E> event, @NonNull final Consumer<E> listener);
 
     /**
      * Fires an event, invoking all actively registered listeners

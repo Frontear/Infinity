@@ -23,22 +23,18 @@ public class EventExecutor implements IEventExecutor {
     Map<Class<? extends IEvent>, List<Consumer<IEvent>>> listeners = Maps.newHashMap();
 
     @Override
-    public <E extends IEvent> void register(@NonNull final Object instance, @NonNull final E event,
+    public <E extends IEvent> void register(@NonNull final Object instance, @NonNull final Class<E> event,
         @NonNull final Consumer<E> listener) {
-        val key = event.getClass();
-
         //noinspection unchecked
-        Objects.requireNonNull(listeners.putIfAbsent(key, Lists.newArrayListWithExpectedSize(1)))
+        Objects.requireNonNull(listeners.putIfAbsent(event, Lists.newArrayListWithExpectedSize(1)))
             .add(
                 ((Consumer<IEvent>) listener)); // this is such a code smell
     }
 
     @Override
-    public <E extends IEvent> void unregister(@NonNull final E event,
+    public <E extends IEvent> void unregister(@NonNull final Class<E> event,
         @NonNull final Consumer<E> listener) {
-        val key = event.getClass();
-
-        listeners.get(key).remove(listener);
+        listeners.get(event).remove(listener);
     }
 
     @Override
