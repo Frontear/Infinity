@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.frontear.framework.events.IEvent;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public final class Event implements IEvent {
+public abstract class Event implements IEvent {
     @Getter boolean cancelled = false;
 
     @Override
