@@ -46,7 +46,7 @@ public final class AutoTool extends Module {
             case MISS:
                 return; // we don't need to handle this at all
             default: // codefactor is gonna cry
-                logger.debug("%s not supported", object.typeOfHit.name());
+                logger.debug("${object.typeOfHit} not supported");
         }
 
         if (player.currentItem != slot) {

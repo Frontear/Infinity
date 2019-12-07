@@ -17,7 +17,8 @@ public class ColorFactory {
         Preconditions.checkArgument(
             (red >= 0 && red <= 255) && (green >= 0 && green <= 255) && (blue >= 0 && blue <= 255)
                 && (alpha >= 0 && alpha <= 255),
-            "Color values are outside normal bounds of 0-255 [r: %d, g: %d, b: %d]", red, green,
+            "Color values are outside normal bounds of 0-255 [r: $red, g: $green, b: $blue]", red,
+            green,
             blue);
 
         final int key = red + green + blue + alpha;

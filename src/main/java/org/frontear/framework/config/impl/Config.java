@@ -47,8 +47,8 @@ public final class Config implements IConfig {
      */
     @Override
     public void register(@NonNull final IConfigurable<?> object) {
-        logger.debug("Registering configurable '%s', successful: %b", object.getName(),
-            configurables.add(object));
+        logger.debug(
+            "Registering configurable '${object.getName()}', successful: ${configurables.add(object)}");
     }
 
     /**
@@ -56,8 +56,8 @@ public final class Config implements IConfig {
      */
     @Override
     public void unregister(@NonNull final IConfigurable<?> object) {
-        logger.debug("Unregistering configurable '%s', successful: %b", object.getName(),
-            configurables.remove(object));
+        logger.debug(
+            "Unregistering configurable '${object.getName()}', successful: ${configurables.add(object)}");
     }
 
     /**
@@ -70,13 +70,13 @@ public final class Config implements IConfig {
     @Override
     public void load() {
         try (val reader = new FileReader(config_file)) {
-            logger.debug("Loading config from %s", config_file.getAbsolutePath());
+            logger.debug("Loading config from ${config_file.getAbsolutePath()}");
             val config = new JsonParser().parse(reader).getAsJsonObject();
 
             configurables.forEach(x -> {
-                logger.debug("Lookup for '%s' in config", x.getName());
+                logger.debug("Lookup for '${x.getName()}' in config");
                 if (config.has(x.getName())) {
-                    logger.debug("Loading '%s'", x.getName());
+                    logger.debug("Loading '${x.getName()}'");
                     x.load(gson.fromJson(config.get(x.getName()), (Type) x.getClass()));
                 }
                 else {
@@ -88,7 +88,7 @@ public final class Config implements IConfig {
             logger.info("Loaded successfully!");
         }
         catch (FileNotFoundException e) {
-            logger.debug("%s does not exist (will create)", config_file.getAbsolutePath());
+            logger.debug("${config_file.getAbsolutePath()} does not exist (will create)");
             this.save();
         }
     }
@@ -104,11 +104,11 @@ public final class Config implements IConfig {
         try (val writer = new PrintWriter(config_file)) {
             val config = new JsonObject();
             configurables.forEach(x -> {
-                logger.debug("Saving '%s' to config", x.getName());
+                logger.debug("Saving '${x.getName()}' to config");
                 config.add(x.getName(), gson.toJsonTree(x));
             });
 
-            logger.debug("Writing config to %s", config_file.getAbsolutePath());
+            logger.debug("Writing config to ${config_file.getAbsolutePath()}");
             gson.toJson(config, writer);
             logger.info("Saved successfully!");
         }

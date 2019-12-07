@@ -56,14 +56,14 @@ public abstract class Manager<T> implements IManager<T> {
         val parent = (Class<T>) new TypeToken<T>(getClass()) {
         }
             .getRawType(); // won't work if manager is abstracted to another generic implementation
-        logger.debug("Found parent: %s", parent.getSimpleName());
+        logger.debug("Found parent: ${parent.getSimpleName()}");
         val objects = Maps.<Class<? extends T>, T>newLinkedHashMap(); // forced order of elements
 
-        logger.debug("Searching ClassLoader for classes in '%s'", pkg);
+        logger.debug("Searching ClassLoader for classes in '$pkg'");
         for (val info : ClassPath.from(Thread.currentThread().getContextClassLoader())
             .getTopLevelClasses(pkg)) {
             val target = info.load();
-            logger.debug("Found target: %s", target.getSimpleName());
+            logger.debug("Found target: ${target.getSimpleName()}");
 
             if ((Client.DEBUG || !target.isAnnotationPresent(Deprecated.class)) && parent
                 .isAssignableFrom(target)) {
@@ -74,10 +74,10 @@ public abstract class Manager<T> implements IManager<T> {
                         this
                             .getClass().getSimpleName(), element.getSimpleName());
                 }
-                logger.debug("Target of type '%s'", parent.getSimpleName());
+                logger.debug("Target of type '${parent.getSimpleName()}'");
                 val constructor = element.getDeclaredConstructor();
                 constructor.setAccessible(true);
-                logger.debug("Instantiating '%s'", element.getSimpleName());
+                logger.debug("Instantiating '${element.getSimpleName()}'");
                 objects.put(element, constructor.newInstance());
             }
         }

@@ -28,7 +28,7 @@ public class TextRenderer {
         final boolean shadow, final float scale) {
         Preconditions
             .checkArgument(position == TextPositions.LEFT || position == TextPositions.RIGHT);
-        Preconditions.checkArgument(scale > 0, "Scale cannot be less than 0 [is %f]", scale);
+        Preconditions.checkArgument(scale > 0, "Scale cannot be less than 0 [is $scale]");
 
         if (!Infinity.inst().getModules().get(Ghost.class).isActive() && !Minecraft
             .getMinecraft().gameSettings.showDebugInfo) {

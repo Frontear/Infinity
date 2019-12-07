@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.client.impl.Client;
-import org.frontear.framework.environments.impl.ForgeEnvironment;
+import org.frontear.framework.environments.impl.forge.ForgeEnvironment;
 import org.frontear.infinity.commands.CommandManager;
 import org.frontear.infinity.events.client.ShutdownEvent;
 import org.frontear.infinity.events.client.StartupEvent;
@@ -44,7 +44,7 @@ public final class Infinity extends Client {
 
     @SubscribeEvent
     public void onStartup(final StartupEvent event) {
-        getLogger().debug("Hello %s!", getInfo().getName());
+        getLogger().debug("Hello ${getInfo().getName()}!");
         Display.setTitle(getInfo().getFullname());
 
         getConfig().load();
@@ -52,7 +52,7 @@ public final class Infinity extends Client {
 
     @SubscribeEvent
     public void onShutdown(final ShutdownEvent event) {
-        getLogger().debug("Goodbye %s!", getInfo().getName());
+        getLogger().debug("Goodbye ${getInfo().getName()}!");
 
         getConfig().save();
     }

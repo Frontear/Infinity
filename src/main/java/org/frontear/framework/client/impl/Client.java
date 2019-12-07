@@ -1,7 +1,5 @@
 package org.frontear.framework.client.impl;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.File;
 import java.util.zip.ZipFile;
@@ -56,14 +54,16 @@ public abstract class Client implements IClient {
         this.config = new Config(file);
 
         logger.info("Running in environment: ${environment.getName()}");
-        logger.info("Starting %s in debug mode", this.getSimpleName());
+        logger.info("Starting ${this.getSimpleName()} in debug mode");
     }
 
     /*
     This mainly exists due to the Fabric API loading classes but not resources until later, causing discrepancies with resources attempting to be loaded
      */
     private ModInfo construct(@NonNull final IEnvironment environment) {
-        val jar = new ZipFile(new File(StringUtils.substringBetween(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "file:", "!").replace("%20", " ")));
+        val jar = new ZipFile(new File(StringUtils.substringBetween(
+            this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "file:",
+            "!").replace("%20", " ")));
         val stream = jar.getInputStream(jar.getEntry(environment.getInfoFilename()));
         val element = new JsonParser().parse(stream.bufferedReader());
 

@@ -1,27 +1,27 @@
-package org.frontear.framework.environments.impl;
+package org.frontear.framework.environments.impl.fabric;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.frontear.framework.environments.IEnvironment;
 
-public final class ForgeEnvironment implements IEnvironment {
+public final class FabricEnvironment implements IEnvironment {
     @Override
     public String getName() {
-        return "Forge";
+        return "Fabric";
     }
 
     @Override
     public String getAuthorProperty() {
-        return "authorList";
+        return "authors";
     }
 
     @Override
     public String getInfoFilename() {
-        return "mcmod.info";
+        return "fabric.mod.json";
     }
 
     @Override
     public JsonObject getInfoJsonObject(final JsonElement info) {
-        return info.getAsJsonArray().get(0).getAsJsonObject(); // forge wraps the file in a list
+        return info.getAsJsonObject();
     }
 }

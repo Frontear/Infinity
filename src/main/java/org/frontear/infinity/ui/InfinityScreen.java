@@ -41,8 +41,8 @@ public final class InfinityScreen extends GuiScreen {
                     break;
                 default:
                     Infinity.inst().getLogger()
-                        .warn("Nothing implemented for button \"%s\" id: %d", button.displayString,
-                            button.id);
+                        .warn(
+                            "Nothing implemented for button \"${button.displayString}\" id: ${button.id}");
             }
         }
     }
