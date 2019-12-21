@@ -1,13 +1,11 @@
 package com.github.frontear.infinity.modules.impl;
 
 import com.github.frontear.infinity.Infinity;
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import com.google.common.collect.Sets;
 import java.util.Set;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 

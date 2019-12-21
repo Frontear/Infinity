@@ -2,10 +2,10 @@ package com.github.frontear.framework.graphics.impl;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import com.github.frontear.framework.graphics.IRenderer;
 import com.google.common.base.Preconditions;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.frontear.framework.graphics.IRenderer;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class Renderer implements IRenderer {

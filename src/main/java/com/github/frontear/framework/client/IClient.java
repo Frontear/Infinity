@@ -1,9 +1,9 @@
 package com.github.frontear.framework.client;
 
-import org.frontear.MinecraftMod;
-import org.frontear.framework.config.IConfig;
-import org.frontear.framework.info.IModInfo;
-import org.frontear.framework.logger.ILogger;
+import com.github.frontear.MinecraftMod;
+import com.github.frontear.framework.config.IConfig;
+import com.github.frontear.framework.info.IModInfo;
+import com.github.frontear.framework.logger.ILogger;
 
 /**
  * Represents a client object. This will be loaded from {@link MinecraftMod}

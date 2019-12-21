@@ -1,6 +1,6 @@
 package com.github.frontear.infinity.modules.impl;
 
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import com.github.frontear.infinity.utils.InventoryUtils;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,8 +8,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.frontear.infinity.modules.*;
-import org.frontear.infinity.utils.InventoryUtils;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,

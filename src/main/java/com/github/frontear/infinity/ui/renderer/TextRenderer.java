@@ -2,6 +2,9 @@ package com.github.frontear.infinity.ui.renderer;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
+import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.events.render.OverlayEvent;
+import com.github.frontear.infinity.modules.impl.Ghost;
 import com.google.common.base.Preconditions;
 import java.awt.Color;
 import lombok.*;
@@ -9,9 +12,6 @@ import lombok.experimental.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.fml.common.eventhandler.*;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.events.render.OverlayEvent;
-import org.frontear.infinity.modules.impl.Ghost;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)

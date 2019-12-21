@@ -3,20 +3,15 @@ package com.github.frontear.infinity;
 import com.github.frontear.framework.client.impl.Client;
 import com.github.frontear.framework.environments.impl.forge.ForgeEnvironment;
 import com.github.frontear.infinity.commands.CommandManager;
+import com.github.frontear.infinity.events.client.*;
+import com.github.frontear.infinity.events.render.OverlayEvent;
 import com.github.frontear.infinity.modules.ModuleManager;
-import com.github.frontear.infinity.ui.renderer.TextRenderer;
+import com.github.frontear.infinity.ui.renderer.*;
 import java.awt.Color;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.framework.client.impl.Client;
-import org.frontear.framework.environments.impl.forge.ForgeEnvironment;
-import org.frontear.infinity.commands.CommandManager;
-import org.frontear.infinity.events.client.*;
-import org.frontear.infinity.events.render.OverlayEvent;
-import org.frontear.infinity.modules.ModuleManager;
-import org.frontear.infinity.ui.renderer.*;
 import org.lwjgl.opengl.Display;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)

@@ -1,15 +1,12 @@
 package com.github.frontear.infinity.modules.impl;
 
 import com.github.frontear.infinity.events.render.FontEvent;
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import com.github.frontear.infinity.utils.ChatUtils;
 import lombok.val;
 import net.minecraft.util.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.StringUtils;
-import org.frontear.infinity.events.render.FontEvent;
-import org.frontear.infinity.modules.*;
-import org.frontear.infinity.utils.ChatUtils;
 import org.lwjgl.input.Keyboard;
 
 public final class NameProtect extends Module {

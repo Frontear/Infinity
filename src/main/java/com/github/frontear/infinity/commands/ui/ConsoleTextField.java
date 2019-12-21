@@ -7,10 +7,6 @@ import com.github.frontear.infinity.Infinity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.*;
-import org.frontear.framework.graphics.IRenderer;
-import org.frontear.framework.graphics.color.ColorFactory;
-import org.frontear.framework.graphics.shapes.Rectangle;
-import org.frontear.infinity.Infinity;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,

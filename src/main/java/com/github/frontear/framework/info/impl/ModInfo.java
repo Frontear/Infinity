@@ -1,11 +1,11 @@
 package com.github.frontear.framework.info.impl;
 
+import com.github.frontear.framework.client.impl.Client;
+import com.github.frontear.framework.environments.IEnvironment;
+import com.github.frontear.framework.info.IModInfo;
 import com.google.gson.JsonObject;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.frontear.framework.client.impl.Client;
-import org.frontear.framework.environments.IEnvironment;
-import org.frontear.framework.info.IModInfo;
 
 /**
  * An implementation of {@link IModInfo}

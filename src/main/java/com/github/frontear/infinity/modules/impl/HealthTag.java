@@ -1,7 +1,6 @@
 package com.github.frontear.infinity.modules.impl;
 
-import com.github.frontear.infinity.modules.Module;
-import org.frontear.infinity.modules.*;
+import com.github.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 // implementation in MixinRender

@@ -8,7 +8,6 @@ import java.io.IOException;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.*;
-import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,

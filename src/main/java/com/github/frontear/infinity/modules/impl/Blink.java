@@ -1,7 +1,7 @@
 package com.github.frontear.infinity.modules.impl;
 
 import com.github.frontear.infinity.events.client.PacketEvent;
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import com.github.frontear.infinity.utils.EntityUtils;
 import com.google.common.collect.Queues;
 import java.util.Deque;
@@ -10,9 +10,6 @@ import lombok.experimental.FieldDefaults;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.infinity.events.client.PacketEvent;
-import org.frontear.infinity.modules.*;
-import org.frontear.infinity.utils.EntityUtils;
 import org.lwjgl.input.Keyboard;
 
 @Deprecated

@@ -1,8 +1,8 @@
 package com.github.frontear.mixins.impl;
 
+import com.github.frontear.framework.config.IConfig;
+import com.github.frontear.infinity.Infinity;
 import net.minecraft.client.settings.GameSettings;
-import org.frontear.framework.config.IConfig;
-import org.frontear.infinity.Infinity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;

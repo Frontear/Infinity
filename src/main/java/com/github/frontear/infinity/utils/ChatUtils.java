@@ -1,12 +1,12 @@
 package com.github.frontear.infinity.utils;
 
+import com.github.frontear.framework.logger.impl.Logger;
 import com.google.common.collect.*;
 import java.util.*;
 import java.util.regex.Pattern;
 import lombok.*;
 import lombok.experimental.UtilityClass;
 import net.minecraft.util.*;
-import org.frontear.framework.logger.impl.Logger;
 
 @UtilityClass
 public class ChatUtils {

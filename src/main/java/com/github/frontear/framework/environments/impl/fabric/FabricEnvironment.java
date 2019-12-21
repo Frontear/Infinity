@@ -1,7 +1,7 @@
 package com.github.frontear.framework.environments.impl.fabric;
 
+import com.github.frontear.framework.environments.IEnvironment;
 import com.google.gson.*;
-import org.frontear.framework.environments.IEnvironment;
 
 public final class FabricEnvironment implements IEnvironment {
     @Override

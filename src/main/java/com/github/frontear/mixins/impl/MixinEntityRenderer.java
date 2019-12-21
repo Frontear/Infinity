@@ -1,5 +1,8 @@
 package com.github.frontear.mixins.impl;
 
+import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.events.render.OverlayEvent;
+import com.github.frontear.infinity.modules.impl.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -7,9 +10,6 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.events.render.OverlayEvent;
-import org.frontear.infinity.modules.impl.*;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.mixin.*;

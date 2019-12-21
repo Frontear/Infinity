@@ -1,12 +1,12 @@
 package com.github.frontear.mixins.impl;
 
+import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.events.client.*;
+import com.github.frontear.infinity.events.input.*;
+import com.github.frontear.infinity.modules.impl.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.common.MinecraftForge;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.events.client.*;
-import org.frontear.infinity.events.input.*;
-import org.frontear.infinity.modules.impl.*;
 import org.lwjgl.input.*;
 import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.mixin.*;

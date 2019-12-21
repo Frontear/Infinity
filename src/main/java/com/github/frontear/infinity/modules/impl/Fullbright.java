@@ -1,9 +1,8 @@
 package com.github.frontear.infinity.modules.impl;
 
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 // implementation in MixinEntityRenderer

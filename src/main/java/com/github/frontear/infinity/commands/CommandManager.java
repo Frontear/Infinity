@@ -1,6 +1,12 @@
 package com.github.frontear.infinity.commands;
 
 import com.github.frontear.framework.info.impl.ModInfo;
+import com.github.frontear.framework.manager.impl.Manager;
+import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.commands.ui.ConsoleGuiScreen;
+import com.github.frontear.infinity.events.input.KeyEvent;
+import com.github.frontear.infinity.modules.impl.Ghost;
+import com.github.frontear.infinity.utils.ChatUtils;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.client.Minecraft;
@@ -9,13 +15,6 @@ import net.minecraft.util.*;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.ArrayUtils;
-import org.frontear.framework.info.impl.ModInfo;
-import org.frontear.framework.manager.impl.Manager;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.commands.ui.ConsoleGuiScreen;
-import org.frontear.infinity.events.input.KeyEvent;
-import org.frontear.infinity.modules.impl.Ghost;
-import org.frontear.infinity.utils.ChatUtils;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
@@ -26,7 +25,7 @@ public final class CommandManager extends Manager<Command> {
     ConsoleGuiScreen console = new ConsoleGuiScreen();
 
     public CommandManager(@NonNull final ModInfo info) {
-        super("org.frontear.infinity.commands.impl");
+        super("com.github.frontear.infinity.commands.impl");
 
         this.bind = new KeyBinding("Console", Keyboard.KEY_GRAVE, info.getName());
         ClientRegistry.registerKeyBinding(bind);

@@ -1,7 +1,6 @@
 package com.github.frontear.framework.info;
 
 import com.github.frontear.MinecraftMod;
-import org.frontear.MinecraftMod;
 
 /**
  * Contains all the important information found from the specified json file

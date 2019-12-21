@@ -7,8 +7,6 @@ import lombok.*;
 import lombok.experimental.*;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatComponentText;
-import org.frontear.framework.graphics.IRenderer;
-import org.frontear.framework.graphics.impl.Renderer;
 import org.lwjgl.input.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)

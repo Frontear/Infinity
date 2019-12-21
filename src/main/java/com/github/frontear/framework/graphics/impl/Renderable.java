@@ -2,11 +2,11 @@ package com.github.frontear.framework.graphics.impl;
 
 import static org.lwjgl.opengl.GL11.glColor4f;
 
+import com.github.frontear.framework.graphics.*;
 import com.google.common.base.Preconditions;
 import java.awt.Color;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.frontear.framework.graphics.*;
 
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public abstract class Renderable implements IRenderable {

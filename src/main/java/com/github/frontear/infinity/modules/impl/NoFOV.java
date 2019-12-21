@@ -1,13 +1,12 @@
 package com.github.frontear.infinity.modules.impl;
 
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import lombok.val;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 public final class NoFOV extends Module {

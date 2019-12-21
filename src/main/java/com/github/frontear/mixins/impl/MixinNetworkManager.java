@@ -1,11 +1,11 @@
 package com.github.frontear.mixins.impl;
 
+import com.github.frontear.infinity.events.client.PacketEvent;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.util.concurrent.*;
 import lombok.val;
 import net.minecraft.network.*;
 import net.minecraftforge.common.MinecraftForge;
-import org.frontear.infinity.events.client.PacketEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
@@ -16,7 +16,7 @@ public abstract class MixinNetworkManager {
      * @param futureListeners Listens to the result of the channel, {@link ChannelFutureListener}
      *
      * @author Frontear
-     * @reason {@link org.frontear.infinity.events.client.PacketEvent}
+     * @reason {@link com.github.frontear.infinity.events.client.PacketEvent}
      */
     @SuppressWarnings("UnresolvedMixinReference")
     @Redirect(method = "*",

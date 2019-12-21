@@ -1,7 +1,7 @@
 package com.github.frontear.framework.environments.impl.forge;
 
+import com.github.frontear.framework.environments.IEnvironment;
 import com.google.gson.*;
-import org.frontear.framework.environments.IEnvironment;
 
 public final class ForgeEnvironment implements IEnvironment {
     @Override

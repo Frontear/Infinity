@@ -3,6 +3,7 @@ package com.github.frontear.infinity.modules.gui;
 import com.github.frontear.framework.graphics.IRenderer;
 import com.github.frontear.framework.graphics.impl.Renderer;
 import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.modules.Category;
 import com.github.frontear.infinity.modules.ui.*;
 import com.google.common.collect.Queues;
 import java.util.*;
@@ -10,11 +11,6 @@ import lombok.*;
 import lombok.var;
 import lombok.experimental.*;
 import net.minecraft.client.gui.GuiScreen;
-import org.frontear.framework.graphics.IRenderer;
-import org.frontear.framework.graphics.impl.Renderer;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.ui.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public final class ClickGuiScreen extends GuiScreen {

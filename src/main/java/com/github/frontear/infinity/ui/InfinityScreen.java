@@ -7,8 +7,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.resources.I18n;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.modules.impl.ClickGui;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)

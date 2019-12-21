@@ -5,7 +5,6 @@ import com.google.gson.annotations.Expose;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import lombok.*;
-import org.frontear.framework.config.IConfigurable;
 
 /**
  * An implementation of {@link IConfigurable}. Usage of this class is heavily discouraged, instead,

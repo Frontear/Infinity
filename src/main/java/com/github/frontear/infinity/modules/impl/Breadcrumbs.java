@@ -3,7 +3,7 @@ package com.github.frontear.infinity.modules.impl;
 import static org.lwjgl.opengl.GL11.*;
 
 import com.github.frontear.infinity.events.entity.UpdateEvent;
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import com.google.common.collect.Queues;
 import java.util.Deque;
 import lombok.*;
@@ -12,8 +12,6 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.infinity.events.entity.UpdateEvent;
-import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,

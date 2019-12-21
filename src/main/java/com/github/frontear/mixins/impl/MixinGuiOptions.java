@@ -1,10 +1,10 @@
 package com.github.frontear.mixins.impl;
 
 import com.github.frontear.framework.client.impl.Client;
+import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.modules.impl.Ghost;
+import com.github.frontear.infinity.ui.InfinityScreen;
 import net.minecraft.client.gui.*;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.modules.impl.Ghost;
-import org.frontear.infinity.ui.InfinityScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GuiOptions.class)
 public abstract class MixinGuiOptions extends GuiScreen {
     /**
-     * Attempts to add a new button for the {@link Client} into
-     * the {@link GuiScreen#buttonList}
+     * Attempts to add a new button for the {@link Client} into the {@link GuiScreen#buttonList}
      *
      * @author Frontear
      * @reason {@link InfinityScreen}

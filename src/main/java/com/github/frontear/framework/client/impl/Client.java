@@ -1,18 +1,17 @@
 package com.github.frontear.framework.client.impl;
 
+import com.github.frontear.framework.client.IClient;
+import com.github.frontear.framework.config.impl.Config;
+import com.github.frontear.framework.environments.IEnvironment;
 import com.github.frontear.framework.info.impl.ModInfo;
+import com.github.frontear.framework.logger.impl.Logger;
+import com.github.frontear.framework.utils.time.Timer;
 import com.google.gson.JsonParser;
 import java.io.File;
 import java.util.zip.ZipFile;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
-import org.frontear.framework.client.IClient;
-import org.frontear.framework.config.impl.Config;
-import org.frontear.framework.environments.IEnvironment;
-import org.frontear.framework.info.impl.ModInfo;
-import org.frontear.framework.logger.impl.Logger;
-import org.frontear.framework.utils.time.Timer;
 
 /**
  * An implementation of {@link IClient}

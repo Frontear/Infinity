@@ -5,17 +5,12 @@ import com.github.frontear.framework.graphics.color.ColorFactory;
 import com.github.frontear.framework.graphics.impl.Renderable;
 import com.github.frontear.framework.graphics.shapes.Rectangle;
 import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.gui.KeyBindScreen;
 import java.awt.Color;
 import lombok.*;
 import lombok.experimental.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import org.frontear.framework.graphics.IRenderer;
-import org.frontear.framework.graphics.color.ColorFactory;
-import org.frontear.framework.graphics.impl.Renderable;
-import org.frontear.framework.graphics.shapes.Rectangle;
-import org.frontear.infinity.modules.Module;
-import org.frontear.infinity.modules.gui.KeyBindScreen;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)

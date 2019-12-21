@@ -1,7 +1,7 @@
 package com.github.frontear.infinity.commands.impl;
 
+import com.github.frontear.infinity.commands.Command;
 import lombok.NonNull;
-import org.frontear.infinity.commands.Command;
 
 public final class Uptime extends Command {
     public Uptime() {
@@ -10,6 +10,6 @@ public final class Uptime extends Command {
 
     @Override
     public void process(@NonNull final String[] args) throws Exception {
-        sendMessage("Running for: ${org.frontear.framework.client.impl.Client.UPTIME}");
+        sendMessage("Running for: ${com.github.frontear.framework.client.impl.Client.UPTIME}");
     }
 }

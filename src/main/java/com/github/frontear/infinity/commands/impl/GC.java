@@ -1,10 +1,10 @@
 package com.github.frontear.infinity.commands.impl;
 
+import com.github.frontear.infinity.commands.Command;
 import java.lang.management.ManagementFactory;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.util.EnumChatFormatting;
-import org.frontear.infinity.commands.Command;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)

@@ -2,7 +2,7 @@ package com.github.frontear.infinity.modules.impl;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import java.awt.Color;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -14,7 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,

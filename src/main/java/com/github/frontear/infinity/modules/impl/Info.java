@@ -1,16 +1,16 @@
 package com.github.frontear.infinity.modules.impl;
 
+import com.github.frontear.framework.utils.time.Timer;
+import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.events.render.OverlayEvent;
+import com.github.frontear.infinity.modules.*;
+import com.github.frontear.infinity.ui.renderer.TextPositions;
 import java.awt.Color;
 import java.util.concurrent.TimeUnit;
 import lombok.*;
 import lombok.experimental.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.frontear.framework.utils.time.Timer;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.events.render.OverlayEvent;
-import org.frontear.infinity.modules.*;
-import org.frontear.infinity.ui.renderer.TextPositions;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,

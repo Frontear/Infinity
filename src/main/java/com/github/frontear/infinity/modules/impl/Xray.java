@@ -2,14 +2,11 @@ package com.github.frontear.infinity.modules.impl;
 
 import com.github.frontear.infinity.Infinity;
 import com.github.frontear.infinity.events.render.BlockEvent;
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.block.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.events.render.BlockEvent;
-import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 // implementation in MixinMinecraft

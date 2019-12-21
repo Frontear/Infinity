@@ -1,19 +1,19 @@
 package com.github.frontear.infinity.modules;
 
+import com.github.frontear.framework.config.impl.Config;
+import com.github.frontear.framework.manager.impl.Manager;
+import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.events.input.KeyEvent;
+import com.github.frontear.infinity.events.render.OverlayEvent;
+import com.github.frontear.infinity.modules.impl.Ghost;
+import com.github.frontear.infinity.ui.renderer.TextPositions;
 import java.awt.Color;
 import lombok.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.framework.config.impl.Config;
-import org.frontear.framework.manager.impl.Manager;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.events.input.KeyEvent;
-import org.frontear.infinity.events.render.OverlayEvent;
-import org.frontear.infinity.modules.impl.Ghost;
-import org.frontear.infinity.ui.renderer.TextPositions;
 
 public final class ModuleManager extends Manager<Module> {
     public ModuleManager(@NonNull final Config config) {
-        super("org.frontear.infinity.modules.impl");
+        super("com.github.frontear.infinity.modules.impl");
 
         getObjects().forEach(config::register);
     }

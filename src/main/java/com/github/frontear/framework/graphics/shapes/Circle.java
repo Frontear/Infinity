@@ -3,10 +3,10 @@ package com.github.frontear.framework.graphics.shapes;
 import static java.lang.Math.*;
 import static org.lwjgl.opengl.GL11.*;
 
+import com.github.frontear.framework.graphics.impl.Renderable;
 import com.google.common.base.Preconditions;
 import java.awt.Color;
 import lombok.*;
-import org.frontear.framework.graphics.impl.Renderable;
 
 public final class Circle extends Renderable {
     private static final byte FACTOR = 8; // consider it a smoothing factor

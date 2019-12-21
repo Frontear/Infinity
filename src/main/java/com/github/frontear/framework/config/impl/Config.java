@@ -1,5 +1,7 @@
 package com.github.frontear.framework.config.impl;
 
+import com.github.frontear.framework.config.*;
+import com.github.frontear.framework.logger.impl.Logger;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
 import java.io.*;
@@ -7,8 +9,6 @@ import java.lang.reflect.Type;
 import java.util.Set;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.frontear.framework.config.*;
-import org.frontear.framework.logger.impl.Logger;
 
 /**
  * An implementation of {@link IConfig}

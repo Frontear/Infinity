@@ -7,8 +7,6 @@ import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.*;
 import org.apache.logging.log4j.message.Message;
-import org.frontear.framework.client.impl.Client;
-import org.frontear.framework.logger.ILogger;
 
 /**
  * An implementation of {@link ILogger}

@@ -1,5 +1,7 @@
 package com.github.frontear.mixins.impl;
 
+import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.modules.impl.Ghost;
 import lombok.val;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.*;
@@ -7,8 +9,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.*;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.modules.impl.Ghost;
 import org.spongepowered.asm.mixin.*;
 
 @Mixin(ItemRenderer.class)

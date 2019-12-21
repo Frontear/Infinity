@@ -9,10 +9,6 @@ import java.awt.Color;
 import java.util.Set;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.frontear.framework.graphics.IRenderer;
-import org.frontear.framework.graphics.color.ColorFactory;
-import org.frontear.framework.graphics.impl.Renderable;
-import org.frontear.framework.graphics.shapes.Rectangle;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)

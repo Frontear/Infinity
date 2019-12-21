@@ -1,6 +1,7 @@
 package com.github.frontear.framework.manager.impl;
 
 import com.github.frontear.framework.client.impl.Client;
+import com.github.frontear.framework.logger.impl.Logger;
 import com.github.frontear.framework.manager.IManager;
 import com.google.common.collect.*;
 import com.google.common.reflect.*;
@@ -8,9 +9,6 @@ import java.util.Set;
 import java.util.stream.Stream;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.frontear.framework.client.impl.Client;
-import org.frontear.framework.logger.impl.Logger;
-import org.frontear.framework.manager.IManager;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)

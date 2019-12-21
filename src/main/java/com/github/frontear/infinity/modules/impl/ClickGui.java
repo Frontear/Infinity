@@ -1,10 +1,9 @@
 package com.github.frontear.infinity.modules.impl;
 
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
+import com.github.frontear.infinity.modules.gui.ClickGuiScreen;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.frontear.infinity.modules.*;
-import org.frontear.infinity.modules.gui.ClickGuiScreen;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,

@@ -1,9 +1,9 @@
 package com.github.frontear.mixins.impl;
 
+import com.github.frontear.infinity.events.render.FontEvent;
 import lombok.val;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.common.MinecraftForge;
-import org.frontear.infinity.events.render.FontEvent;
 import org.spongepowered.asm.mixin.*;
 
 @Mixin(FontRenderer.class)

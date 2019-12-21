@@ -1,12 +1,11 @@
 package com.github.frontear.infinity.commands.impl;
 
 import com.github.frontear.framework.client.impl.Client;
+import com.github.frontear.infinity.commands.Command;
 import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.util.Arrays;
 import lombok.*;
-import org.frontear.framework.client.impl.Client;
-import org.frontear.infinity.commands.Command;
 
 public final class Dump extends Command {
     public Dump() {

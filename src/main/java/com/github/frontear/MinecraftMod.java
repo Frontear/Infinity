@@ -1,13 +1,13 @@
 package com.github.frontear;
 
+import com.github.frontear.framework.logger.impl.Logger;
+import com.github.frontear.framework.modding.IMinecraftMod;
+import com.github.frontear.infinity.Infinity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.frontear.framework.logger.impl.Logger;
-import org.frontear.framework.modding.IMinecraftMod;
-import org.frontear.infinity.Infinity;
 
 @Mod(modid = "%modid",
     version = "%version")

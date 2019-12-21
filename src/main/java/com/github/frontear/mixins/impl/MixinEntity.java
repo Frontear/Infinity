@@ -1,11 +1,11 @@
 package com.github.frontear.mixins.impl;
 
+import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.events.entity.UpdateEvent;
+import com.github.frontear.infinity.modules.impl.SafeWalk;
 import lombok.val;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.events.entity.UpdateEvent;
-import org.frontear.infinity.modules.impl.SafeWalk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;

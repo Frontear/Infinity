@@ -5,7 +5,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
-import org.frontear.infinity.Infinity;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)

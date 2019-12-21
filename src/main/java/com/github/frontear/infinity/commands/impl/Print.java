@@ -1,5 +1,8 @@
 package com.github.frontear.infinity.commands.impl;
 
+import com.github.frontear.infinity.commands.Command;
+import com.github.frontear.infinity.events.render.FontEvent;
+import com.github.frontear.infinity.utils.ChatUtils;
 import java.util.Arrays;
 import lombok.*;
 import net.minecraft.client.Minecraft;
@@ -7,9 +10,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.StringUtils;
-import org.frontear.infinity.commands.Command;
-import org.frontear.infinity.events.render.FontEvent;
-import org.frontear.infinity.utils.ChatUtils;
 
 public final class Print extends Command {
     public Print() {

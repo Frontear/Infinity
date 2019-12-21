@@ -14,10 +14,6 @@ import lombok.var;
 import lombok.experimental.*;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ChatComponentText;
-import org.frontear.framework.graphics.IRenderer;
-import org.frontear.framework.graphics.color.ColorFactory;
-import org.frontear.framework.graphics.impl.Renderable;
-import org.frontear.framework.graphics.shapes.Rectangle;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)

@@ -1,14 +1,13 @@
 package com.github.frontear.infinity.commands.impl;
 
 import com.github.frontear.framework.utils.net.HttpConnection;
+import com.github.frontear.infinity.commands.Command;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonParser;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import lombok.*;
 import net.minecraft.util.EnumChatFormatting;
-import org.frontear.framework.utils.net.HttpConnection;
-import org.frontear.infinity.commands.Command;
 
 public final class History extends Command {
     public History() {

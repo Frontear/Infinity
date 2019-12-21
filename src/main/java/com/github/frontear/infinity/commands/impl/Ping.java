@@ -1,7 +1,7 @@
 package com.github.frontear.infinity.commands.impl;
 
+import com.github.frontear.infinity.commands.Command;
 import lombok.*;
-import org.frontear.infinity.commands.Command;
 
 public final class Ping extends Command {
     public Ping() {

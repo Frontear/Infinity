@@ -1,12 +1,12 @@
 package com.github.frontear.infinity.modules;
 
+import com.github.frontear.framework.config.IConfigurable;
+import com.github.frontear.framework.logger.impl.Logger;
 import com.google.gson.annotations.Expose;
 import lombok.*;
 import lombok.experimental.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
-import org.frontear.framework.config.IConfigurable;
-import org.frontear.framework.logger.impl.Logger;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
     makeFinal = true)

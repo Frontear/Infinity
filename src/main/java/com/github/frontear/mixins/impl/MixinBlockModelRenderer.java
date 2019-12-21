@@ -1,5 +1,6 @@
 package com.github.frontear.mixins.impl;
 
+import com.github.frontear.infinity.events.render.BlockEvent;
 import lombok.val;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.*;
@@ -7,7 +8,6 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.MinecraftForge;
-import org.frontear.infinity.events.render.BlockEvent;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 

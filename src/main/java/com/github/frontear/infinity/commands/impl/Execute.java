@@ -1,11 +1,10 @@
 package com.github.frontear.infinity.commands.impl;
 
 import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.commands.Command;
 import java.util.concurrent.*;
 import lombok.*;
 import org.apache.commons.lang3.ArrayUtils;
-import org.frontear.infinity.Infinity;
-import org.frontear.infinity.commands.Command;
 
 public final class Execute extends Command {
     private static final Executor async = Executors.newSingleThreadExecutor();

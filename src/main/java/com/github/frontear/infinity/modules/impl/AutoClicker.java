@@ -2,16 +2,13 @@ package com.github.frontear.infinity.modules.impl;
 
 import com.github.frontear.framework.utils.rand.Random;
 import com.github.frontear.framework.utils.time.Timer;
-import com.github.frontear.infinity.modules.Module;
+import com.github.frontear.infinity.modules.*;
 import java.util.concurrent.TimeUnit;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.frontear.framework.utils.rand.Random;
-import org.frontear.framework.utils.time.Timer;
-import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,
