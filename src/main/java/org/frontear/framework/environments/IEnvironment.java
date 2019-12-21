@@ -1,7 +1,6 @@
 package org.frontear.framework.environments;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 /**
  * Contains a broad implementation of modding environment specific information. All specific

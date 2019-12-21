@@ -1,8 +1,7 @@
 package org.frontear.infinity.modules;
 
 import java.awt.Color;
-import lombok.NonNull;
-import lombok.val;
+import lombok.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.framework.config.impl.Config;
 import org.frontear.framework.manager.impl.Manager;

@@ -1,11 +1,9 @@
 package org.frontear;
 
-import lombok.AccessLevel;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.frontear.framework.logger.impl.Logger;
 import org.frontear.framework.modding.IMinecraftMod;

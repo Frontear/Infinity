@@ -4,15 +4,11 @@ import static org.lwjgl.opengl.GL11.glScalef;
 
 import com.google.common.base.Preconditions;
 import java.awt.Color;
-import lombok.AccessLevel;
-import lombok.NonNull;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import lombok.val;
+import lombok.*;
+import lombok.experimental.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.*;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.render.OverlayEvent;
 import org.frontear.infinity.modules.impl.Ghost;

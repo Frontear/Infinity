@@ -1,11 +1,9 @@
 package org.frontear.infinity.modules.impl;
 
-import lombok.AccessLevel;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import org.frontear.infinity.Infinity;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,

@@ -1,13 +1,10 @@
 package org.frontear.infinity.commands;
 
-import lombok.AccessLevel;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.*;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.ArrayUtils;

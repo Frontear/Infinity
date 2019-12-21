@@ -1,7 +1,6 @@
 package org.frontear.infinity.modules.impl;
 
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 // implementation in MixinEntity

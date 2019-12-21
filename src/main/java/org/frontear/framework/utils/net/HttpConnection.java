@@ -1,12 +1,9 @@
 package org.frontear.framework.utils.net;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import lombok.NonNull;
+import java.io.*;
+import java.net.*;
+import lombok.*;
 import lombok.experimental.UtilityClass;
-import lombok.val;
 
 @UtilityClass
 public class HttpConnection {

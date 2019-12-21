@@ -1,11 +1,9 @@
 package org.frontear.infinity.ui;
 
 import java.awt.Color;
-import lombok.AccessLevel;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.resources.I18n;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.impl.ClickGui;

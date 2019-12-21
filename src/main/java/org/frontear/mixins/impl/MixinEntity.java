@@ -7,9 +7,7 @@ import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.entity.UpdateEvent;
 import org.frontear.infinity.modules.impl.SafeWalk;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)

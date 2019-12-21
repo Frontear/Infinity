@@ -4,12 +4,9 @@ import static org.lwjgl.opengl.GL11.glScalef;
 
 import java.awt.Color;
 import java.io.IOException;
-import lombok.AccessLevel;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.*;
 import org.frontear.infinity.modules.Module;
 import org.lwjgl.input.Keyboard;
 

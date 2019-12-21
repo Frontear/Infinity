@@ -1,7 +1,6 @@
 package org.frontear.infinity.events.input;
 
-import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraftforge.fml.common.eventhandler.Event;
 

@@ -6,8 +6,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 public final class NoFOV extends Module {

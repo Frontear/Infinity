@@ -1,17 +1,11 @@
 package org.frontear.framework.graphics.shapes;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLE_FAN;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glVertex2d;
+import static java.lang.Math.*;
+import static org.lwjgl.opengl.GL11.*;
 
 import com.google.common.base.Preconditions;
 import java.awt.Color;
-import lombok.NonNull;
-import lombok.var;
+import lombok.*;
 import org.frontear.framework.graphics.impl.Renderable;
 
 public final class Circle extends Renderable {

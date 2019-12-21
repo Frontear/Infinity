@@ -4,20 +4,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.Infinity;
-import org.frontear.infinity.events.client.ShutdownEvent;
-import org.frontear.infinity.events.client.StartupEvent;
-import org.frontear.infinity.events.input.KeyEvent;
-import org.frontear.infinity.events.input.MouseEvent;
-import org.frontear.infinity.modules.impl.AutoClicker;
-import org.frontear.infinity.modules.impl.Xray;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import org.frontear.infinity.events.client.*;
+import org.frontear.infinity.events.input.*;
+import org.frontear.infinity.modules.impl.*;
+import org.lwjgl.input.*;
 import org.spongepowered.asm.lib.Opcodes;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)

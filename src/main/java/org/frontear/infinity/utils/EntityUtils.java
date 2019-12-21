@@ -1,8 +1,7 @@
 package org.frontear.infinity.utils;
 
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.UtilityClass;
-import lombok.val;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 

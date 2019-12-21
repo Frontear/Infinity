@@ -1,16 +1,12 @@
 package org.frontear.infinity.modules.impl;
 
-import lombok.AccessLevel;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
-import lombok.var;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.frontear.infinity.utils.InventoryUtils;
 import org.lwjgl.input.Keyboard;
 

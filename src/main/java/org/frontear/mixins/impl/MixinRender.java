@@ -7,16 +7,16 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.*;
 import org.frontear.infinity.Infinity;
-import org.frontear.infinity.modules.impl.*;
+import org.frontear.infinity.modules.impl.HealthTag;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(Render.class)
 public abstract class MixinRender {
     @Shadow @Final protected RenderManager renderManager;
 
-    @Shadow public abstract FontRenderer getFontRendererFromRenderManager();
+    @Shadow
+    public abstract FontRenderer getFontRendererFromRenderManager();
 
     /**
      * @author Frontear
@@ -24,11 +24,13 @@ public abstract class MixinRender {
      */
     @Overwrite
     protected <T extends Entity> void renderLivingLabel(
-        @NonNull final T entityIn, @NonNull String str, final double x, final double y, final double z,
+        @NonNull final T entityIn, @NonNull String str, final double x, final double y,
+        final double z,
         final int maxDistance) {
         double d0 = entityIn.getDistanceSqToEntity(this.renderManager.livingPlayer);
 
-        if (entityIn instanceof EntityLivingBase && Infinity.inst().getModules().get(HealthTag.class).isActive()) {
+        if (entityIn instanceof EntityLivingBase && Infinity.inst().getModules()
+            .get(HealthTag.class).isActive()) {
             str += " HP: " + (int) (((EntityLivingBase) entityIn).getHealth() + 0.5f);
         }
 
@@ -37,7 +39,8 @@ public abstract class MixinRender {
             float f = 1.6F;
             float f1 = 0.016666668F * f;
             GlStateManager.pushMatrix();
-            GlStateManager.translate((float) x + 0.0F, (float) y + entityIn.height + 0.5F, (float) z);
+            GlStateManager
+                .translate((float) x + 0.0F, (float) y + entityIn.height + 0.5F, (float) z);
             GL11.glNormal3f(0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
@@ -58,13 +61,17 @@ public abstract class MixinRender {
             int j = fontrenderer.getStringWidth(str) / 2;
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-            worldrenderer.pos((double) (-j - 1), (double) (-1 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F)
+            worldrenderer.pos((double) (-j - 1), (double) (-1 + i), 0.0D)
+                .color(0.0F, 0.0F, 0.0F, 0.25F)
                 .endVertex();
-            worldrenderer.pos((double) (-j - 1), (double) (8 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F)
+            worldrenderer.pos((double) (-j - 1), (double) (8 + i), 0.0D)
+                .color(0.0F, 0.0F, 0.0F, 0.25F)
                 .endVertex();
-            worldrenderer.pos((double) (j + 1), (double) (8 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F)
+            worldrenderer.pos((double) (j + 1), (double) (8 + i), 0.0D)
+                .color(0.0F, 0.0F, 0.0F, 0.25F)
                 .endVertex();
-            worldrenderer.pos((double) (j + 1), (double) (-1 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F)
+            worldrenderer.pos((double) (j + 1), (double) (-1 + i), 0.0D)
+                .color(0.0F, 0.0F, 0.0F, 0.25F)
                 .endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();

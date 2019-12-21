@@ -1,7 +1,6 @@
 package org.frontear.framework.extensions.java.lang.Object;
 
-import manifold.ext.api.Extension;
-import manifold.ext.api.This;
+import manifold.ext.api.*;
 
 @Extension
 public final class ExtensionObject {

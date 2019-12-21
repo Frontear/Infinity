@@ -1,12 +1,9 @@
 package org.frontear.framework.logger.impl;
 
-import lombok.AccessLevel;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.*;
 import org.apache.logging.log4j.message.Message;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.logger.ILogger;

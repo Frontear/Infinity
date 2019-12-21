@@ -1,20 +1,14 @@
 package org.frontear.infinity.modules.impl;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import lombok.val;
-import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.client.entity.EntityPlayerSP;
+import lombok.*;
+import lombok.experimental.*;
+import net.minecraft.client.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.network.play.client.C0APacketAnimation;
-import net.minecraft.network.play.client.C0BPacketEntityAction;
+import net.minecraft.network.play.client.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.infinity.events.client.PacketEvent;
 import org.frontear.infinity.events.entity.UpdateEvent;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.frontear.infinity.utils.EntityUtils;
 import org.lwjgl.input.Keyboard;
 

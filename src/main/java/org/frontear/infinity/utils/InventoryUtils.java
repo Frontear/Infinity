@@ -2,8 +2,7 @@ package org.frontear.infinity.utils;
 
 import java.util.function.Predicate;
 import lombok.experimental.UtilityClass;
-import lombok.val;
-import lombok.var;
+import lombok.*;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 

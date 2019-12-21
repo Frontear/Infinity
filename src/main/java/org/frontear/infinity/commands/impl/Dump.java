@@ -1,12 +1,9 @@
 package org.frontear.infinity.commands.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.util.Arrays;
-import lombok.NonNull;
-import lombok.val;
+import lombok.*;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.infinity.commands.Command;
 

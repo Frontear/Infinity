@@ -4,13 +4,9 @@ import static org.lwjgl.opengl.GL11.glColor4f;
 
 import com.google.common.base.Preconditions;
 import java.awt.Color;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.frontear.framework.graphics.IRenderable;
-import org.frontear.framework.graphics.IRenderer;
+import org.frontear.framework.graphics.*;
 
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public abstract class Renderable implements IRenderable {

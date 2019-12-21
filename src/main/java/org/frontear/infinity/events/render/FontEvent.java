@@ -1,9 +1,6 @@
 package org.frontear.infinity.events.render;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraftforge.fml.common.eventhandler.Event;
 

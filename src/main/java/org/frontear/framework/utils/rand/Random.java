@@ -3,9 +3,8 @@ package org.frontear.framework.utils.rand;
 import com.google.common.base.Preconditions;
 import java.lang.reflect.Array;
 import java.util.concurrent.ThreadLocalRandom;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.UtilityClass;
-import lombok.val;
 
 @UtilityClass
 public class Random {

@@ -1,11 +1,8 @@
 package org.frontear.framework.info.impl;
 
 import com.google.gson.JsonObject;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import org.frontear.framework.client.impl.Client;
 import org.frontear.framework.environments.IEnvironment;
 import org.frontear.framework.info.IModInfo;

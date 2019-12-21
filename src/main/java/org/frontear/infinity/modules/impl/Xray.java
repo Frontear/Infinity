@@ -1,15 +1,12 @@
 package org.frontear.infinity.modules.impl;
 
-import lombok.AccessLevel;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
-import net.minecraft.block.BlockOre;
-import net.minecraft.block.BlockRedstoneOre;
+import net.minecraft.block.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.render.BlockEvent;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 // implementation in MixinMinecraft

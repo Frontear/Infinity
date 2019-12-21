@@ -2,18 +2,14 @@ package org.frontear.infinity.modules.impl;
 
 import java.awt.Color;
 import java.util.concurrent.TimeUnit;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import lombok.val;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import lombok.*;
+import lombok.experimental.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.frontear.framework.utils.time.Timer;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.render.OverlayEvent;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.frontear.infinity.ui.renderer.TextPositions;
 import org.lwjgl.input.Keyboard;
 

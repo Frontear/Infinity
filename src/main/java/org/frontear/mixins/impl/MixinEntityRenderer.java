@@ -9,14 +9,11 @@ import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.events.render.OverlayEvent;
-import org.frontear.infinity.modules.impl.Fullbright;
-import org.frontear.infinity.modules.impl.Ghost;
+import org.frontear.infinity.modules.impl.*;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.lib.Opcodes;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(EntityRenderer.class)
 public abstract class MixinEntityRenderer {

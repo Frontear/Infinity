@@ -2,12 +2,10 @@ package org.frontear.infinity.modules.impl;
 
 import com.google.common.collect.Sets;
 import java.util.Set;
-import lombok.AccessLevel;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import org.frontear.infinity.Infinity;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 

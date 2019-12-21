@@ -1,8 +1,6 @@
 package org.frontear.infinity.commands;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;

@@ -1,14 +1,11 @@
 package org.frontear.mixins.impl;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiOptions;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.*;
 import org.frontear.infinity.Infinity;
 import org.frontear.infinity.modules.impl.Ghost;
 import org.frontear.infinity.ui.InfinityScreen;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiOptions.class)

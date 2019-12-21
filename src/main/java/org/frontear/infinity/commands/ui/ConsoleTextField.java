@@ -1,11 +1,8 @@
 package org.frontear.infinity.commands.ui;
 
-import lombok.AccessLevel;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.*;
 import org.frontear.framework.graphics.IRenderer;
 import org.frontear.framework.graphics.color.ColorFactory;
 import org.frontear.framework.graphics.shapes.Rectangle;

@@ -1,12 +1,8 @@
 package org.frontear.infinity.modules;
 
 import com.google.gson.annotations.Expose;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
+import lombok.*;
+import lombok.experimental.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.frontear.framework.config.IConfigurable;

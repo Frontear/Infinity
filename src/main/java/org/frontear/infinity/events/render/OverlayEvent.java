@@ -1,7 +1,6 @@
 package org.frontear.infinity.events.render;
 
-import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;

@@ -1,16 +1,14 @@
 package org.frontear.infinity.modules.impl;
 
 import java.util.concurrent.TimeUnit;
-import lombok.AccessLevel;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.frontear.framework.utils.rand.Random;
 import org.frontear.framework.utils.time.Timer;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.lwjgl.input.Keyboard;
 
 @FieldDefaults(level = AccessLevel.PRIVATE,

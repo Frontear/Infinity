@@ -1,17 +1,11 @@
 package org.frontear.infinity.utils;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
+import com.google.common.collect.*;
+import java.util.*;
 import java.util.regex.Pattern;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.UtilityClass;
-import lombok.val;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.*;
 import org.frontear.framework.logger.impl.Logger;
 
 @UtilityClass

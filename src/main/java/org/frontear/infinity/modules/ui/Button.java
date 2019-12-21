@@ -1,11 +1,8 @@
 package org.frontear.infinity.modules.ui;
 
 import java.awt.Color;
-import lombok.AccessLevel;
-import lombok.NonNull;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import lombok.val;
+import lombok.*;
+import lombok.experimental.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import org.frontear.framework.graphics.IRenderer;

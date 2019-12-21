@@ -1,9 +1,7 @@
 package org.frontear.framework.extensions.java.lang.String;
 
-import lombok.NonNull;
-import lombok.val;
-import manifold.ext.api.Extension;
-import manifold.ext.api.This;
+import lombok.*;
+import manifold.ext.api.*;
 
 @Extension
 public final class ExtensionString {

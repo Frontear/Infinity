@@ -1,16 +1,13 @@
 package org.frontear.infinity.commands.ui;
 
 import java.io.IOException;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import lombok.val;
+import lombok.*;
+import lombok.experimental.*;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatComponentText;
 import org.frontear.framework.graphics.IRenderer;
 import org.frontear.framework.graphics.impl.Renderer;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import org.lwjgl.input.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public final class ConsoleGuiScreen extends GuiScreen {

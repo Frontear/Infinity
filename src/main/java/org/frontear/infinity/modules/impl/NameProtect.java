@@ -1,13 +1,11 @@
 package org.frontear.infinity.modules.impl;
 
 import lombok.val;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.frontear.infinity.events.render.FontEvent;
-import org.frontear.infinity.modules.Category;
-import org.frontear.infinity.modules.Module;
+import org.frontear.infinity.modules.*;
 import org.frontear.infinity.utils.ChatUtils;
 import org.lwjgl.input.Keyboard;
 
