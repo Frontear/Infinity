@@ -28,7 +28,7 @@ public final class AutoClicker extends Module {
         if (event.phase == TickEvent.Phase.START && event.player instanceof EntityPlayerSP
             && !event.player
             .isUsingItem()) {
-            val ms = timer.getElapsed(TimeUnit.MILLISECONDS);
+            val ms = timer.getElapsed(TimeUnit.MILLISECONDS) + Random.nextInt(-25, 25);
             val elapsed = ms >= 1000 / Random.nextInt(cps[0], cps[1]);
             val attacking = mc.gameSettings.keyBindAttack.isKeyDown();
 
