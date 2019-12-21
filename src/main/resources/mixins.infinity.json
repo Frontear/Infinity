@@ -16,6 +16,7 @@
     "MixinGuiOptions",
     "MixinItemRenderer",
     "MixinMinecraft",
-    "MixinNetworkManager"
+    "MixinNetworkManager",
+    "MixinRender"
   ]
 }
