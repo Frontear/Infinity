@@ -1,4 +1,4 @@
-name: Java CI
+name: Infinity
 
 on:
   pull_request:
