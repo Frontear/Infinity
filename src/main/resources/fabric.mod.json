@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "${group}.${id}.${name}Mod"
+    ]
+  },
+  "mixins": [
+    "mixins.${id}.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=${loader}",
+    "minecraft": "${minecraft}"
+  },
+
+  "name": "${name}",
+  "description": "${description}",
+  "contact": {
+    "issues": "https://github.com/${author}/${name}/issues",
+    "sources": "https://github.com/${author}/${name}"
+  },
+  "authors": [
+    "${author}"
+  ],
+  "contributors": [],
+  "license": "GPL-3.0-only",
+  "icon": "assets/${id}/icon.png"
+}

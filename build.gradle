@@ -1,97 +1,91 @@
 import groovy.json.JsonSlurper
 
 plugins {
-    id "net.minecraftforge.gradle.forge" version "2.1-SNAPSHOT"
-    id "org.spongepowered.mixin" version "0.6-SNAPSHOT"
+    id "io.freefair.lombok" version "5.0.0-rc2"
+    id "fabric-loom" version "0.2.6-SNAPSHOT"
     id "java"
 }
 
-sourceCompatibility = targetCompatibility = 1.8
-version = "3.0-beta"
-group = "com.github.frontear"
-archivesBaseName = "Infinity"
-def access_transformer = "infinity_at.cfg"
-def mixin = "mixins.infinity.json"
-def refmap = new JsonSlurper().parse(file("src/main/resources/$mixin")).refmap
-def replacements = [
-        "modid"    : archivesBaseName.toLowerCase(),
-        "name"     : archivesBaseName,
-        "version"  : project.version,
-]
-sourceSets.main.ext.refMap = refmap
-tasks.withType(JavaCompile) {
-    options.compilerArgs += [ "-Xplugin:Manifold", "-Xlint:deprecation", "-Xlint:unchecked" ]
-}
-
-minecraft {
-    version = "1.8.9-11.15.1.2318-1.8.9"
-    runDir = "run"
-    mappings = "stable_22"
-    makeObfSourceJar = false
-
-    replacements["mcversion"] = version
-
-    replaceIn "MinecraftMod.java"
-    replacements.each { k, v -> replace "%$k": v }
-}
-
-repositories {
-    mavenCentral()
-    maven {
-        name = "sponge"
-        url = "https://repo.spongepowered.org/maven"
-    }
-}
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+archivesBaseName = mod_name
+version = mod_version
+group = mod_group
 
 dependencies {
-    compile("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
-        exclude module: "*"
-        // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
-    }
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-    compile("systems.manifold:manifold-all:2019.1.29") {
-        exclude module: "*"
+    modImplementation ("com.github.frontear:Efkolia:+") {
+        transitive = false
     }
+    include "com.github.frontear:Efkolia:+"
+}
 
-    //implementation files("${System.getProperty('java.home')}/../${OperatingSystem.isMacOsX() ? 'Classes/classes.jar' : 'lib/tools.jar'}") // ahh, mac os
-    implementation("org.projectlombok:lombok:1.18.10")
+lombok {
+    config["lombok.addJavaxGeneratedAnnotation"] = "true"
+    config["lombok.experimental.flagUsage"] = "WARNING"
+    config["lombok.extensionMethod.flagUsage"] = "ERROR"
+    config["lombok.fieldDefaults.flagUsage"] = "WARNING"
+    config["lombok.nonNull.flagUsage"] = "ERROR"
+    config["lombok.sneakyThrows.flagUsage"] = "WARNING"
+    config["lombok.toString.doNotUseGetters"] = "true"
 }
 
 processResources {
-    def modinfo = "mcmod.info"
+    final props = [ "id": mod_name.toLowerCase(), "version": mod_version, "group": mod_group, "name": mod_name, "description": mod_description, "author": mod_author, "loader": loader_version, "minecraft": minecraft_version ]
+    final files = [ "fabric.mod.json", "mixins.${props.id}.json" ]
 
-    inputs.properties replacements
+    inputs.properties props
 
-    from(sourceSets.main.resources.srcDirs) {
-        include modinfo
-        expand replacements
+    from (sourceSets.main.resources.srcDirs) {
+        include files
+        expand props
     }
 
-    from(sourceSets.main.resources.srcDirs) {
-        exclude modinfo
+    from (sourceSets.main.resources.srcDirs) {
+        exclude files
     }
-
-    rename "($access_transformer)", "META-INF/\$1"
 }
 
-runClient {
-    jvmArgs "-Xmx1G", "-Dmixin.debug=true", "-Dfrontear.debug=true"
-    args "--tweakClass", "org.spongepowered.asm.launch.MixinTweaker", "--mixin", mixin
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = "6.0.1"
 }
 
-javadoc {
-    options.tags = [
-            "reason"
-    ]
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
 
-jar {
-    manifest.attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker", "MixinConfigs": mixin,
-            "FMLAT": access_transformer, "ForceLoadAsMod": true
+/**
+ * Usage: ./gradlew update
+ */
+tasks.register("update") {
+    group = "Themelio"
+    description = "Updates the fabric dependencies to their latest revision"
 
-    exclude "dummyThing", "LICENSE.txt", "META-INF/INDEX.LIST", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA",
-            "META-INF/DEPENDENCIES", "META-INF/NOTICE", "META-INF/LICENSE", "META-INF/*.txt"
+    doLast {
+        final props = [:]
+        final latest = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v1/versions/game"))[0]["version"]
+        final meta = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v1/versions/loader/$latest"))[0]
 
-    from project.configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    // not happy about this "fatjar" situation
+        props["minecraft_version"] = latest
+        props["loader_version"] = meta["loader"]["version"]
+        props["yarn_mappings"] = meta["mappings"]["version"]
+
+        final prop_file = file("gradle.properties")
+        final lines = prop_file.readLines()
+
+        prop_file.withWriter { writer ->
+            lines.each { line ->
+                def split = line.split(" = ")[0]
+
+                if (props.containsKey(split)) {
+                    line = "$split = ${props[split]}"
+                }
+
+                writer.writeLine(line)
+            }
+        }
+    }
 }
