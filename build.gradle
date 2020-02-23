@@ -8,7 +8,7 @@ plugins {
 
 sourceCompatibility = targetCompatibility = 1.8
 version = "2.4-alpha"
-group = "org.frontear"
+group = "com.github.frontear"
 archivesBaseName = "Infinity"
 def access_transformer = "infinity_at.cfg"
 def mixin = "mixins.infinity.json"
@@ -20,7 +20,7 @@ def replacements = [
 ]
 sourceSets.main.ext.refMap = refmap
 tasks.withType(JavaCompile) {
-    options.compilerArgs += [ "-Xplugin:Manifold" ] // manifold requires this
+    options.compilerArgs += [ "-Xplugin:Manifold", "-Xlint:deprecation", "-Xlint:unchecked" ]
 }
 
 minecraft {
@@ -49,12 +49,12 @@ dependencies {
         // we do this because minecraft provides the three libraries mixin requires (guava, gson, commons-io)
     }
 
-    compile("systems.manifold:manifold-all:2019.1.14") {
+    compile("systems.manifold:manifold-all:2019.1.29") {
         exclude module: "*"
     }
 
     //implementation files("${System.getProperty('java.home')}/../${OperatingSystem.isMacOsX() ? 'Classes/classes.jar' : 'lib/tools.jar'}") // ahh, mac os
-    implementation("org.projectlombok:lombok:1.18.8")
+    implementation("org.projectlombok:lombok:1.18.10")
 }
 
 processResources {
@@ -75,7 +75,7 @@ processResources {
 }
 
 runClient {
-    jvmArgs "-Xmx1G", "-Dmixin.hotSwap=true", "-Dfrontear.debug=true"
+    jvmArgs "-Xmx1G", "-Dmixin.debug=true", "-Dfrontear.debug=true"
     args "--tweakClass", "org.spongepowered.asm.launch.MixinTweaker", "--mixin", mixin
 }
 
