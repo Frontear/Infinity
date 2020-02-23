@@ -1,5 +1,5 @@
-# Infinity [![Infinity](https://github.com/Frontear/Infinity/workflows/Infinity/badge.svg)](https://github.com/Frontear/Infinity/actions?query=workflow%3AInfinity) [![CodeFactor](https://www.codefactor.io/repository/github/frontear/infinity/badge)](https://www.codefactor.io/repository/github/frontear/infinity)
-Infinity is a simple client designed in [Fabric](https://fabricmc.net). It adds a variety of features into minecraft, and also comes with performance improvements and bug fixes. This is possible due to [Mixin](https://github.com/SpongePowered/Mixin).
+# Infinity ![Infinity](https://github.com/Frontear/Infinity/workflows/Infinity/badge.svg?branch=fabric-rewrite) [![CodeFactor](https://www.codefactor.io/repository/github/frontear/infinity/badge)](https://www.codefactor.io/repository/github/frontear/infinity)
+Infinity is a simple client designed in [Forge](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.8.9.html). It adds a variety of features into minecraft, and also comes with performance improvements and bug fixes. This is possible due to [Mixin](https://github.com/SpongePowered/Mixin).
 
 ## Getting Started
 Before starting, please make sure you have a thorough understanding of mixins and java. Additionally, we recommend [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/) as your Java IDE alongside the [MinecraftDev](https://github.com/minecraft-dev/MinecraftDev) plugin.
