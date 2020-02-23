@@ -2,7 +2,7 @@ name: Infinity
 
 on:
   pull_request:
-    branches-ignore:
+    branches:
       - master
   push:
     branches:
