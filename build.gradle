@@ -27,7 +27,6 @@ lombok {
     config["lombok.experimental.flagUsage"] = "WARNING"
     config["lombok.extensionMethod.flagUsage"] = "ERROR"
     config["lombok.fieldDefaults.flagUsage"] = "WARNING"
-    config["lombok.nonNull.flagUsage"] = "ERROR"
     config["lombok.sneakyThrows.flagUsage"] = "WARNING"
     config["lombok.toString.doNotUseGetters"] = "true"
 }
