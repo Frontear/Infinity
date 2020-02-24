@@ -7,6 +7,8 @@ Please also make sure that you install the [Lombok](https://plugins.jetbrains.co
 
 - Clone this repository via using `git clone https://github.com/Frontear/Infinity.git Infinity`
 - Import the project into your IDE. IntelliJ IDEA will automatically setup the environment.
+- Run `./gradlew genSources` for the Minecraft sources. This is necessary for smooth operation with the MinecraftDev plugin.
+- Please use `./gradlew runClient` to test the code. We do not support the pre-generated run configs.
 - If necessary, run `./gradlew update` to resolve the latest dependencies.
 
 ## License

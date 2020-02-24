@@ -32,6 +32,10 @@ lombok {
     config["lombok.toString.doNotUseGetters"] = "true"
 }
 
+minecraft {
+    autoGenIDERuns = false // our code depends on the executable being a jar file
+}
+
 processResources {
     final props = [ "id": mod_name.toLowerCase(), "version": mod_version, "group": mod_group, "name": mod_name, "description": mod_description, "author": mod_author, "loader": loader_version, "minecraft": minecraft_version ]
     final files = [ "fabric.mod.json", "mixins.${props.id}.json" ]

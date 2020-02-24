@@ -1,12 +1,12 @@
 package com.github.frontear.infinity;
 
-import com.github.frontear.infinity.mixins.IMinecraftClient;
-import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.MinecraftClient;
+import com.github.frontear.efkolia.impl.mod.MinecraftMod;
+import com.github.frontear.internal.NotNull;
+import com.google.gson.JsonObject;
 
-public final class InfinityMod implements ModInitializer {
-    @Override
-    public void onInitialize() {
-        ((IMinecraftClient) MinecraftClient.getInstance()).getLogger().info("Hello Fabric!");
+public final class InfinityMod extends MinecraftMod {
+    public InfinityMod(@NotNull final JsonObject object) {
+        super(object.get("name").getAsString(), object.get("version").getAsString(),
+            object.getAsJsonArray("authors").get(0).getAsString());
     }
 }

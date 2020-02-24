@@ -2,22 +2,14 @@
   "schemaVersion": 1,
   "id": "${id}",
   "version": "${version}",
-
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "${group}.${id}.${name}Mod"
-    ]
-  },
+  "environment": "client",
   "mixins": [
     "mixins.${id}.json"
   ],
-
   "depends": {
     "fabricloader": ">=${loader}",
     "minecraft": "${minecraft}"
   },
-
   "name": "${name}",
   "description": "${description}",
   "contact": {
