@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(MinecraftClient.class)
 @SuppressWarnings("UnresolvedMixinReference")
-public abstract class MinecraftClientMixin {
+abstract class MinecraftClientMixin {
     /**
      * @author Frontear
      * @reason This functionality is largely useless from my perspective. Additionally, since

@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Main.class)
-public abstract class MainMixin {
+abstract class MainMixin {
     /**
      * @author Frontear
      * @reason This sets up the loading for Infinity. It is able to grab the main arguments given to
