@@ -1,6 +1,7 @@
 package com.github.frontear.infinity.mixins.impl;
 
 import com.github.frontear.internal.NotNull;
+import lombok.NonNull;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +19,7 @@ public abstract class MinecraftClientMixin {
      */
     @Redirect(method = "*", at = @At(value = "INVOKE",
         target = "Lnet/minecraft/client/MinecraftClient;updateWindowTitle()V"))
-    private void updateWindowTitle(@NotNull final MinecraftClient client) {
+    private void updateWindowTitle(@NonNull final MinecraftClient client) {
     }
 
     /**
@@ -29,7 +30,7 @@ public abstract class MinecraftClientMixin {
      */
     @Redirect(method = "<init>", at = @At(value = "INVOKE",
         target = "Lnet/minecraft/client/MinecraftClient;getWindowTitle()Ljava/lang/String;"))
-    private String getWindowTitle(@NotNull final MinecraftClient client) {
+    private String getWindowTitle(@NonNull final MinecraftClient client) {
         return "Minecraft " + SharedConstants.getGameVersion().getName();
     }
 }
