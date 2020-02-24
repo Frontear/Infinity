@@ -3,7 +3,8 @@
   "package": "${group}.${id}.mixins.impl",
   "compatibilityLevel": "JAVA_8",
   "client": [
-    "MainMixin"
+    "MainMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

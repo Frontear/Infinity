@@ -9,6 +9,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Main.class)
 public abstract class MainMixin {
+    /**
+     * @author Frontear
+     * @reason This sets up the loading for Infinity. It is able to grab the main arguments given to
+     * the application, so that Infinity may make use of them.
+     */
     @Inject(method = "main",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;run()V"))
     private static void main(@NotNull final String[] args, @NotNull final CallbackInfo info) {
