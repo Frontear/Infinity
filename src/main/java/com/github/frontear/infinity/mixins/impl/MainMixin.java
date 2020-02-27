@@ -1,7 +1,6 @@
 package com.github.frontear.infinity.mixins.impl;
 
 import com.github.frontear.InfinityLoader;
-import com.github.frontear.internal.NotNull;
 import lombok.NonNull;
 import net.minecraft.client.main.Main;
 import org.spongepowered.asm.mixin.Mixin;

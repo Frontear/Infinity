@@ -1,7 +1,6 @@
 package com.github.frontear.infinity;
 
 import com.github.frontear.efkolia.impl.mod.MinecraftMod;
-import com.github.frontear.internal.NotNull;
 import com.google.gson.JsonObject;
 import lombok.NonNull;
 

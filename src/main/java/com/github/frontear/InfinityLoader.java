@@ -3,7 +3,6 @@ package com.github.frontear;
 import com.github.frontear.efkolia.api.loader.ILoaderMod;
 import com.github.frontear.efkolia.utilities.file.JavaExecutable;
 import com.github.frontear.infinity.InfinityMod;
-import com.github.frontear.internal.NotNull;
 import com.google.gson.JsonParser;
 import lombok.*;
 
