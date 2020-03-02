@@ -6,12 +6,14 @@ import com.github.frontear.infinity.InfinityMod;
 import com.google.gson.JsonParser;
 import lombok.*;
 
-public final class InfinityLoader implements ILoaderMod {
+public final class InfinityLoader implements ILoaderMod<Void> {
     @Override
-    public void init(@NonNull final String... args) {
+    public Void init(@NonNull final String... args) {
         val executable = new JavaExecutable(InfinityLoader.class);
 
         val inst = new InfinityMod(
             new JsonParser().parse(executable.getResource("fabric.mod.json")).getAsJsonObject());
+
+        return null;
     }
 }
