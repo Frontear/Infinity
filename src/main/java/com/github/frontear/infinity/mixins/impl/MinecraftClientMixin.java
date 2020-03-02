@@ -14,7 +14,8 @@ abstract class MinecraftClientMixin {
      * versions. This is largely for my own sanity, as Infinity is meant to change the display name
      * anyways.
      */
-    @Redirect(method = "<init>", at = @At(value = "INVOKE",
+    @SuppressWarnings("UnresolvedMixinReference")
+    @Redirect(method = "*", at = @At(value = "INVOKE",
         target = "Lnet/minecraft/client/MinecraftClient;getWindowTitle()Ljava/lang/String;"))
     private String getWindowTitle(@NonNull final MinecraftClient client) {
         return "Minecraft " + SharedConstants.getGameVersion().getName();
