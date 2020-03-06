@@ -1,6 +1,7 @@
 package com.github.frontear.infinity.mixins.impl;
 
 import com.github.frontear.InfinityLoader;
+import com.github.frontear.infinity.event.state.LoadEvent;
 import com.github.frontear.infinity.mixins.IMinecraftClient;
 import com.github.frontear.internal.NotNull;
 import lombok.*;
@@ -23,6 +24,8 @@ abstract class MainMixin {
         val infinity = new InfinityLoader().init(args);
         ((IMinecraftClient) client).setInfinityInstance(infinity);
         client.updateWindowTitle();
+
+        infinity.getExecutor().fire(new LoadEvent());
         client.run();
     }
 
