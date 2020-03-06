@@ -1,6 +1,7 @@
 package com.github.frontear.infinity.mixins.impl;
 
 import com.github.frontear.infinity.InfinityMod;
+import com.github.frontear.infinity.event.state.TickEvent;
 import com.github.frontear.infinity.mixins.IMinecraftClient;
 import com.github.frontear.infinity.modules.impl.Ghost;
 import lombok.*;
@@ -44,5 +45,18 @@ abstract class MinecraftClientMixin implements IMinecraftClient {
         }
 
         return title;
+    }
+
+    /**
+     * @author Frontear
+     * @reason Injects the {@link TickEvent} for timed callbacks. Fires twice, once before tick() is
+     * fired, and once after
+     */
+    @Redirect(method = "render",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;tick()V"))
+    private void render(@NonNull final MinecraftClient client, final boolean tick) {
+        infinity.getExecutor().fire(new TickEvent(true));
+        client.tick();
+        infinity.getExecutor().fire(new TickEvent(false));
     }
 }

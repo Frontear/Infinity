@@ -10,10 +10,18 @@ import org.lwjgl.glfw.GLFW;
 
 @ModuleInfo(bind = GLFW.GLFW_KEY_G, friendly = true, category = ModuleCategory.RENDER)
 public final class Ghost extends Module {
-    private final List<Module> unfriendly = new ArrayList<>();
+    private final List<Module> unfriendly;
 
     public Ghost(final @NonNull InfinityMod infinity) {
         super(infinity);
+
+        this.unfriendly = new ArrayList<>();
+
+        infinity.getExecutor().register(LoadEvent.class, e -> {
+            val modules = infinity.getModules().stream();
+
+            modules.filter(x -> !x.isFriendly()).forEach(unfriendly::add);
+        });
     }
 
     @Override
@@ -26,12 +34,5 @@ public final class Ghost extends Module {
         }
 
         return toggled;
-    }
-
-    @Listener
-    private void onLoad(@NonNull final LoadEvent event) {
-        val modules = infinity.getModules().stream();
-
-        modules.filter(x -> !x.isFriendly()).forEach(unfriendly::add);
     }
 }
