@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import lombok.*;
 
 public final class InfinityMod extends MinecraftMod {
+    @Getter private static InfinityMod instance; // I don't like this design
+
     @Getter private final ModuleContainer modules;
 
     public InfinityMod(@NonNull final JsonObject object) {
@@ -13,5 +15,7 @@ public final class InfinityMod extends MinecraftMod {
             object.getAsJsonArray("authors").get(0).getAsString());
 
         this.modules = new ModuleContainer(this);
+
+        instance = this;
     }
 }

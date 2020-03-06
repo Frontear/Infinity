@@ -3,6 +3,7 @@
   "package": "${group}.${id}.mixins.impl",
   "compatibilityLevel": "JAVA_8",
   "client": [
+    "KeyboardMixin",
     "MainMixin",
     "MinecraftClientMixin"
   ],
