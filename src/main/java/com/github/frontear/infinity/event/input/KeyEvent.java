@@ -1,4 +1,4 @@
-package com.github.frontear.infinity.event;
+package com.github.frontear.infinity.event.input;
 
 import com.github.frontear.efkolia.impl.events.Event;
 import lombok.Getter;

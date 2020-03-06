@@ -2,7 +2,7 @@ package com.github.frontear.infinity.modules;
 
 import com.github.frontear.efkolia.impl.container.Container;
 import com.github.frontear.infinity.InfinityMod;
-import com.github.frontear.infinity.event.KeyEvent;
+import com.github.frontear.infinity.event.input.KeyEvent;
 import com.github.frontear.infinity.modules.impl.Ghost;
 import lombok.*;
 

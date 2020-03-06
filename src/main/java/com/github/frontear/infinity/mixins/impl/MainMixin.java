@@ -26,6 +26,11 @@ abstract class MainMixin {
         client.run();
     }
 
+    /**
+     * @author Frontear
+     * @reason Saves the configuration file for Infinity on client stop. This is necessary for
+     * future use of the client
+     */
     @Inject(method = "main",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;stop()V"))
     private static void main(@NotNull final String[] args, @NotNull final CallbackInfo info) {
