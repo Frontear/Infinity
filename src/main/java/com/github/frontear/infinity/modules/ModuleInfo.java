@@ -5,7 +5,9 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModuleInfo {
-    int bind();
+    int bind(); // the module binding
 
-    ModuleCategory category();
+    boolean friendly(); // whether the module can be used during Ghost
+
+    ModuleCategory category(); // the module category
 }

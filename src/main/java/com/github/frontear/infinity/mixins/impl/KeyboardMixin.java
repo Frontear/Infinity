@@ -1,7 +1,8 @@
 package com.github.frontear.infinity.mixins.impl;
 
-import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.event.KeyEvent;
+import com.github.frontear.infinity.mixins.IMinecraftClient;
+import lombok.NonNull;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.*;
@@ -19,10 +20,10 @@ abstract class KeyboardMixin {
 
     @Redirect(method = "setup", at = @At(value = "INVOKE",
         target = "Lnet/minecraft/client/util/InputUtil;setKeyboardCallbacks(JLorg/lwjgl/glfw/GLFWKeyCallbackI;Lorg/lwjgl/glfw/GLFWCharModsCallbackI;)V"))
-    private void setup(final long handle, final GLFWKeyCallbackI key_callback,
-        final GLFWCharModsCallbackI char_callback) {
+    private void setup(final long handle, @NonNull final GLFWKeyCallbackI key_callback,
+        @NonNull final GLFWCharModsCallbackI char_callback) {
         InputUtil.setKeyboardCallbacks(handle, (window, key, scancode, action, mods) -> {
-            InfinityMod.getInstance().getExecutor()
+            IMinecraftClient.getInfinity().getExecutor()
                 .fire(new KeyEvent(key, action == GLFW.GLFW_PRESS));
             this.onKey(window, key, scancode, action, mods);
         }, this::onChar);

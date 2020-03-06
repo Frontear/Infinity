@@ -12,8 +12,9 @@ public abstract class Module implements IConfigurable<Module> {
     protected final InfinityMod infinity;
     protected final Logger logger;
 
+    @Getter private final ModuleCategory category;
+    @Getter private final boolean friendly;
     @Expose @Getter @Setter private int bind;
-    @Getter private ModuleCategory category;
     @Expose @Getter private boolean active;
 
     public Module(@NonNull final InfinityMod infinity) {
@@ -24,6 +25,7 @@ public abstract class Module implements IConfigurable<Module> {
         this.infinity = infinity;
 
         this.category = info.category();
+        this.friendly = info.friendly();
         this.bind = info.bind();
         this.active = false;
     }

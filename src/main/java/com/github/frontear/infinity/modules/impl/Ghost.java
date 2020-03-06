@@ -5,7 +5,7 @@ import com.github.frontear.infinity.modules.*;
 import lombok.*;
 import org.lwjgl.glfw.GLFW;
 
-@ModuleInfo(bind = GLFW.GLFW_KEY_G, category = ModuleCategory.RENDER)
+@ModuleInfo(bind = GLFW.GLFW_KEY_G, friendly = true, category = ModuleCategory.RENDER)
 public final class Ghost extends Module {
     public Ghost(final @NonNull InfinityMod infinity) {
         super(infinity);
