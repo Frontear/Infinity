@@ -7,14 +7,20 @@ import com.google.gson.JsonParser;
 import lombok.*;
 
 public final class InfinityLoader implements ILoaderMod<InfinityMod> {
+    private static InfinityMod mod;
+
+    public static InfinityMod getMod() {
+        return mod;
+    }
+
     @Override
     public InfinityMod init(@NonNull final String... args) {
         val executable = new JavaExecutable(InfinityLoader.class);
 
-        val inst = new InfinityMod(
+        mod = new InfinityMod(
             new JsonParser().parse(executable.getResource("fabric.mod.json")).getAsJsonObject());
-        inst.getConfig().load();
+        mod.getConfig().load();
 
-        return inst;
+        return mod;
     }
 }

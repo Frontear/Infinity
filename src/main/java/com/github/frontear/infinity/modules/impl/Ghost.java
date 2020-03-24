@@ -1,6 +1,5 @@
 package com.github.frontear.infinity.modules.impl;
 
-import com.github.frontear.efkolia.api.events.Listener;
 import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.event.state.LoadEvent;
 import com.github.frontear.infinity.modules.*;

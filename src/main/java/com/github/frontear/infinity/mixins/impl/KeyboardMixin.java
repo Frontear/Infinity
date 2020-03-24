@@ -1,7 +1,7 @@
 package com.github.frontear.infinity.mixins.impl;
 
+import com.github.frontear.InfinityLoader;
 import com.github.frontear.infinity.event.input.KeyEvent;
-import com.github.frontear.infinity.mixins.IMinecraftClient;
 import lombok.NonNull;
 import net.minecraft.client.Keyboard;
 import org.lwjgl.glfw.GLFW;
@@ -21,7 +21,7 @@ abstract class KeyboardMixin {
     private void onKey(final long window, final int key, final int scancode, final int action,
         final int mods, @NonNull final
     CallbackInfo info) {
-        IMinecraftClient.getInfinity().getExecutor()
+        InfinityLoader.getMod().getExecutor()
             .fire(new KeyEvent(key, action == GLFW.GLFW_PRESS));
     }
 }
