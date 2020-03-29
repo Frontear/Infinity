@@ -3,6 +3,7 @@ package com.github.frontear.infinity.modules;
 import com.github.frontear.efkolia.api.configuration.IConfigurable;
 import com.github.frontear.efkolia.impl.logging.Logger;
 import com.github.frontear.infinity.InfinityMod;
+import com.github.frontear.infinity.utils.key.Keyboard;
 import com.google.gson.annotations.Expose;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;
@@ -14,7 +15,7 @@ public abstract class Module implements IConfigurable<Module> {
 
     @Getter private final ModuleCategory category;
     @Getter private final boolean friendly;
-    @Expose @Getter @Setter private int bind;
+    @Expose @Getter @Setter private Keyboard bind;
     @Expose @Getter private boolean active;
 
     public Module(@NonNull final InfinityMod infinity) {

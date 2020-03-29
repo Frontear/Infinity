@@ -2,10 +2,10 @@ package com.github.frontear.infinity.modules.impl;
 
 import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.modules.*;
+import com.github.frontear.infinity.utils.key.Keyboard;
 import lombok.*;
-import org.lwjgl.glfw.GLFW;
 
-@ModuleInfo(bind = GLFW.GLFW_KEY_P, friendly = true, category = ModuleCategory.NONE)
+@ModuleInfo(bind = Keyboard.KEY_P, friendly = true, category = ModuleCategory.NONE)
 public final class Panic extends Module {
     public Panic(final @NonNull InfinityMod infinity) {
         super(infinity);

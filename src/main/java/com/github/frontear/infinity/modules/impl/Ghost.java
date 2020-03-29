@@ -3,11 +3,11 @@ package com.github.frontear.infinity.modules.impl;
 import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.event.state.LoadEvent;
 import com.github.frontear.infinity.modules.*;
+import com.github.frontear.infinity.utils.key.Keyboard;
 import java.util.*;
 import lombok.*;
-import org.lwjgl.glfw.GLFW;
 
-@ModuleInfo(bind = GLFW.GLFW_KEY_G, friendly = true, category = ModuleCategory.RENDER)
+@ModuleInfo(bind = Keyboard.KEY_G, friendly = true, category = ModuleCategory.RENDER)
 public final class Ghost extends Module {
     private final List<Module> unfriendly;
 

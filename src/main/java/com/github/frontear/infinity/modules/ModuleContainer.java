@@ -6,10 +6,8 @@ import com.github.frontear.infinity.event.input.KeyEvent;
 import com.github.frontear.infinity.event.render.OverlayEvent;
 import com.github.frontear.infinity.modules.impl.Ghost;
 import java.awt.Color;
-import java.util.Objects;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;
-import org.lwjgl.glfw.GLFW;
 
 public final class ModuleContainer extends Container<Module> {
     public ModuleContainer(@NonNull final InfinityMod mod) {
@@ -21,7 +19,7 @@ public final class ModuleContainer extends Container<Module> {
             if (e.isPressed()) {
                 val ghost = get(Ghost.class).isActive();
 
-                stream().filter(x -> x.getBind() == e.getKey())
+                stream().filter(x -> x.getBind().getGLFWCode() == e.getKey())
                     .filter(x -> !ghost || x.isFriendly()).forEach(Module::toggle);
             }
         });
@@ -35,8 +33,7 @@ public final class ModuleContainer extends Container<Module> {
             val renderer = MinecraftClient.getInstance().textRenderer;
 
             stream().filter(Module::isActive).forEach(x -> {
-                val key = Objects.requireNonNull(
-                    GLFW.glfwGetKeyName(x.getBind(), GLFW.glfwGetKeyScancode(x.getBind())));
+                val key = x.getBind().toString();
                 val text = x.getPropertyName() + " " + "[" + key.toUpperCase() + "]";
 
                 renderer
