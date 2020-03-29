@@ -1,6 +1,6 @@
 package com.github.frontear.infinity.modules;
 
-import com.github.frontear.infinity.utils.key.Keyboard;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import java.lang.annotation.*;
 
 @Target(ElementType.TYPE)

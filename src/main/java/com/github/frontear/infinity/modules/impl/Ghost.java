@@ -3,7 +3,7 @@ package com.github.frontear.infinity.modules.impl;
 import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.event.state.LoadEvent;
 import com.github.frontear.infinity.modules.*;
-import com.github.frontear.infinity.utils.key.Keyboard;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import java.util.*;
 import lombok.*;
 

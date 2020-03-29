@@ -3,7 +3,7 @@ package com.github.frontear.infinity.modules;
 import com.github.frontear.efkolia.api.configuration.IConfigurable;
 import com.github.frontear.efkolia.impl.logging.Logger;
 import com.github.frontear.infinity.InfinityMod;
-import com.github.frontear.infinity.utils.key.Keyboard;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import com.google.gson.annotations.Expose;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;

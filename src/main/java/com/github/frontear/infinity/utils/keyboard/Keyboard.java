@@ -1,4 +1,4 @@
-package com.github.frontear.infinity.utils.key;
+package com.github.frontear.infinity.utils.keyboard;
 
 public enum Keyboard {
     KEY_SPACE(32),

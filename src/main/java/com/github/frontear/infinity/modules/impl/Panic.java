@@ -2,7 +2,7 @@ package com.github.frontear.infinity.modules.impl;
 
 import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.modules.*;
-import com.github.frontear.infinity.utils.key.Keyboard;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import lombok.*;
 
 @ModuleInfo(bind = Keyboard.KEY_P, friendly = true, category = ModuleCategory.NONE)
