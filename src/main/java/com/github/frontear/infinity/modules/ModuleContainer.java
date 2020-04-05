@@ -16,7 +16,9 @@ public final class ModuleContainer extends Container<Module> {
         stream().forEach(mod.getConfig()::register);
 
         mod.getExecutor().register(KeyEvent.class, e -> {
-            if (e.isPressed()) {
+            val client = MinecraftClient.getInstance();
+
+            if (!client.inGameHud.getChatHud().isChatFocused() && e.isPressed()) {
                 val ghost = get(Ghost.class).isActive();
 
                 stream().filter(x -> x.getBind().getGLFWCode() == e.getKey())
