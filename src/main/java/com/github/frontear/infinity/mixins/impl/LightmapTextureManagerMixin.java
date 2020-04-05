@@ -10,6 +10,10 @@ import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(LightmapTextureManager.class)
 abstract class LightmapTextureManagerMixin {
+    /**
+     * @author Frontear
+     * @reason Force bright display with {@link Fullbright} is active.
+     */
     @Redirect(method = "update",
         at = @At(value = "FIELD", target = "Lnet/minecraft/client/options/GameOptions;gamma:D"))
     private double update(final GameOptions instance) {
