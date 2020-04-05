@@ -18,6 +18,7 @@ public final class ModuleContainer extends Container<Module> {
         mod.getExecutor().register(KeyEvent.class, e -> {
             val client = MinecraftClient.getInstance();
 
+            // todo: prevent key events for all textboxes
             if (!client.inGameHud.getChatHud().isChatFocused() && e.isPressed()) {
                 val ghost = get(Ghost.class).isActive();
 
