@@ -6,6 +6,7 @@
     "ClientPlayerEntityMixin",
     "InGameHudMixin",
     "KeyboardMixin",
+    "LightmapTextureManagerMixin",
     "MainMixin",
     "MinecraftClientMixin"
   ],
