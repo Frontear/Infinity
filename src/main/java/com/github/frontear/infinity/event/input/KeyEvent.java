@@ -5,14 +5,14 @@ import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
 
 public final class KeyEvent extends Event {
-    private static final MinecraftClient client = MinecraftClient.getInstance();
-
-    @Getter private final int key;
     @Getter private final boolean pressed;
+    private final MinecraftClient client;
+    @Getter private final int key;
 
     public KeyEvent(final int key, final boolean pressed) {
-        this.key = key;
+        this.client = MinecraftClient.getInstance();
         this.pressed = pressed;
+        this.key = key;
     }
 
     // if the ux is focused onto a different element (textbox, different screen)

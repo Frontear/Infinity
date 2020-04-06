@@ -19,6 +19,6 @@ abstract class LightmapTextureManagerMixin {
     private double update(final GameOptions instance) {
         val fullbright = InfinityLoader.getMod().getModules().get(Fullbright.class);
 
-        return fullbright.isActive() ? 1.0D : instance.gamma;
+        return fullbright.isActive() ? 10.0D : instance.gamma;
     }
 }
