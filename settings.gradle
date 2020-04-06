@@ -1,24 +1,11 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
+        maven {
+            url = "https://maven.fabricmc.net/"
+        }
         mavenCentral()
-        maven {
-            url "https://files.minecraftforge.net/maven"
-        }
-        maven {
-            url "https://repo.spongepowered.org/maven"
-        }
-    }
-
-    // hmm
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id == "net.minecraftforge.gradle.forge") {
-                useModule "net.minecraftforge.gradle:ForgeGradle:${requested.version}"
-            }
-            else if (requested.id.id == "org.spongepowered.mixin") {
-                useModule "org.spongepowered:mixingradle:${requested.version}"
-            }
-        }
+        gradlePluginPortal()
     }
 }
+
+rootProject.name = mod_name

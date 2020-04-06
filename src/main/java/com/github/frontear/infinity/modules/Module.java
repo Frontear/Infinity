@@ -1,52 +1,63 @@
 package com.github.frontear.infinity.modules;
 
-import com.github.frontear.framework.config.IConfigurable;
-import com.github.frontear.framework.logger.impl.Logger;
+import com.github.frontear.efkolia.api.configuration.IConfigurable;
+import com.github.frontear.efkolia.impl.logging.Logger;
+import com.github.frontear.infinity.InfinityMod;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import com.google.gson.annotations.Expose;
 import lombok.*;
-import lombok.experimental.*;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.client.MinecraftClient;
 
-@FieldDefaults(level = AccessLevel.PRIVATE,
-    makeFinal = true)
 public abstract class Module implements IConfigurable<Module> {
-    protected static final Minecraft mc = Minecraft.getMinecraft();
-    protected Logger logger = new Logger();
-    @Getter boolean safe; // safe to use during Ghost
-    @Getter Category category;
-    @Expose @NonFinal @Getter @Setter int bind;
-    @Expose @NonFinal @Getter boolean active = false;
+    protected final MinecraftClient client;
+    protected final InfinityMod infinity;
+    protected final Logger logger;
 
-    public Module(final int bind, final boolean safe, @NonNull final Category category) {
-        this.bind = bind;
-        this.safe = safe;
-        this.category = category;
+    @Getter private final ModuleCategory category;
+    @Getter private final boolean friendly;
+    @Expose @Getter @Setter private Keyboard bind;
+    @Expose @Getter private boolean active;
+
+    public Module(@NonNull final InfinityMod infinity) {
+        val info = getClass().getAnnotation(ModuleInfo.class);
+
+        this.logger = infinity.getLogger(getPropertyName());
+        this.client = MinecraftClient.getInstance();
+        this.infinity = infinity;
+
+        this.category = info.category();
+        this.friendly = info.friendly();
+        this.bind = info.bind();
+        this.active = false;
     }
 
-    @Override
-    public void load(final Module self) {
-        this.setBind(self.getBind());
-        this.setActive(self.isActive());
+    public boolean toggle() {
+        val active = isActive();
+        setActive(!active);
+
+        return active != isActive();
     }
 
     public void setActive(final boolean active) {
+        val executor = infinity.getExecutor();
         if (active) {
-            MinecraftForge.EVENT_BUS.register(this);
+            executor.register(this);
         }
         else {
-            MinecraftForge.EVENT_BUS.unregister(this);
+            executor.unregister(this);
         }
 
-        if (this.active != active) {
-            onToggle(this.active = active);
-        }
+        this.active = active;
     }
 
-    protected void onToggle(final boolean active) {
+    @Override
+    public void load(@NonNull final Module value) {
+        this.setActive(value.isActive());
+        this.setBind(value.getBind());
     }
 
-    public void toggle() {
-        setActive(!isActive());
+    @Override
+    public String getPropertyName() {
+        return getClass().getSimpleName();
     }
 }

@@ -1,11 +1,13 @@
 package com.github.frontear.infinity.modules.impl;
 
+import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.modules.*;
-import org.lwjgl.input.Keyboard;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
+import lombok.NonNull;
 
-// implementation in MixinEntity
+@ModuleInfo(bind = Keyboard.KEY_M, friendly = true, category = ModuleCategory.PLAYER)
 public final class SafeWalk extends Module {
-    public SafeWalk() {
-        super(Keyboard.KEY_M, true, Category.PLAYER); // is this really safe?
+    public SafeWalk(final @NonNull InfinityMod infinity) {
+        super(infinity);
     }
 }
