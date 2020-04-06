@@ -16,8 +16,6 @@ public final class ModuleContainer extends Container<Module> {
         stream().forEach(mod.getConfig()::register);
 
         mod.getExecutor().register(KeyEvent.class, e -> {
-            val client = MinecraftClient.getInstance();
-
             if (!e.isFocused() && e.isPressed()) {
                 val ghost = get(Ghost.class).isActive();
 

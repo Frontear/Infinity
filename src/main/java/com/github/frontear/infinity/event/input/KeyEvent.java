@@ -16,7 +16,6 @@ public final class KeyEvent extends Event {
     }
 
     // if the ux is focused onto a different element (textbox, different screen)
-    // todo: rename
     public boolean isFocused() {
         return client.currentScreen != null;
     }
