@@ -6,7 +6,7 @@ import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import java.util.*;
 import lombok.*;
 
-@ModuleInfo(bind = Keyboard.KEY_G, friendly = true, category = ModuleCategory.RENDER)
+@ModuleInfo(bind = Keyboard.KEY_G, friendly = true, category = ModuleCategory.NONE)
 public final class Ghost extends Module {
     private final List<Module> unfriendly;
     private boolean added;
@@ -31,10 +31,6 @@ public final class Ghost extends Module {
         }
 
         if (toggled) {
-            if (client.currentScreen instanceof ModuleScreen) {
-                client.openScreen(null); // force the gui to be closed
-            }
-
             client.updateWindowTitle();
             unfriendly.forEach(Module::toggle);
         }
