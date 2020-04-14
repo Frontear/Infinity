@@ -23,12 +23,18 @@ public final class Ghost extends Module {
         val toggled = super.toggle();
 
         if (!added) {
-            infinity.getModules().stream().filter(x -> !x.isFriendly()).forEach(unfriendly::add);
+            infinity.getModules().stream()
+                .filter(x -> x.getCategory() != ModuleCategory.NONE && !x.isFriendly())
+                .forEach(unfriendly::add);
 
             added = true;
         }
 
         if (toggled) {
+            if (client.currentScreen instanceof ModuleScreen) {
+                client.openScreen(null); // force the gui to be closed
+            }
+
             client.updateWindowTitle();
             unfriendly.forEach(Module::toggle);
         }
