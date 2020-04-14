@@ -2,15 +2,20 @@ package com.github.frontear.infinity.mixins.impl;
 
 import com.github.frontear.InfinityLoader;
 import com.github.frontear.infinity.event.state.TickEvent;
+import com.github.frontear.infinity.mixins.IMinecraftClient;
 import com.github.frontear.infinity.modules.impl.Ghost;
 import lombok.*;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
-import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(MinecraftClient.class)
-abstract class MinecraftClientMixin {
+@Implements(@Interface(iface = IMinecraftClient.class, prefix = "api$"))
+abstract class MinecraftClientMixin implements IMinecraftClient {
+    @Shadow
+    protected abstract void shadow$doAttack();
+
     /**
      * @author Frontear
      * @reason Controlling the title for the sake of renaming Infinity
@@ -46,5 +51,10 @@ abstract class MinecraftClientMixin {
         infinity.getExecutor().fire(new TickEvent(true));
         client.tick();
         infinity.getExecutor().fire(new TickEvent(false));
+    }
+
+    @Intrinsic(displace = true)
+    public void api$doAttack() {
+        this.shadow$doAttack();
     }
 }
