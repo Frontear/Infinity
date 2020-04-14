@@ -9,7 +9,8 @@
     "KeyboardMixin",
     "LightmapTextureManagerMixin",
     "MainMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "TextRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

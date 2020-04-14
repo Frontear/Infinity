@@ -5,7 +5,7 @@ import java.awt.Color;
 import lombok.NonNull;
 import net.minecraft.client.gui.DrawableHelper;
 
-public class CategoryLabel extends AbstractLabel {
+public final class CategoryLabel extends AbstractLabel {
     private static final int BACKGROUND = new Color(42, 57, 79).getRGB();
 
     public CategoryLabel(@NonNull final ModuleCategory category, final int x,
