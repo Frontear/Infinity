@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import lombok.*;
 
 @ModuleInfo(bind = Keyboard.KEY_F, friendly = true, category = ModuleCategory.COMBAT)
-public class AutoClicker extends Module {
+public final class AutoClicker extends Module {
     private final Timer timer;
     private final int min, max;
 
