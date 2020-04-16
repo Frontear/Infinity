@@ -1,5 +1,6 @@
 package com.github.frontear.infinity.modules;
 
+import com.github.frontear.efkolia.api.events.Listener;
 import com.github.frontear.efkolia.impl.container.Container;
 import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.event.input.KeyEvent;
@@ -8,39 +9,54 @@ import com.github.frontear.infinity.modules.impl.Ghost;
 import java.awt.Color;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;
+import org.lwjgl.glfw.GLFW;
 
 public final class ModuleContainer extends Container<Module> {
+    private final ModuleScreen screen;
+    private final MinecraftClient client;
+
     public ModuleContainer(@NonNull final InfinityMod mod) {
         super(mod, ModuleContainer.class.getPackage().getName() + ".impl", mod);
 
+        this.screen = new ModuleScreen(mod);
+        this.client = MinecraftClient.getInstance();
+
         stream().forEach(mod.getConfig()::register);
+        mod.getExecutor().register(this);
+    }
 
-        mod.getExecutor().register(KeyEvent.class, e -> {
-            if (!e.isFocused() && e.isPressed()) {
-                val ghost = get(Ghost.class).isActive();
+    @Listener
+    private void onKey(@NonNull final KeyEvent event) {
+        val ghost = get(Ghost.class).isActive();
 
-                stream().filter(x -> x.getBind().getGLFWCode() == e.getKey())
+        if (!event.isFocused() && event.isPressed()) {
+            if (!ghost && event.getKey() == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+                client.openScreen(screen);
+            }
+            else {
+                stream().filter(x -> event.getKey() == x.getBind().getGLFWCode())
                     .filter(x -> !ghost || x.isFriendly()).forEach(Module::toggle);
             }
-        });
+        }
+    }
 
-        mod.getExecutor().register(OverlayEvent.class, e -> {
-            if (get(Ghost.class).isActive()) {
-                return;
-            }
+    @Listener
+    private void onOverlay(@NonNull final OverlayEvent event) {
+        if (get(Ghost.class).isActive()) {
+            return;
+        }
 
-            val iter = new int[] { 0 }; // lambda
-            val renderer = MinecraftClient.getInstance().textRenderer;
+        val iter = new int[] { 0 }; // lambda
+        val renderer = client.textRenderer;
 
-            stream().filter(Module::isActive).forEach(x -> {
-                val key = x.getBind().toString();
-                val text = x.getPropertyName() + " " + "[" + key.toUpperCase() + "]";
+        stream().filter(Module::isActive).forEach(x -> {
+            val key = x.getBind().toString();
+            val text = x.getPropertyName() + " " + "[" + key.toUpperCase() + "]";
 
-                renderer
-                    .draw(text, e.getWindow().getScaledWidth() - renderer.getStringWidth(text) - 1,
-                        1 + renderer.fontHeight * iter[0]++,
-                        Color.WHITE.getRGB());
-            });
+            renderer
+                .draw(text, event.getWindow().getScaledWidth() - renderer.getStringWidth(text) - 1,
+                    1 + renderer.fontHeight * iter[0]++,
+                    Color.WHITE.getRGB());
         });
     }
 }

@@ -11,7 +11,7 @@ import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import java.util.concurrent.TimeUnit;
 import lombok.*;
 
-@ModuleInfo(bind = Keyboard.KEY_F, friendly = true, category = ModuleCategory.COMBAT)
+@ModuleInfo(bind = Keyboard.KEY_R, friendly = true, category = ModuleCategory.COMBAT)
 public final class AutoClicker extends Module {
     private final Timer timer;
     private final int min, max;
