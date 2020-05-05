@@ -20,6 +20,8 @@ public final class TextRenderer {
         @NonNull final MinecraftClient client) {
         this.infinity = infinity;
         this.client = client;
+
+        infinity.getExecutor().register(this);
     }
 
     public void renderRight(@NonNull final String text, @NonNull final Color color,
