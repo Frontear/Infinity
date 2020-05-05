@@ -13,12 +13,14 @@ import net.minecraft.client.MinecraftClient;
 import org.lwjgl.glfw.GLFW;
 
 public final class ModuleContainer extends Container<Module> {
+    private final InfinityMod mod;
     private final ModuleScreen screen;
     private final MinecraftClient client;
 
     public ModuleContainer(@NonNull final InfinityMod mod) {
         super(mod, ModuleContainer.class.getPackage().getName() + ".impl", mod);
 
+        this.mod = mod;
         this.screen = new ModuleScreen(mod);
         this.client = MinecraftClient.getInstance();
 
@@ -47,17 +49,13 @@ public final class ModuleContainer extends Container<Module> {
             return;
         }
 
-        val iter = new int[] { 0 }; // lambda
-        val renderer = client.textRenderer;
+        val renderer = mod.getRenderer();
 
         stream().filter(Module::isActive).forEach(x -> {
             val key = x.getBind().toString();
             val text = x.getPropertyName() + " " + "[" + key.toUpperCase() + "]";
 
-            renderer
-                .draw(text, event.getWindow().getScaledWidth() - renderer.getStringWidth(text) - 1,
-                    1 + renderer.fontHeight * iter[0]++,
-                    Color.WHITE.getRGB());
+            renderer.renderRight(text, Color.WHITE, false);
         });
     }
 }
