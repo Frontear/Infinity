@@ -10,7 +10,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.glfw.GLFW;
 
 public final class CommandScreen extends Screen {
-    final ConsoleHUD hud;
+    public final ConsoleHUD hud;
     private final CommandContainer container;
     private final ConsoleField field;
 
