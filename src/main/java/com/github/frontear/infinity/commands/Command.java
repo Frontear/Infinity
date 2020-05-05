@@ -12,8 +12,10 @@ public abstract class Command extends Configurable<Command> {
     protected final MinecraftClient client;
     protected final InfinityMod infinity;
 
-    @Getter private final String desc;
-    @Getter private final int args;
+    @Getter
+    private final String desc;
+    @Getter
+    private final int args;
 
     public Command(@NonNull final InfinityMod infinity) {
         val info = getClass().getAnnotation(CommandInfo.class);
@@ -31,6 +33,8 @@ public abstract class Command extends Configurable<Command> {
     }
 
     public abstract void process(@NotNull final String[] args) throws Exception;
+
+    public abstract String getUsage();
 
     public void println(@NonNull final String line) {
         infinity.getCommands().screen.hud.println(line);

@@ -13,8 +13,21 @@ public final class Help extends Command {
     // todo: detailed help per command
     @Override
     public void process(final String[] args) throws Exception {
-        infinity.getCommands().stream().forEach(x -> {
-            println(x.getPropertyName() + ": " + x.getDesc());
-        });
+        if (args.length > 1) {
+            println(infinity.getCommands().stream().filter(x -> x.getPropertyName().equals(args[0]))
+                .findFirst().get().getUsage());
+        }
+        else {
+            infinity.getCommands().stream().forEach(x -> {
+                println(x.getPropertyName() + ": " + x.getDesc());
+            });
+
+            println("tip: Use " + getUsage() + " to read the usages for commands");
+        }
+    }
+
+    @Override
+    public String getUsage() {
+        return "help [command]";
     }
 }

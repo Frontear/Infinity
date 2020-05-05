@@ -1,16 +1,14 @@
 package com.github.frontear.infinity.commands.impl;
 
 import com.github.frontear.infinity.InfinityMod;
-import com.github.frontear.infinity.commands.Command;
-import com.github.frontear.infinity.commands.CommandInfo;
-import lombok.NonNull;
-import lombok.val;
-
+import com.github.frontear.infinity.commands.*;
 import java.lang.management.ManagementFactory;
+import lombok.*;
 
 @CommandInfo(desc = "Attempts to invoke the garbage collector")
 public final class GC extends Command {
-    private final boolean disabled = ManagementFactory.getRuntimeMXBean().getInputArguments().contains("-XX:+DisableExplicitGC");
+    private final boolean disabled = ManagementFactory.getRuntimeMXBean().getInputArguments()
+        .contains("-XX:+DisableExplicitGC");
 
     public GC(@NonNull InfinityMod infinity) {
         super(infinity);
@@ -20,12 +18,18 @@ public final class GC extends Command {
     public void process(String[] args) throws Exception {
         if (disabled) {
             println("Explicit GC has been disabled");
-        } else {
+        }
+        else {
             val last = getMemory();
             System.gc();
             val current = getMemory();
             println("Freed " + Math.abs(current - last) + " MB");
         }
+    }
+
+    @Override
+    public String getUsage() {
+        return "gc";
     }
 
     private long getMemory() {

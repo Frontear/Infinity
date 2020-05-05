@@ -17,9 +17,15 @@ public final class Ping extends Command {
 
             if (info != null) {
                 println(info.getProfile().getName() + "'s ping is " + info.getLatency());
-            } else {
+            }
+            else {
                 println("Could not find player (case-sensitive)");
             }
         }
+    }
+
+    @Override
+    public String getUsage() {
+        return "ping <username>";
     }
 }
