@@ -1,6 +1,6 @@
-package com.github.frontear.infinity.commands;
+package com.github.frontear.infinity.commands.ux;
 
-import com.github.frontear.infinity.commands.ux.*;
+import com.github.frontear.infinity.commands.CommandContainer;
 import java.util.function.IntSupplier;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;

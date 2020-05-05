@@ -6,6 +6,7 @@ import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.event.input.KeyEvent;
 import com.github.frontear.infinity.event.render.OverlayEvent;
 import com.github.frontear.infinity.modules.impl.Ghost;
+import com.github.frontear.infinity.modules.ux.ModuleScreen;
 import java.awt.Color;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;

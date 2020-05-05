@@ -1,7 +1,7 @@
-package com.github.frontear.infinity.modules;
+package com.github.frontear.infinity.modules.ux;
 
 import com.github.frontear.infinity.InfinityMod;
-import com.github.frontear.infinity.modules.ux.CategoryPanel;
+import com.github.frontear.infinity.modules.ModuleCategory;
 import java.util.*;
 import lombok.*;
 import net.minecraft.client.gui.screen.Screen;

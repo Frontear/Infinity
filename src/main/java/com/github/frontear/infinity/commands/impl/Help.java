@@ -15,7 +15,8 @@ public final class Help extends Command {
     public void process(final String[] args) throws Exception {
         if (args.length > 0) {
             //noinspection OptionalGetWithoutIsPresent
-            println(infinity.getCommands().stream().filter(x -> x.getPropertyName().equalsIgnoreCase(args[0]))
+            println(infinity.getCommands().stream()
+                .filter(x -> x.getPropertyName().equalsIgnoreCase(args[0]))
                 .findFirst().get().getUsage());
         }
         else {
