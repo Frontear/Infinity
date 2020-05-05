@@ -27,7 +27,7 @@ public final class CommandContainer extends Container<Command> {
 
     @Listener
     private void onKey(@NonNull final KeyEvent event) {
-        if (!mod.getModules().get(Ghost.class).isActive()
+        if (!event.isFocused() && event.isPressed() && !mod.getModules().get(Ghost.class).isActive()
             && event.getKey() == GLFW.GLFW_KEY_GRAVE_ACCENT) {
             client.openScreen(screen);
         }
