@@ -1,10 +1,9 @@
 package com.github.frontear.infinity.commands.impl;
 
 import com.github.frontear.efkolia.utilities.network.Connection;
-import com.github.frontear.efkolia.utilities.network.responses.*;
+import com.github.frontear.efkolia.utilities.network.responses.JsonResponse;
 import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.commands.*;
-import com.google.gson.JsonParser;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import lombok.*;
@@ -20,11 +19,12 @@ public final class History extends Command {
     @Override
     public void process(String[] args) throws Exception {
         val unique_id = Connection
-            .get("https://api.mojang.com/users/profiles/minecraft/" + args[0], response).get("id")
+            .get("https://api.mojang.com/users/profiles/minecraft/" + args[0], response)
+            .getAsJsonObject().get("id")
             .getAsString();
-        val old_names = new JsonParser().parse(Connection
-            .get("https://api.mojang.com/user/profiles/" + unique_id + "/names",
-                new StringResponse())).getAsJsonArray(); // todo: efkolia update
+        val old_names = Connection
+            .get("https://api.mojang.com/user/profiles/" + unique_id + "/names", response)
+            .getAsJsonArray();
 
         if (old_names.size() > 1) {
             println("History for " + args[0]);

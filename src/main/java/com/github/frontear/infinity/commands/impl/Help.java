@@ -10,7 +10,6 @@ public final class Help extends Command {
         super(infinity);
     }
 
-    // todo: detailed help per command
     @Override
     public void process(final String[] args) throws Exception {
         if (args.length > 0) {
