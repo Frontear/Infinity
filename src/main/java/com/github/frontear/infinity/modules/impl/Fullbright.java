@@ -7,7 +7,7 @@ import lombok.*;
 
 @ModuleInfo(bind = Keyboard.KEY_B, friendly = true, category = ModuleCategory.RENDER)
 public final class Fullbright extends Module {
-    public Fullbright(final @NonNull InfinityMod infinity) {
+    public Fullbright(@NonNull final InfinityMod infinity) {
         super(infinity);
     }
 

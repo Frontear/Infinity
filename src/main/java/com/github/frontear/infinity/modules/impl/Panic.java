@@ -7,7 +7,7 @@ import lombok.*;
 
 @ModuleInfo(bind = Keyboard.KEY_P, friendly = true, category = ModuleCategory.NONE)
 public final class Panic extends Module {
-    public Panic(final @NonNull InfinityMod infinity) {
+    public Panic(@NonNull final InfinityMod infinity) {
         super(infinity);
     }
 

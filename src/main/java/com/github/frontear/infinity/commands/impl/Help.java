@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 @CommandInfo(desc = "Displays helpful information for commands")
 public final class Help extends Command {
-    public Help(final @NonNull InfinityMod infinity) {
+    public Help(@NonNull final InfinityMod infinity) {
         super(infinity);
     }
 

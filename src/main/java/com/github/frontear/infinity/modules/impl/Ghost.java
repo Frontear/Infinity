@@ -11,7 +11,7 @@ public final class Ghost extends Module {
     private final List<Module> unfriendly;
     private boolean added;
 
-    public Ghost(final @NonNull InfinityMod infinity) {
+    public Ghost(@NonNull final InfinityMod infinity) {
         super(infinity);
 
         this.unfriendly = new ArrayList<>();

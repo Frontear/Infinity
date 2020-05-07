@@ -16,7 +16,7 @@ public final class AutoClicker extends Module {
     private final Timer timer;
     private final int min, max;
 
-    public AutoClicker(final @NonNull InfinityMod infinity) {
+    public AutoClicker(@NonNull final InfinityMod infinity) {
         super(infinity);
 
         this.timer = new Timer();

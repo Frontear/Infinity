@@ -7,7 +7,7 @@ import lombok.NonNull;
 
 @ModuleInfo(bind = Keyboard.KEY_LEFT_SHIFT, friendly = true, category = ModuleCategory.PLAYER)
 public final class Sprint extends Module {
-    public Sprint(final @NonNull InfinityMod infinity) {
+    public Sprint(@NonNull final InfinityMod infinity) {
         super(infinity);
     }
 }

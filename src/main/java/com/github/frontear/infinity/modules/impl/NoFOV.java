@@ -7,7 +7,7 @@ import lombok.NonNull;
 
 @ModuleInfo(bind = Keyboard.KEY_V, friendly = true, category = ModuleCategory.RENDER)
 public final class NoFOV extends Module {
-    public NoFOV(final @NonNull InfinityMod infinity) {
+    public NoFOV(@NonNull final InfinityMod infinity) {
         super(infinity);
     }
 }

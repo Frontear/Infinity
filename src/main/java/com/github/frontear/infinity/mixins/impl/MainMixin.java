@@ -1,7 +1,6 @@
 package com.github.frontear.infinity.mixins.impl;
 
 import com.github.frontear.InfinityLoader;
-import com.github.frontear.internal.NotNull;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.main.Main;
@@ -18,7 +17,7 @@ abstract class MainMixin {
      */
     @Redirect(method = "main",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;run()V"))
-    private static void main(@NotNull final MinecraftClient client, @NonNull final String[] args) {
+    private static void main(@NonNull final MinecraftClient client, @NonNull final String[] args) {
         val infinity = new InfinityLoader().init(args);
         client.updateWindowTitle();
 
@@ -32,7 +31,7 @@ abstract class MainMixin {
      */
     @Inject(method = "main",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;stop()V"))
-    private static void main(@NotNull final String[] args, @NotNull final CallbackInfo info) {
+    private static void main(@NonNull final String[] args, @NonNull final CallbackInfo info) {
         InfinityLoader.getMod().getConfig().save();
     }
 }

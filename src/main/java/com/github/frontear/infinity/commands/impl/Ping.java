@@ -6,7 +6,7 @@ import lombok.*;
 
 @CommandInfo(desc = "Identifies the ping value for a connected player", args = 1)
 public final class Ping extends Command {
-    public Ping(final @NonNull InfinityMod infinity) {
+    public Ping(@NonNull final InfinityMod infinity) {
         super(infinity);
     }
 

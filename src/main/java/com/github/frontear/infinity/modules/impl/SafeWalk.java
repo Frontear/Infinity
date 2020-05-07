@@ -7,7 +7,7 @@ import lombok.NonNull;
 
 @ModuleInfo(bind = Keyboard.KEY_M, friendly = true, category = ModuleCategory.PLAYER)
 public final class SafeWalk extends Module {
-    public SafeWalk(final @NonNull InfinityMod infinity) {
+    public SafeWalk(@NonNull final InfinityMod infinity) {
         super(infinity);
     }
 }
