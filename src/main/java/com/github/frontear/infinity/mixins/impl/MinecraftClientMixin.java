@@ -3,7 +3,7 @@ package com.github.frontear.infinity.mixins.impl;
 import com.github.frontear.InfinityLoader;
 import com.github.frontear.infinity.event.state.TickEvent;
 import com.github.frontear.infinity.mixins.IMinecraftClient;
-import com.github.frontear.infinity.modules.impl.Ghost;
+import com.github.frontear.infinity.modules.impl.*;
 import lombok.*;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
@@ -55,9 +55,13 @@ abstract class MinecraftClientMixin implements IMinecraftClient {
         infinity.getExecutor().fire(new TickEvent(false));
     }
 
+    @Override
+    public void resetAttackCooldown() {
+        attackCooldown = 0;
+    }
+
     @Intrinsic(displace = true)
     public void api$doAttack() {
-        attackCooldown = 0; // this is a detection mechanism for autoclicking outside of mc
         this.shadow$doAttack();
     }
 }

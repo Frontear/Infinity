@@ -38,7 +38,10 @@ public final class AutoClicker extends Module {
 
                     if (attacking) {
                         logger.debug("Sending attack [%dms]", ms);
-                        IMinecraftClient.from(client).doAttack();
+
+                        val iclient = IMinecraftClient.from(client);
+                        iclient.resetAttackCooldown();
+                        iclient.doAttack();
                     }
                 }
             }
