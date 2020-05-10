@@ -13,6 +13,8 @@ import org.spongepowered.asm.mixin.injection.*;
 @Mixin(MinecraftClient.class)
 @Implements(@Interface(iface = IMinecraftClient.class, prefix = "api$"))
 abstract class MinecraftClientMixin implements IMinecraftClient {
+    @Shadow protected int attackCooldown;
+
     @Shadow
     protected abstract void shadow$doAttack();
 
@@ -55,6 +57,7 @@ abstract class MinecraftClientMixin implements IMinecraftClient {
 
     @Intrinsic(displace = true)
     public void api$doAttack() {
+        attackCooldown = 0; // this is a detection mechanism for autoclicking outside of mc
         this.shadow$doAttack();
     }
 }
