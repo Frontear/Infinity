@@ -37,6 +37,7 @@ public abstract class Command extends Configurable<Command> {
     public abstract String getUsage();
 
     public void println(@NonNull final String line) {
-        infinity.getCommands().screen.hud.println(line);
+        infinity.getCommands().screen.hud
+            .println(this.getPropertyName().toLowerCase() + ": " + line);
     }
 }

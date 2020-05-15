@@ -3,7 +3,7 @@ package com.github.frontear.infinity.mixins.impl;
 import com.github.frontear.InfinityLoader;
 import com.github.frontear.infinity.event.state.TickEvent;
 import com.github.frontear.infinity.mixins.IMinecraftClient;
-import com.github.frontear.infinity.modules.impl.*;
+import com.github.frontear.infinity.modules.impl.Ghost;
 import lombok.*;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;

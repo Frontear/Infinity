@@ -20,7 +20,7 @@ public final class Help extends Command {
         }
         else {
             infinity.getCommands().stream().forEach(x -> {
-                println(x.getPropertyName() + ": " + x.getDesc());
+                println(x.getPropertyName() + " " + x.getDesc().toLowerCase());
             });
         }
     }

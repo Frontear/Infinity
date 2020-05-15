@@ -9,5 +9,6 @@ public interface IMinecraftClient {
     }
 
     void resetAttackCooldown();
+
     void doAttack();
 }
