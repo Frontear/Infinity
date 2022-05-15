@@ -2,11 +2,11 @@ import groovy.json.JsonSlurper
 
 plugins {
     id "io.freefair.lombok" version "5.0.1"
-    id "fabric-loom" version "0.2.7-SNAPSHOT"
+    id "fabric-loom" version "0.11-SNAPSHOT"
     id "java"
 }
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 archivesBaseName = mod_name
 version = mod_version
 group = mod_group
@@ -36,9 +36,11 @@ lombok {
     config["lombok.toString.doNotUseGetters"] = "true"
 }
 
+/*
 minecraft {
     autoGenIDERuns = false // our code depends on the executable being a jar file
 }
+*/
 
 processResources {
     final props = [ "id": mod_name.toLowerCase(), "version": mod_version, "group": mod_group, "name": mod_name, "description": mod_description, "author": mod_author, "loader": loader_version, "minecraft": minecraft_version ]
@@ -62,11 +64,11 @@ runClient {
 
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
-    gradleVersion = "6.0.1"
+    gradleVersion = "7.4"
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
 }
 
 /**
