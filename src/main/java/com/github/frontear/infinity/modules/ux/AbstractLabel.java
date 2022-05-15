@@ -17,7 +17,7 @@ public abstract class AbstractLabel implements Drawable, Element {
         final int height) {
         this.renderer = MinecraftClient.getInstance().textRenderer;
         this.text = text;
-        this.text_width = renderer.getStringWidth(text);
+        this.text_width = renderer.getWidth(text);
         this.text_height = renderer.fontHeight;
         this.text_color = Color.WHITE.getRGB();
 

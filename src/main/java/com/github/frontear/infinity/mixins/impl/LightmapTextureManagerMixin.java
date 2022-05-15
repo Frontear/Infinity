@@ -3,7 +3,7 @@ package com.github.frontear.infinity.mixins.impl;
 import com.github.frontear.InfinityLoader;
 import com.github.frontear.infinity.modules.impl.Fullbright;
 import lombok.val;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.LightmapTextureManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;

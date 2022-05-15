@@ -27,7 +27,7 @@ public final class ConsoleField extends TextFieldWidget {
         this.y_shift = (height - 8) / 2;
 
         super.setMaxLength(256);
-        super.setHasBorder(false);
+        super.setDrawsBackground(false);
         super.y += y_shift;
 
         this.x_supplier = x_supplier;

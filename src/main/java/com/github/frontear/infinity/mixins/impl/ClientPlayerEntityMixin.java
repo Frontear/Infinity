@@ -5,7 +5,7 @@ import com.github.frontear.infinity.modules.impl.*;
 import com.mojang.authlib.GameProfile;
 import lombok.*;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;

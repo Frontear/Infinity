@@ -33,7 +33,7 @@ public final class CommandScreen extends Screen {
     @Override
     public void render(final int mouseX, final int mouseY, final float delta) {
         this.setFocused(field);
-        field.setSelected(true);
+        field.setTextFieldFocused(true);
 
         hud.render(mouseX, mouseY, delta);
         field.render(mouseX, mouseY, delta);

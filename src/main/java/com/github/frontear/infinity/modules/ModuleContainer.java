@@ -34,7 +34,7 @@ public final class ModuleContainer extends Container<Module> {
 
         if (!event.isFocused() && event.isPressed()) {
             if (!ghost && event.getKey() == GLFW.GLFW_KEY_RIGHT_SHIFT) {
-                client.openScreen(screen);
+                client.setScreen(screen);
             }
             else {
                 stream().filter(x -> event.getKey() == x.getBind().getGLFWCode())

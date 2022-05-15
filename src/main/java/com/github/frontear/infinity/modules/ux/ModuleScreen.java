@@ -5,6 +5,7 @@ import com.github.frontear.infinity.modules.ModuleCategory;
 import java.util.*;
 import lombok.*;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 
 public final class ModuleScreen extends Screen {
@@ -42,8 +43,8 @@ public final class ModuleScreen extends Screen {
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final float delta) {
-        this.renderBackground();
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY, final float delta) {
+        this.renderBackground(matrices);
         panels.forEach(x -> x.render(mouseX, mouseY, delta));
     }
 
@@ -55,7 +56,7 @@ public final class ModuleScreen extends Screen {
     }
 
     @Override
-    public boolean isPauseScreen() {
+    public boolean shouldPause() {
         return false;
     }
 }

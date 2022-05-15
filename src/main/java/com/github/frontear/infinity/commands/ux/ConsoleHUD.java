@@ -7,6 +7,7 @@ import lombok.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
 public final class ConsoleHUD implements Drawable, Element {
@@ -31,9 +32,9 @@ public final class ConsoleHUD implements Drawable, Element {
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final float delta) {
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY, final float delta) {
         var x1 = x.getAsInt();
-        DrawableHelper.fill(x1, y, x1 + width, y + height, BACKGROUND);
+        DrawableHelper.fill(matrices, x1, y, x1 + width, y + height, BACKGROUND);
 
         var y2 = y + height - 2;
 
@@ -46,7 +47,7 @@ public final class ConsoleHUD implements Drawable, Element {
                 break;
             }
 
-            renderer.draw(line, x1, y2, Color.WHITE.getRGB());
+            renderer.draw(matrices, line, x1, y2, Color.WHITE.getRGB());
         }
     }
 
@@ -70,7 +71,7 @@ public final class ConsoleHUD implements Drawable, Element {
             var t_width = 0;
 
             for (var i = 0; i < words.length; ++i) {
-                val n_width = t_width + renderer.getStringWidth(words[i]);
+                val n_width = t_width + renderer.getWidth(words[i]);
 
                 if (n_width < width) {
                     builder.append(words[i]).append(" ");
