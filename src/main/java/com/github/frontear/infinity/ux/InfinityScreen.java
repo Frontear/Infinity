@@ -4,8 +4,9 @@ import com.github.frontear.InfinityLoader;
 import com.github.frontear.infinity.InfinityMod;
 import java.awt.Color;
 import lombok.NonNull;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 
 // todo: decide impl
@@ -22,16 +23,13 @@ public final class InfinityScreen extends Screen {
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final float delta) {
-        this.renderBackground();
-        this.drawCenteredString(font, infinity.getMetadata().getName(), width / 2, 15,
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY,
+        final float delta) {
+        this.renderBackground(matrices);
+        DrawableHelper.drawCenteredText(matrices, this.textRenderer,
+            infinity.getMetadata().getName(), width / 2, 15,
             Color.WHITE.getRGB());
 
-        super.render(mouseX, mouseY, delta);
-    }
-
-    @Override
-    public void init(final MinecraftClient client, final int width, final int height) {
-        super.init(client, width, height);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

@@ -5,8 +5,9 @@ import com.github.frontear.infinity.modules.impl.*;
 import com.mojang.authlib.GameProfile;
 import lombok.*;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
@@ -17,9 +18,9 @@ abstract class ClientPlayerEntityMixin extends PlayerEntity {
      * @author Frontear
      * @reason To comply with the constructor definition within {@link PlayerEntity}.
      */
-    public ClientPlayerEntityMixin(final World world,
+    public ClientPlayerEntityMixin(final World world, final BlockPos pos, final float yaw,
         final GameProfile profile) {
-        super(world, profile);
+        super(world, pos, yaw, profile);
     }
 
     /**
@@ -27,7 +28,7 @@ abstract class ClientPlayerEntityMixin extends PlayerEntity {
      * @reason Force sprinting if {@link Sprint} is active.
      */
     @Redirect(method = "tickMovement", at = @At(value = "INVOKE",
-        target = "Lnet/minecraft/client/options/KeyBinding;isPressed()Z"))
+        target = "Lnet/minecraft/client/option/KeyBinding;isPressed()Z"))
     private boolean tickMovement(@NonNull final KeyBinding instance) {
         val sprint = InfinityLoader.getMod().getModules().get(Sprint.class);
 

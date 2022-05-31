@@ -16,7 +16,7 @@ abstract class MinecraftClientMixin implements IMinecraftClient {
     @Shadow protected int attackCooldown;
 
     @Shadow
-    protected abstract void shadow$doAttack();
+    protected abstract boolean shadow$doAttack();
 
     /**
      * @author Frontear

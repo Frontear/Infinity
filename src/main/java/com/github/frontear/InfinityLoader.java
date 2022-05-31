@@ -1,10 +1,12 @@
 package com.github.frontear;
 
 import com.github.frontear.efkolia.api.loader.ILoaderMod;
-import com.github.frontear.efkolia.utilities.file.JavaExecutable;
 import com.github.frontear.efkolia.utilities.timing.Timer;
 import com.github.frontear.infinity.InfinityMod;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import java.io.InputStreamReader;
+import java.util.Objects;
 import lombok.*;
 
 public final class InfinityLoader implements ILoaderMod<InfinityMod> {
@@ -20,10 +22,13 @@ public final class InfinityLoader implements ILoaderMod<InfinityMod> {
     public InfinityMod init(@NonNull final String... args) {
         UPTIME.reset();
 
-        val executable = new JavaExecutable(InfinityLoader.class);
+        //val executable = new JavaExecutable(InfinityLoader.class);
+        //mod = new InfinityMod(new JsonParser().parse(executable.getResource("fabric.mod.json")).getAsJsonObject());
 
-        mod = new InfinityMod(
-            new JsonParser().parse(executable.getResource("fabric.mod.json")).getAsJsonObject());
+        val json = new JsonReader(new InputStreamReader(
+            Objects.requireNonNull(InfinityLoader.class.getResourceAsStream("/fabric.mod.json"))));
+        mod = new InfinityMod(JsonParser.parseReader(json).getAsJsonObject());
+
         mod.getConfig().load();
 
         return mod;

@@ -6,6 +6,8 @@ import java.util.function.IntSupplier;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 public final class ConsoleField extends TextFieldWidget {
@@ -19,7 +21,7 @@ public final class ConsoleField extends TextFieldWidget {
 
     public ConsoleField(@NonNull final MinecraftClient client,
         @NonNull final IntSupplier x_supplier, final int y_origin, final int width,
-        @NonNull final String message) {
+        @NonNull final Text message) {
         super(client.textRenderer, -1, y_origin + 2, width, 12, message);
 
         // TextFieldWidget makes dimensional shifts if no border is set. See #renderButton(int, int, float)
@@ -27,7 +29,7 @@ public final class ConsoleField extends TextFieldWidget {
         this.y_shift = (height - 8) / 2;
 
         super.setMaxLength(256);
-        super.setHasBorder(false);
+        super.setDrawsBackground(false);
         super.y += y_shift;
 
         this.x_supplier = x_supplier;
@@ -37,12 +39,13 @@ public final class ConsoleField extends TextFieldWidget {
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final float delta) {
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY,
+        final float delta) {
         this.x = x_supplier.getAsInt() + x_shift;
 
-        fill(this.x - x_shift, y - y_shift, this.x - x_shift + this.width,
+        fill(matrices, this.x - x_shift, y - y_shift, this.x - x_shift + this.width,
             y - y_shift + this.height, BACKGROUND);
-        super.render(mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override

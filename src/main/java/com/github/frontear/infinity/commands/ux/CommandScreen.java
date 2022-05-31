@@ -5,6 +5,7 @@ import java.util.function.IntSupplier;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.glfw.GLFW;
@@ -25,18 +26,19 @@ public final class CommandScreen extends Screen {
         val y = 2;
 
         this.hud = new ConsoleHUD(client, x, y, width, height);
-        this.field = new ConsoleField(client, x, y + height, width, "");
+        this.field = new ConsoleField(client, x, y + height, width, new LiteralText(""));
 
         this.container = container;
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final float delta) {
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY,
+        final float delta) {
         this.setFocused(field);
-        field.setSelected(true);
+        field.setTextFieldFocused(true);
 
-        hud.render(mouseX, mouseY, delta);
-        field.render(mouseX, mouseY, delta);
+        hud.render(matrices, mouseX, mouseY, delta);
+        field.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override
@@ -79,7 +81,7 @@ public final class CommandScreen extends Screen {
     }
 
     @Override
-    public boolean isPauseScreen() {
+    public boolean shouldPause() {
         return false;
     }
 }

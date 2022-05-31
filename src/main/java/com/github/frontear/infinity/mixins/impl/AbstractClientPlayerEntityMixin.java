@@ -7,6 +7,7 @@ import lombok.*;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
@@ -18,8 +19,9 @@ abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
      * @author Frontear
      * @reason To comply with the constructor definition within {@link PlayerEntity}.
      */
-    public AbstractClientPlayerEntityMixin(final World world, final GameProfile profile) {
-        super(world, profile);
+    public AbstractClientPlayerEntityMixin(final World world, final BlockPos pos, final float yaw,
+        final GameProfile profile) {
+        super(world, pos, yaw, profile);
     }
 
     /**
@@ -28,15 +30,14 @@ abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
      * and is only active when {@link NoFOV} is active.
      */
     // todo: optimize
-    @Inject(method = "getSpeed", at = @At("RETURN"), cancellable = true)
-    private void getSpeed(@NonNull final CallbackInfoReturnable<Float> info) {
+    @Inject(method = "getFovMultiplier", at = @At("RETURN"), cancellable = true)
+    private void getFovMultiplier(@NonNull final CallbackInfoReturnable<Float> info) {
         val no_fov = InfinityLoader.getMod().getModules().get(NoFOV.class);
 
         if (no_fov.isActive()) {
-            val entityAttributeInstance = this
-                .getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
             val speed = (float) ((double) info.getReturnValueF() / (
-                (entityAttributeInstance.getValue() / (double) this.abilities.getWalkSpeed() + 1.0D)
+                (this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)
+                    / (double) this.getAbilities().getWalkSpeed() + 1.0D)
                     / 2.0D));
 
             info.setReturnValue(speed * (this.isSprinting() ? 1.15f : 1.0f));
