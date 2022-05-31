@@ -7,6 +7,7 @@ import com.github.frontear.infinity.InfinityMod;
 import com.github.frontear.infinity.event.state.TickEvent;
 import com.github.frontear.infinity.mixins.IMinecraftClient;
 import com.github.frontear.infinity.modules.*;
+import com.github.frontear.infinity.modules.Module;
 import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import java.util.concurrent.TimeUnit;
 import lombok.*;
