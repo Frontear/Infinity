@@ -4,6 +4,7 @@ import com.github.frontear.infinity.modules.ModuleCategory;
 import java.awt.Color;
 import lombok.NonNull;
 import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 
 public final class CategoryLabel extends AbstractLabel {
     private static final int BACKGROUND = new Color(42, 57, 79).getRGB();
@@ -16,8 +17,9 @@ public final class CategoryLabel extends AbstractLabel {
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final float delta) {
-        DrawableHelper.fill(x, y, x + width, y + height, BACKGROUND);
-        super.render(mouseX, mouseY, delta);
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY,
+        final float delta) {
+        DrawableHelper.fill(matrices, x, y, x + width, y + height, BACKGROUND);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

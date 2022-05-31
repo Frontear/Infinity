@@ -5,6 +5,7 @@ import lombok.NonNull;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.util.math.MatrixStack;
 
 public abstract class AbstractLabel implements Drawable, Element {
     protected final int x, y, width, height;
@@ -28,9 +29,11 @@ public abstract class AbstractLabel implements Drawable, Element {
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final float delta) {
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY,
+        final float delta) {
         renderer
-            .draw(text, (x + (x + width) - text_width) / 2f, (y + (y + height) - text_height) / 2f,
+            .draw(matrices, text, (x + (x + width) - text_width) / 2f,
+                (y + (y + height) - text_height) / 2f,
                 text_color);
     }
 }

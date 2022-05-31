@@ -5,6 +5,7 @@ import com.github.frontear.infinity.modules.ModuleCategory;
 import java.util.*;
 import lombok.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.util.math.MatrixStack;
 
 public final class CategoryPanel implements Drawable, Element {
     private final InfinityMod infinity;
@@ -34,8 +35,9 @@ public final class CategoryPanel implements Drawable, Element {
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final float delta) {
-        buttons.forEach(b -> b.render(mouseX, mouseY, delta));
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY,
+        final float delta) {
+        buttons.forEach(b -> b.render(matrices, mouseX, mouseY, delta));
     }
 
     @Override

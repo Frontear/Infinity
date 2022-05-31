@@ -4,6 +4,7 @@ import com.github.frontear.infinity.modules.Module;
 import java.awt.Color;
 import lombok.NonNull;
 import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 
 public final class ModuleLabel extends AbstractLabel {
     private static final int INACTIVE;
@@ -23,9 +24,11 @@ public final class ModuleLabel extends AbstractLabel {
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final float delta) {
-        DrawableHelper.fill(x, y, x + width, y + height, module.isActive() ? ACTIVE : INACTIVE);
-        super.render(mouseX, mouseY, delta);
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY,
+        final float delta) {
+        DrawableHelper.fill(matrices, x, y, x + width, y + height,
+            module.isActive() ? ACTIVE : INACTIVE);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override

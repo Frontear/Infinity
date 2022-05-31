@@ -31,7 +31,7 @@ public final class AutoClicker extends Module {
                 val ms = timer.getElapsed(TimeUnit.MILLISECONDS) + LocalRandom
                     .nextInt(-25, 25); // force more randomness
                 val elapsed = ms >= 1000 / LocalRandom.nextInt(min, max); // randomized intervals
-                val attacking = client.options.keyAttack.isPressed();
+                val attacking = client.options.attackKey.isPressed();
 
                 if (!attacking || elapsed) {
                     timer.reset();

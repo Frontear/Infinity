@@ -5,6 +5,7 @@ import com.github.frontear.infinity.event.render.OverlayEvent;
 import lombok.NonNull;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -19,10 +20,11 @@ abstract class InGameHudMixin {
      * debugging visual is visible.
      */
     @Inject(method = "render", at = @At(value = "INVOKE",
-        target = "Lcom/mojang/blaze3d/systems/RenderSystem;color4f(FFFF)V", ordinal = 3))
-    private void render(final float tickDelta, @NonNull final CallbackInfo info) {
+        target = "Lnet/minecraft/client/gui/hud/InGameHud;renderStatusEffectOverlay(Lnet/minecraft/client/util/math/MatrixStack;)V"))
+    private void render(final MatrixStack matrices, final float tickDelta,
+        @NonNull final CallbackInfo info) {
         if (!client.options.debugEnabled) {
-            InfinityLoader.getMod().getExecutor().fire(new OverlayEvent(tickDelta));
+            InfinityLoader.getMod().getExecutor().fire(new OverlayEvent(matrices, tickDelta));
         }
     }
 }

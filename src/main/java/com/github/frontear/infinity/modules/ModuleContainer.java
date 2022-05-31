@@ -55,7 +55,7 @@ public final class ModuleContainer extends Container<Module> {
             val key = x.getBind().toString();
             val text = x.getPropertyName() + " " + "[" + key.toUpperCase() + "]";
 
-            renderer.renderRight(text, Color.WHITE, false);
+            renderer.renderRight(event.getMatrices(), text, Color.WHITE, false);
         });
     }
 }

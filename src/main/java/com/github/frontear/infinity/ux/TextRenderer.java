@@ -7,6 +7,7 @@ import com.github.frontear.infinity.modules.impl.Ghost;
 import java.awt.Color;
 import lombok.*;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 
 public final class TextRenderer {
     private static final int OFFSET = 2;
@@ -24,34 +25,36 @@ public final class TextRenderer {
         infinity.getExecutor().register(this);
     }
 
-    public void renderRight(@NonNull final String text, @NonNull final Color color,
+    public void renderRight(@NonNull final MatrixStack matrices, @NonNull final String text,
+        @NonNull final Color color,
         final boolean shadow) {
         if (!infinity.getModules().get(Ghost.class).isActive() && !client.options.debugEnabled) {
             val renderer = client.textRenderer;
-            val x = client.getWindow().getScaledWidth() - renderer.getStringWidth(text) - OFFSET;
+            val x = client.getWindow().getScaledWidth() - renderer.getWidth(text) - OFFSET;
 
             if (shadow) {
-                renderer.drawWithShadow(text, x, right + OFFSET, color.getRGB());
+                renderer.drawWithShadow(matrices, text, x, right + OFFSET, color.getRGB());
             }
             else {
-                renderer.draw(text, x, right + OFFSET, color.getRGB());
+                renderer.draw(matrices, text, x, right + OFFSET, color.getRGB());
             }
 
             right += renderer.fontHeight + OFFSET;
         }
     }
 
-    public void renderLeft(@NonNull final String text, @NonNull final Color color,
+    public void renderLeft(@NonNull final MatrixStack matrices, @NonNull final String text,
+        @NonNull final Color color,
         final boolean shadow) {
         if (!infinity.getModules().get(Ghost.class).isActive() && !client.options.debugEnabled) {
             val renderer = client.textRenderer;
             val x = OFFSET;
 
             if (shadow) {
-                renderer.drawWithShadow(text, x, left + OFFSET, color.getRGB());
+                renderer.drawWithShadow(matrices, text, x, left + OFFSET, color.getRGB());
             }
             else {
-                renderer.draw(text, x, left + OFFSET, color.getRGB());
+                renderer.draw(matrices, text, x, left + OFFSET, color.getRGB());
             }
 
             left += renderer.fontHeight + OFFSET;

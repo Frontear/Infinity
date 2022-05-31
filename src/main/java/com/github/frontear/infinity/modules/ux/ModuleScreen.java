@@ -43,9 +43,10 @@ public final class ModuleScreen extends Screen {
     }
 
     @Override
-    public void render(final MatrixStack matrices, final int mouseX, final int mouseY, final float delta) {
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY,
+        final float delta) {
         this.renderBackground(matrices);
-        panels.forEach(x -> x.render(mouseX, mouseY, delta));
+        panels.forEach(x -> x.render(matrices, mouseX, mouseY, delta));
     }
 
     @Override

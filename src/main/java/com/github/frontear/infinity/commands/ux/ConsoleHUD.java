@@ -32,7 +32,8 @@ public final class ConsoleHUD implements Drawable, Element {
     }
 
     @Override
-    public void render(final MatrixStack matrices, final int mouseX, final int mouseY, final float delta) {
+    public void render(final MatrixStack matrices, final int mouseX, final int mouseY,
+        final float delta) {
         var x1 = x.getAsInt();
         DrawableHelper.fill(matrices, x1, y, x1 + width, y + height, BACKGROUND);
 
@@ -92,7 +93,8 @@ public final class ConsoleHUD implements Drawable, Element {
             var t_width = 0;
 
             for (var i = 0; i < word.length(); ++i) {
-                val n_width = t_width + MathHelper.ceil(renderer.getCharWidth(word.charAt(i)));
+                val n_width =
+                    t_width + MathHelper.ceil(renderer.getWidth(String.valueOf(word.charAt(i))));
 
                 if (n_width < width) {
                     builder.append(word.charAt(i));
