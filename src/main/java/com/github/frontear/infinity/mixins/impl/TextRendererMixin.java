@@ -7,7 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.util.math.Matrix4f;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.*;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 
@@ -33,7 +33,7 @@ abstract class TextRendererMixin {
             val username = MinecraftClient.getInstance().getSession().getUsername();
 
             if (StringUtils.containsIgnoreCase(text, username)) {
-                text = StringUtils.replacePattern(text, "(?i)" + username, "InfinityUser");
+                text = RegExUtils.replacePattern(text, "(?i)" + username, "InfinityUser");
             }
         }
 
