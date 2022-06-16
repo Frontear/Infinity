@@ -2,7 +2,7 @@ import groovy.json.JsonSlurper
 
 plugins {
     id "io.freefair.lombok" version "6.4.3"
-    id "fabric-loom" version "0.11-SNAPSHOT"
+    id "fabric-loom" version "0.12-SNAPSHOT"
     id "application"
     id "java"
 }

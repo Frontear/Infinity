@@ -6,7 +6,7 @@ import lombok.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.glfw.GLFW;
 
@@ -17,7 +17,7 @@ public final class CommandScreen extends Screen {
 
     public CommandScreen(@NonNull final MinecraftClient client,
         @NonNull final CommandContainer container) {
-        super(new LiteralText("CommandScreen"));
+        super(Text.of("CommandScreen"));
 
         val width = 320;
         final IntSupplier x = () -> client.getWindow().getScaledWidth() - width
@@ -26,7 +26,7 @@ public final class CommandScreen extends Screen {
         val y = 2;
 
         this.hud = new ConsoleHUD(client, x, y, width, height);
-        this.field = new ConsoleField(client, x, y + height, width, new LiteralText(""));
+        this.field = new ConsoleField(client, x, y + height, width, Text.empty());
 
         this.container = container;
     }

@@ -8,16 +8,17 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import lombok.*;
 
+@Deprecated
 @CommandInfo(desc = "Retrieves a specified player's old names")
 public final class History extends Command {
     private final JsonResponse response = new JsonResponse();
 
-    public History(@NonNull InfinityMod infinity) {
+    public History(@NonNull final InfinityMod infinity) {
         super(infinity);
     }
 
     @Override
-    public void process(String[] args) throws Exception {
+    public void process(final String[] args) throws Exception {
         val unique_id = Connection
             .get("https://api.mojang.com/users/profiles/minecraft/" + args[0], response)
             .getAsJsonObject().get("id")

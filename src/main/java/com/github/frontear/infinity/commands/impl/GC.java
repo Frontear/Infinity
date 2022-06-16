@@ -10,12 +10,12 @@ public final class GC extends Command {
     private final boolean disabled = ManagementFactory.getRuntimeMXBean().getInputArguments()
         .contains("-XX:+DisableExplicitGC");
 
-    public GC(@NonNull InfinityMod infinity) {
+    public GC(@NonNull final InfinityMod infinity) {
         super(infinity);
     }
 
     @Override
-    public void process(String[] args) throws Exception {
+    public void process(final String[] args) throws Exception {
         if (disabled) {
             println("Explicit GC has been disabled");
         }

@@ -7,6 +7,7 @@ import lombok.*;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.encryption.PlayerPublicKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,8 +20,8 @@ abstract class ClientPlayerEntityMixin extends PlayerEntity {
      * @reason To comply with the constructor definition within {@link PlayerEntity}.
      */
     public ClientPlayerEntityMixin(final World world, final BlockPos pos, final float yaw,
-        final GameProfile profile) {
-        super(world, pos, yaw, profile);
+        final GameProfile profile, final PlayerPublicKey publicKey) {
+        super(world, pos, yaw, profile, publicKey);
     }
 
     /**

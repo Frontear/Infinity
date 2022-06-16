@@ -7,7 +7,7 @@ import lombok.NonNull;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 // todo: decide impl
 @Deprecated
@@ -16,7 +16,7 @@ public final class InfinityScreen extends Screen {
     private final InfinityMod infinity;
 
     protected InfinityScreen(@NonNull final Screen parent) {
-        super(new LiteralText("Infinity"));
+        super(Text.of("Infinity"));
 
         this.parent = parent;
         this.infinity = InfinityLoader.getMod();

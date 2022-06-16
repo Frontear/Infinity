@@ -11,7 +11,7 @@ public final class Ping extends Command {
     }
 
     @Override
-    public void process(final String[] args) {
+    public void process(final String[] args) throws Exception {
         if (client.player != null) {
             val info = client.player.networkHandler.getPlayerListEntry(args[0]);
 

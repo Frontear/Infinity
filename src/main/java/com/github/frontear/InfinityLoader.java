@@ -25,8 +25,13 @@ public final class InfinityLoader implements ILoaderMod<InfinityMod> {
             mod = new InfinityMod(JsonParser.parseReader(executable.getResource("fabric.mod.json"))
                 .getAsJsonObject());
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (IOException | NullPointerException e) {
+            if (e instanceof NullPointerException) {
+                // suppress, efkolia problem, but otherwise it works fine
+            }
+            else {
+                e.printStackTrace();
+            }
         }
 
         mod.getConfig().load();

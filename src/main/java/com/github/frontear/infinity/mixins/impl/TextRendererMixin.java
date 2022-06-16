@@ -11,6 +11,7 @@ import org.apache.commons.lang3.*;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 
+@Deprecated
 @Mixin(TextRenderer.class)
 @SuppressWarnings("UnresolvedMixinReference")
 abstract class TextRendererMixin {
