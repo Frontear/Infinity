@@ -1,43 +1,49 @@
 package com.github.frontear.infinity.modules.impl;
 
-import com.github.frontear.framework.utils.rand.Random;
-import com.github.frontear.framework.utils.time.Timer;
+import com.github.frontear.efkolia.api.events.Listener;
+import com.github.frontear.efkolia.utilities.randomizer.LocalRandom;
+import com.github.frontear.efkolia.utilities.timing.Timer;
+import com.github.frontear.infinity.InfinityMod;
+import com.github.frontear.infinity.event.state.TickEvent;
+import com.github.frontear.infinity.mixins.IMinecraftClient;
+import com.github.frontear.infinity.modules.Module;
 import com.github.frontear.infinity.modules.*;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import java.util.concurrent.TimeUnit;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.lwjgl.input.Keyboard;
 
-@FieldDefaults(level = AccessLevel.PRIVATE,
-    makeFinal = true)
+@ModuleInfo(bind = Keyboard.KEY_R, friendly = true, category = ModuleCategory.COMBAT)
 public final class AutoClicker extends Module {
+    private final Timer timer;
+    private final int min, max;
 
-    Timer timer = new Timer();
-    int[] cps = { 11,
-        13 }; // autoclicker does not actually hit these speeds, since they serve more so as a range
+    public AutoClicker(@NonNull final InfinityMod infinity) {
+        super(infinity);
 
-    public AutoClicker() {
-        super(Keyboard.KEY_C, true, Category.COMBAT);
+        this.timer = new Timer();
+        this.min = 11;
+        this.max = 13;
     }
 
-    @SubscribeEvent
-    public void onTick(final TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.START && event.player instanceof EntityPlayerSP
-            && !event.player
-            .isUsingItem()) {
-            val ms = timer.getElapsed(TimeUnit.MILLISECONDS) + Random.nextInt(-25, 25);
-            val elapsed = ms >= 1000 / Random.nextInt(cps[0], cps[1]);
-            val attacking = mc.gameSettings.keyBindAttack.isKeyDown();
+    @Listener
+    private void onTick(@NonNull final TickEvent event) {
+        if (event.isPre() && client.player != null && !client.player.isUsingItem()) {
+            if (client.player.getAttackCooldownProgress(0.0F) == 1.0F) { // weapon is ready to swing
+                val ms = timer.getElapsed(TimeUnit.MILLISECONDS) + LocalRandom
+                    .nextInt(-25, 25); // force more randomness
+                val elapsed = ms >= 1000 / LocalRandom.nextInt(min, max); // randomized intervals
+                val attacking = client.options.attackKey.isPressed();
 
-            if (!attacking || elapsed) {
-                timer.reset();
+                if (!attacking || elapsed) {
+                    timer.reset();
 
-                if (attacking) {
-                    logger.debug("Sending attack [${ms}ms]");
-                    mc.clickMouse();
+                    if (attacking) {
+                        logger.debug("Sending attack [%dms]", ms);
+
+                        val iclient = IMinecraftClient.from(client);
+                        iclient.resetAttackCooldown();
+                        iclient.doAttack();
+                    }
                 }
             }
         }

@@ -1,48 +1,41 @@
 package com.github.frontear.infinity.modules.impl;
 
-import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.InfinityMod;
+import com.github.frontear.infinity.modules.Module;
 import com.github.frontear.infinity.modules.*;
-import com.google.common.collect.Sets;
-import java.util.Set;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
+import java.util.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
 
-@FieldDefaults(level = AccessLevel.PRIVATE,
-    makeFinal = true)
+@ModuleInfo(bind = Keyboard.KEY_G, friendly = true, category = ModuleCategory.NONE)
 public final class Ghost extends Module {
+    private final List<Module> unfriendly;
+    private boolean added;
 
-    Set<Module> unsafe = Sets.newHashSet();
+    public Ghost(@NonNull final InfinityMod infinity) {
+        super(infinity);
 
-    public Ghost() {
-        super(Keyboard.KEY_G, true, Category.NONE);
+        this.unfriendly = new ArrayList<>();
+        this.added = false;
     }
 
     @Override
-    public void load(final Module self) {
-        this.setBind(self.getBind());
-        this.setActive(false);
-    }
+    public boolean toggle() {
+        val toggled = super.toggle();
 
-    @Override
-    protected void onToggle(final boolean active) {
-        Display.setTitle(active ? "Minecraft ${net.minecraftforge.fml.common.Loader.MC_VERSION}"
-            : Infinity.inst()
-                .getInfo().getFullname());
-        if (active) {
-            val stream = Infinity.inst().getModules().getObjects().filter(x -> !x.isSafe())
-                .filter(Module::isActive)
-                .toArray(Module[]::new);
-            logger.debug("Found ${stream.length} unsafe modules");
-            for (Module module : stream) {
-                module.toggle();
-                unsafe.add(module);
-            }
+        if (!added) {
+            infinity.getModules().stream()
+                .filter(x -> x.getCategory() != ModuleCategory.NONE && !x.isFriendly())
+                .forEach(unfriendly::add);
+
+            added = true;
         }
-        else {
-            unsafe.forEach(Module::toggle);
-            unsafe.clear();
+
+        if (toggled) {
+            client.updateWindowTitle();
+            unfriendly.forEach(Module::toggle);
         }
+
+        return toggled;
     }
 }

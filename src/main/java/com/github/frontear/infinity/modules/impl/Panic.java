@@ -1,29 +1,26 @@
 package com.github.frontear.infinity.modules.impl;
 
-import com.github.frontear.infinity.Infinity;
+import com.github.frontear.infinity.InfinityMod;
+import com.github.frontear.infinity.modules.Module;
 import com.github.frontear.infinity.modules.*;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-import org.lwjgl.input.Keyboard;
 
-@FieldDefaults(level = AccessLevel.PRIVATE,
-    makeFinal = true)
+@ModuleInfo(bind = Keyboard.KEY_P, friendly = true, category = ModuleCategory.NONE)
 public final class Panic extends Module {
-
-
-    public Panic() {
-        super(Keyboard.KEY_P, true, Category.NONE);
+    public Panic(@NonNull final InfinityMod infinity) {
+        super(infinity);
     }
 
     @Override
-    public void toggle() {
-        val stream = Infinity.inst().getModules().getObjects().filter(Module::isActive)
-            .toArray(Module[]::new);
-        logger.debug("Disabling ${stream.length} modules");
-        for (Module module : stream) {
-            module.toggle();
+    public boolean toggle() {
+        val toggled = super.toggle();
+
+        if (toggled) {
+            val mods = infinity.getModules().stream().filter(Module::isActive);
+            mods.forEach(Module::toggle);
         }
 
-        super.setActive(false);
+        return toggled;
     }
 }

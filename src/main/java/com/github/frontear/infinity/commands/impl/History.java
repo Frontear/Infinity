@@ -1,58 +1,55 @@
 package com.github.frontear.infinity.commands.impl;
 
-import com.github.frontear.framework.utils.net.HttpConnection;
-import com.github.frontear.infinity.commands.Command;
-import com.google.common.collect.Lists;
-import com.google.gson.JsonParser;
+import com.github.frontear.efkolia.utilities.network.Connection;
+import com.github.frontear.efkolia.utilities.network.responses.JsonResponse;
+import com.github.frontear.infinity.InfinityMod;
+import com.github.frontear.infinity.commands.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import lombok.*;
-import net.minecraft.util.EnumChatFormatting;
 
+@Deprecated
+@CommandInfo(desc = "Retrieves a specified player's old names")
 public final class History extends Command {
-    public History() {
-        super("Look up the username history of a player. Name is case-sensitive", 1);
+    private final JsonResponse response = new JsonResponse();
+
+    public History(@NonNull final InfinityMod infinity) {
+        super(infinity);
     }
 
     @Override
-    public void process(@NonNull final String[] args) throws Exception {
-        val username = args[0];
+    public void process(final String[] args) throws Exception {
+        val unique_id = Connection
+            .get("https://api.mojang.com/users/profiles/minecraft/" + args[0], response)
+            .getAsJsonObject().get("id")
+            .getAsString();
+        val old_names = Connection
+            .get("https://api.mojang.com/user/profiles/" + unique_id + "/names", response)
+            .getAsJsonArray();
 
-        new Thread(() -> {
-            val parser = new JsonParser();
-            val uuid = parser
-                .parse(
-                    HttpConnection.get("https://api.mojang.com/users/profiles/minecraft/$username"))
-                .getAsJsonObject()
-                .get("id").getAsString();
-            val names = parser
-                .parse(HttpConnection.get("https://api.mojang.com/user/profiles/$uuid/names"))
-                .getAsJsonArray();
-            val history = Lists.<Object[]>newArrayList(); // ugh
+        if (old_names.size() > 1) {
+            println("History for " + args[0]);
 
-            names.forEach(x -> {
-                val object = x.getAsJsonObject();
-                history.add(new Object[] { object.get("name").getAsString(),
-                    object.has("changedToAt") ? object
-                        .get("changedToAt").getAsLong() : 0 });
-            });
+            for (int i = 0; i < old_names.size(); i++) {
+                val object = old_names.get(i).getAsJsonObject();
 
-            if (history.size() > 1) {
-                sendMessage("Name history for $username:");
-                for (var i = 0; i < history.size(); i++) {
-                    val data = history.get(i);
-                    sendMessage("    ${i + 1}. ${data[0]}: ${normalizeDate(data[1])}");
-                }
+                println((i + 1) + ". " + object.get("name").getAsString() + " on " + formatTime(
+                    object.has("changedToAt") ? object.get("changedToAt").getAsLong() : 0));
             }
-            else {
-                sendMessage("This player has never changed their name", EnumChatFormatting.RED);
-            }
-        }).start(); // this can take some time, as it's contacting an API
+        }
+        else {
+            println("This player has never changed their name");
+        }
     }
 
-    private String normalizeDate(final Object time) {
-        return ((Long) time) == 0 ? "unknown" : ZonedDateTime
-            .ofInstant(Instant.ofEpochMilli((Long) time), ZoneId.systemDefault())
-            .format(DateTimeFormatter.ofPattern("E, MMM d, Y, hh:mm:ss a"));
+    @Override
+    public String getUsage() {
+        return "history <username>";
+    }
+
+    private String formatTime(final long time) {
+        return time == 0 ? "unknown"
+            : ZonedDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault())
+                .format(DateTimeFormatter.BASIC_ISO_DATE);
     }
 }

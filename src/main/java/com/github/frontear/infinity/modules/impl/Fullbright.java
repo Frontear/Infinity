@@ -1,19 +1,25 @@
 package com.github.frontear.infinity.modules.impl;
 
+import com.github.frontear.infinity.InfinityMod;
+import com.github.frontear.infinity.modules.Module;
 import com.github.frontear.infinity.modules.*;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import org.lwjgl.input.Keyboard;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
+import lombok.*;
 
-// implementation in MixinEntityRenderer
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@ModuleInfo(bind = Keyboard.KEY_B, friendly = true, category = ModuleCategory.RENDER)
 public final class Fullbright extends Module {
-    public Fullbright() {
-        super(Keyboard.KEY_B, true, Category.RENDER);
+    public Fullbright(@NonNull final InfinityMod infinity) {
+        super(infinity);
     }
 
     @Override
-    protected void onToggle(final boolean active) {
-        mc.renderGlobal.loadRenderers(); // mostly for shaders, which will break if this isn't done
+    public boolean toggle() {
+        val toggled = super.toggle();
+
+        if (toggled) {
+            client.worldRenderer.reload();
+        }
+
+        return toggled;
     }
 }

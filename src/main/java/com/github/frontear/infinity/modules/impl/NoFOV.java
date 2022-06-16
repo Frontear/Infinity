@@ -1,35 +1,14 @@
 package com.github.frontear.infinity.modules.impl;
 
+import com.github.frontear.infinity.InfinityMod;
+import com.github.frontear.infinity.modules.Module;
 import com.github.frontear.infinity.modules.*;
-import lombok.val;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.client.event.FOVUpdateEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.input.Keyboard;
+import com.github.frontear.infinity.utils.keyboard.Keyboard;
+import lombok.NonNull;
 
+@ModuleInfo(bind = Keyboard.KEY_V, friendly = true, category = ModuleCategory.RENDER)
 public final class NoFOV extends Module {
-    public NoFOV() {
-        super(Keyboard.KEY_V, true, Category.RENDER);
-    }
-
-    @SubscribeEvent
-    public void onFOV(final FOVUpdateEvent event) {
-        if (event.entity instanceof EntityPlayerSP) {
-            event.newfov = reset(event.entity, event.fov);
-
-            if (event.entity.isSprinting()) {
-                event.newfov *= 1.15f;
-            }
-        }
-    }
-
-    // reverses fov, from AbstractClientPlayer
-    private float reset(final EntityPlayer entity, final float fov) {
-        val iattributeinstance = entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-        return (float) ((double) fov / (
-            (iattributeinstance.getAttributeValue() / (double) entity.capabilities
-                .getWalkSpeed() + 1.0D) / 2.0D));
+    public NoFOV(@NonNull final InfinityMod infinity) {
+        super(infinity);
     }
 }
