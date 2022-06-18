@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "infinity",
+  "version": "${version}",
+  "name": "Infinity",
+  "description": "A simple, fast, and performant minecraft client",
+  "authors": [
+    "Frontear"
+  ],
+  "contact": {
+    "sources": "https://github.com/Frontear/Infinity"
+  },
+  "license": "GPL-3.0-only",
+  "icon": "assets/infinity/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "com.github.frontear.InfinityMod"
+    ]
+  },
+  "mixins": [
+    "mixins.infinity.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader}",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  }
+}
