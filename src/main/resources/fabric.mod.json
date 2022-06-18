@@ -13,11 +13,6 @@
   "license": "GPL-3.0-only",
   "icon": "assets/infinity/icon.png",
   "environment": "client",
-  "entrypoints": {
-    "main": [
-      "com.github.frontear.InfinityMod"
-    ]
-  },
   "mixins": [
     "mixins.infinity.json"
   ],

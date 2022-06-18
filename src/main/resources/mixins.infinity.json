@@ -1,10 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.github.frontear.mixin",
+  "package": "com.github.frontear.infinity.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "TitleScreenMixin"
+    "MainMixin"
   ],
   "injectors": {
     "defaultRequire": 1
