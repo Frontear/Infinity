@@ -1,4 +1,4 @@
-# Infinity
+# Infinity [![build](https://github.com/Frontear/Infinity/actions/workflows/build.yml/badge.svg?branch=fabric-refresh)](https://github.com/Frontear/Infinity/actions/workflows/build.yml)
 
 A simple, fast, and performant minecraft client designed for [Fabric](https://https://fabricmc.net/). It adds a lot of
 utility and quality of life features, alongside some performance improvements and bug fixes.
