@@ -2,28 +2,32 @@
   "schemaVersion": 1,
   "id": "${modid}",
   "version": "${version}",
-  "name": "${name}",
-  "description": "A mod which implements a variety of QoL and utility tweaks",
-  "authors": [
-    "Frontear"
-  ],
-  "contact": {
-    "sources": "https://github.com/Frontear/Infinity"
-  },
-  "license": "GPL-3.0-only",
-  "icon": "assets/infinity/icon.png",
-  "environment": "client",
+
+  "environment": "*",
   "entrypoints": {
-    "client": [
+    "main": [
       "io.github.frontear.infinity.InfinityMod"
     ]
   },
   "mixins": [
-    "infinity.mixins.json"
+    "mixins.infinity.json"
   ],
+
   "depends": {
     "fabricloader": ">=${loader}",
     "minecraft": "~${minecraft}",
     "java": ">=17"
-  }
+  },
+
+  "name": "${name}",
+  "description": "A template mod generated via Themelio",
+  "contact": {
+    "sources": "https://github.com/Frontear/Infinity"
+  },
+  "authors": [
+    "${author}"
+  ],
+  "contributors": [],
+  "license": "GPL-3.0-only",
+  "icon": "assets/infinity/icon.png"
 }

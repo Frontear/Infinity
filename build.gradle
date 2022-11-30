@@ -1,31 +1,31 @@
+import groovy.json.JsonSlurper
+
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
-    id 'maven-publish'
+    id "fabric-loom" version "1.0-SNAPSHOT"
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
-archivesBaseName = project.archives_base_name
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17 // do NOT change unless you know what you are doing
+archivesBaseName = project.mod_name
 version = project.mod_version
-group = project.maven_group
+group = project.mod_group
 
 repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_version}:v2"
 }
 
 processResources {
     final props = [
-            "minecraft": project.minecraft_version.find("(\\d\\.\\d{1,2})"),
-            "version"  : project.version,
+            "minecraft": project.minecraft_version.find("\\d\\.\\d{1,2}"), // pulls the main version for mc (1.19.2 -> 1.19, 1.12.2 -> 1.12, 1.8.9 -> 1.8)
+            "modid"    : project.mod_name.toLowerCase(),
             "loader"   : project.loader_version,
-            "modid"    : project.archives_base_name,
-            "name"     : project.archives_base_name[0].toString().toUpperCase() + project.archives_base_name.substring(1)
+            "version"  : project.version,
+            "author"   : project.mod_author,
+            "name"     : project.mod_name
     ]
 
     inputs.properties props
@@ -36,15 +36,33 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    it.options.release = Integer.parseInt(sourceCompatibility.toString())
 }
 
-java {
-    withSourcesJar()
-}
+tasks.register("update") {
+    group = "Themelio"
+    description = "Updates your environment to use the latest version of Minecraft"
 
-jar {
-    from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+    final version = [:]
+
+    version["minecraft_version"] = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v2/versions/game")).find {
+        it["stable"] == true
+    }["version"]
+    version["loader_version"] = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v2/versions/loader/${version['minecraft_version']}"))[0]["loader"]["version"]
+    version["yarn_version"] = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v2/versions/yarn/${version['minecraft_version']}"))[0]["version"]
+
+    final properties = file("gradle.properties")
+    final lines = properties.readLines()
+
+    properties.withWriter { w ->
+        lines.each {
+            def split = it.split("=")[0].trim()
+
+            if (version.containsKey(split)) {
+                it = "$split=${version[split]}"
+            }
+
+            w.writeLine(it)
+        }
     }
 }
