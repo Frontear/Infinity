@@ -14,13 +14,13 @@ import org.spongepowered.asm.mixin.injection.*;
 abstract class ClientConnectionMixin {
     @Shadow
     protected abstract void sendImmediately(final Packet<?> packet,
-        final GenericFutureListener<? extends Future<? super Void>> callback);
+        final PacketCallbacks callbacks);
 
     @Redirect(method = "*", at = @At(value = "INVOKE",
-        target = "Lnet/minecraft/network/ClientConnection;sendImmediately(Lnet/minecraft/network/Packet;Lio/netty/util/concurrent/GenericFutureListener;)V"))
+        target = "Lnet/minecraft/network/ClientConnection;sendImmediately(Lnet/minecraft/network/Packet;Lnet/minecraft/network/PacketCallbacks;)V"))
     private void sendImmediately(@NonNull final ClientConnection connection,
         @NonNull Packet<?> packet,
-        @Nullable final GenericFutureListener<? extends Future<? super Void>> callback) {
+        @Nullable PacketCallbacks callback) {
         val infinity = InfinityLoader.getMod();
 
         packet = infinity.getExecutor().fire(new PacketEvent(packet)).getPacket();
