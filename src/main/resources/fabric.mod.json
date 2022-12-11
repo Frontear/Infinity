@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "${id}",
+  "id": "${modid}",
   "version": "${version}",
   "environment": "client",
   "mixins": [
-    "mixins.${id}.json"
+    "mixins.infinity.json"
   ],
   "depends": {
     "fabricloader": ">=${loader}",
-    "minecraft": "${minecraft}"
+    "minecraft": "~${minecraft}"
   },
   "name": "${name}",
-  "description": "${description}",
+  "description": "Infinity is a simple client which adds a variety of features and performance improvements.",
   "contact": {
-    "issues": "https://github.com/${author}/${name}/issues",
-    "sources": "https://github.com/${author}/${name}"
+    "issues": "https://github.com/Frontear/Infinity/issues",
+    "sources": "https://github.com/Frontear/Infinity"
   },
   "authors": [
     "${author}"
   ],
   "contributors": [],
   "license": "GPL-3.0-only",
-  "icon": "assets/${id}/icon.png"
+  "icon": "assets/infinity/icon.png"
 }

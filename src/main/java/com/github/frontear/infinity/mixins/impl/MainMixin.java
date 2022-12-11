@@ -15,9 +15,9 @@ abstract class MainMixin {
      * @reason This sets up the loading for Infinity. It is able to grab the main arguments given to
      * the application, so that Infinity may make use of them.
      */
-    @Redirect(method = "main",
+    @Redirect(method = "Lnet/minecraft/client/main/Main;main([Ljava/lang/String;Z)V",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;run()V"))
-    private static void main(@NonNull final MinecraftClient client, @NonNull final String[] args) {
+    private static void main(@NonNull final MinecraftClient client, @NonNull final String[] args, final boolean optimizeDataFixer) {
         val infinity = new InfinityLoader().init(args);
         client.updateWindowTitle();
 
@@ -29,9 +29,9 @@ abstract class MainMixin {
      * @reason Saves the configuration file for Infinity on client stop. This is necessary for
      * future use of the client
      */
-    @Inject(method = "main",
+    @Inject(method = "Lnet/minecraft/client/main/Main;main([Ljava/lang/String;Z)V",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;stop()V"))
-    private static void main(@NonNull final String[] args, @NonNull final CallbackInfo info) {
+    private static void main(@NonNull final String[] args, final boolean optimizeDataFixer, @NonNull final CallbackInfo info) {
         InfinityLoader.getMod().getConfig().save();
     }
 }

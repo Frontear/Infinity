@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(ClientConnection.class)
-@SuppressWarnings("UnresolvedMixinReference")
 abstract class ClientConnectionMixin {
     @Shadow
     protected abstract void sendImmediately(final Packet<?> packet,
