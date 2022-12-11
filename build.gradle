@@ -39,30 +39,32 @@ tasks.withType(JavaCompile).configureEach {
     it.options.release = Integer.parseInt(sourceCompatibility.toString())
 }
 
-tasks.register("update") {
+tasks.register("updateEnv") {
     group = "Themelio"
     description = "Updates your environment to use the latest version of Minecraft"
 
-    final version = [:]
+    doLast { // prevent gradle from running this task during the CONFIGURATION phase of sync
+        final version = [:]
 
-    version["minecraft_version"] = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v2/versions/game")).find {
-        it["stable"] == true
-    }["version"]
-    version["loader_version"] = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v2/versions/loader/${version['minecraft_version']}"))[0]["loader"]["version"]
-    version["yarn_version"] = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v2/versions/yarn/${version['minecraft_version']}"))[0]["version"]
+        version["minecraft_version"] = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v2/versions/game")).find {
+            it["stable"] == true
+        }["version"]
+        version["loader_version"] = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v2/versions/loader/${version['minecraft_version']}"))[0]["loader"]["version"]
+        version["yarn_version"] = new JsonSlurper().parse(new URL("https://meta.fabricmc.net/v2/versions/yarn/${version['minecraft_version']}"))[0]["version"]
 
-    final properties = file("gradle.properties")
-    final lines = properties.readLines()
+        final properties = file("gradle.properties")
+        final lines = properties.readLines()
 
-    properties.withWriter { w ->
-        lines.each {
-            def split = it.split("=")[0].trim()
+        properties.withWriter { w ->
+            lines.each {
+                def split = it.split("=")[0].trim()
 
-            if (version.containsKey(split)) {
-                it = "$split=${version[split]}"
+                if (version.containsKey(split)) {
+                    it = "$split=${version[split]}"
+                }
+
+                w.writeLine(it)
             }
-
-            w.writeLine(it)
         }
     }
 }
