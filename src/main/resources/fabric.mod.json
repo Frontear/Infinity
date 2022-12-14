@@ -20,7 +20,7 @@
   },
 
   "name": "${name}",
-  "description": "A template mod generated via Themelio",
+  "description": "A mod that implements utility and quality-of-life tools to make your experience easier",
   "contact": {
     "sources": "https://github.com/Frontear/Infinity"
   },
