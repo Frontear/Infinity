@@ -3,9 +3,9 @@
   "id": "${modid}",
   "version": "${version}",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
-    "main": [
+    "client": [
       "io.github.frontear.infinity.InfinityMod"
     ]
   },

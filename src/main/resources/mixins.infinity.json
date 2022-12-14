@@ -4,7 +4,6 @@
   "package": "io.github.frontear.infinity.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "MainMixin"
   ],
   "injectors": {
     "defaultRequire": 1
