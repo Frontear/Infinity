@@ -4,6 +4,7 @@
   "package": "io.github.frontear.infinity.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "AutoClickerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
