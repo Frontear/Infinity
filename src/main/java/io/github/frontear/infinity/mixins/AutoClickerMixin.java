@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Minecraft.class)
 abstract class AutoClickerMixin {
     @Shadow @Nullable public HitResult hitResult;
-
     @Shadow @Nullable public LocalPlayer player;
 
     @Shadow protected abstract boolean startAttack();
