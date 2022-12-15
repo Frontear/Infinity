@@ -1,6 +1,7 @@
 package io.github.frontear.infinity.mixins;
 
-import io.github.frontear.infinity.utils.AutoClicker;
+import io.github.frontear.infinity.InfinityMod;
+import io.github.frontear.infinity.tweaks.impl.AutoClicker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.phys.HitResult;
@@ -21,14 +22,14 @@ abstract class AutoClickerMixin {
 
     @Inject(at = @At("TAIL"), method = "startAttack", cancellable = true)
     private void enableContinueAttackForEntityResult(CallbackInfoReturnable<Boolean> info) {
-        if (AutoClicker.isEnabled() && hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
+        if (InfinityMod.isModEnabled(AutoClicker.class) && hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
             info.setReturnValue(true);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "continueAttack")
     private void invokeStartAttackOnEntity(boolean leftClick, CallbackInfo info) {
-        if (AutoClicker.isEnabled() && leftClick && hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
+        if (InfinityMod.isModEnabled(AutoClicker.class) && leftClick && hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
             if (player != null && player.getAttackStrengthScale(0.0F) >= 1.0F) {
                 this.startAttack();
             }
