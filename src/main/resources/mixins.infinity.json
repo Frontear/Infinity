@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "AutoClickerMixin",
-    "FullbrightMixin"
+    "FullbrightMixin",
+    "TweakBindMixin"
   ],
   "injectors": {
     "defaultRequire": 1
