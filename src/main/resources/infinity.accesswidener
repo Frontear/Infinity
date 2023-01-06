@@ -1,0 +1,3 @@
+accessWidener v1 named
+
+accessible field net/minecraft/world/entity/LivingEntity SPEED_MODIFIER_SPRINTING Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;

@@ -25,6 +25,10 @@ dependencies {
     }
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/infinity.accesswidener")
+}
+
 processResources {
     final props = [
             "minecraft": project.minecraft_version.find("\\d\\.\\d{1,2}"), // pulls the main version for mc (1.19.2 -> 1.19, 1.12.2 -> 1.12, 1.8.9 -> 1.8)
