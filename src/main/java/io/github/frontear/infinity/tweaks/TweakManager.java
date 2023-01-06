@@ -3,6 +3,7 @@ package io.github.frontear.infinity.tweaks;
 import io.github.frontear.infinity.tweaks.impl.AutoClicker;
 import io.github.frontear.infinity.tweaks.impl.Fullbright;
 import io.github.frontear.infinity.tweaks.impl.NoFOV;
+import io.github.frontear.infinity.tweaks.impl.SafeWalk;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 
@@ -15,6 +16,7 @@ public class TweakManager {
         tweaks.put(AutoClicker.class, new AutoClicker());
         tweaks.put(Fullbright.class, new Fullbright());
         tweaks.put(NoFOV.class, new NoFOV());
+        tweaks.put(SafeWalk.class, new SafeWalk());
     }
 
     public static void handleKeyBinds(int key, int action) {

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(AbstractClientPlayer.class)
 abstract class NoFOVMixin {
     private double cachedSprintingFOV = -1.0;
-    
+
     @Redirect(method = "getFieldOfViewModifier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getAttributeValue(Lnet/minecraft/world/entity/ai/attributes/Attribute;)D"))
     private double modifyFieldOfViewForNoFOV(AbstractClientPlayer instance, Attribute attribute) {
         if (cachedSprintingFOV == -1.0) {
