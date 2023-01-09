@@ -12,6 +12,7 @@ public class AbstractTweak {
     public int getKeyBind() {
         return keybind;
     }
+
     public boolean isEnabled() {
         return enabled;
     }
