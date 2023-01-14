@@ -14,7 +14,7 @@ abstract class NoFOVMixin {
     private double cachedSprintingFOV = -1.0;
 
     @Redirect(method = "getFieldOfViewModifier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getAttributeValue(Lnet/minecraft/world/entity/ai/attributes/Attribute;)D"))
-    private double modifyFieldOfViewForNoFOV(AbstractClientPlayer instance, Attribute attribute) {
+    private double preventFOVChanges(AbstractClientPlayer instance, Attribute attribute) {
         if (cachedSprintingFOV == -1.0) {
             cachedSprintingFOV = instance.getAttributeBaseValue(attribute) * (1.0 + LivingEntity.SPEED_MODIFIER_SPRINTING.getAmount()); // TODO: any other modifiers to consider?
         }
