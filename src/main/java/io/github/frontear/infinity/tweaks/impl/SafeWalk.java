@@ -1,10 +1,10 @@
 package io.github.frontear.infinity.tweaks.impl;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import io.github.frontear.infinity.tweaks.AbstractTweak;
+import org.lwjgl.glfw.GLFW;
 
-public class SafeWalk extends AbstractTweak {
+public final class SafeWalk extends AbstractTweak {
     public SafeWalk() {
-        super(InputConstants.KEY_M);
+        super(GLFW.GLFW_KEY_M);
     }
 }

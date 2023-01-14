@@ -1,7 +1,7 @@
 package io.github.frontear.infinity.tweaks;
 
 import io.github.frontear.infinity.tweaks.impl.AutoClicker;
-import io.github.frontear.infinity.tweaks.impl.Fullbright;
+import io.github.frontear.infinity.tweaks.impl.FullBright;
 import io.github.frontear.infinity.tweaks.impl.NoFOV;
 import io.github.frontear.infinity.tweaks.impl.SafeWalk;
 import net.minecraft.client.Minecraft;
@@ -16,7 +16,7 @@ public class TweakManager {
 
     static {
         tweaks.put(AutoClicker.class, new AutoClicker());
-        tweaks.put(Fullbright.class, new Fullbright());
+        tweaks.put(FullBright.class, new FullBright());
         tweaks.put(NoFOV.class, new NoFOV());
         tweaks.put(SafeWalk.class, new SafeWalk());
     }
@@ -26,7 +26,7 @@ public class TweakManager {
 
         if (client.screen == null && action == GLFW.GLFW_PRESS) {
             for (var tweak : tweaks.values()) {
-                if (tweak.getKeyBind() == key) {
+                if (tweak.keybind == key) {
                     tweak.toggle();
                 }
             }
@@ -35,7 +35,7 @@ public class TweakManager {
 
     public static boolean isTweakEnabled(Class<? extends AbstractTweak> type) {
         if (tweaks.containsKey(type)) {
-            return tweaks.get(type).isEnabled();
+            return tweaks.get(type).enabled;
         }
 
         throw new NoSuchElementException("Cannot find the specified tweak (" + type.getSimpleName() + "). You may have forgotten to initialize it in the static constructor.");

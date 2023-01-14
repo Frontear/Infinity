@@ -5,7 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "AutoClickerMixin",
-    "FullbrightMixin",
+    "FullBrightMixin",
     "NoFOVMixin",
     "SafeWalkMixin",
     "TweakBindMixin"

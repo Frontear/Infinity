@@ -1,20 +1,19 @@
 package io.github.frontear.infinity.tweaks;
 
-public class AbstractTweak {
-    private int keybind;
-    private boolean enabled;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public abstract class AbstractTweak {
+    @Expose
+    @SerializedName("bind")
+    protected int keybind; // TODO: access rights?
+    @Expose
+    @SerializedName("enable")
+    protected boolean enabled; // TODO: access rights?
 
     public AbstractTweak(int keybind) {
         this.keybind = keybind;
         this.enabled = false;
-    }
-
-    public int getKeyBind() {
-        return keybind;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
     }
 
     public void toggle() {
