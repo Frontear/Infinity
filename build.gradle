@@ -27,6 +27,19 @@ dependencies {
 
 loom {
     accessWidenerPath = file("src/main/resources/infinity.accesswidener")
+
+    runs {
+        client {
+            vmArgs "-Xlog:gc*"
+            property("mixin.debug", "true")
+
+            client()
+        }
+
+        server {
+            ideConfigGenerated = false
+        }
+    }
 }
 
 processResources {
