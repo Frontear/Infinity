@@ -3,6 +3,7 @@
   "id": "${modid}",
   "version": "${version}",
 
+  "accessWidener": "infinity.accesswidener",
   "environment": "client",
   "entrypoints": {
     "client": [
