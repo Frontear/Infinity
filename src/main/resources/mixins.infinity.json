@@ -8,7 +8,9 @@
     "FullBrightMixin",
     "NoFOVMixin",
     "SafeWalkMixin",
-    "TweakBindMixin"
+    "TweakBindMixin",
+    "XrayMixin$RenderDispatcherMixin",
+    "XrayMixin$AOMixin",
   ],
   "injectors": {
     "defaultRequire": 1
