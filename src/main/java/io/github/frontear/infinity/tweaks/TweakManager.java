@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
-import java.lang.reflect.Modifier;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -17,11 +16,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 public class TweakManager {
     private static final Map<Class<? extends AbstractTweak>, AbstractTweak> tweaks = new HashMap<>(); // TODO: memory implications with high object counts
-    private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().excludeFieldsWithModifiers(Modifier.TRANSIENT).setPrettyPrinting().serializeNulls().create(); // https://stackoverflow.com/a/33666187/9091276
+    private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().serializeNulls().create();
     private static final Path config = FabricLoader.getInstance().getConfigDir().resolve("infinity.json");
 
     static {
@@ -43,12 +41,9 @@ public class TweakManager {
         }
     }
 
-    public static boolean isTweakEnabled(Class<? extends AbstractTweak> type) {
-        if (tweaks.containsKey(type)) {
-            return tweaks.get(type).enabled;
-        }
-
-        throw new NoSuchElementException("Cannot find the specified tweak (" + type.getSimpleName() + "). You may have forgotten to initialize it in the static constructor.");
+    // TODO: consider the problems with allowing access outside of the controlled environment
+    public static <T extends AbstractTweak> T get(Class<T> key) {
+        return (T) tweaks.get(key);
     }
 
     // pulling from what I did in Efkolia's JavaExecutable

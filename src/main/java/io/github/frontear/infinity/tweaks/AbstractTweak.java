@@ -16,6 +16,10 @@ public abstract class AbstractTweak {
         this.enabled = false;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     public void toggle() {
         enabled = !enabled;
     }

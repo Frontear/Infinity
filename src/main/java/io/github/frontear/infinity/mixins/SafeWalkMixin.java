@@ -19,6 +19,6 @@ abstract class SafeWalkMixin extends Player {
 
     @Override
     protected boolean isStayingOnGroundSurface() {
-        return TweakManager.isTweakEnabled(SafeWalk.class) || super.isStayingOnGroundSurface();
+        return TweakManager.get(SafeWalk.class).isEnabled() || super.isStayingOnGroundSurface();
     }
 }

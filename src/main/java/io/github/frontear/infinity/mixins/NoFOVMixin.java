@@ -19,7 +19,7 @@ abstract class NoFOVMixin {
             cachedSprintingFOV = instance.getAttributeBaseValue(attribute) * (1.0 + LivingEntity.SPEED_MODIFIER_SPRINTING.getAmount()); // TODO: any other modifiers to consider?
         }
 
-        if (TweakManager.isTweakEnabled(NoFOV.class)) {
+        if (TweakManager.get(NoFOV.class).isEnabled()) {
             if (instance.isSprinting()) {
                 return cachedSprintingFOV;
             }

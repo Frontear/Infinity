@@ -28,7 +28,7 @@ abstract class XrayMixin {
     static abstract class AOBypassMixin {
         @Redirect(method = "tesselateBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/BakedModel;useAmbientOcclusion()Z"))
         private boolean disallowAmbientOcclusion(BakedModel instance) {
-            return !TweakManager.isTweakEnabled(Xray.class) && instance.useAmbientOcclusion();
+            return !TweakManager.get(Xray.class).isEnabled() && instance.useAmbientOcclusion();
         }
     }
 
@@ -36,7 +36,7 @@ abstract class XrayMixin {
     static abstract class LiquidSideMixin {
         @Inject(method = "isFaceOccludedByState", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/shapes/Shapes;blockOccudes(Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/core/Direction;)Z"), cancellable = true)
         private static void renderAllFaces(BlockGetter level, Direction face, float height, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> info) {
-            if (TweakManager.isTweakEnabled(Xray.class)) {
+            if (TweakManager.get(Xray.class).isEnabled()) {
                 info.setReturnValue(false);
             }
         }
@@ -44,16 +44,18 @@ abstract class XrayMixin {
 
     @Mixin(BlockRenderDispatcher.class)
     static abstract class RenderDispatcherMixin {
+        private final Xray xray = TweakManager.get(Xray.class);
+
         @Redirect(method = "renderBatched", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/ModelBlockRenderer;tesselateBlock(Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/client/resources/model/BakedModel;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;ZLnet/minecraft/util/RandomSource;JI)V"))
         private void skipBlockRendering(ModelBlockRenderer instance, BlockAndTintGetter level, BakedModel model, BlockState state, BlockPos pos, PoseStack poseStack, VertexConsumer consumer, boolean checkSides, RandomSource random, long seed, int packedOverlay) {
-            if ((TweakManager.isTweakEnabled(Xray.class) && Xray.isExcluded(state.getBlock())) || !TweakManager.isTweakEnabled(Xray.class)) {
-                instance.tesselateBlock(level, model, state, pos, poseStack, consumer, !TweakManager.isTweakEnabled(Xray.class) && checkSides, random, seed, packedOverlay);
+            if (!xray.isEnabled() || xray.isExcluded(state.getBlock())) {
+                instance.tesselateBlock(level, model, state, pos, poseStack, consumer, !xray.isEnabled() && checkSides, random, seed, packedOverlay);
             }
         }
-        
+
         @Inject(method = "renderLiquid", at = @At("HEAD"), cancellable = true)
         private void ignoreLiquidRendering(BlockPos pos, BlockAndTintGetter level, VertexConsumer consumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {
-            if (TweakManager.isTweakEnabled(Xray.class) && !(fluidState.is(Fluids.LAVA) || fluidState.is(Fluids.FLOWING_LAVA))) {
+            if (xray.isEnabled() && !(fluidState.is(Fluids.LAVA) || fluidState.is(Fluids.FLOWING_LAVA))) {
                 info.cancel();
             }
         }

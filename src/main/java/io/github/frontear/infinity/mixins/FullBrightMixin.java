@@ -26,6 +26,6 @@ abstract class FullBrightMixin {
 
     // TODO: design implications of checking other tweaks within tweak-specific mixins
     private boolean shouldDoBright() {
-        return TweakManager.isTweakEnabled(FullBright.class) || TweakManager.isTweakEnabled(Xray.class);
+        return TweakManager.get(FullBright.class).isEnabled() || TweakManager.get(Xray.class).isEnabled();
     }
 }

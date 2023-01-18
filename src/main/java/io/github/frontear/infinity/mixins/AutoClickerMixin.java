@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
 abstract class AutoClickerMixin {
+    private final AutoClicker autoClicker = TweakManager.get(AutoClicker.class);
     @Shadow
     @Nullable
     public HitResult hitResult;
@@ -27,14 +28,14 @@ abstract class AutoClickerMixin {
 
     @Inject(at = @At("TAIL"), method = "startAttack", cancellable = true)
     private void enableContinueAttackForEntityResult(CallbackInfoReturnable<Boolean> info) {
-        if (TweakManager.isTweakEnabled(AutoClicker.class) && hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
+        if (autoClicker.isEnabled() && hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
             info.setReturnValue(true);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "continueAttack")
     private void invokeStartAttackOnEntity(boolean leftClick, CallbackInfo info) {
-        if (TweakManager.isTweakEnabled(AutoClicker.class) && leftClick && hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
+        if (autoClicker.isEnabled() && leftClick && hitResult != null && hitResult.getType() == HitResult.Type.ENTITY) {
             if (player != null && player.getAttackStrengthScale(0.0F) >= 1.0F) {
                 this.startAttack();
             }
