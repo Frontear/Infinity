@@ -50,8 +50,7 @@ abstract class XrayMixin {
                 instance.tesselateBlock(level, model, state, pos, poseStack, consumer, !TweakManager.isTweakEnabled(Xray.class) && checkSides, random, seed, packedOverlay);
             }
         }
-
-        // TODO: consider the danger of not seeing lava when trying to xray
+        
         @Inject(method = "renderLiquid", at = @At("HEAD"), cancellable = true)
         private void ignoreLiquidRendering(BlockPos pos, BlockAndTintGetter level, VertexConsumer consumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {
             if (TweakManager.isTweakEnabled(Xray.class) && !(fluidState.is(Fluids.LAVA) || fluidState.is(Fluids.FLOWING_LAVA))) {
