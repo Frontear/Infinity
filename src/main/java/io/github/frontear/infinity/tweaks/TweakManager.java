@@ -24,9 +24,9 @@ public class TweakManager {
 
     static {
         loadTweaks();
-        if (loadConfig()) {
-            Runtime.getRuntime().addShutdownHook(new Thread(TweakManager::saveConfig));
-        }
+
+        loadConfig();
+        Runtime.getRuntime().addShutdownHook(new Thread(TweakManager::saveConfig));
     }
 
     public static void handleKeyBinds(int key, int action) {
@@ -76,7 +76,7 @@ public class TweakManager {
         }
     }
 
-    private static boolean loadConfig() {
+    private static void loadConfig() {
         if (Files.exists(config)) {
             try (var reader = Files.newBufferedReader(config)) {
                 var map = gson.fromJson(reader, JsonObject.class);
@@ -103,8 +103,6 @@ public class TweakManager {
                 throw new RuntimeException(e);
             }
         }
-
-        return true;
     }
 
     private static void saveConfig() {

@@ -14,7 +14,7 @@ import java.util.Set;
 public final class Xray extends AbstractTweak {
     @Expose
     @SerializedName("list")
-    private Set<String> exclusions = Set.of(
+    private final Set<String> exclusions = Set.of(
             Registry.BLOCK.getKey(Blocks.COAL_ORE).toString(),
             Registry.BLOCK.getKey(Blocks.COPPER_ORE).toString(),
             Registry.BLOCK.getKey(Blocks.DIAMOND_ORE).toString(),

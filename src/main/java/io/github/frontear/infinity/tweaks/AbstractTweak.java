@@ -9,7 +9,7 @@ public abstract class AbstractTweak {
     protected int keybind; // TODO: access rights?
     @Expose
     @SerializedName("enable")
-    protected boolean enabled; // TODO: access rights?
+    private boolean enabled; // TODO: access rights?
 
     public AbstractTweak(int keybind) {
         this.keybind = keybind;
