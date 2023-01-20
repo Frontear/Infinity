@@ -11,13 +11,19 @@
     ]
   },
   "mixins": [
-    "mixins.infinity.json"
+    {
+      "config": "mixins.infinity.json",
+      "environment": "client"
+    }
   ],
 
   "depends": {
     "fabricloader": ">=${loader}",
     "minecraft": "~${minecraft}",
     "java": ">=17"
+  },
+  "suggests": {
+    "nochatreports": "*"
   },
 
   "name": "${name}",
