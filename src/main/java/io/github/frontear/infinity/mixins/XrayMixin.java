@@ -55,7 +55,7 @@ abstract class XrayMixin {
 
         @Inject(method = "renderLiquid", at = @At("HEAD"), cancellable = true)
         private void ignoreLiquidRendering(BlockPos pos, BlockAndTintGetter level, VertexConsumer consumer, BlockState blockState, FluidState fluidState, CallbackInfo info) {
-            if (xray.isEnabled() && !(fluidState.is(Fluids.LAVA) || fluidState.is(Fluids.FLOWING_LAVA))) {
+            if (xray.isEnabled() && (fluidState.is(Fluids.WATER) || fluidState.is(Fluids.FLOWING_WATER))) {
                 info.cancel();
             }
         }
