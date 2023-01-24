@@ -23,7 +23,7 @@ abstract class FullBrightMixin {
     @Final
     private DynamicTexture lightTexture;
 
-    @Inject(method = "updateLightTexture", at = @At("HEAD"))
+    @Inject(method = "updateLightTexture", at = @At("HEAD"), cancellable = true)
     private void skipLightingCalculations(float partialTicks, CallbackInfo info) {
         if (shouldDoBright()) {
             for (int x = 0; x < 16; ++x) {
@@ -33,6 +33,7 @@ abstract class FullBrightMixin {
             }
 
             lightTexture.upload();
+            info.cancel();
         }
     }
 
