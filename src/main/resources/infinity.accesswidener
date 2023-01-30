@@ -1,3 +1,4 @@
-accessWidener v1 named
+accessWidener v2 named
 
 accessible field net/minecraft/world/entity/LivingEntity SPEED_MODIFIER_SPRINTING Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;
+accessible class net/minecraft/client/renderer/chunk/ChunkRenderDispatcher$RenderChunk$RebuildTask

@@ -25,7 +25,7 @@ public final class AutoClicker extends AbstractTweak {
     }
 
     public boolean canAttack() {
-        if (targetNanos == -1 || nanoTime == -1) {
+        if (nanoTime == -1) {
             var isFirstCall = targetNanos == -1;
 
             // todo: assumption that max > min ALWAYS (orders are reversed because we reciprocate it)

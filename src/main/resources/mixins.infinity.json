@@ -11,7 +11,7 @@
     "TweakBindMixin",
     "XrayMixin$AOBypassMixin",
     "XrayMixin$LiquidSideMixin",
-    "XrayMixin$RenderDispatcherMixin"
+    "XrayMixin$RenderDispatcherMixin",
   ],
   "injectors": {
     "defaultRequire": 1

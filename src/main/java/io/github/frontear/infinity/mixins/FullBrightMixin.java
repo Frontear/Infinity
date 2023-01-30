@@ -23,6 +23,7 @@ abstract class FullBrightMixin {
     @Final
     private DynamicTexture lightTexture;
 
+    // TODO: does this need to set each tick?
     @Inject(method = "updateLightTexture", at = @At("HEAD"), cancellable = true)
     private void skipLightingCalculations(float partialTicks, CallbackInfo info) {
         if (shouldDoBright()) {
