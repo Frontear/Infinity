@@ -23,8 +23,6 @@ dependencies {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-1.19.2:${project.parchment_version}@zip")
     }
-
-    //modImplementation("net.fabricmc.fabric-api:fabric-api:0.73.0+1.19.2")
 }
 
 loom {

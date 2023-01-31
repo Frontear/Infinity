@@ -1,19 +1,18 @@
 package io.github.frontear.infinity.mixins;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import io.github.frontear.infinity.tweaks.TweakManager;
 import io.github.frontear.infinity.tweaks.impl.Xray;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.LiquidBlockRenderer;
-import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -24,11 +23,14 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 abstract class XrayMixin {
-    @Mixin(ModelBlockRenderer.class)
+    @Mixin(Minecraft.class)
     static abstract class AOBypassMixin {
-        @Redirect(method = "tesselateBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/BakedModel;useAmbientOcclusion()Z"))
-        private boolean disallowAmbientOcclusion(BakedModel instance) {
-            return !TweakManager.get(Xray.class).isEnabled() && instance.useAmbientOcclusion();
+        // TODO: implication of disabling at a global level
+        @Inject(method = "useAmbientOcclusion", at = @At("HEAD"), cancellable = true)
+        private static void disallowAmbientOcclusion(CallbackInfoReturnable<Boolean> info) {
+            if (TweakManager.get(Xray.class).isEnabled()) {
+                info.setReturnValue(false);
+            }
         }
     }
 
@@ -42,16 +44,27 @@ abstract class XrayMixin {
         }
     }
 
+    @Mixin(Block.class)
+    static abstract class BlockSideMixin {
+        @Inject(method = "shouldRenderFace", at = @At("HEAD"), cancellable = true)
+        private static void renderAllFaces(BlockState state, BlockGetter level, BlockPos offset, Direction face, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
+            if (TweakManager.get(Xray.class).isEnabled()) {
+                info.setReturnValue(true);
+            }
+        }
+    }
+
     @Mixin(ChunkRenderDispatcher.RenderChunk.RebuildTask.class)
     static abstract class RenderDispatcherMixin {
         private final Xray xray = TweakManager.get(Xray.class);
 
-        // TODO: fix incompatibility with indigo renderer (or really any custom renderer)
-        @Redirect(method = "compile", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/BlockRenderDispatcher;renderBatched(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/BlockAndTintGetter;Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;ZLnet/minecraft/util/RandomSource;)V"))
-        private void skipBlockRendering(BlockRenderDispatcher instance, BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, boolean checkSides, RandomSource random) {
-            if (!xray.isEnabled() || xray.isExcluded(state.getBlock())) {
-                instance.renderBatched(state, pos, level, poseStack, consumer, !xray.isEnabled() && checkSides, random);
+        @Redirect(method = "compile", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getRenderShape()Lnet/minecraft/world/level/block/RenderShape;"))
+        private RenderShape skipBlockRendering(BlockState instance) {
+            if (xray.isEnabled() && !xray.isExcluded(instance.getBlock())) {
+                return RenderShape.INVISIBLE;
             }
+
+            return instance.getRenderShape();
         }
 
         @Redirect(method = "compile", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/BlockRenderDispatcher;renderLiquid(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/BlockAndTintGetter;Lcom/mojang/blaze3d/vertex/VertexConsumer;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)V"))
