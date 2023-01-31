@@ -9,10 +9,9 @@
     "NoFOVMixin",
     "SafeWalkMixin",
     "TweakBindMixin",
-    "XrayMixin$AOBypassMixin",
-    "XrayMixin$LiquidSideMixin",
-    "XrayMixin$BlockSideMixin",
-    "XrayMixin$RenderDispatcherMixin"
+    "XrayMixin$BakedModelMixin",
+    "XrayMixin$BlockMixin",
+    "XrayMixin$FluidMixin"
   ],
   "injectors": {
     "defaultRequire": 1
