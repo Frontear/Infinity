@@ -66,7 +66,7 @@ public class TweakManager {
     // TODO: consider the problems with allowing access outside of the controlled environment
     public static <T extends AbstractTweak> T get(Class<T> key) {
         if (!tweaks.containsKey(key)) {
-            var tweak = gson.fromJson(config.get(key.getSimpleName()), key);
+            var tweak = gson.fromJson(config.getOrDefault(key.getSimpleName(), null), key);
             if (tweak == null) {
                 try {
                     tweak = key.getConstructor().newInstance();
