@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins;
+package io.github.frontear.infinity.mixins.nofov;
 
 import io.github.frontear.infinity.tweaks.TweakManager;
 import io.github.frontear.infinity.tweaks.impl.NoFOV;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(AbstractClientPlayer.class)
-abstract class NoFOVMixin {
+abstract class AbstractClientPlayerMixin {
     private double cachedSprintingFOV = -1.0;
 
     @Redirect(method = "getFieldOfViewModifier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getAttributeValue(Lnet/minecraft/world/entity/ai/attributes/Attribute;)D"))

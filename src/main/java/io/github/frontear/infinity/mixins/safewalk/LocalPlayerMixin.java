@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins;
+package io.github.frontear.infinity.mixins.safewalk;
 
 import com.mojang.authlib.GameProfile;
 import io.github.frontear.infinity.tweaks.TweakManager;
@@ -12,8 +12,8 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(LocalPlayer.class)
-abstract class SafeWalkMixin extends Player {
-    public SafeWalkMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile, @Nullable ProfilePublicKey profilePublicKey) {
+abstract class LocalPlayerMixin extends Player {
+    public LocalPlayerMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile, @Nullable ProfilePublicKey profilePublicKey) {
         super(level, blockPos, f, gameProfile, profilePublicKey);
     }
 

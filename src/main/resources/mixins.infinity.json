@@ -4,14 +4,14 @@
   "package": "io.github.frontear.infinity.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "AutoClickerMixin",
-    "FullBrightMixin",
-    "NoFOVMixin",
-    "SafeWalkMixin",
-    "TweakBindMixin",
-    "XrayMixin$BakedModelMixin",
-    "XrayMixin$BlockMixin",
-    "XrayMixin$FluidMixin"
+    "autoclicker.MinecraftMixin",
+    "fullbright.LightTextureMixin",
+    "nofov.AbstractClientPlayerMixin",
+    "safewalk.LocalPlayerMixin",
+    "tweaks.KeyboardHandlerMixin",
+    "xray.BakedModelMixin",
+    "xray.FluidStateMixin",
+    "xray.BlockStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

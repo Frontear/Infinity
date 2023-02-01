@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins;
+package io.github.frontear.infinity.mixins.fullbright;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import io.github.frontear.infinity.tweaks.TweakManager;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LightTexture.class)
-abstract class FullBrightMixin {
+abstract class LightTextureMixin {
     @Shadow
     @Final
     private NativeImage lightPixels;

@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins;
+package io.github.frontear.infinity.mixins.autoclicker;
 
 import io.github.frontear.infinity.tweaks.TweakManager;
 import io.github.frontear.infinity.tweaks.impl.AutoClicker;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
-abstract class AutoClickerMixin {
+abstract class MinecraftMixin {
     private final AutoClicker autoClicker = TweakManager.get(AutoClicker.class);
     @Shadow
     @Nullable
