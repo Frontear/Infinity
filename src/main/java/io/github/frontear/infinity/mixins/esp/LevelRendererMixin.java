@@ -1,12 +1,19 @@
 package io.github.frontear.infinity.mixins.esp;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 import io.github.frontear.infinity.tweaks.TweakManager;
 import io.github.frontear.infinity.tweaks.impl.ESP;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Final;
@@ -24,19 +31,34 @@ abstract class LevelRendererMixin {
 
     @Shadow
     @Final
-    private RenderBuffers renderBuffers;
-
-    @Shadow
-    @Final
     private EntityRenderDispatcher entityRenderDispatcher;
 
     @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;renderEntity(Lnet/minecraft/world/entity/Entity;DDDFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;)V"))
     private void renderHitBoxes(PoseStack poseStack, float partialTick, long finishNanoTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f projectionMatrix, CallbackInfo info) {
         if (minecraft.level != null && TweakManager.get(ESP.class).isEnabled() && !entityRenderDispatcher.shouldRenderHitBoxes()) {
-            var buffer = renderBuffers.bufferSource().getBuffer(RenderType.lines());
+            var tesselator = Tesselator.getInstance();
+            var buffer = tesselator.getBuilder();
+
+            RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
+            RenderSystem.lineWidth(2.5f);
+            buffer.begin(VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR_NORMAL);
 
             poseStack.pushPose();
             poseStack.translate(-camera.getPosition().x(), -camera.getPosition().y(), -camera.getPosition().z());
+
+            RenderSystem.applyModelViewMatrix();
+
+            RenderSystem.enableBlend();
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+
+            //if (Minecraft.useShaderTransparency() && minecraft.levelRenderer.getItemEntityTarget() != null) {
+            //    minecraft.levelRenderer.getItemEntityTarget().bindWrite(false);
+            //}
+
+            //RenderSystem.depthMask(false);
+            //RenderSystem.colorMask(false, false, false, false);
+
+            RenderSystem.disableCull();
 
             for (var entity : minecraft.level.entitiesForRendering()) {
                 if (entity == minecraft.getCameraEntity())
@@ -50,7 +72,24 @@ abstract class LevelRendererMixin {
                 LevelRenderer.renderLineBox(poseStack, buffer, bound, 1.0f, 1.0f, 1.0f, 1.0f);
             }
 
+            tesselator.end();
             poseStack.popPose();
+
+            RenderSystem.lineWidth(1.0f);
+
+            RenderSystem.applyModelViewMatrix();
+
+            RenderSystem.disableBlend();
+            RenderSystem.defaultBlendFunc();
+
+            //if (Minecraft.useShaderTransparency()) {
+            //    minecraft.getMainRenderTarget().bindWrite(false);
+            //}
+
+            //RenderSystem.depthMask(true);
+            //RenderSystem.colorMask(true, true, true, true);
+
+            RenderSystem.enableCull();
         }
     }
 }
