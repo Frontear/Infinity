@@ -33,24 +33,24 @@ abstract class LevelRendererMixin {
     @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;renderEntity(Lnet/minecraft/world/entity/Entity;DDDFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;)V"))
     private void renderHitBoxes(PoseStack poseStack, float partialTick, long finishNanoTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f projectionMatrix, CallbackInfo info) {
         if (minecraft.level != null && TweakManager.get(ESP.class).isEnabled() && !entityRenderDispatcher.shouldRenderHitBoxes()) {
-            var buffer = renderBuffers.bufferSource().getBuffer(RenderType.LINES);
+            var buffer = renderBuffers.bufferSource().getBuffer(RenderType.lines());
+
+            poseStack.pushPose();
+            poseStack.translate(-camera.getPosition().x(), -camera.getPosition().y(), -camera.getPosition().z());
 
             for (var entity : minecraft.level.entitiesForRendering()) {
                 if (entity == minecraft.getCameraEntity())
                     continue;
 
-                var x = Mth.lerp(partialTick, entity.xOld, entity.getX()) - camera.getPosition().x();
-                var y = Mth.lerp(partialTick, entity.yOld, entity.getY()) - camera.getPosition().y();
-                var z = Mth.lerp(partialTick, entity.zOld, entity.getZ()) - camera.getPosition().z();
+                var x = Mth.lerp(partialTick, entity.xOld, entity.getX());
+                var y = Mth.lerp(partialTick, entity.yOld, entity.getY());
+                var z = Mth.lerp(partialTick, entity.zOld, entity.getZ());
 
-                poseStack.pushPose();
-                poseStack.translate(x, y, z);
-
-                var bound = entity.getBoundingBox().move(-entity.getX(), -entity.getY(), -entity.getZ());
+                var bound = entity.getType().getAABB(x, y, z);
                 LevelRenderer.renderLineBox(poseStack, buffer, bound, 1.0f, 1.0f, 1.0f, 1.0f);
-
-                poseStack.popPose();
             }
+
+            poseStack.popPose();
         }
     }
 }
