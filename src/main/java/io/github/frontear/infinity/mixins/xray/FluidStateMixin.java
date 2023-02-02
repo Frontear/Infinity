@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+// FIXME: very dangerous high-level changes. be on the lookout for possible issues in extraneous locations
 @Mixin(FluidState.class)
 abstract class FluidStateMixin {
     @Shadow

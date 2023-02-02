@@ -15,8 +15,11 @@ import java.util.Map;
 
 public final class ESP extends AbstractTweak {
     @Expose
+    @SerializedName("tracer")
+    private boolean tracers = true;
+    @Expose
     @SerializedName("colors")
-    private Map<String, float[]> colors = new HashMap<>();
+    private Map<String, float[]> colors = new HashMap<>(); // TODO: allow custom entities and colors set by user
 
     public ESP() {
         super(GLFW.GLFW_KEY_H);
@@ -41,5 +44,9 @@ public final class ESP extends AbstractTweak {
     public float[] getColor(Entity entity) {
         var key = Registry.ENTITY_TYPE.getKey(entity.getType()).toString();
         return colors.getOrDefault(key, Color.WHITE.getRGBComponents(null));
+    }
+
+    public boolean shouldDrawTracers() {
+        return tracers;
     }
 }

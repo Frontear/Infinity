@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 
+// FIXME: very dangerous high-level changes. be on the lookout for possible issues in extraneous locations
 @Mixin(BlockState.class)
 abstract class BlockStateMixin extends BlockBehaviour.BlockStateBase {
     protected BlockStateMixin(Block block, ImmutableMap<Property<?>, Comparable<?>> immutableMap, MapCodec<BlockState> mapCodec) {

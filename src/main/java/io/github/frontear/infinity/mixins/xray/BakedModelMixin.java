@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Collections;
 import java.util.List;
 
+// FIXME: very dangerous high-level changes. be on the lookout for possible issues in extraneous locations
 @Mixin({ MultiPartBakedModel.class, SimpleBakedModel.class, WeightedBakedModel.class })
 abstract class BakedModelMixin {
     @Inject(method = "getQuads", at = @At("HEAD"), cancellable = true)

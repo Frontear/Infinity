@@ -15,7 +15,7 @@ import java.util.Set;
 public final class Xray extends AbstractTweak {
     @Expose
     @SerializedName("list")
-    private Set<String> exclusions = new HashSet<>();
+    private Set<String> exclusions = new HashSet<>(); // TODO: allow custom blocks set by user
 
     public Xray() {
         super(GLFW.GLFW_KEY_X);
@@ -47,7 +47,6 @@ public final class Xray extends AbstractTweak {
         exclusions.add(Registry.BLOCK.getKey(Blocks.NETHER_QUARTZ_ORE).toString());
     }
 
-    // TODO: allow users to pick, while providing a default list of vanilla ores
     public boolean isExcluded(Block block) {
         return exclusions.contains(Registry.BLOCK.getKey(block).toString());
     }
