@@ -31,8 +31,8 @@ loom {
     runs {
         client {
             property("mixin.debug", "true")
-            property("mixin.dumpTargetOnFailure", "true")
             property("mixin.checks", "true")
+            property("mixin.dumpTargetOnFailure", "true")
 
             client()
         }
