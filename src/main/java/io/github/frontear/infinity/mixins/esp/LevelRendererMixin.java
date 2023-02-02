@@ -33,9 +33,11 @@ abstract class LevelRendererMixin {
     @Final
     private EntityRenderDispatcher entityRenderDispatcher;
 
-    @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;renderEntity(Lnet/minecraft/world/entity/Entity;DDDFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;)V"))
+    @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;renderEntity(Lnet/minecraft/world/entity/Entity;DDDFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;)V", shift = At.Shift.AFTER))
     private void renderHitBoxes(PoseStack poseStack, float partialTick, long finishNanoTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f projectionMatrix, CallbackInfo info) {
-        if (minecraft.level != null && TweakManager.get(ESP.class).isEnabled() && !entityRenderDispatcher.shouldRenderHitBoxes()) {
+        var esp = TweakManager.get(ESP.class);
+
+        if (minecraft.level != null && esp.isEnabled() && !entityRenderDispatcher.shouldRenderHitBoxes()) {
             var tesselator = Tesselator.getInstance();
             var buffer = tesselator.getBuilder();
 
@@ -69,7 +71,9 @@ abstract class LevelRendererMixin {
                 var z = Mth.lerp(partialTick, entity.zOld, entity.getZ());
 
                 var bound = entity.getType().getAABB(x, y, z);
-                LevelRenderer.renderLineBox(poseStack, buffer, bound, 1.0f, 1.0f, 1.0f, 1.0f);
+                var color = esp.getColor(entity);
+
+                LevelRenderer.renderLineBox(poseStack, buffer, bound, color[0], color[1], color[2], color[3]);
             }
 
             tesselator.end();
