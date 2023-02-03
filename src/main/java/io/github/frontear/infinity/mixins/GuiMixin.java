@@ -1,7 +1,7 @@
-package io.github.frontear.infinity.mixins.tweaks;
+package io.github.frontear.infinity.mixins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.github.frontear.infinity.tweaks.TweakManager;
+import io.github.frontear.infinity.gui.InfinityScreenOverlay;
 import net.minecraft.client.gui.Gui;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,6 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 abstract class GuiMixin {
     @Inject(method = "render", at = @At("TAIL"))
     private void renderEnabledTweaks(PoseStack poseStack, float partialTick, CallbackInfo info) {
-        TweakManager.renderEnabled(poseStack);
+        InfinityScreenOverlay.render(poseStack);
     }
 }

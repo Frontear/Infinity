@@ -53,21 +53,25 @@ public class TweakManager {
         }));
     }
 
+    // FIXME: move to ScreenOverlay somehow
     public static void renderEnabled(PoseStack poseStack) {
         var font = Minecraft.getInstance().font;
-
-        var x = 0;
-        var y = 0;
-
+        var window = Minecraft.getInstance().getWindow();
         var offset = 2;
 
+        var x = window.getGuiScaledWidth();
+        var y = 0;
+
+
         poseStack.pushPose();
-        poseStack.scale(1.075f, 1.075f, 1.075f);
+        poseStack.translate(-offset, offset, 1.0f);
 
         for (var tweak : tweaks.values()) {
             if (tweak.isEnabled()) {
-                font.drawShadow(poseStack, tweak.getClass().getSimpleName(), x + offset, y + offset, Color.WHITE.getRGB());
-                y += font.lineHeight + offset;
+                var name = tweak.getClass().getSimpleName();
+
+                font.drawShadow(poseStack, name, x - font.width(name), y, Color.WHITE.getRGB());
+                y += font.lineHeight;
             }
         }
 
