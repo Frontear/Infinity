@@ -9,6 +9,7 @@
     "fullbright.LightTextureMixin",
     "nofov.AbstractClientPlayerMixin",
     "safewalk.LocalPlayerMixin",
+    "tweaks.GuiMixin",
     "tweaks.KeyboardHandlerMixin",
     "xray.BakedModelMixin",
     "xray.BlockStateMixin",

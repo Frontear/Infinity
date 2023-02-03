@@ -3,10 +3,12 @@ package io.github.frontear.infinity.tweaks;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.HashMap;
@@ -49,6 +51,27 @@ public class TweakManager {
                 throw new RuntimeException(e);
             }
         }));
+    }
+
+    public static void renderEnabled(PoseStack poseStack) {
+        var font = Minecraft.getInstance().font;
+
+        var x = 0;
+        var y = 0;
+
+        var offset = 2;
+
+        poseStack.pushPose();
+        poseStack.scale(1.075f, 1.075f, 1.075f);
+
+        for (var tweak : tweaks.values()) {
+            if (tweak.isEnabled()) {
+                font.drawShadow(poseStack, tweak.getClass().getSimpleName(), x + offset, y + offset, Color.WHITE.getRGB());
+                y += font.lineHeight + offset;
+            }
+        }
+
+        poseStack.popPose();
     }
 
     public static void handleKeyBinds(int key, int action) {
