@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins.xray;
+package io.github.frontear.infinity.mixins.tweaks.xray;
 
 import io.github.frontear.infinity.tweaks.TweakManager;
 import io.github.frontear.infinity.tweaks.impl.Xray;

@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins.fullbright;
+package io.github.frontear.infinity.mixins.tweaks.fullbright;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import io.github.frontear.infinity.tweaks.TweakManager;

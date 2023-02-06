@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins.safewalk;
+package io.github.frontear.infinity.mixins.tweaks.safewalk;
 
 import com.mojang.authlib.GameProfile;
 import io.github.frontear.infinity.tweaks.TweakManager;

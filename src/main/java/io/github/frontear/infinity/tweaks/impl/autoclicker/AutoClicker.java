@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.tweaks.impl;
+package io.github.frontear.infinity.tweaks.impl.autoclicker;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

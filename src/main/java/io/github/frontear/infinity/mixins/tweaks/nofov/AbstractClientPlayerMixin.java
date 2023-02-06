@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins.nofov;
+package io.github.frontear.infinity.mixins.tweaks.nofov;
 
 import io.github.frontear.infinity.tweaks.TweakManager;
 import io.github.frontear.infinity.tweaks.impl.NoFOV;

@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins.xray;
+package io.github.frontear.infinity.mixins.tweaks.xray;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.MapCodec;

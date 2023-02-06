@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins.autoclicker;
+package io.github.frontear.infinity.mixins.tweaks.autoclicker;
 
 import io.github.frontear.infinity.tweaks.TweakManager;
 import io.github.frontear.infinity.tweaks.impl.AutoClicker;

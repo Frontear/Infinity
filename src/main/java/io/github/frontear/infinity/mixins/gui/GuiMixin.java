@@ -1,4 +1,4 @@
-package io.github.frontear.infinity.mixins;
+package io.github.frontear.infinity.mixins.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.frontear.infinity.gui.InfinityScreenOverlay;
