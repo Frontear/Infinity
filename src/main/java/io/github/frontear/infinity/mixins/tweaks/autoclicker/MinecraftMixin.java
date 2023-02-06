@@ -1,7 +1,7 @@
 package io.github.frontear.infinity.mixins.tweaks.autoclicker;
 
 import io.github.frontear.infinity.tweaks.TweakManager;
-import io.github.frontear.infinity.tweaks.impl.AutoClicker;
+import io.github.frontear.infinity.tweaks.impl.autoclicker.AutoClicker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.phys.HitResult;

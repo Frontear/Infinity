@@ -2,8 +2,8 @@ package io.github.frontear.infinity.mixins.tweaks.fullbright;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import io.github.frontear.infinity.tweaks.TweakManager;
-import io.github.frontear.infinity.tweaks.impl.FullBright;
-import io.github.frontear.infinity.tweaks.impl.Xray;
+import io.github.frontear.infinity.tweaks.impl.fullbright.FullBright;
+import io.github.frontear.infinity.tweaks.impl.xray.Xray;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.spongepowered.asm.mixin.Final;

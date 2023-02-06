@@ -1,7 +1,7 @@
 package io.github.frontear.infinity.mixins.tweaks.xray;
 
 import io.github.frontear.infinity.tweaks.TweakManager;
-import io.github.frontear.infinity.tweaks.impl.Xray;
+import io.github.frontear.infinity.tweaks.impl.xray.Xray;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.MultiPartBakedModel;
 import net.minecraft.client.resources.model.SimpleBakedModel;

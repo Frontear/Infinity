@@ -2,7 +2,7 @@ package io.github.frontear.infinity.mixins.tweaks.safewalk;
 
 import com.mojang.authlib.GameProfile;
 import io.github.frontear.infinity.tweaks.TweakManager;
-import io.github.frontear.infinity.tweaks.impl.SafeWalk;
+import io.github.frontear.infinity.tweaks.impl.safewalk.SafeWalk;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;

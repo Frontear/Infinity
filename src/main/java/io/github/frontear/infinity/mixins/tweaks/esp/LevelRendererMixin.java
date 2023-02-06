@@ -9,7 +9,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import io.github.frontear.infinity.tweaks.TweakManager;
-import io.github.frontear.infinity.tweaks.impl.ESP;
+import io.github.frontear.infinity.tweaks.impl.esp.ESP;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;

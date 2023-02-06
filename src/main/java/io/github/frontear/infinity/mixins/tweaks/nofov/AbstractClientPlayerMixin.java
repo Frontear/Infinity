@@ -1,7 +1,7 @@
 package io.github.frontear.infinity.mixins.tweaks.nofov;
 
 import io.github.frontear.infinity.tweaks.TweakManager;
-import io.github.frontear.infinity.tweaks.impl.NoFOV;
+import io.github.frontear.infinity.tweaks.impl.nofov.NoFOV;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
