@@ -114,7 +114,9 @@ abstract class MinecraftMixin {
     private void ensureFreeCamSet(CallbackInfo info) {
         if (player != null && level != null) {
             if (TweakManager.get(FreeCam.class).isEnabled() && !(cameraEntity instanceof FreeCamPlayer)) {
-                TweakManager.get(FreeCam.class).toggle(); // FIXME: no dependence on toggle()
+                // FIXME: no dependence on toggle()
+                TweakManager.get(FreeCam.class).toggle();
+                TweakManager.get(FreeCam.class).toggle();
             }
         }
     }
